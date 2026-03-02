@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+    [SerializeField] private GameObject equippedWeapon;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,5 +16,9 @@ public class PlayerInventory : MonoBehaviour
         
     }
 
-
+    public void EquipWeapon (GameObject weapon)
+    {
+        equippedWeapon = weapon;
+        
+    }
 }
