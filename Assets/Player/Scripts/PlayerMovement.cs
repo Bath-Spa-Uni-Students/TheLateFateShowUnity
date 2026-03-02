@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
-    [SerializeField] private MonoScript playerInventory;
+    [SerializeField] private PlayerInventory playerInventory;
 
     void Start()
     {
@@ -41,4 +41,5 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("InputX", moveInput.x);
         animator.SetFloat("InputY", moveInput.y);
     }
+
 }
