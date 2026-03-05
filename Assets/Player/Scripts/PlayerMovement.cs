@@ -4,18 +4,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private PlayerStats playerStats;
+    [SerializeField] private float moveSpeed;
 
     // These create variables for components in the player
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
 
-    [SerializeField] private PlayerInventory playerInventory;
-
     void Start()
     {
+        moveSpeed = playerStats.walkSpeed;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
