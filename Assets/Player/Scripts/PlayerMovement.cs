@@ -12,8 +12,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
-    [SerializeField] private PlayerInventory playerInventory;
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
