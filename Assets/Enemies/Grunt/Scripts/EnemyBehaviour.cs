@@ -17,6 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        detectionRadius = GetComponent<CircleCollider2D>().radius;
         // Sets target as player by making sure the target has player tag
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 

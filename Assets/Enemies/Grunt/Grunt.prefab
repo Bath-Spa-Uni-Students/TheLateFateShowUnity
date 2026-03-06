@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 1256596784936673505}
   - component: {fileID: 7599159783481423551}
   - component: {fileID: 3025867042430400773}
+  - component: {fileID: 5486610720090388258}
+  - component: {fileID: 1031599672347407918}
   - component: {fileID: 2577261637152805140}
+  - component: {fileID: 6538255281322692507}
   m_Layer: 0
   m_Name: Grunt
   m_TagString: Untagged
@@ -80,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1262449019
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 9181539822712707094, guid: 0227b26b0a4927045975bb81d73bd27b, type: 3}
@@ -105,8 +108,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e7dd4f696a2e44f922574e040fc66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
-  speed: 2
+  speed: 1
   target: {fileID: 0}
+  stoppingDistance: 0.5
+  fireRate: 3
+  projectile: {fileID: 570469477250574415, guid: c49e7b657b92870479e9e88274d22b25, type: 3}
+  detectionRadius: 4
+--- !u!114 &5486610720090388258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8361983244019902799}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8d6625c6a35594d9141fec9bae555c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrol
+  speed: 2
+  moveSpot: {fileID: 0}
+  startWaitTime: 5
+  minX: -6
+  maxX: 17
+  minY: -6
+  maxY: 8
+--- !u!114 &1031599672347407918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8361983244019902799}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18525259743f1034cb487a0d674efe39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyPatrol
+  speed: 2
+  moveSpots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  startWaitTime: 5
 --- !u!61 &2577261637152805140
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,3 +198,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.3, y: 0.24}
   m_EdgeRadius: 0
+--- !u!50 &6538255281322692507
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8361983244019902799}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

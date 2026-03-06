@@ -766,6 +766,42 @@ MonoBehaviour:
   maxX: 17
   minY: -6
   maxY: 8
+--- !u!58 &1006506618
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006506606}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 4
 --- !u!1 &1088797334
 GameObject:
   m_ObjectHideFlags: 0
@@ -7744,6 +7780,10 @@ PrefabInstance:
       propertyPath: projectile
       value: 
       objectReference: {fileID: 570469477250574415, guid: c49e7b657b92870479e9e88274d22b25, type: 3}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: detectionRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt
@@ -7761,6 +7801,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1006506611}
+    - targetCorrespondingSourceObject: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1006506618}
   m_SourcePrefab: {fileID: 100100000, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

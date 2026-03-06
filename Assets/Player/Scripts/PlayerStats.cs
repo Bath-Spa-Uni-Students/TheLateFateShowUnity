@@ -23,7 +23,7 @@ public class PlayerStats : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void HurtPlayer(float damage)
+    public void DamagePlayer(float damage)
     {
         if (health <= 0 || health - damage <= 0)
         {
