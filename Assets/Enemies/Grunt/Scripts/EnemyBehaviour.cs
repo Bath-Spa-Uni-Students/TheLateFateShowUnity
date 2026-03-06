@@ -13,11 +13,13 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private GameObject projectile;
     private Transform player;
     [SerializeField] private float detectionRadius;
+    [SerializeField] private GameObject detectionCircle;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         detectionRadius = GetComponent<CircleCollider2D>().radius;
+        detectionCircle.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, detectionRadius * 2);
         // Sets target as player by making sure the target has player tag
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 
