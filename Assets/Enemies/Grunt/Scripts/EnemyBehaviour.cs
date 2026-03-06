@@ -2,18 +2,29 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-
-    [SerializeField] private float speed;
+    // Info Of Player
+    private Transform player;
+    private ChasePlayer playerChasePlayer;
+    // Enemy Stats
+    [SerializeField] public float speed;
     [SerializeField] private Transform target;
     [SerializeField] private float stoppingDistance = 0.5f;
 
+    // Enemy Weapon Stats
     [SerializeField] private float fireRate;
+    [SerializeField] private GameObject projectile;
     private float fireTimer;
 
-    [SerializeField] private GameObject projectile;
-    private Transform player;
+    // Radius around Enemy to find Player
     [SerializeField] private float detectionRadius;
     [SerializeField] private GameObject detectionCircle;
+
+    // Finding Collision when moving
+    [SerializeField] private float obstacleRadiusCheck;
+    [SerializeField] private float obstacleCheckDistance;
+    [SerializeField] private LayerMask obstacleLayerMask;
+
+    [SerializeField] private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -27,20 +38,34 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        #region Deprecated
+        
         //Checks if player is in detection radius
         if (Vector2.Distance(transform.position, target.position) < detectionRadius)
         {
-            //Checks if enemy is too close to player
-            if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
-            {
-                // Moves Enemy Character From Their Position to Target Position at set speed
-                // Delta Time was chosen so the enemy speed isn't faster or slower depending on FPS
-                transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-            }
+            ChasePlayer();
+            ShootPlayer();
+        }
+        #endregion
+    }
 
-            //Shooting Player Code
+    // Chase and Shoot are public so I can access them in the brain
+    public void ChasePlayer()
+    {
+        //Checks if enemy is too close to player
+        if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
+        {
+            // Moves Enemy Character From Their Position to Target Position at set speed
+            // Delta Time was chosen so the enemy speed isn't faster or slower depending on FPS
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        }
+    }
+
+    public void ShootPlayer()
+    {
+                    //Shooting Player Code
             if (fireTimer <= 0)
             {
                 //spawns bullet and does firerate timer
@@ -51,6 +76,5 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 fireTimer -= Time.deltaTime;
             }
-        }
     }
 }
