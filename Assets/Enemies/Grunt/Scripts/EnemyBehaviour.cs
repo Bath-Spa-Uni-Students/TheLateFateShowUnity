@@ -1,75 +1,115 @@
 using UnityEngine;
-
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Info Of Player
+    // Player info
     private Transform player;
-    private ChasePlayer playerChasePlayer;
-    // Enemy Stats
-    [SerializeField] public float speed;
-    [SerializeField] private Transform target;
+
+    // Enemy stats
+    [SerializeField] private float speed = 3f;
     [SerializeField] private float stoppingDistance = 0.5f;
 
-    // Enemy Weapon Stats
-    [SerializeField] private float fireRate;
-    [SerializeField] private GameObject projectile;
-    private float fireTimer;
-
-    // Radius around Enemy to find Player
-    [SerializeField] private float detectionRadius;
+    // Detection
+    [SerializeField] private float detectionRadius = 5f;
     [SerializeField] private GameObject detectionCircle;
 
-    [SerializeField] private Animator animator;
+    // Shooting
+    [SerializeField] private GameObject projectile;
+    [SerializeField] private float fireRate = 1f;
+    private float fireTimer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Wall avoidance
+    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float rayDistance;
+    [SerializeField] private float cornerUnstickDistance;
+
+    private Rigidbody2D rb;
+
     void Start()
     {
-        detectionRadius = GetComponent<CircleCollider2D>().radius;
-        detectionCircle.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, detectionRadius * 2);
-        // Sets target as player by making sure the target has player tag
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        rb = GetComponent<Rigidbody2D>();
+
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
         fireTimer = fireRate;
+
+        // Setup detection circle
+        if (detectionCircle != null)
+            detectionCircle.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, 1);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        #region Deprecated
-        
-        //Checks if player is in detection radius
-        if (Vector2.Distance(transform.position, target.position) < detectionRadius)
+        if (Vector2.Distance(rb.position, player.position) > detectionRadius)
         {
-            ChasePlayer();
-            ShootPlayer();
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
-        #endregion
+
+        ChasePlayer();
+        ShootPlayer();
     }
 
-    // Chase and Shoot are public so I can access them in the brain
     public void ChasePlayer()
     {
-        //Checks if enemy is too close to player
-        if (Vector2.Distance(transform.position, target.position) > stoppingDistance)
+        // Direction vector pointing from enemy to player
+        Vector2 toPlayer = ((Vector2)player.position - rb.position);
+        float distance = toPlayer.magnitude;
+
+        // Stop if close enough to player
+        if (distance <= stoppingDistance)
         {
-            // Moves Enemy Character From Their Position to Target Position at set speed
-            // Delta Time was chosen so the enemy speed isn't faster or slower depending on FPS
-            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            rb.linearVelocity = Vector2.zero;
+            return;
         }
+
+        Vector2 direction = toPlayer.normalized;
+
+        // Wall Detection
+        RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, rayDistance, wallLayer);
+
+        if (hit.collider != null)
+        {
+            // Wall detected directly ahead, attempt to slide around
+            Vector2 right = new Vector2(direction.y, -direction.x); // perpendicular right
+            Vector2 left = new Vector2(-direction.y, direction.x);  // perpendicular left
+
+            // Check if right or left is free
+            bool rightFree = !Physics2D.Raycast(rb.position, right, rayDistance, wallLayer);
+            bool leftFree = !Physics2D.Raycast(rb.position, left, rayDistance, wallLayer);
+
+            // Choose direction
+            if (rightFree && !leftFree)
+                direction = right;
+            else if (leftFree && !rightFree)
+                direction = left;
+            else if (rightFree && leftFree)
+                direction = right; // arbitrary choice if both free
+            else
+                direction = Vector2.zero; // stuck
+
+            // Corner unsticking
+            // If enemy is almost not moving (stuck), push slightly forward or sideways
+            if (direction == Vector2.zero)
+            {
+                // Try small random nudge to unstick
+                direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * cornerUnstickDistance;
+            }
+        }
+
+        // Apply velocity to Rigidbody2D (physics handles collisions)
+        rb.linearVelocity = direction * speed;
     }
 
     public void ShootPlayer()
     {
-        //Shooting Player Code
         if (fireTimer <= 0)
-            {
-                //spawns bullet and does firerate timer
-                Instantiate(projectile, transform.position, Quaternion.identity);
-                fireTimer = fireRate;
-            }
-            else
-            {
-                fireTimer -= Time.deltaTime;
-            }
+        {
+            Instantiate(projectile, transform.position, Quaternion.identity);
+            fireTimer = fireRate;
+        }
+        else
+        {
+            fireTimer -= Time.fixedDeltaTime;
+        }
     }
 }

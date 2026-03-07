@@ -936,6 +936,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1700170065}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: rayDistance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6703722090438749903, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -6265,11 +6269,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1164364520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1455068002 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2767776274418483840, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-  m_PrefabInstance: {fileID: 1677208659}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1455068006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
@@ -6447,7 +6446,7 @@ GameObject:
   - component: {fileID: 1583085090}
   - component: {fileID: 1583085089}
   - component: {fileID: 1583085093}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Collision
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -7515,6 +7514,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ebe12377c578c4f9dbbd19673c0f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+--- !u!114 &1634745321 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+  m_PrefabInstance: {fileID: 671610130198889325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc77c20fe0ec2d343b90d48743f0b987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1657532600
 GameObject:
   m_ObjectHideFlags: 0
@@ -7629,7 +7639,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -3.6
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7667,37 +7677,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2577261637152805140, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: m_ExcludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2577261637152805140, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2767776274418483840, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: ba188ef6b5b4a404d9d1aa8900ad6a18, type: 2}
     - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1634745319}
+      propertyPath: rayDistance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 1455068002}
-    - target: {fileID: 6703722090438749903, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: m_Layer
-      value: 8
+      propertyPath: cornerUnstickDistance
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
-      propertyPath: m_Layer
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7837,9 +7827,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: dashTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: dashForce
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: playerStats
       value: 
       objectReference: {fileID: 1634745320}
+    - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: dashCooldown
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 4446589641916922908, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: weaponSlot
       value: 
@@ -7887,6 +7889,46 @@ PrefabInstance:
     - target: {fileID: 6357293219859120257, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
+      value: ca62a5c9-7b4e-4a3a-872b-79b8a904dbcd
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
+      value: 'Player/Dash[/Keyboard/leftShift]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1634745321}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerMovement, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6586988815226143904, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6805855689555002214, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: m_Layer
@@ -7977,6 +8019,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1006506630}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: rayDistance
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6703722090438749903, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Layer
       value: 8

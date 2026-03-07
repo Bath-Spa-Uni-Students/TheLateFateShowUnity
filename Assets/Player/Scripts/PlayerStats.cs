@@ -6,6 +6,8 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] public float walkSpeed;
 
     [SerializeField] private PlayerMovement playerMovement;
+
+    public bool isInvulnerable;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

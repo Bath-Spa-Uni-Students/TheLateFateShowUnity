@@ -28,7 +28,7 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "95dd31bf-c4f4-4274-aba9-37a3fc81c213",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -37,6 +37,15 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "2b03074d-5fac-4984-b4db-c2f4bc968f27",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "ca62a5c9-7b4e-4a3a-872b-79b8a904dbcd",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -272,6 +281,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9b23656-3a48-4ef9-911b-edb6aab4ee22",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
