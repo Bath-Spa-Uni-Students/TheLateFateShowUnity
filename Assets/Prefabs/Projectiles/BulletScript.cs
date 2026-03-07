@@ -14,20 +14,13 @@ public class BulletScript : MonoBehaviour
         damage = 10;
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        target = new Vector2(player.position.x, player.position.y);
         directionToTarget = (player.position - transform.position).normalized;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
-        transform.position += (Vector3)(directionToTarget * speed * Time.deltaTime);
-
-        if (transform.position.x == target.x && transform.position.y == target.y)
-        {
-           DestroyProjectile();
-        }
+        MoveBullet();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,9 +32,17 @@ public class BulletScript : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            DestroyProjectile();
+        }
+    }
+
     void MoveBullet()
     {
-
+        transform.position += (Vector3)(directionToTarget * speed * Time.deltaTime);
     }
 
     void DestroyProjectile()
