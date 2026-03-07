@@ -19,11 +19,6 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float detectionRadius;
     [SerializeField] private GameObject detectionCircle;
 
-    // Finding Collision when moving
-    [SerializeField] private float obstacleRadiusCheck;
-    [SerializeField] private float obstacleCheckDistance;
-    [SerializeField] private LayerMask obstacleLayerMask;
-
     [SerializeField] private Animator animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -65,8 +60,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void ShootPlayer()
     {
-                    //Shooting Player Code
-            if (fireTimer <= 0)
+        //Shooting Player Code
+        if (fireTimer <= 0)
             {
                 //spawns bullet and does firerate timer
                 Instantiate(projectile, transform.position, Quaternion.identity);

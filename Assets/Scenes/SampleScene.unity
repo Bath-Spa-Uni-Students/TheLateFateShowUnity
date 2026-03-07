@@ -696,6 +696,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1006506630 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2767776274418483840, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+  m_PrefabInstance: {fileID: 6981599343131446218}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1088797334
 GameObject:
   m_ObjectHideFlags: 0
@@ -7677,26 +7682,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1634745319}
-    - target: {fileID: 0}
-      propertyPath: moveSpot
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: animator
       value: 
-      objectReference: {fileID: 1888780712}
-    - target: {fileID: 0}
-      propertyPath: 'moveSpots.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1467214410}
-    - target: {fileID: 0}
-      propertyPath: 'moveSpots.Array.data[1]'
-      value: 
-      objectReference: {fileID: 231772123}
-    - target: {fileID: 0}
-      propertyPath: 'moveSpots.Array.data[2]'
-      value: 
-      objectReference: {fileID: 1453893992}
-    - target: {fileID: 0}
-      propertyPath: 'moveSpots.Array.data[3]'
-      value: 
-      objectReference: {fileID: 1888780712}
+      objectReference: {fileID: 1006506630}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt

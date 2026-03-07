@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6202859786606319355}
   - component: {fileID: 149216281550972401}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 2767776274418483840}
   - component: {fileID: 828297148753925378}
   - component: {fileID: 5270709107807958075}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Grunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,6 +212,7 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  animator: {fileID: 0}
 --- !u!61 &2577261637152805140
 BoxCollider2D:
   m_ObjectHideFlags: 0
