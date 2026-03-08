@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -5,17 +8,20 @@ public class EnemyBehaviour : MonoBehaviour
     private Transform player;
 
     // Enemy stats
-    [SerializeField] private float speed = 3f;
-    [SerializeField] private float stoppingDistance = 0.5f;
+    [SerializeField] private float speed;
+    [SerializeField] private float stoppingDistance;
+    [SerializeField] private float damage;
 
     // Detection
-    [SerializeField] private float detectionRadius = 5f;
+    [SerializeField] private float detectionRadius;
     [SerializeField] private GameObject detectionCircle;
 
-    // Shooting
-    [SerializeField] private GameObject projectile;
-    [SerializeField] private float fireRate = 1f;
-    private float fireTimer;
+    // Attacking
+    [SerializeField] private GameObject projectile; //Old
+    [SerializeField] private float fireRate;
+    [SerializeField] private float fireCooldown;
+    private bool canAttack = true;
+    private bool isAttacking = false;
 
     // Wall avoidance
     [SerializeField] private LayerMask wallLayer;
@@ -29,8 +35,6 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        fireTimer = fireRate;
 
         // Setup detection circle
         if (detectionCircle != null)
@@ -46,7 +50,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         ChasePlayer();
-        ShootPlayer();
     }
 
     public void ChasePlayer()
@@ -58,6 +61,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Stop if close enough to player
         if (distance <= stoppingDistance)
         {
+            HitPlayer();
             rb.linearVelocity = Vector2.zero;
             return;
         }
@@ -92,7 +96,7 @@ public class EnemyBehaviour : MonoBehaviour
             if (direction == Vector2.zero)
             {
                 // Try small random nudge to unstick
-                direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * cornerUnstickDistance;
+                direction = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * cornerUnstickDistance;
             }
         }
 
@@ -100,7 +104,33 @@ public class EnemyBehaviour : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    public void ShootPlayer()
+    public void HitPlayer()
+    {
+        if (!canAttack || isAttacking)
+            return;
+        StartCoroutine(HitCoroutine());
+    }
+
+    IEnumerator HitCoroutine()
+    {
+        isAttacking = true;
+        canAttack = false;
+        rb.linearVelocity = Vector2.zero;
+        rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        player.GetComponent<PlayerStats>().DamagePlayer(damage);
+
+        // Wait for the attack duration
+        yield return new WaitForSeconds(fireRate);
+        rb.constraints = RigidbodyConstraints2D.None;
+        isAttacking = false;
+
+        // Wait for cooldown before allowing another attack
+        yield return new WaitForSeconds(fireCooldown);
+
+        canAttack = true;
+    }
+
+    /*public void ShootPlayer()
     {
         if (fireTimer <= 0)
         {
@@ -111,5 +141,5 @@ public class EnemyBehaviour : MonoBehaviour
         {
             fireTimer -= Time.fixedDeltaTime;
         }
-    }
+    }*/
 }
