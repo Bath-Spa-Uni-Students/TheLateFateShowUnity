@@ -130,6 +130,7 @@ public class EnemyBehaviour : MonoBehaviour
         canAttack = true;
     }
 
+
     /*public void ShootPlayer()
     {
         if (fireTimer <= 0)
