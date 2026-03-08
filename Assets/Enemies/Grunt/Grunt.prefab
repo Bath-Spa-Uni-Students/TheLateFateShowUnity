@@ -202,11 +202,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   speed: 2
   stoppingDistance: 0.5
-  damage: 10
+  damage: 5
   detectionRadius: 5
   detectionCircle: {fileID: 6703722090438749903}
   projectile: {fileID: 570469477250574415, guid: c49e7b657b92870479e9e88274d22b25, type: 3}
-  fireRate: 3
+  fireRate: 0.5
+  fireCooldown: 3
   wallLayer:
     serializedVersion: 2
     m_Bits: 2048

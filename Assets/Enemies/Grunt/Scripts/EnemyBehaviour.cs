@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 public class EnemyBehaviour : MonoBehaviour
 {
     // Player info
     private Transform player;
+    private Transform moveSpot;
+    private float waitTime;
+    [SerializeField] private float startWaitTime;
 
     // Enemy stats
     [SerializeField] private float speed;
@@ -28,10 +32,25 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float rayDistance;
     [SerializeField] private float cornerUnstickDistance;
 
+    [SerializeField] private GameObject gruntArea;
+    private int childCount;
+
     private Rigidbody2D rb;
+    private bool patroling;
+    private float patrolTime;
+
+    [SerializeField] private Transform minX;
+    private float pMinX;
+    [SerializeField] private Transform maxX;
+    private float pMaxX;
+    [SerializeField] private Transform minY;
+    private float pMinY;
+    [SerializeField] private Transform maxY;
+    private float pMaxY;
 
     void Start()
     {
+        waitTime = startWaitTime;
         rb = GetComponent<Rigidbody2D>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -45,13 +64,13 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (Vector2.Distance(rb.position, player.position) > detectionRadius)
         {
-            rb.linearVelocity = Vector2.zero;
+            //Patrol();
             return;
         }
-
         ChasePlayer();
     }
 
+    #region Movement
     public void ChasePlayer()
     {
         // Direction vector pointing from enemy to player
@@ -104,7 +123,33 @@ public class EnemyBehaviour : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    public void HitPlayer()
+    /*private void Patrol()
+    {
+        Debug.Log("Patrol");
+        //Moves to the random spot (delta time is used so it is not frames based
+        transform.position = Vector2.MoveTowards(transform.position, moveSpot.position, speed * Time.deltaTime);
+
+        //Checks if close to the spot - This is done to prevent exact checks
+        if (Vector2.Distance(transform.position, moveSpot.position) < 0.2f)
+        {
+            //Timer to make enemy wait before moving to new spot
+            if (waitTime <= 0)
+            {
+                //sets random spot and resets the timer
+                moveSpot.position = new Vector2(UnityEngine.Random.Range
+                    (minX.position.x, maxX.position.x), UnityEngine.Random.Range(minY.position.y, maxY.position.y));
+                waitTime = startWaitTime;
+            }
+            else
+            {
+                waitTime -= Time.deltaTime;
+            }
+        }
+    }*/
+    #endregion
+
+    #region Attack
+    private void HitPlayer()
     {
         if (!canAttack || isAttacking)
             return;
@@ -129,7 +174,12 @@ public class EnemyBehaviour : MonoBehaviour
 
         canAttack = true;
     }
+    #endregion
 
+    private void PositionSetting()
+    {
+
+    }
 
     /*public void ShootPlayer()
     {
