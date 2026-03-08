@@ -7,7 +7,7 @@ public class EnemyBehaviour : MonoBehaviour
 {
     // Player info
     private Transform player;
-    private Transform moveSpot;
+    [SerializeField] public GameObject moveSpot;
     private float waitTime;
     [SerializeField] private float startWaitTime;
 
@@ -38,6 +38,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Rigidbody2D rb;
     private bool patroling;
     private float patrolTime;
+    public bool overlappingCollider;
 
     [SerializeField] private Transform minX;
     private float pMinX;
@@ -50,6 +51,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     void Start()
     {
+        //Instantiate(moveSpot, transform);
+        SetMoveSpot();
         waitTime = startWaitTime;
         rb = GetComponent<Rigidbody2D>();
 
@@ -64,7 +67,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (Vector2.Distance(rb.position, player.position) > detectionRadius)
         {
-            //Patrol();
+            Patrol();
             return;
         }
         ChasePlayer();
@@ -123,21 +126,20 @@ public class EnemyBehaviour : MonoBehaviour
         rb.linearVelocity = direction * speed;
     }
 
-    /*private void Patrol()
+    private void Patrol()
     {
-        Debug.Log("Patrol");
+        //Debug.Log("Patrol");
         //Moves to the random spot (delta time is used so it is not frames based
-        transform.position = Vector2.MoveTowards(transform.position, moveSpot.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, moveSpot.transform.position, speed * Time.deltaTime);
 
         //Checks if close to the spot - This is done to prevent exact checks
-        if (Vector2.Distance(transform.position, moveSpot.position) < 0.2f)
+        if (Vector2.Distance(transform.position, moveSpot.transform.position) < 0.2f)
         {
             //Timer to make enemy wait before moving to new spot
             if (waitTime <= 0)
             {
                 //sets random spot and resets the timer
-                moveSpot.position = new Vector2(UnityEngine.Random.Range
-                    (minX.position.x, maxX.position.x), UnityEngine.Random.Range(minY.position.y, maxY.position.y));
+                SetMoveSpot();
                 waitTime = startWaitTime;
             }
             else
@@ -145,7 +147,7 @@ public class EnemyBehaviour : MonoBehaviour
                 waitTime -= Time.deltaTime;
             }
         }
-    }*/
+    }
     #endregion
 
     #region Attack
@@ -176,9 +178,31 @@ public class EnemyBehaviour : MonoBehaviour
     }
     #endregion
 
-    private void PositionSetting()
+    public void SetMoveSpot()
     {
-
+        moveSpot.transform.position = new Vector2(UnityEngine.Random.Range
+    (minX.position.x, maxX.position.x), UnityEngine.Random.Range(minY.position.y, maxY.position.y));
+        if (moveSpot.GetComponent<BoxCollider2D>().IsTouchingLayers(wallLayer))
+        {
+            overlappingCollider = true;
+            Debug.Log(overlappingCollider);
+        }
+        while (overlappingCollider)
+        {
+            moveSpot.transform.position = new Vector2(UnityEngine.Random.Range
+(minX.position.x, maxX.position.x), UnityEngine.Random.Range(minY.position.y, maxY.position.y));
+            if (moveSpot.GetComponent<BoxCollider2D>().IsTouchingLayers(wallLayer))
+            {
+                overlappingCollider = true;
+                Debug.Log(overlappingCollider);
+            }
+            else
+            {
+                overlappingCollider = false;
+                Debug.Log(overlappingCollider);
+                break;
+            }
+        }
     }
 
     /*public void ShootPlayer()

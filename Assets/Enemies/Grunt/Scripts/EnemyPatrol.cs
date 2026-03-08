@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class EnemyPatrol : MonoBehaviour
 {
-    [SerializeField] public float speed;
+    private float speed;
+    [SerializeField] private EnemyBehaviour enemyBehaviour;
 
     public Transform moveSpot;
 
@@ -16,6 +17,7 @@ public class EnemyPatrol : MonoBehaviour
     
     void Start()
     {
+        //speed = enemyBehaviour.speed;
         waitTime = startWaitTime;
         //Sets a random spot from given x,y values
         moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
@@ -23,9 +25,14 @@ public class EnemyPatrol : MonoBehaviour
 
     void Update()
     {
+
+    }
+
+    public void Patrol()
+    {
         //Moves to the random spot (delta time is used so it is not frames based
         transform.position = Vector2.MoveTowards(transform.position, moveSpot.position, speed * Time.deltaTime);
-        
+
         //Checks if close to the spot - This is done to prevent exact checks
         if (Vector2.Distance(transform.position, moveSpot.position) < 0.2f)
         {
@@ -33,7 +40,7 @@ public class EnemyPatrol : MonoBehaviour
             if (waitTime <= 0)
             {
                 //sets random spot and resets the timer
-                moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY)); 
+                moveSpot.position = new Vector2(Random.Range(minX, maxX), Random.Range(minY, maxY));
                 waitTime = startWaitTime;
             }
             else

@@ -200,10 +200,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e7dd4f696a2e44f922574e040fc66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
+  moveSpot: {fileID: 1854902710691883263, guid: 6290f8fb713cc574bafd42bf4ff08aa4, type: 3}
+  startWaitTime: 3
   speed: 2
   stoppingDistance: 0.5
   damage: 5
-  detectionRadius: 5
+  detectionRadius: 4
   detectionCircle: {fileID: 6703722090438749903}
   projectile: {fileID: 570469477250574415, guid: c49e7b657b92870479e9e88274d22b25, type: 3}
   fireRate: 0.5
@@ -213,6 +215,12 @@ MonoBehaviour:
     m_Bits: 2048
   rayDistance: 0.6
   cornerUnstickDistance: 0.3
+  gruntArea: {fileID: 0}
+  overlappingCollider: 0
+  minX: {fileID: 0}
+  maxX: {fileID: 0}
+  minY: {fileID: 0}
+  maxY: {fileID: 0}
 --- !u!61 &2577261637152805140
 BoxCollider2D:
   m_ObjectHideFlags: 0
