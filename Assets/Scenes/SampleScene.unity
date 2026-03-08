@@ -6927,6 +6927,10 @@ PrefabInstance:
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 1879684954}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: moveSpotCheckRadius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4018613961240202475, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: moveSpotPosition
       value: 0

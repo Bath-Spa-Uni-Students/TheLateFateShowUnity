@@ -19,6 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Detection
     [SerializeField] private float detectionRadius;
     [SerializeField] private GameObject detectionCircle;
+    [SerializeField] private float moveSpotCheckRadius = 0.2f;
 
     // Attacking
     [SerializeField] private GameObject projectile; //Old
@@ -180,27 +181,26 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void SetMoveSpot()
     {
-        moveSpot.transform.position = new Vector2(UnityEngine.Random.Range
-    (minX.position.x, maxX.position.x), UnityEngine.Random.Range(minY.position.y, maxY.position.y));
-        if (moveSpot.GetComponent<BoxCollider2D>().IsTouchingLayers(wallLayer))
+        Vector2 randomPosition;
+        bool positionValid = false;
+
+        // Keep searching until a valid position is found
+        while (!positionValid)
         {
-            overlappingCollider = true;
-            Debug.Log(overlappingCollider);
-        }
-        while (overlappingCollider)
-        {
-            moveSpot.transform.position = new Vector2(UnityEngine.Random.Range
-(minX.position.x, maxX.position.x), UnityEngine.Random.Range(minY.position.y, maxY.position.y));
-            if (moveSpot.GetComponent<BoxCollider2D>().IsTouchingLayers(wallLayer))
+            // Generate random position inside patrol bounds
+            randomPosition = new Vector2(
+                UnityEngine.Random.Range(minX.position.x, maxX.position.x),
+                UnityEngine.Random.Range(minY.position.y, maxY.position.y)
+            );
+
+            // Check if this position overlaps a wall
+            Collider2D hit = Physics2D.OverlapCircle(randomPosition, moveSpotCheckRadius, wallLayer);
+
+            if (hit == null)
             {
-                overlappingCollider = true;
-                Debug.Log(overlappingCollider);
-            }
-            else
-            {
-                overlappingCollider = false;
-                Debug.Log(overlappingCollider);
-                break;
+                // No wall found, position is safe
+                moveSpot.transform.position = randomPosition;
+                positionValid = true;
             }
         }
     }
