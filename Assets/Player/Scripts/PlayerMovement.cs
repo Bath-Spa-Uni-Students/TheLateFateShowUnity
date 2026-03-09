@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
+    public Weapon weapon;
+
+    Vector2 mousePosition;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -22,6 +26,21 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = moveInput * moveSpeed;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            weapon.Shoot();
+        }
+
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 aimDirection = mousePosition - rb.position;
+
+        float aimAngle = Mathf.Atan2(aimDirection.x, aimDirection.y) * Mathf.Rad2Deg - 45f;
+        rb.rotation = aimAngle;
     }
 
     public void Move(InputAction.CallbackContext context)
