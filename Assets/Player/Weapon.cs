@@ -2,20 +2,31 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    //What is being shot
-    public GameObject bulletPrefab;
-    //Where is it being shot
-    public Transform firePoint;
-    //Speed of bullet
-    public float bulletSpeed = 0f;
+    // Reference main camera
+    private Camera mainCam;
+    // Store mouse position
+    private Vector3 mousePos;
 
-    public void Shoot()
+    // Start is called before the first frame update
+    void Start()
     {
+        // Get camera component
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
 
-        //Create copies of the bullet prefab at firepoint location
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+    // Update is called once per frame
+    private void Update()
+    {
+        // Get mouse position
+        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-        //Adding force to the bullet so it moves in the direction
-        bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);
+        // Calculate direction of mouse
+        Vector3 rotation = mousePos - transform.position;
+
+        // Gets angle
+        float rotateZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+
+        // Rotate Z axis
+        transform.rotation = Quaternion.Euler(0, 0, rotateZ);
     }
 }
