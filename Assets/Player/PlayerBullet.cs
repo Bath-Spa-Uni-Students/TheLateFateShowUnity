@@ -19,9 +19,6 @@ public class PlayerBullet : MonoBehaviour
 
         rb.linearVelocity = new Vector2 (direction.x, direction.y).normalized * bulletSpeed;
         
-        float rotate = Mathf.Atan2(rotation.x, rotation.y) * Mathf.Rad2Deg;
-
-        transform.rotation = Quaternion.Euler(0, 0, rotate + 90);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
