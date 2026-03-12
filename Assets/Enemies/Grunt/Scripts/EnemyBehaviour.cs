@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 public class EnemyBehaviour : MonoBehaviour
 {
     // Player info
@@ -22,7 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float moveSpotCheckRadius = 0.2f;
 
     // Attacking
-    [SerializeField] private GameObject projectile; //Old
+    [SerializeField] private GameObject projectile;
     [SerializeField] private float fireRate;
     [SerializeField] private float fireCooldown;
     private bool canAttack = true;
@@ -33,55 +31,91 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float rayDistance;
     [SerializeField] private float cornerUnstickDistance;
 
-    [SerializeField] private GameObject gruntArea;
-    private int childCount;
-
-    private Rigidbody2D rb;
-    private bool patroling;
-    private float patrolTime;
-    public bool overlappingCollider;
+    // Pack behaviour
+    [Header("Pack")]
+    public bool isLeader = false;
+    public Transform leader;
+    [HideInInspector] public Vector2 followOffset;
+    private bool leaderDead = false;
+    public float followDistance = 1.5f;
+    public float orbitSpeed = 2f;
+    [HideInInspector] public bool playerDetected = false;
 
     [SerializeField] private Transform minX;
-    private float pMinX;
     [SerializeField] private Transform maxX;
-    private float pMaxX;
     [SerializeField] private Transform minY;
-    private float pMinY;
     [SerializeField] private Transform maxY;
-    private float pMaxY;
+
+    private Rigidbody2D rb;
 
     void Start()
     {
-        //Instantiate(moveSpot, transform);
-        SetMoveSpot();
-        waitTime = startWaitTime;
         rb = GetComponent<Rigidbody2D>();
-
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        waitTime = startWaitTime;
+        SetMoveSpot();
 
-        // Setup detection circle
+        if (!isLeader && leader != null)
+            followOffset = Random.insideUnitCircle * followDistance;
+
+        if (isLeader)
+        {
+            transform.localScale *= 1.25f;
+            var sr = GetComponent<SpriteRenderer>();
+            if (sr != null) sr.color = new Color(0.7f, 0.7f, 0.7f);
+        }
+
         if (detectionCircle != null)
             detectionCircle.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, 1);
     }
 
     void FixedUpdate()
     {
-        if (Vector2.Distance(rb.position, player.position) > detectionRadius)
+        // Only leader checks for player
+        if (isLeader)
         {
-            Patrol();
+            playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
+        }
+        else if (leader != null)
+        {
+            // Followers copy leader's detection
+            if (leader.TryGetComponent(out EnemyBehaviour leaderBehaviour))
+            {
+                playerDetected = leaderBehaviour.playerDetected;
+            }
+        }
+
+        // Followers scatter if leader dead
+        if (!isLeader && leaderDead)
+        {
+            Scatter();
             return;
         }
-        ChasePlayer();
+
+        // Chase if player detected
+        if (playerDetected)
+        {
+            ChasePlayer();
+            return;
+        }
+
+        // Followers follow leader if not chasing
+        if (!isLeader && leader != null && !leaderDead)
+        {
+            OrbitLeader();
+            return;
+        }
+
+        // Default patrol
+        Patrol();
     }
 
     #region Movement
     public void ChasePlayer()
     {
-        // Direction vector pointing from enemy to player
-        Vector2 toPlayer = ((Vector2)player.position - rb.position);
+        Vector2 toPlayer = (Vector2)player.position - rb.position;
         float distance = toPlayer.magnitude;
 
-        // Stop if close enough to player
         if (distance <= stoppingDistance)
         {
             HitPlayer();
@@ -91,55 +125,35 @@ public class EnemyBehaviour : MonoBehaviour
 
         Vector2 direction = toPlayer.normalized;
 
-        // Wall Detection
         RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, rayDistance, wallLayer);
-
         if (hit.collider != null)
         {
-            // Wall detected directly ahead, attempt to slide around
-            Vector2 right = new Vector2(direction.y, -direction.x); // perpendicular right
-            Vector2 left = new Vector2(-direction.y, direction.x);  // perpendicular left
+            Vector2 right = new Vector2(direction.y, -direction.x);
+            Vector2 left = new Vector2(-direction.y, direction.x);
 
-            // Check if right or left is free
             bool rightFree = !Physics2D.Raycast(rb.position, right, rayDistance, wallLayer);
             bool leftFree = !Physics2D.Raycast(rb.position, left, rayDistance, wallLayer);
 
-            // Choose direction
-            if (rightFree && !leftFree)
-                direction = right;
-            else if (leftFree && !rightFree)
-                direction = left;
-            else if (rightFree && leftFree)
-                direction = right; // arbitrary choice if both free
-            else
-                direction = Vector2.zero; // stuck
+            if (rightFree && !leftFree) direction = right;
+            else if (leftFree && !rightFree) direction = left;
+            else if (rightFree && leftFree) direction = right;
+            else direction = Vector2.zero;
 
-            // Corner unsticking
-            // If enemy is almost not moving (stuck), push slightly forward or sideways
             if (direction == Vector2.zero)
-            {
-                // Try small random nudge to unstick
-                direction = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * cornerUnstickDistance;
-            }
+                direction = Random.insideUnitCircle.normalized * cornerUnstickDistance;
         }
 
-        // Apply velocity to Rigidbody2D (physics handles collisions)
         rb.linearVelocity = direction * speed;
     }
 
     private void Patrol()
     {
-        //Debug.Log("Patrol");
-        //Moves to the random spot (delta time is used so it is not frames based
-        transform.position = Vector2.MoveTowards(transform.position, moveSpot.transform.position, speed * Time.deltaTime);
+        rb.MovePosition(Vector2.MoveTowards(rb.position, moveSpot.transform.position, speed * Time.deltaTime));
 
-        //Checks if close to the spot - This is done to prevent exact checks
-        if (Vector2.Distance(transform.position, moveSpot.transform.position) < 0.2f)
+        if (Vector2.Distance(rb.position, moveSpot.transform.position) < 0.2f)
         {
-            //Timer to make enemy wait before moving to new spot
             if (waitTime <= 0)
             {
-                //sets random spot and resets the timer
                 SetMoveSpot();
                 waitTime = startWaitTime;
             }
@@ -149,13 +163,50 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
     }
+
+    public void SetMoveSpot()
+    {
+        bool positionValid = false;
+        while (!positionValid)
+        {
+            Vector2 randomPos = new Vector2(
+                Random.Range(minX.position.x, maxX.position.x),
+                Random.Range(minY.position.y, maxY.position.y)
+            );
+
+            if (Physics2D.OverlapCircle(randomPos, moveSpotCheckRadius, wallLayer) == null)
+            {
+                moveSpot.transform.position = randomPos;
+                positionValid = true;
+            }
+        }
+    }
+
+    void OrbitLeader()
+    {
+        float angle = orbitSpeed * Time.fixedDeltaTime;
+        followOffset = Quaternion.Euler(0, 0, angle) * followOffset;
+
+        Vector2 targetPos = (Vector2)leader.position + followOffset;
+        Vector2 dir = targetPos - (Vector2)rb.position;
+
+        if (dir.magnitude > 0.1f)
+            rb.linearVelocity = dir.normalized * speed;
+        else
+            rb.linearVelocity = Vector2.zero;
+    }
+
+    void Scatter()
+    {
+        Vector2 randomDir = Random.insideUnitCircle.normalized;
+        rb.linearVelocity = randomDir * speed;
+    }
     #endregion
 
     #region Attack
     private void HitPlayer()
     {
-        if (!canAttack || isAttacking)
-            return;
+        if (!canAttack || isAttacking) return;
         StartCoroutine(HitCoroutine());
     }
 
@@ -165,56 +216,37 @@ public class EnemyBehaviour : MonoBehaviour
         canAttack = false;
         rb.linearVelocity = Vector2.zero;
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
+
         player.GetComponent<PlayerStats>().DamagePlayer(damage);
 
-        // Wait for the attack duration
         yield return new WaitForSeconds(fireRate);
+
         rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         isAttacking = false;
 
-        // Wait for cooldown before allowing another attack
         yield return new WaitForSeconds(fireCooldown);
-
         canAttack = true;
     }
     #endregion
 
-    public void SetMoveSpot()
+    public void LeaderDied()
     {
-        Vector2 randomPosition;
-        bool positionValid = false;
+        leaderDead = true;
+        leader = null;
+    }
 
-        // Keep searching until a valid position is found
-        while (!positionValid)
+    void OnDestroy()
+    {
+        if (isLeader)
         {
-            // Generate random position inside patrol bounds
-            randomPosition = new Vector2(
-                UnityEngine.Random.Range(minX.position.x, maxX.position.x),
-                UnityEngine.Random.Range(minY.position.y, maxY.position.y)
-            );
-
-            // Check if this position overlaps a wall
-            Collider2D hit = Physics2D.OverlapCircle(randomPosition, moveSpotCheckRadius, wallLayer);
-
-            if (hit == null)
+            Collider2D[] grunts = Physics2D.OverlapCircleAll(transform.position, 10f);
+            foreach (Collider2D grunt in grunts)
             {
-                // No wall found, position is safe
-                moveSpot.transform.position = randomPosition;
-                positionValid = true;
+                EnemyBehaviour enemy = grunt.GetComponent<EnemyBehaviour>();
+                if (enemy != null && !enemy.isLeader)
+                    enemy.LeaderDied();
             }
         }
     }
-
-    /*public void ShootPlayer()
-    {
-        if (fireTimer <= 0)
-        {
-            Instantiate(projectile, transform.position, Quaternion.identity);
-            fireTimer = fireRate;
-        }
-        else
-        {
-            fireTimer -= Time.fixedDeltaTime;
-        }
-    }*/
 }
