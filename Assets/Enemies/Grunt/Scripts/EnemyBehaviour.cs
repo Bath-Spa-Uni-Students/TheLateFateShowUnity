@@ -106,8 +106,12 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
+        if (!playerDetected)
+        {
+            Patrol();
+            return;
+        }
         // Default patrol
-        Patrol();
     }
 
     #region Movement
@@ -148,7 +152,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Patrol()
     {
-        rb.MovePosition(Vector2.MoveTowards(rb.position, moveSpot.transform.position, speed * Time.deltaTime));
+        MoveTowardsAvoid(moveSpot.transform.position, speed);
 
         if (Vector2.Distance(rb.position, moveSpot.transform.position) < 0.2f)
         {
@@ -248,5 +252,42 @@ public class EnemyBehaviour : MonoBehaviour
                     enemy.LeaderDied();
             }
         }
+    }
+
+    private void MoveTowardsAvoid(Vector2 targetPosition, float moveSpeed)
+    {
+        Vector2 toTarget = targetPosition - rb.position;
+        float distance = toTarget.magnitude;
+
+        if (distance <= 0.1f) // Close enough, stop
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        Vector2 direction = toTarget.normalized;
+
+        // Wall detection
+        RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, rayDistance, wallLayer);
+        if (hit.collider != null)
+        {
+            // Perpendicular directions
+            Vector2 right = new Vector2(direction.y, -direction.x);
+            Vector2 left = new Vector2(-direction.y, direction.x);
+
+            bool rightFree = !Physics2D.Raycast(rb.position, right, rayDistance, wallLayer);
+            bool leftFree = !Physics2D.Raycast(rb.position, left, rayDistance, wallLayer);
+
+            if (rightFree && !leftFree) direction = right;
+            else if (leftFree && !rightFree) direction = left;
+            else if (rightFree && leftFree) direction = right; // arbitrary if both free
+            else direction = Vector2.zero;
+
+            // If stuck, apply small random nudge
+            if (direction == Vector2.zero)
+                direction = Random.insideUnitCircle.normalized * cornerUnstickDistance;
+        }
+
+        rb.linearVelocity = direction * moveSpeed;
     }
 }
