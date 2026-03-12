@@ -6,6 +6,7 @@ public class PlayerBullet : MonoBehaviour
     private Camera mainCam;
     private Rigidbody2D rb;
     public float bulletSpeed;
+    public float bulletDamage;
 
     // Start is called before the first frame update
     private void Start()
@@ -22,6 +23,13 @@ public class PlayerBullet : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        EnemyHealth enemy = collision.gameObject.GetComponent<EnemyHealth>();
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            enemy.TakeDamage(bulletDamage);
+        }
+
         Destroy(gameObject);
     }
 }

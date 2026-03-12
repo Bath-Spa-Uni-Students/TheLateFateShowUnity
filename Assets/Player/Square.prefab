@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
   bulletSpeed: 10
+  bulletDamage: 50
 --- !u!58 &7949325859320742368
 CircleCollider2D:
   m_ObjectHideFlags: 0

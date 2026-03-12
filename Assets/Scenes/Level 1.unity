@@ -10904,6 +10904,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674db862ced7a79438efcaf6565750fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  bullet: {fileID: 2212800752848840363, guid: 14a57630a0facd14eab7efaa3d22c199, type: 3}
+  bulletTransform: {fileID: 1275901427}
+  canShoot: 0
+  timeBetweenFiring: 0.3
 --- !u!1 &1569661246
 GameObject:
   m_ObjectHideFlags: 0
@@ -18830,10 +18834,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 588dafaa5ceb9ed4d970cae24dadb6dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShoot
-  bullet: {fileID: 570469477250574415, guid: 4458f95770f966a46aa655bb4dc2ffbe, type: 3}
-  firePoint: {fileID: 0}
-  bulletSpeed: 10
-  canShoot: 0
 --- !u!1 &1657532600
 GameObject:
   m_ObjectHideFlags: 0
