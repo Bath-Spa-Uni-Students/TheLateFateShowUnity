@@ -15,13 +15,13 @@ public class Weapon : MonoBehaviour
     public Transform bulletTransform;
 
     // Can the player shoot
-    public bool canShoot;
-
-    // Internal cooldown
-    private float timer;
+    public bool canShoot = true;
 
     // Firerate
     public float fireRate;
+
+    // Max ammo
+    public int maxAmmo = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -45,25 +45,21 @@ public class Weapon : MonoBehaviour
         // Rotate Z axis
         transform.rotation = Quaternion.Euler(0, 0, rotateZ);
 
-        // Can the player shoot
-        if(!canShoot)
-        {
-            // Timer counts up per frame
-            timer += Time.deltaTime;
-
-            // Timer greater than firerate?
-            if (timer > fireRate)
-            {
-                // Can shoot
-                canShoot = true;
-                timer = 0;
-            }
-        }
-
         // Player shoots
         if (Input.GetMouseButtonDown(0) && canShoot)
         {
-            canShoot = false;
+            maxAmmo -= 1;
+
+            if (maxAmmo <= 0)
+            {
+                canShoot = false;
+
+                if (Input.GetKeyDown(KeyCode.R)) 
+                {
+                    canShoot = true;
+                    maxAmmo = 6;
+                }
+            }
 
             // Spawns bullet 
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
