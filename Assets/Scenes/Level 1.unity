@@ -11086,8 +11086,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   bullet: {fileID: 2212800752848840363, guid: 14a57630a0facd14eab7efaa3d22c199, type: 3}
   bulletTransform: {fileID: 1275901427}
-  canShoot: 0
-  fireRate: 0
+  canShoot: 1
+  fireRate: 0.5
+  maxAmmo: 6
 --- !u!1 &1569661246
 GameObject:
   m_ObjectHideFlags: 0

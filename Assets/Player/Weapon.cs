@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
 
-        if (maxAmmo <= 0 && Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
             maxAmmo = 6;
