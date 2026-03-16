@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     public Transform bulletTransform;
 
     // Can the player shoot
-    public bool canShoot = true;
+    public bool canShoot = false;
 
     // Firerate
     public float fireRate;
@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (canShoot && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
             maxAmmo = 6;
