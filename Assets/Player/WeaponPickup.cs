@@ -10,9 +10,11 @@ public class WeaponPickup : MonoBehaviour
             Debug.Log("fart");
             Destroy(gameObject);
 
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<Weapon>().canShoot = true;
+            GameObject playerWeapon = GameObject.FindGameObjectWithTag("HeldWeapon");
+            playerWeapon.GetComponent<Weapon>().canShoot = true;
+
+            GameObject Player = GameObject.FindGameObjectWithTag("Player");
+            Player.GetComponent<PlayerMovement>().hasWeapon = true;
         }
-            
     }
 }

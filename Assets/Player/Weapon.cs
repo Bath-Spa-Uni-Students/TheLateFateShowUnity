@@ -46,7 +46,7 @@ public class Weapon : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotateZ);
 
         // Player shoots
-        if (Input.GetMouseButtonDown(0) && canShoot)
+        if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
             maxAmmo -= 1;
 
@@ -58,7 +58,8 @@ public class Weapon : MonoBehaviour
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
 
-        if (canShoot && Input.GetKeyDown(KeyCode.R))
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
             maxAmmo = 6;
