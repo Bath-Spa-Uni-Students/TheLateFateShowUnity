@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
             // Apply movement using Rigidbody velocity
             rb.linearVelocity = moveInput * moveSpeed;
 
+        }
+
     }
 
     public void Move(InputAction.CallbackContext context)
