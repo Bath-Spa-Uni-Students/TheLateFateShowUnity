@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Animator animator;
 
+    public bool hasWeapon = false;
+
     void Start()
     {
         moveSpeed = playerStats.walkSpeed;
@@ -39,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Apply movement using Rigidbody velocity
             rb.linearVelocity = moveInput * moveSpeed;
-        }
+
     }
 
     public void Move(InputAction.CallbackContext context)

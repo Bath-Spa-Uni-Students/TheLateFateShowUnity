@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Projectile
-  - Wall
+  - Enemy
+  - Weapon
+  - HeldWeapon
   layers:
   - Default
   - TransparentFX
