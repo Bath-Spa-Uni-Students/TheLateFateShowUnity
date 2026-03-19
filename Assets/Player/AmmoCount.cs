@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class AmmoCount : MonoBehaviour
 {
-    public Weapon weapon;
+    public Pistol pistol;
     public TextMeshProUGUI text;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,6 +19,6 @@ public class AmmoCount : MonoBehaviour
 
     private void UpdateAmmo()
     {
-        text.text = $"{weapon.maxAmmo}";
+        text.text = $"{pistol.maxAmmo}";
     }
 }
