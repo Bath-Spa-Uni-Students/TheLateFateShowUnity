@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: 9914eb9ae4631964fb82e4cae3a37619
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7836633220061443907
+    second: Player_Walking_sheet_ArmFull_0
+  - first:
+      213: -3786205677612502737
+    second: Player_Walking_sheet_ArmFull_1
+  - first:
+      213: 6983934847832328050
+    second: Player_Walking_sheet_ArmFull_2
+  - first:
+      213: 8934778717053516290
+    second: Player_Walking_sheet_ArmFull_3
+  - first:
+      213: 8286280192398531639
+    second: Player_Walking_sheet_ArmFull_4
+  - first:
+      213: -3835634171482474496
+    second: Player_Walking_sheet_ArmFull_5
+  - first:
+      213: -294638887982968605
+    second: Player_Walking_sheet_ArmFull_6
+  - first:
+      213: -1389357020716980112
+    second: Player_Walking_sheet_ArmFull_7
+  - first:
+      213: -7224968969113321831
+    second: Player_Walking_sheet_ArmFull_8
+  - first:
+      213: -2700393889088036899
+    second: Player_Walking_sheet_ArmFull_9
+  - first:
+      213: -8176954913093716182
+    second: Player_Walking_sheet_ArmFull_10
+  - first:
+      213: 3584431984081388311
+    second: Player_Walking_sheet_ArmFull_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 1
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 76
+        width: 17
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db8463b4b9fae3390800000000000000
+      internalID: -7836633220061443907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_1
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 75
+        width: 18
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f21f6531ff1b47bc0800000000000000
+      internalID: -3786205677612502737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_2
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 76
+        width: 17
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 277848bddbbebe060800000000000000
+      internalID: 6983934847832328050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_3
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 75
+        width: 18
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20af1b897e5befb70800000000000000
+      internalID: 8934778717053516290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 38
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73c1541bee7cef270800000000000000
+      internalID: 8286280192398531639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_5
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 37
+        width: 15
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 008ff680b0715cac0800000000000000
+      internalID: -3835634171482474496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_6
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 38
+        width: 17
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e052c01e7b39ebf0800000000000000
+      internalID: -294638887982968605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_7
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 37
+        width: 14
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07828f9962308bce0800000000000000
+      internalID: -1389357020716980112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_8
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99eb7ca8001cbbb90800000000000000
+      internalID: -7224968969113321831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_9
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddf954fa016468ad0800000000000000
+      internalID: -2700393889088036899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_10
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 0
+        width: 16
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a27f9a474de958e80800000000000000
+      internalID: -8176954913093716182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_Walking_sheet_ArmFull_11
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 0
+        width: 17
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71348bcf5e57eb130800000000000000
+      internalID: 3584431984081388311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player_Walking_sheet_ArmFull_0: -7836633220061443907
+      Player_Walking_sheet_ArmFull_1: -3786205677612502737
+      Player_Walking_sheet_ArmFull_10: -8176954913093716182
+      Player_Walking_sheet_ArmFull_11: 3584431984081388311
+      Player_Walking_sheet_ArmFull_2: 6983934847832328050
+      Player_Walking_sheet_ArmFull_3: 8934778717053516290
+      Player_Walking_sheet_ArmFull_4: 8286280192398531639
+      Player_Walking_sheet_ArmFull_5: -3835634171482474496
+      Player_Walking_sheet_ArmFull_6: -294638887982968605
+      Player_Walking_sheet_ArmFull_7: -1389357020716980112
+      Player_Walking_sheet_ArmFull_8: -7224968969113321831
+      Player_Walking_sheet_ArmFull_9: -2700393889088036899
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
