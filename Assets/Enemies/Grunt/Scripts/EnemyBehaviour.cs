@@ -382,7 +382,7 @@ public class EnemyBehaviour : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
         rb.constraints = RigidbodyConstraints2D.FreezePosition;
 
-        var stats = player.GetComponent<PlayerStats>();
+        var stats = player.GetComponent<PlayerMovement>();
         if (stats != null)
             stats.DamagePlayer(damage);
 

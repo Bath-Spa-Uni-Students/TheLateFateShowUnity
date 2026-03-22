@@ -2,16 +2,22 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private float moveSpeed;
+    [Header("Stats")]
+    [SerializeField] public float health;
+    [SerializeField] private float walkSpeed;
+    private float moveSpeed;
+    public bool isInvulnerable;
 
     // Dash settings
+    [Header("Dash Settings")]
     [SerializeField] private float dashForce;      // How fast and far the dash moves the player
     [SerializeField] private float dashTime;       // How long the dash lasts
     [SerializeField] private float dashCooldown;   // Delay before the player can dash again
+    public bool hasWeapon = false;
 
     // Dash state checks
     bool isDashing = false; // Prevents normal movement during dash
@@ -19,16 +25,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 lastMoveDir;
 
+    [Header("References")]
     // These create variables for components in the player
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
-
-    public bool hasWeapon = false;
+    [SerializeField] private Slider healthBar;
 
     void Start()
     {
-        moveSpeed = playerStats.walkSpeed;
+        healthBar.maxValue = health;
+        healthBar.value = health;
+        moveSpeed = walkSpeed;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -79,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
 
         // Turn on invulnerability at the start of the dash
-        playerStats.isInvulnerable = true;
+        isInvulnerable = true;
 
         // If player hasn't moved yet, default dash direction
         if (lastMoveDir == Vector2.zero)
@@ -92,7 +100,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashTime);
 
         // Turn off invulnerability when dash ends
-        playerStats.isInvulnerable = false;
+        isInvulnerable = false;
 
         // Stop dash
         isDashing = false;
@@ -101,5 +109,24 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
+    }
+
+    void PlayerDie()
+    {
+        Destroy(gameObject);
+    }
+
+    public void DamagePlayer(float damage)
+    {
+        if (health <= 0 || health - damage <= 0)
+        {
+            healthBar.value = health;
+            PlayerDie();
+        }
+        else
+        {
+            health -= damage;
+            healthBar.value = health;
+        }
     }
 }
