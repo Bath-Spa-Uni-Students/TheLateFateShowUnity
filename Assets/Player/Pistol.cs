@@ -20,6 +20,13 @@ public class Pistol : MonoBehaviour
     // Max ammo
     public int maxAmmo = 6;
 
+    // Clip size
+    [SerializeField] int ammo = 6;
+
+    // Bullet attributes
+    [SerializeField] float bulletSpeed;
+    [SerializeField] float bulletDamage = 50;
+
     // Start is called before the first frame update
     void Start()
     {
