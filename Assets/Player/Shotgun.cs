@@ -17,9 +17,6 @@ public class Shotgun : MonoBehaviour
     // Can the player shoot
     public bool canShoot = false;
 
-    // Firerate
-    public float fireRate;
-
     // Max ammo
     public int maxAmmo = 6;
 
