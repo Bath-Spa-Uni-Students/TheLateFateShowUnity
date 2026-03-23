@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.17
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.z
@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
-      value: Grunt
+      value: Grunt Leader
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -108,7 +108,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.16
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.y
@@ -170,7 +170,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.06
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.y
@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.26
       objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_LocalPosition.z

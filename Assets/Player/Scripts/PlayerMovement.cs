@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Stats")]
+    [Tooltip("Player Health and Walk Speed")]
     [SerializeField] public float health;
     [SerializeField] private float walkSpeed;
     private float moveSpeed;
