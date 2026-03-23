@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2085445656318187281}
   - component: {fileID: 931389133663100606}
   - component: {fileID: 7949325859320742368}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PistolBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1664
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
