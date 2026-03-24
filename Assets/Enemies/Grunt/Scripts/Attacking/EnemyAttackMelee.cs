@@ -1,26 +1,36 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttackMelee : MonoBehaviour
 {
-    [Header("Attack Settings")]
-    [SerializeField] private float damage = 10f;
-    [SerializeField] private float fireRate = 0.15f;
-    [SerializeField] private float fireCooldown = 0.5f;
-
+    private EnemyStats stats;
     private bool canAttack = true;
     private bool isAttacking = false;
 
     private Rigidbody2D rb;
     private Transform player;
 
+    public float mDamage;
+    public float mFireRate;
+    public float mFireCooldown;
+
     private void Awake()
     {
-        // Get references to the Rigidbody2D and the player's Transform
         rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+        player = GameObject.FindGameObjectWithTag("Player")?.transform;
 
+        stats = GetComponent<EnemyStats>(); // ← add this
+        if (stats != null)
+        {
+            mDamage = stats.damage;
+            mFireRate = stats.fireRate;
+            mFireCooldown = stats.fireCooldown;
+        }
+        else
+        {
+            Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
+        }
+    }
     public void TryAttack()
     {
         // Check if the enemy can attack and is not currently attacking
@@ -34,18 +44,17 @@ public class EnemyAttack : MonoBehaviour
     {
         isAttacking = true;
         canAttack = false;
-
         rb.linearVelocity = Vector2.zero;
 
         var stats = player.GetComponent<PlayerMovement>();
         if (stats != null)
-            stats.DamagePlayer(damage);
+            stats.DamagePlayer(mDamage);
 
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(mFireRate);
 
         isAttacking = false;
 
-        yield return new WaitForSeconds(fireCooldown);
+        yield return new WaitForSeconds(mFireCooldown);
         canAttack = true;
     }
 }

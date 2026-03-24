@@ -1,73 +1,65 @@
 using System.Collections;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [Header("Player Info")]
-    private Transform player;
-    [SerializeField] private GameObject moveSpotGameObject; // optional debug viz (can be null)
-    [SerializeField] private float startWaitTime = 0.25f;
-    private float waitTimer;
-
-    // Other Scripts
-    private EnemyAttack attackScript;
-
     [Header("Stats")]
-    [SerializeField] private float speed;
-    [SerializeField] private float stoppingDistance;
+    [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
+    [SerializeField] private EnemyAttackMelee attackScript;      // Melee or Ranged attack script
+
+    [Header("Player Info")]
+    private Transform player;                                    // Reference to player
+    [SerializeField] private GameObject moveSpotGameObject;      // Optional debug waypoint visualizer
+    [SerializeField] private float startWaitTime = 0.25f;        // Wait time at waypoints
+    private float waitTimer;                                     // Internal wait timer
 
     [Header("Detection")]
-    [SerializeField] private float detectionRadius = 3.5f;
-    [SerializeField] private GameObject detectionCircle; // optional
-    [SerializeField] private LayerMask wallLayer;
+    [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
+    [SerializeField] private GameObject detectionCircle;         // Optional visual for detection range
+    [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
 
     [Header("Waypoints")]
-    [SerializeField] private float waypointArrivalDistance = 0.35f; // IMPORTANT for box colliders
-    [SerializeField] private int waypointMaxTries = 40;
-    [SerializeField] private float waypointInflation = 0.05f; // inflates BoxCast/OverlapBox a bit
+    [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered “arrived” at waypoint
+    [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
+    [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
+    [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
+    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as “progress”
 
-    // If we don't make progress for this long, repick waypoint
-    [SerializeField] private float stuckDuration = 1.2f;
-    [SerializeField] private float stuckEpsilon = 0.03f;
+    [Header("Pack/Follower Info")]
+    public bool isLeader = false;                                  // Is this enemy the pack leader?
+    public Transform leader;                                       // Leader to follow
+    [HideInInspector] public Vector2 followOffset;                 // Orbit offset relative to leader
+    [SerializeField] private float followDistance = 1.5f;          // Orbit distance from leader
+    [SerializeField] private float orbitSpeed = 2f;                // Orbit rotation speed
+    [SerializeField] private float orbitStopDistance = 0.15f;      // Stop orbiting if within this distance
+    [HideInInspector] public bool playerDetected = false;          // Updated detection flag
+    private bool leaderDead = false;                               // Tracks if leader is dead
 
-    [Header("Pack")]
-    public bool isLeader = false;
-    public Transform leader;
-    [HideInInspector] public Vector2 followOffset;
-    [SerializeField] private float followDistance = 1.5f;
-    [SerializeField] private float orbitSpeed = 2f;
-    [SerializeField] private float orbitStopDistance = 0.15f;
-    [HideInInspector] public bool playerDetected = false;
-    private bool leaderDead = false;
-
-    [Header("Bounds for Patrol Waypoints")]
-    [SerializeField] private GameObject gruntArea;
+    [Header("Grunt Area Bounds")]
+    [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
     [SerializeField] private Transform minX;
     [SerializeField] private Transform maxX;
     [SerializeField] private Transform minY;
     [SerializeField] private Transform maxY;
 
-    // --- Internals ---
-    private Rigidbody2D rb;
-    private BoxCollider2D boxCollider;
-    private RigidbodyConstraints2D initialConstraints;
+    [Header("Components / Internals")]
+    private Rigidbody2D rb;                                        // Cached Rigidbody2D
+    private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
+    private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
+    private GameObject moveSpot;                                   // Debug move spot instance
+    private Vector2 currentWaypoint;                               // Current waypoint target
+    private bool hasWaypoint;                                      // Waypoint validity
+    private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
+    private float stuckTimer = 0f;                                 // Stuck timer
 
-    private GameObject moveSpot; // optional debug viz
-    private Vector2 currentWaypoint;
-    private bool hasWaypoint;
-
-    private float lastDistToWaypoint = Mathf.Infinity;
-    private float stuckTimer = 0f;
-
-    /// --- Pathtracing ---
     [Header("Pathtracing")]
-    private Vector3 playerTarget;
-    private Vector3 randomTarget;
-    private NavMeshAgent agent;
+    private Vector3 playerTarget;                                  // Target for pathfinding
+    private Vector3 randomTarget;                                  // Optional random target
+    private NavMeshAgent agent;                                    // NavMeshAgent reference
 
-
-    // Enemy states (for debugging and potential future expansion, currently we just switch states based on conditions in FixedUpdate)
+    // --- Enemy States (for modular state logic) ---
     private enum EnemyState
     {
         Patrol,
@@ -75,14 +67,19 @@ public class EnemyBehaviour : MonoBehaviour
         Orbit,
         Scatter
     }
+    private EnemyState currentState;                               // Current enemy state
 
-    private EnemyState currentState;
-
-   // ------------------------------------------ //
+    // ------------------------------------------ //
 
     private void Start()
     {
         InitialSetup();
+    }
+
+    private void Awake()
+    {
+        if (stats == null)
+            stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
     }
 
     private void FixedUpdate()
@@ -121,7 +118,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Component setup
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        attackScript = GetComponent<EnemyAttack>();
+        attackScript = GetComponent<EnemyAttackMelee>();
 
         // Store initial constraints so we can freeze/unfreeze during attack
         initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
@@ -142,9 +139,9 @@ public class EnemyBehaviour : MonoBehaviour
         playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
 
         // Pathtracing Stats
-        agent.speed = speed;
+        agent.speed = stats.speed;
         agent.acceleration = 140f;
-        agent.stoppingDistance = stoppingDistance;
+        agent.stoppingDistance = stats.stoppingDistance;
 
         #endregion
 
@@ -256,7 +253,7 @@ public class EnemyBehaviour : MonoBehaviour
         float distance = toPlayer.magnitude;
 
         // Check if we can hit the player from here
-        if (distance <= stoppingDistance)
+        if (distance <= stats.stoppingDistance)
         {
             attackScript.TryAttack();
             rb.linearVelocity = Vector2.zero;
@@ -292,7 +289,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         // Simple scatter: keep moving in a random direction
         Vector2 dir = Random.insideUnitCircle.normalized;
-        rb.linearVelocity = dir * speed;
+        rb.linearVelocity = dir * stats.speed;
     }
 
     void MoveToTarget(Vector3 target)

@@ -3,16 +3,21 @@ using UnityEngine;
 
 public class EnemyAttackRanged : MonoBehaviour
 {
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float fireCooldown = 1f;
 
     private bool canShoot = true;
+    private EnemyStats stats;
+
+    private void Awake()
+    {
+        stats = GetComponent<EnemyStats>();
+    }
 
     public void TryAttack(Transform player)
     {
-        if (!canShoot) return;
-
+        // Check if the enemy can shoot and if the player reference is valid
+        if (!canShoot || player == null) return;
         StartCoroutine(Shoot(player));
     }
 
@@ -22,11 +27,18 @@ public class EnemyAttackRanged : MonoBehaviour
 
         Vector2 dir = (player.position - firePoint.position).normalized;
 
-        GameObject bullet = Instantiate(projectile, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Rigidbody2D>().linearVelocity = dir * 10f;
+        // Instantiate projectile
+        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
 
-        yield return new WaitForSeconds(fireCooldown);
+        // Give projectile a velocity
+        proj.GetComponent<Rigidbody2D>().linearVelocity = dir * 10f;
 
+        // Pass damage info to projectile
+        var bullet = proj.GetComponent<Projectile>();
+        if (bullet != null)
+            bullet.SetDamage(stats.damage);
+
+        yield return new WaitForSeconds(stats.fireCooldown);
         canShoot = true;
     }
 }
