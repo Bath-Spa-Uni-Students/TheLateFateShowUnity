@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -67,8 +68,25 @@ public class EnemyBehaviour : MonoBehaviour
     private float lastDistToWaypoint = Mathf.Infinity;
     private float stuckTimer = 0f;
 
+    /// --- Pathtracing ---
+    [Header("Pathtracing")]
+    private Vector3 playerTarget;
+    private Vector3 randomTarget;
+    NavMeshAgent agent;
+
     private void Start()
     {
+        // Pathtracing setup
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        // Pathtracing Stats
+        agent.speed = speed;
+        agent.acceleration = 140f;
+
+
         rb = GetComponent<Rigidbody2D>();
         box = GetComponent<BoxCollider2D>();
 
@@ -141,8 +159,10 @@ public class EnemyBehaviour : MonoBehaviour
             Patrol();
     }
 
+    #region Movement States
     private void Patrol()
     {
+        // Component check - if we lost our components, just skip movement
         if (box == null || rb == null) return;
 
         if (!hasWaypoint)
@@ -192,7 +212,7 @@ public class EnemyBehaviour : MonoBehaviour
             }
         }
 
-        MoveWithAvoid(currentWaypoint);
+        agent.SetDestination(currentWaypoint);
     }
 
     private void ChasePlayer()
@@ -209,7 +229,7 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
-        MoveWithAvoid(player.position);
+        agent.SetDestination(player.position);
     }
 
     private void OrbitLeader()
@@ -228,7 +248,7 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
-        MoveWithAvoid(targetPos);
+        agent.SetDestination(targetPos);
     }
 
     private void Scatter()
@@ -239,7 +259,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     // --- Steering / avoidance ---
-    private void MoveWithAvoid(Vector2 targetPosition)
+  /*  private void MoveWithAvoid(Vector2 targetPosition)
     {
         Vector2 toTarget = targetPosition - rb.position;
         float distance = toTarget.magnitude;
@@ -285,7 +305,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         rb.linearVelocity = desiredDir * speed;
-    }
+    } */
+    #endregion
 
     private bool IsBlocked(Vector2 origin, Vector2 dir)
     {
@@ -368,6 +389,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     // --- Attack ---
+    #region Attack
     private void HitPlayer()
     {
         if (!canAttack || isAttacking || player == null) return;
@@ -413,6 +435,7 @@ public class EnemyBehaviour : MonoBehaviour
                 enemy.LeaderDied();
         }
     }
+    #endregion
 
     // Bounds  
     private void SetGruntArea()
@@ -423,5 +446,20 @@ public class EnemyBehaviour : MonoBehaviour
         if (maxX == null) maxX = gruntArea.transform.Find("maxX");
         if (minY == null) minY = gruntArea.transform.Find("minY");
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
+    }
+
+    void SetPlayerTargetPosition()
+    {
+        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
+    }
+
+    void SetRandomTargetPosition()
+    {
+
+    }
+
+    void SetAgentPosition(Vector3 target)
+    {
+        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
     }
 }

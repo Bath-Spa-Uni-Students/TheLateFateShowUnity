@@ -122776,6 +122776,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 499435067091179957, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 499435067091179957, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 335837321}
@@ -122783,9 +122787,41 @@ PrefabInstance:
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 1503111275}
+    - target: {fileID: 675291695693834805, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 675291695693834805, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_Acceleration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 675291695693834805, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 1925841531394734443, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_Name
       value: GruntPack
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666897610216793028, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666897610216793028, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690390355053380444, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2690390355053380444, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2851630621002824853, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: speed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2851630621002824853, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: leader
@@ -122800,6 +122836,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1503111275}
     - target: {fileID: 4971106000697077138, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4971106000697077138, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 335837321}
@@ -122807,6 +122847,18 @@ PrefabInstance:
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 1503111275}
+    - target: {fileID: 5426183504160448018, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5426183504160448018, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7539392561535378531, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7539392561535378531, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: leader
       value: 
@@ -122816,6 +122868,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1503111275}
     - target: {fileID: 7563192423151469819, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563192423151469819, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: leader
       value: 
       objectReference: {fileID: 335837321}
@@ -122823,6 +122879,14 @@ PrefabInstance:
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 1503111275}
+    - target: {fileID: 7651882231148411698, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AutoBraking
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651882231148411698, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
