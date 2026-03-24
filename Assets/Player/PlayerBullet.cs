@@ -39,16 +39,13 @@ public class PistolBullet : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Get EnemyHealth script
-        EnemyHealth enemy = collision.gameObject.GetComponent<EnemyHealth>();
-
-        // Did the bullet hit an enemy?
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Take bullet damage
-            enemy.TakeDamage(bulletDamage);
+            var enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
+            if (enemy != null)
+                enemy.TakeDamage(bulletDamage); // Damage is applied here
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject); // Destroy bullet after hit
     }
 }

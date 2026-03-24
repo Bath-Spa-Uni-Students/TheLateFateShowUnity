@@ -103456,7 +103456,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 328}
+  m_AnchoredPosition: {x: 0, y: 498}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1022578248
@@ -122799,6 +122799,22 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 300
       objectReference: {fileID: 0}
+    - target: {fileID: 694698457661552619, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: health
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 924388334565585316, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 924388334565585316, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804074204110241240, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 1925841531394734443, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_Name
       value: GruntPack
@@ -122835,6 +122851,22 @@ PrefabInstance:
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 1503111275}
+    - target: {fileID: 3290241500077872260, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 3290241500077872260, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819169100994548913, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3842974460394796073, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4971106000697077138, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: speed
       value: 1.5
@@ -122854,6 +122886,34 @@ PrefabInstance:
     - target: {fileID: 5426183504160448018, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_AngularSpeed
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676406173935371651, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5676406173935371651, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565097015794256383, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105275380039535730, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105275380039535730, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120072990469041386, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120072990469041386, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 7539392561535378531, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: speed
@@ -122886,6 +122946,10 @@ PrefabInstance:
     - target: {fileID: 7651882231148411698, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_AngularSpeed
       value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819938745182383327, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

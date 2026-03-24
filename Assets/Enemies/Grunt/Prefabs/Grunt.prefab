@@ -206,6 +206,7 @@ MonoBehaviour:
   speed: 1
   stoppingDistance: 0.35
   detectionRadius: 3.5
+  health: 10
   damage: 10
   fireRate: 0.15
   fireCooldown: 0.5
@@ -264,6 +265,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22bef967054143b469b519b1b9bb61d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackMelee
+  mDamage: 0
+  mFireRate: 0
+  mFireCooldown: 0
 --- !u!195 &7232216552129871522
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -299,7 +303,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 1280
