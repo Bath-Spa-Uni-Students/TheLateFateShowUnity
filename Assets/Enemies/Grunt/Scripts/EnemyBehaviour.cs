@@ -15,20 +15,22 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float stoppingDistance = 0.35f;
     [SerializeField] private float damage = 10f;
 
+    // Attack (melee via DamagePlayer)
+    [SerializeField] private float fireRate = 0.15f;
+    [SerializeField] private float fireCooldown = 0.5f;
+
+    private bool canAttack = true;
+    private bool isAttacking = false;
+
     [Header("Detection")]
     [SerializeField] private float detectionRadius = 3.5f;
     [SerializeField] private GameObject detectionCircle; // optional
     [SerializeField] private LayerMask wallLayer;
 
-    [Header("Movement / Waypoints")]
+    [Header("Waypoints")]
     [SerializeField] private float waypointArrivalDistance = 0.35f; // IMPORTANT for box colliders
     [SerializeField] private int waypointMaxTries = 40;
     [SerializeField] private float waypointInflation = 0.05f; // inflates BoxCast/OverlapBox a bit
-
-    // Used by obstacle steering
-    [SerializeField] private float rayDistance = 0.6f;
-    [SerializeField] private float raySkin = 0.05f;
-    [SerializeField] private float cornerUnstickDistance = 0.25f;
 
     // If we don't make progress for this long, repick waypoint
     [SerializeField] private float stuckDuration = 1.2f;
@@ -50,15 +52,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private Transform minY;
     [SerializeField] private Transform maxY;
 
-    // Attack (melee via DamagePlayer)
-    private bool canAttack = true;
-    private bool isAttacking = false;
-    [SerializeField] private float fireRate = 0.15f;
-    [SerializeField] private float fireCooldown = 0.5f;
-
     // --- Internals ---
     private Rigidbody2D rb;
-    private BoxCollider2D box;
+    private BoxCollider2D boxCollider;
     private RigidbodyConstraints2D initialConstraints;
 
     private GameObject moveSpot; // optional debug viz
@@ -76,43 +72,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Start()
     {
-        // Pathtracing setup
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        // Pathtracing Stats
-        agent.speed = speed;
-        agent.acceleration = 140f;
-
-
-        rb = GetComponent<Rigidbody2D>();
-        box = GetComponent<BoxCollider2D>();
-
-        initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
-
-        // Player must exist for detection/chasing
-        var playerGO = GameObject.FindGameObjectWithTag("Player");
-        player = playerGO != null ? playerGO.transform : null;
-
-        SetGruntArea();
-
-        waitTimer = startWaitTime;
-
-        // Leader handles patrol waypoint selection
-        if (isLeader)
-        {
-            if (moveSpotGameObject != null)
-                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
-
-            if (box != null && rb != null)
-                PickNewWaypoint();
-        }
-
-        // Followers get an initial orbit offset
-        if (!isLeader && leader != null)
-            followOffset = Random.insideUnitCircle * followDistance;
+        InitialSetup();
     }
 
     private void FixedUpdate()
@@ -159,25 +119,76 @@ public class EnemyBehaviour : MonoBehaviour
             Patrol();
     }
 
+    private void InitialSetup()
+    {
+        #region Pathtracing Setup
+        // Pathtracing setup
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        // Pathtracing Stats
+        agent.speed = speed;
+        agent.acceleration = 140f;
+        agent.stoppingDistance = stoppingDistance;
+
+        #endregion
+
+        // Component setup
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        // Store initial constraints so we can freeze/unfreeze during attack
+        initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
+
+        // Player must exist for detection/chasing
+        var playerTag = GameObject.FindGameObjectWithTag("Player");
+
+        // If no player found, we can still do patrol/leader-following but not detection/chasing
+        player = playerTag != null ? playerTag.transform : null;
+
+        SetGruntArea();
+
+        waitTimer = startWaitTime;
+
+        // Leader handles patrol waypoint selection
+        if (isLeader)
+        {
+            if (moveSpotGameObject != null)
+                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
+
+            if (boxCollider != null && rb != null)
+                PickNewWaypoint();
+        }
+
+        // Followers get an initial orbit offset
+        if (!isLeader && leader != null)
+            followOffset = Random.insideUnitCircle * followDistance;
+    }
+
     #region Movement States
     private void Patrol()
     {
-        // Component check - if we lost our components, just skip movement
-        if (box == null || rb == null) return;
+        // Component check - if we lost our components, just skip movement (Prevent errors)
+        if (boxCollider == null || rb == null) return;
 
+        #region Waypoint Check
+        // If we don't have a waypoint, try to pick one
         if (!hasWaypoint)
         {
             PickNewWaypoint();
             return;
         }
 
+        // Check arrival
         Vector2 pos = rb.position;
         float dist = Vector2.Distance(pos, currentWaypoint);
 
         // Arrived?
         if (dist <= waypointArrivalDistance)
         {
-            rb.linearVelocity = Vector2.zero;
+            //rb.linearVelocity = Vector2.zero;
 
             waitTimer -= Time.fixedDeltaTime;
             if (waitTimer <= 0f)
@@ -192,7 +203,9 @@ public class EnemyBehaviour : MonoBehaviour
 
             return;
         }
+        #endregion
 
+        #region Stuck Detection
         // Stuck detection (no progress)
         if (dist < lastDistToWaypoint - stuckEpsilon)
         {
@@ -211,17 +224,20 @@ public class EnemyBehaviour : MonoBehaviour
                 return;
             }
         }
+        #endregion
 
-        agent.SetDestination(currentWaypoint);
+        SetAgentPosition(currentWaypoint);
     }
 
     private void ChasePlayer()
     {
+        // Component check - if we lost our components, just skip movement (Prevent errors)
         if (player == null) return;
 
         Vector2 toPlayer = (Vector2)player.position - rb.position;
         float distance = toPlayer.magnitude;
 
+        // Check if we can hit the player from here
         if (distance <= stoppingDistance)
         {
             HitPlayer();
@@ -229,26 +245,29 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
-        agent.SetDestination(player.position);
+        SetAgentPosition(player.position);
     }
 
     private void OrbitLeader()
     {
+        // Component check - if we lost our components, just skip movement (Prevent errors)
         if (leader == null) return;
 
+        // Orbit around leader
         float angle = orbitSpeed * Time.fixedDeltaTime;
         followOffset = Quaternion.Euler(0f, 0f, angle) * followOffset;
 
+        // If we're close enough to the target orbit position, don't pathtrace (prevents jittery movement when close)
         Vector2 targetPos = (Vector2)leader.position + followOffset;
-
         float dist = Vector2.Distance(rb.position, targetPos);
+       
         if (dist < 0.15f)
         {
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        agent.SetDestination(targetPos);
+        SetAgentPosition(targetPos);
     }
 
     private void Scatter()
@@ -257,76 +276,24 @@ public class EnemyBehaviour : MonoBehaviour
         Vector2 dir = Random.insideUnitCircle.normalized;
         rb.linearVelocity = dir * speed;
     }
-
-    // --- Steering / avoidance ---
-  /*  private void MoveWithAvoid(Vector2 targetPosition)
-    {
-        Vector2 toTarget = targetPosition - rb.position;
-        float distance = toTarget.magnitude;
-
-        if (distance < 0.001f)
-        {
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
-
-        Vector2 desiredDir = toTarget / distance;
-
-        // Cast from slightly in front of the enemy to avoid starting inside colliders
-        Vector2 castOrigin = rb.position + desiredDir * raySkin;
-
-        // If forward is blocked, try alternate angles
-        if (IsBlocked(castOrigin, desiredDir))
-        {
-            Vector2 bestDir = Vector2.zero;
-            float bestDot = -Mathf.Infinity;
-
-            // Try a few rotated directions. Order matters less because we score with dot.
-            float[] angles = { 35f, -35f, 70f, -70f, 110f, -110f };
-
-            for (int i = 0; i < angles.Length; i++)
-            {
-                Vector2 testDir = Quaternion.Euler(0f, 0f, angles[i]) * desiredDir;
-                if (!IsBlocked(castOrigin, testDir))
-                {
-                    float score = Vector2.Dot(testDir, desiredDir); // prefer forward-progress direction
-                    if (bestDir == Vector2.zero || score > bestDot)
-                    {
-                        bestDot = score;
-                        bestDir = testDir;
-                    }
-                }
-            }
-
-            if (bestDir == Vector2.zero)
-                bestDir = (Random.insideUnitCircle.normalized * cornerUnstickDistance).normalized;
-
-            desiredDir = bestDir;
-        }
-
-        rb.linearVelocity = desiredDir * speed;
-    } */
     #endregion
-
-    private bool IsBlocked(Vector2 origin, Vector2 dir)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(origin, dir, rayDistance, wallLayer);
-        return hit.collider != null;
-    }
 
     // --- Waypoint picking (Leader) ---
     private void PickNewWaypoint()
     {
-        if (box == null || rb == null) return;
+        // Component check - if we lost our components, just skip movement (Prevent errors)
+        if (boxCollider == null || rb == null) return;
 
         // Inflated box size to keep clear of walls
-        Vector2 inflatedSize = new Vector2(box.size.x + waypointInflation * 2f, box.size.y + waypointInflation * 2f);
+        Vector2 inflatedSize = new Vector2(boxCollider.size.x + waypointInflation * 2f, boxCollider.size.y + waypointInflation * 2f);
         float boxAngle = transform.eulerAngles.z;
-
         int tries = waypointMaxTries;
 
+        // Get current collider center in world space (for path checking)
         Vector2 currentColliderCenter = GetBoxColliderWorldCenter(boxAngle);
 
+        #region Random Point Generation
+        // Try random points until we find a valid one
         for (int i = 0; i < tries; i++)
         {
             float randomX = Random.Range(minX.position.x, maxX.position.x);
@@ -334,7 +301,7 @@ public class EnemyBehaviour : MonoBehaviour
 
             Vector2 candidateTransformPos = new Vector2(randomX, randomY);
 
-            Vector2 candidateColliderCenter = candidateTransformPos + GetRotatedOffset(box.offset, boxAngle);
+            Vector2 candidateColliderCenter = candidateTransformPos + GetRotatedOffset(boxCollider.offset, boxAngle);
 
             // 1) Spot validity: candidate box does not overlap wall
             Collider2D spotHit = Physics2D.OverlapBox(candidateColliderCenter, inflatedSize, boxAngle, wallLayer);
@@ -372,13 +339,15 @@ public class EnemyBehaviour : MonoBehaviour
             return;
         }
 
+        #endregion
+
         // If nothing found, keep current (or just stop)
         hasWaypoint = false;
     }
 
     private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
     {
-        Vector2 rotatedOffset = GetRotatedOffset(box.offset, boxAngleDeg);
+        Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
         return (Vector2)rb.position + rotatedOffset;
     }
 
@@ -446,16 +415,6 @@ public class EnemyBehaviour : MonoBehaviour
         if (maxX == null) maxX = gruntArea.transform.Find("maxX");
         if (minY == null) minY = gruntArea.transform.Find("minY");
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
-    }
-
-    void SetPlayerTargetPosition()
-    {
-        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
-    }
-
-    void SetRandomTargetPosition()
-    {
-
     }
 
     void SetAgentPosition(Vector3 target)
