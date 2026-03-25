@@ -18,14 +18,10 @@ public class Pistol : MonoBehaviour
     public bool canShoot = false;
 
     // Max ammo
-    public int maxAmmo = 6;
+    [SerializeField] int maxAmmo = 6;
 
     // Clip size
-    [SerializeField] int ammo = 6;
-
-    // Bullet attributes
-    [SerializeField] float bulletSpeed;
-    [SerializeField] float bulletDamage = 50;
+    [SerializeField] public int ammo = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -52,9 +48,9 @@ public class Pistol : MonoBehaviour
         // Player shoots
         if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
-            maxAmmo -= 1;
+            ammo -= 1;
 
-            if (maxAmmo <= 0)
+            if (ammo <= 0)
             {
                 canShoot = false;
             }
@@ -66,7 +62,7 @@ public class Pistol : MonoBehaviour
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
-            maxAmmo = 6;
+            ammo = maxAmmo;
         }
     }
 }

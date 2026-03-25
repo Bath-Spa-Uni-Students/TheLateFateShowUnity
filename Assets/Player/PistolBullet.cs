@@ -11,6 +11,9 @@ public class PistolBullet : MonoBehaviour
     //Reference rigidbody
     private Rigidbody2D rb;
 
+    [SerializeField] float bulletSpeed = 10;
+    [SerializeField] float bulletDamage = 50;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -30,7 +33,6 @@ public class PistolBullet : MonoBehaviour
 
         // Bullet shoots
         // Move in the direction the bullet is facing
-        Pistol pistolBulletSpeed = 
         rb.linearVelocity = transform.right * bulletSpeed;
 
     }
@@ -43,7 +45,7 @@ public class PistolBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             // Take bullet damage
-            enemy.TakeDamage(Pistol.bulletDamage);
+            enemy.TakeDamage(bulletDamage);
         }
 
         Destroy(gameObject);
