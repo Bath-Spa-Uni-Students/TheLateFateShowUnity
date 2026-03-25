@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7244555237155121865}
   - component: {fileID: 8018547013501716923}
   - component: {fileID: 2085445656318187281}
-  - component: {fileID: 931389133663100606}
   - component: {fileID: 7949325859320742368}
+  - component: {fileID: -9118345240344086261}
   m_Layer: 0
   m_Name: ShotgunBullet
   m_TagString: Untagged
@@ -121,20 +121,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &931389133663100606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2212800752848840363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a55765e7b7115f443b1b444895506cd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
-  bulletSpeed: 10
-  bulletDamage: 10
 --- !u!58 &7949325859320742368
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -171,3 +157,17 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &-9118345240344086261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212800752848840363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d12b0bbf0a48844c93829a225fdb85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShotgunBullet
+  bulletSpeed: 10
+  bulletDamage: 20
