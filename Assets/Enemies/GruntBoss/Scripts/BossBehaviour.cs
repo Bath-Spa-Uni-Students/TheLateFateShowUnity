@@ -3,11 +3,12 @@ using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBehaviour : MonoBehaviour
+public class BossBehaviour : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
-    [SerializeField] private EnemyAttackMelee attackScript;      // Melee or Ranged attack script
+    [SerializeField] private BossMelee meleeAttackScript;             // Melee or Ranged attack script
+    [SerializeField] private BossRanged rangedAttackScript;      // Ranged attack script (if applicable)
 
     [Header("Player Info")]
     private Transform player;                                    // Reference to player
@@ -19,6 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
     [SerializeField] private GameObject detectionCircle;         // Optional visual for detection range
     [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
+    [HideInInspector] public bool playerDetected = false;        // Whether the player is currently detected (used by grunts to know when to start chasing)
 
     [Header("Waypoints")]
     [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered “arrived” at waypoint
@@ -27,17 +29,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
     [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as “progress”
 
-    [Header("Pack/Follower Info")]
-    public bool isLeader = false;                                  // Is this enemy the pack leader?
-    public Transform leader;                                       // Leader to follow
-    [HideInInspector] public Vector2 followOffset;                 // Orbit offset relative to leader
-    [SerializeField] private float followDistance = 1.5f;          // Orbit distance from leader
-    [SerializeField] private float orbitSpeed = 2f;                // Orbit rotation speed
-    [SerializeField] private float orbitStopDistance = 0.15f;      // Stop orbiting if within this distance
-    [HideInInspector] public bool playerDetected = false;          // Updated detection flag
-    private bool leaderDead = false;                               // Tracks if leader is dead
-
-    [Header("Grunt Area Bounds")]
+    [Header("Boss Area Bounds")]
     [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
     [SerializeField] private Transform minX;
     [SerializeField] private Transform maxX;
@@ -64,8 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Patrol,
         Chase,
-        Orbit,
-        Scatter
+        Attack
     }
     private EnemyState currentState;                               // Current enemy state
 
@@ -85,7 +76,6 @@ public class EnemyBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         if (rb == null) return;
-        if (player == null && isLeader) return;
 
         UpdateDetection();
 
@@ -102,12 +92,8 @@ public class EnemyBehaviour : MonoBehaviour
                 ChasePlayer();
                 break;
 
-            case EnemyState.Orbit:
-                OrbitLeader();
-                break;
-
-            case EnemyState.Scatter:
-                Scatter();
+            case EnemyState.Attack:
+                // Attack logic is handled within the ChasePlayer method when in range, so we don't need to do anything here for now
                 break;
         }
     }
@@ -118,7 +104,8 @@ public class EnemyBehaviour : MonoBehaviour
         // Component setup
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        attackScript = GetComponent<EnemyAttackMelee>();
+        meleeAttackScript = GetComponent<BossMelee>();
+        rangedAttackScript = GetComponent<BossRanged>();
 
         // Store initial constraints so we can freeze/unfreeze during attack
         initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
@@ -129,7 +116,7 @@ public class EnemyBehaviour : MonoBehaviour
         // If no player found, we can still do patrol/leader-following but not detection/chasing
         player = playerTag != null ? playerTag.transform : null;
 
-        SetGruntArea();
+        SetBossArea();
 
         #region Pathtracing Setup
         // Pathtracing setup
@@ -147,39 +134,21 @@ public class EnemyBehaviour : MonoBehaviour
 
         waitTimer = startWaitTime;
 
-        // Leader handles patrol waypoint selection
-        if (isLeader)
-        {
-            if (moveSpotGameObject != null)
+        if (moveSpotGameObject != null)
                 moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
 
-            if (boxCollider != null && rb != null)
+        if (boxCollider != null && rb != null)
                 PickNewWaypoint();
-        }
-
-        // Followers get an initial orbit offset
-        if (!isLeader && leader != null)
-            followOffset = Random.insideUnitCircle * followDistance;
-
-
     }
 
     private EnemyState GetState()
     {
         // State priority:
-        if (!isLeader && leaderDead)
-            return EnemyState.Scatter;
 
         if (playerDetected && player != null)
             return EnemyState.Chase;
 
-        if (!isLeader && leader != null && !leaderDead)
-            return EnemyState.Orbit;
-
-        if (isLeader)
             return EnemyState.Patrol;
-
-        return EnemyState.Patrol;
     }
 
     public void TakeDamage(float damage)
@@ -267,41 +236,12 @@ public class EnemyBehaviour : MonoBehaviour
         // Check if we can hit the player from here
         if (distance <= stats.stoppingDistance)
         {
-            attackScript.TryAttack();
+            meleeAttackScript.TryAttack();
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
         MoveToTarget(player.position);
-    }
-
-    private void OrbitLeader()
-    {
-        // Component check - if we lost our components, just skip movement (Prevent errors)
-        if (leader == null) return;
-
-        // Orbit around leader
-        float angle = orbitSpeed * Time.fixedDeltaTime;
-        followOffset = Quaternion.Euler(0f, 0f, angle) * followOffset;
-
-        // If we're close enough to the target orbit position, don't pathtrace (prevents jittery movement when close)
-        Vector2 targetPos = (Vector2)leader.position + followOffset;
-        float dist = Vector2.Distance(rb.position, targetPos);
-       
-        if (dist < orbitStopDistance)
-        {
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
-
-        MoveToTarget(targetPos);
-    }
-
-    private void Scatter()
-    {
-        // Simple scatter: keep moving in a random direction
-        Vector2 dir = Random.insideUnitCircle.normalized;
-        rb.linearVelocity = dir * stats.speed;
     }
 
     void MoveToTarget(Vector3 target)
@@ -313,23 +253,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void UpdateDetection()
     {
-        if (isLeader)
-        {
-            if (player != null)
-                playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
-            else
-                playerDetected = false;
-        }
+        if (player != null)
+            playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
         else
-        {
-            if (leader != null && leader.TryGetComponent(out EnemyBehaviour lb))
-                playerDetected = lb.playerDetected;
-            else
-                playerDetected = false;
-        }
+            playerDetected = false;
     }
 
-    // --- Waypoint picking (Leader) ---
+    // --- Waypoint picking ---
     #region Waypoint Picking
     private void PickNewWaypoint()
     {
@@ -407,27 +337,13 @@ public class EnemyBehaviour : MonoBehaviour
         return new Vector2(rotated.x, rotated.y);
     }
 
-    public void LeaderDied()
-    {
-        leaderDead = true;
-        leader = null;
-    }
-
     private void OnDestroy()
     {
-        if (!isLeader) return;
 
-        Collider2D[] grunts = Physics2D.OverlapCircleAll(transform.position, 10f);
-        foreach (Collider2D grunt in grunts)
-        {
-            if (grunt == null) continue;
-            if (grunt.TryGetComponent(out EnemyBehaviour enemy) && !enemy.isLeader)
-                enemy.LeaderDied();
-        }
     }
 
     // Bounds  
-    private void SetGruntArea()
+    private void SetBossArea()
     {
         if (gruntArea == null) return;
 

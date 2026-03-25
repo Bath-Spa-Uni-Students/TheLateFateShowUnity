@@ -10,6 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 717153400465058858}
   - component: {fileID: 6795455092672300936}
+  - component: {fileID: 4678454769109109600}
+  - component: {fileID: 4358639779486195371}
+  - component: {fileID: 7477454800623022473}
+  - component: {fileID: 2727703368743454965}
+  - component: {fileID: 8774061901883215491}
   m_Layer: 0
   m_Name: BossGrunt
   m_TagString: Untagged
@@ -91,3 +96,111 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &4678454769109109600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150895092482176395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694839307040cac46a8ffd8da8a6f744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
+  speed: 2.5
+  stoppingDistance: 0.35
+  detectionRadius: 3.5
+  health: 100
+  damage: 10
+  fireRate: 0.15
+  fireCooldown: 0.5
+  followDistance: 1.5
+  orbitSpeed: 2
+  waypointArrivalDistance: 0.35
+  stuckDuration: 1.2
+  stuckEpsilon: 0.03
+--- !u!114 &4358639779486195371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150895092482176395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 386e6854108aa6845be187d26e1e2ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossBehaviour
+  stats: {fileID: 4678454769109109600}
+  meleeAttackScript: {fileID: 7477454800623022473}
+  rangedAttackScript: {fileID: 2727703368743454965}
+  moveSpotGameObject: {fileID: 1854902710691883263, guid: 6290f8fb713cc574bafd42bf4ff08aa4, type: 3}
+  startWaitTime: 0.25
+  detectionRadius: 3.5
+  detectionCircle: {fileID: 0}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  playerDetected: 0
+  waypointArrivalDistance: 0.35
+  waypointMaxTries: 40
+  waypointInflation: 0.05
+  stuckDuration: 1.2
+  stuckEpsilon: 0.03
+  gruntArea: {fileID: 0}
+  minX: {fileID: 0}
+  maxX: {fileID: 0}
+  minY: {fileID: 0}
+  maxY: {fileID: 0}
+--- !u!114 &7477454800623022473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150895092482176395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd66eba26141524e92eea7a50d68d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossMelee
+  mDamage: 0
+  mFireRate: 0
+  mFireCooldown: 0
+--- !u!114 &2727703368743454965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150895092482176395}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a808b9754fee940bd619f5d1f44c4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossRanged
+  projectilePrefab: {fileID: 0}
+  firePoint: {fileID: 0}
+--- !u!95 &8774061901883215491
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150895092482176395}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 62edd3da09a70cb49b79c694b29b8de4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
