@@ -17,9 +17,6 @@ public class Shotgun : MonoBehaviour
     // Can the player shoot
     public bool canShoot = false;
 
-    // Firerate
-    public float fireRate;
-
     // Max ammo
     public int maxAmmo = 6;
 
@@ -60,9 +57,10 @@ public class Shotgun : MonoBehaviour
             {
                 canShoot = false;
             }
-            // Spawns bullet 
+            // Spawns spread
             for (int i = 0; i < pelletCount; i++)
             {
+                //Bullet spread is random
                 float spread = Random.Range(-bulletSpread, bulletSpread);
                 Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
 

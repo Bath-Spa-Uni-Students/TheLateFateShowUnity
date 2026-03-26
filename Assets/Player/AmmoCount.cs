@@ -19,6 +19,6 @@ public class AmmoCount : MonoBehaviour
 
     private void UpdateAmmo()
     {
-        text.text = $"{pistol.maxAmmo}";
+        text.text = $"{pistol.ammo}";
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PistolBullet : MonoBehaviour
+public class ShotgunBullet : MonoBehaviour
 {
     // Reference mouse position
     private Vector3 mousePos;

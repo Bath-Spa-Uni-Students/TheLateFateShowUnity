@@ -17,11 +17,11 @@ public class Pistol : MonoBehaviour
     // Can the player shoot
     public bool canShoot = false;
 
-    // Firerate
-    public float fireRate;
-
     // Max ammo
-    public int maxAmmo = 6;
+    [SerializeField] int maxAmmo = 6;
+
+    // Clip size
+    public int ammo = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -48,21 +48,21 @@ public class Pistol : MonoBehaviour
         // Player shoots
         if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
-            maxAmmo -= 1;
+            ammo -= 1;
 
-            if (maxAmmo <= 0)
+            if (ammo <= 0)
             {
                 canShoot = false;
             }
             // Spawns bullet 
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
         }
 
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
-            maxAmmo = 6;
+            ammo = maxAmmo;
         }
     }
 }
