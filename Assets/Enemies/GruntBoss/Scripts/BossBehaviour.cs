@@ -39,6 +39,7 @@ public class BossBehaviour : MonoBehaviour
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
     private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
+    private Animator animator;                                      // Cached Animator
     private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
     private GameObject moveSpot;                                   // Debug move spot instance
     private Vector2 currentWaypoint;                               // Current waypoint target
@@ -96,6 +97,8 @@ public class BossBehaviour : MonoBehaviour
                 // Attack logic is handled within the ChasePlayer method when in range, so we don't need to do anything here for now
                 break;
         }
+
+        UpdateAnimation();
     }
 
     private void InitialSetup()
@@ -104,8 +107,11 @@ public class BossBehaviour : MonoBehaviour
         // Component setup
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        animator = GetComponent<Animator>();
         meleeAttackScript = GetComponent<BossMelee>();
         rangedAttackScript = GetComponent<BossRanged>();
+
+        detectionCircle.transform.localScale = new Vector3(detectionRadius * 2f, detectionRadius * 2f, 1f);
 
         // Store initial constraints so we can freeze/unfreeze during attack
         initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
@@ -351,5 +357,14 @@ public class BossBehaviour : MonoBehaviour
         if (maxX == null) maxX = gruntArea.transform.Find("maxX");
         if (minY == null) minY = gruntArea.transform.Find("minY");
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
+    }
+    private void UpdateAnimation()
+    {
+        Vector2 velocity = agent.velocity;
+
+        float speed = velocity.magnitude;
+
+        animator.SetFloat("Speed", speed);
+        Debug.Log(speed);
     }
 }
