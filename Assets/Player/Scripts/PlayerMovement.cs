@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
+    private BoxCollider2D boxCollider;
     [SerializeField] private Slider healthBar;
 
     void Start()
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         moveSpeed = walkSpeed;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -89,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Turn on invulnerability at the start of the dash
         isInvulnerable = true;
+        boxCollider.enabled = false; // Disable collider to prevent damage during dash
 
         // If player hasn't moved yet, default dash direction
         if (lastMoveDir == Vector2.zero)
@@ -105,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Stop dash
         isDashing = false;
-
+        boxCollider.enabled = true; // Disable collider to prevent damage during dash
         // Wait for cooldown before allowing another dash
         yield return new WaitForSeconds(dashCooldown);
 
