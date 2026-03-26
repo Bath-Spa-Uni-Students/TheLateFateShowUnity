@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Player Health and Walk Speed")]
     [SerializeField] public float health;
     [SerializeField] private float walkSpeed;
+    [SerializeField] private LayerMask everythingLayer;
+    [SerializeField] private LayerMask wallLayer;
     private float moveSpeed;
     public bool isInvulnerable;
 
@@ -91,7 +93,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Turn on invulnerability at the start of the dash
         isInvulnerable = true;
-        boxCollider.enabled = false; // Disable collider to prevent damage during dash
+        //boxCollider.excludeLayers = everythingLayer; // Collide with nothing during dash
+        boxCollider.includeLayers = wallLayer; // Only collide with walls during dash
 
         // If player hasn't moved yet, default dash direction
         if (lastMoveDir == Vector2.zero)
@@ -108,7 +111,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Stop dash
         isDashing = false;
-        boxCollider.enabled = true; // Disable collider to prevent damage during dash
+        //boxCollider.enabled = true; // Disable collider to prevent damage during dash
+        boxCollider.includeLayers = everythingLayer; // Only collide with walls during dash
+
         // Wait for cooldown before allowing another dash
         yield return new WaitForSeconds(dashCooldown);
 
