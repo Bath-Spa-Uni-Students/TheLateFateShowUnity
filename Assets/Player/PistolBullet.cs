@@ -44,7 +44,7 @@ public class PistolBullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Get EnemyHealth script
-        EnemyHealth enemy = collision.gameObject.GetComponent<EnemyHealth>();
+        DamageHandler enemy = collision.gameObject.GetComponent<DamageHandler>();
 
         // Did the bullet hit an enemy?
         if (collision.gameObject.CompareTag("Enemy"))

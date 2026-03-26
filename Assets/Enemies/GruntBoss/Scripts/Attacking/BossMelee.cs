@@ -13,10 +13,10 @@ public class BossMelee : MonoBehaviour
     private Transform player;
     private Animator animator;
 
-    public float mDamage;
-    public float mFireRate;
-    public float mFireCooldown;
-    public float mslamWaitTimer; // Time to wait after the attack animation before deactivating the barrier
+    private float mDamage;
+    private float mFireRate;
+    private float mFireCooldown;
+    [SerializeField] private float mslamWaitTimer; // Time to wait after the attack animation before deactivating the barrier
 
     private void Awake()
     {
