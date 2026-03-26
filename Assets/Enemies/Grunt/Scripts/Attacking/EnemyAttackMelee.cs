@@ -55,7 +55,6 @@ public class EnemyAttackMelee : MonoBehaviour
             stats.DamagePlayer(mDamage);
 
         yield return new WaitForSeconds(mFireRate);
-
         isAttacking = false;
         transform.localScale = new Vector3(2, 2, 2);
 

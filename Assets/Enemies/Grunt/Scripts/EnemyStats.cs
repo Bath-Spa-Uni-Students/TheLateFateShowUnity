@@ -26,6 +26,14 @@ public class EnemyStats : MonoBehaviour
     [Tooltip("Cooldown after an attack.")]
     public float fireCooldown = 0.5f;
 
+    public bool canAttack = true;
+    public bool isAttacking = false;
+
+
+    [Header("Boss")]
+    [Tooltip("Radius of the boss's shockwave attack.")]
+    public float slamWaitTimer = 2f;
+
 
     [Header("Pack / AI")]
     [Tooltip("Distance to keep from the leader.")]

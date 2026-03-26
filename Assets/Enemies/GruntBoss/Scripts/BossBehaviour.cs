@@ -7,8 +7,10 @@ public class BossBehaviour : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
-    [SerializeField] private BossMelee meleeAttackScript;             // Melee or Ranged attack script
+    [SerializeField] private DamageHandler damageHandler;        // Reference to damage handler for taking damage
+    [SerializeField] private BossMelee meleeAttackScript;        // Melee or Ranged attack script
     [SerializeField] private BossRanged rangedAttackScript;      // Ranged attack script (if applicable)
+    [SerializeField] private GameObject attackBarrier;           // Optional barrier that appears during attacks
 
     [Header("Player Info")]
     private Transform player;                                    // Reference to player
@@ -39,8 +41,8 @@ public class BossBehaviour : MonoBehaviour
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
     private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
-    private Animator animator;                                      // Cached Animator
-    private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
+    private Animator animator;                                     // Cached Animator
+    private RigidbodyConstraints2D initialConstraints;             // Stored Rigidbody constraints
     private GameObject moveSpot;                                   // Debug move spot instance
     private Vector2 currentWaypoint;                               // Current waypoint target
     private bool hasWaypoint;                                      // Waypoint validity
@@ -57,7 +59,6 @@ public class BossBehaviour : MonoBehaviour
     {
         Patrol,
         Chase,
-        Attack
     }
     private EnemyState currentState;                               // Current enemy state
 
@@ -91,10 +92,6 @@ public class BossBehaviour : MonoBehaviour
 
             case EnemyState.Chase:
                 ChasePlayer();
-                break;
-
-            case EnemyState.Attack:
-                // Attack logic is handled within the ChasePlayer method when in range, so we don't need to do anything here for now
                 break;
         }
 
@@ -149,24 +146,10 @@ public class BossBehaviour : MonoBehaviour
 
     private EnemyState GetState()
     {
-        // State priority:
-
         if (playerDetected && player != null)
             return EnemyState.Chase;
 
-            return EnemyState.Patrol;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        // Enemy loses health
-        stats.health = stats.health - damage;
-
-        // Destroy enemy if health is less than 0
-        if (stats.health <= 0)
-        {
-            Destroy(gameObject);
-        }
+        return EnemyState.Patrol;
     }
 
     #region Movement States
@@ -233,6 +216,11 @@ public class BossBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (stats.isAttacking)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         // Component check - if we lost our components, just skip movement (Prevent errors)
         if (player == null) return;
 
@@ -365,6 +353,5 @@ public class BossBehaviour : MonoBehaviour
         float speed = velocity.magnitude;
 
         animator.SetFloat("Speed", speed);
-        Debug.Log(speed);
     }
 }

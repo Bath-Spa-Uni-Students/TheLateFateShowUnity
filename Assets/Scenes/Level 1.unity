@@ -121171,6 +121171,11 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &1602749389 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2392225031223194748, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+  m_PrefabInstance: {fileID: 6271063778655527561}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1828578150
 GameObject:
   m_ObjectHideFlags: 0
@@ -121297,11 +121302,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 148573850924120888, guid: 8f4a6dc848d0b974e9a73d5098692f3d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.7996545
+      value: 3.8797047
       objectReference: {fileID: 0}
     - target: {fileID: 148573850924120888, guid: 8f4a6dc848d0b974e9a73d5098692f3d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 6.5190845
+      value: 5.900523
       objectReference: {fileID: 0}
     - target: {fileID: 148573850924120888, guid: 8f4a6dc848d0b974e9a73d5098692f3d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -121309,7 +121314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 148573850924120888, guid: 8f4a6dc848d0b974e9a73d5098692f3d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.410001
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 148573850924120888, guid: 8f4a6dc848d0b974e9a73d5098692f3d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -121678,18 +121683,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20.9
       objectReference: {fileID: 0}
@@ -121729,14 +121722,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
+    - target: {fileID: 3694319625376205023, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 2005616718}
+    - target: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: health
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: stoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6839876201447674455, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477454800623022473, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: attackBarrier
+      value: 
+      objectReference: {fileID: 1602749389}
     - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_Name
       value: BossGrunt

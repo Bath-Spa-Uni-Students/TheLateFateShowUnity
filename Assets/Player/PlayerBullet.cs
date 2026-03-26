@@ -41,7 +41,8 @@ public class PistolBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            var enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
+            var enemy = collision.gameObject.GetComponent<DamageHandler>();
+
             if (enemy != null)
                 enemy.TakeDamage(bulletDamage); // Damage is applied here
         }
