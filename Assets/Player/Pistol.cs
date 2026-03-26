@@ -21,7 +21,7 @@ public class Pistol : MonoBehaviour
     [SerializeField] int maxAmmo = 6;
 
     // Clip size
-    [SerializeField] public int ammo = 6;
+    public int ammo = 6;
 
     // Start is called before the first frame update
     void Start()

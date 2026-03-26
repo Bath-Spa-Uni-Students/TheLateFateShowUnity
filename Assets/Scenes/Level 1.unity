@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed23eafdca9e1a40a22a1a5eabf40a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  enemyHealth: 100
+  enemyHealth: 1e+13
 --- !u!212 &1174695348
 SpriteRenderer:
   serializedVersion: 2
@@ -11458,7 +11458,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451984665}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674db862ced7a79438efcaf6565750fb, type: 3}
   m_Name: 
@@ -11466,8 +11466,8 @@ MonoBehaviour:
   bullet: {fileID: 2212800752848840363, guid: 14a57630a0facd14eab7efaa3d22c199, type: 3}
   bulletTransform: {fileID: 1275901427}
   canShoot: 0
-  fireRate: 0.5
   maxAmmo: 6
+  ammo: 6
 --- !u!114 &1451984668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11475,7 +11475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451984665}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fef5c5f0e74184a4eb2ada3f21e66934, type: 3}
   m_Name: 
@@ -11483,7 +11483,6 @@ MonoBehaviour:
   bullet: {fileID: 2212800752848840363, guid: 1eb6a69d7a0a9b644b4aa6285771aadd, type: 3}
   bulletTransform: {fileID: 1275901427}
   canShoot: 0
-  fireRate: 60
   maxAmmo: 6
   pelletCount: 8
   bulletSpread: 40

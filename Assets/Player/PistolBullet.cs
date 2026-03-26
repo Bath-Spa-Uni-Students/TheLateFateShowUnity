@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PistolBullet : MonoBehaviour
 {
+
+    public System.Action OnHitEnemy;
+
     // Reference mouse position
     private Vector3 mousePos;
 
@@ -14,10 +17,12 @@ public class PistolBullet : MonoBehaviour
     [SerializeField] float bulletSpeed = 10;
     [SerializeField] float bulletDamage = 50;
 
+    // Call PistolPerks script
+    PistolPerks pistol;
+
     // Start is called before the first frame update
     private void Start()
     {
-
         // Gets camera component
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
@@ -46,6 +51,9 @@ public class PistolBullet : MonoBehaviour
         {
             // Take bullet damage
             enemy.TakeDamage(bulletDamage);
+
+            // Call hit reload function
+            pistol.HitReloadPerk();
         }
 
         Destroy(gameObject);
