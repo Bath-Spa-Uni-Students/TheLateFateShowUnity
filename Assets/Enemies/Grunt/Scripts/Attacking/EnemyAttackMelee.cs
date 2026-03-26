@@ -9,6 +9,7 @@ public class EnemyAttackMelee : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
+    private Animator animator;
 
     public float mDamage;
     public float mFireRate;
@@ -18,6 +19,7 @@ public class EnemyAttackMelee : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        animator = GetComponent<Animator>();
 
         stats = GetComponent<EnemyStats>(); // ← add this
         if (stats != null)
@@ -42,6 +44,8 @@ public class EnemyAttackMelee : MonoBehaviour
 
     private IEnumerator HitCoroutine()
     {
+        transform.localScale = new Vector3(3,3,3);
+        animator.SetTrigger("Attacking");
         isAttacking = true;
         canAttack = false;
         rb.linearVelocity = Vector2.zero;
@@ -53,6 +57,7 @@ public class EnemyAttackMelee : MonoBehaviour
         yield return new WaitForSeconds(mFireRate);
 
         isAttacking = false;
+        transform.localScale = new Vector3(2, 2, 2);
 
         yield return new WaitForSeconds(mFireCooldown);
         canAttack = true;

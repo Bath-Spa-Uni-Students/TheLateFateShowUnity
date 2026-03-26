@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
@@ -53,6 +54,7 @@ public class EnemyBehaviour : MonoBehaviour
     private bool hasWaypoint;                                      // Waypoint validity
     private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
     private float stuckTimer = 0f;                                 // Stuck timer
+    private Animator animator;                                     // Animator reference
 
     [Header("Pathtracing")]
     private Vector3 playerTarget;                                  // Target for pathfinding
@@ -110,6 +112,8 @@ public class EnemyBehaviour : MonoBehaviour
                 Scatter();
                 break;
         }
+
+        UpdateAnimation();
     }
 
     private void InitialSetup()
@@ -119,6 +123,7 @@ public class EnemyBehaviour : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         attackScript = GetComponent<EnemyAttackMelee>();
+        animator = GetComponent<Animator>();
 
         // Store initial constraints so we can freeze/unfreeze during attack
         initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
@@ -215,7 +220,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Arrived?
         if (dist <= waypointArrivalDistance)
         {
-            //rb.linearVelocity = Vector2.zero;
+            agent.velocity = Vector2.zero;
 
             waitTimer -= Time.fixedDeltaTime;
             if (waitTimer <= 0f)
@@ -268,7 +273,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (distance <= stats.stoppingDistance)
         {
             attackScript.TryAttack();
-            rb.linearVelocity = Vector2.zero;
+            agent.velocity = Vector2.zero;
             return;
         }
 
@@ -290,7 +295,7 @@ public class EnemyBehaviour : MonoBehaviour
        
         if (dist < orbitStopDistance)
         {
-            rb.linearVelocity = Vector2.zero;
+            agent.velocity = Vector2.zero;
             return;
         }
 
@@ -306,6 +311,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     void MoveToTarget(Vector3 target)
     {
+        // Pathtracing movement
         agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
     }
 
@@ -435,5 +441,22 @@ public class EnemyBehaviour : MonoBehaviour
         if (maxX == null) maxX = gruntArea.transform.Find("maxX");
         if (minY == null) minY = gruntArea.transform.Find("minY");
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
+    }
+
+    private void UpdateAnimation()
+    {
+        Vector2 velocity = agent.velocity;
+
+        float speed = velocity.magnitude;
+
+        animator.SetFloat("Speed", speed);
+
+        if (speed > 0.01f)
+        {
+            Vector2 dir = velocity.normalized;
+
+            animator.SetFloat("PosX", dir.x);
+            animator.SetFloat("PosY", dir.y);
+        }
     }
 }

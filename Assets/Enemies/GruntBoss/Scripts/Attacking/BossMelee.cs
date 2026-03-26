@@ -9,6 +9,7 @@ public class BossMelee : MonoBehaviour
 
     private Rigidbody2D rb;
     private Transform player;
+    private Animator animator;
 
     public float mDamage;
     public float mFireRate;
@@ -18,6 +19,7 @@ public class BossMelee : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
+        animator = GetComponent<Animator>();
 
         stats = GetComponent<EnemyStats>(); // ← add this
         if (stats != null)
@@ -42,6 +44,8 @@ public class BossMelee : MonoBehaviour
 
     private IEnumerator HitCoroutine()
     {
+        animator.SetTrigger("Attack");
+
         isAttacking = true;
         canAttack = false;
         rb.linearVelocity = Vector2.zero;
