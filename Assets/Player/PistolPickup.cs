@@ -10,6 +10,8 @@ public class PistolPickup : MonoBehaviour
             Destroy(gameObject);
 
             GameObject playerWeapon = GameObject.FindGameObjectWithTag("HeldWeapon");
+            playerWeapon.GetComponent<Pistol>().enabled = true;
+            playerWeapon.GetComponent<Shotgun>().enabled = false;
             playerWeapon.GetComponent<Pistol>().canShoot = true;
 
             GameObject Player = GameObject.FindGameObjectWithTag("Player");

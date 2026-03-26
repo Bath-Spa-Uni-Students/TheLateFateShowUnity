@@ -103,7 +103,6 @@ GameObject:
   - component: {fileID: 5237061674015286832}
   - component: {fileID: 9184759781156037372}
   - component: {fileID: 120509498471914275}
-  - component: {fileID: 8170107659394862365}
   - component: {fileID: 5861283722429669609}
   - component: {fileID: 6586988815226143904}
   - component: {fileID: 9045740040149184403}
@@ -177,7 +176,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1262449019
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -5864771358020488580, guid: 5f5ab635630412f4399f1cabe90274ae, type: 3}
@@ -224,23 +223,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc77c20fe0ec2d343b90d48743f0b987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 0}
-  moveSpeed: 2
---- !u!114 &8170107659394862365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7704708506590149028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92ebe12377c578c4f9dbbd19673c0f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  health: 10
-  walkSpeed: 2
-  playerMovement: {fileID: 120509498471914275}
+  health: 0
+  walkSpeed: 0
+  everythingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isInvulnerable: 0
+  dashForce: 0
+  dashTime: 0
+  dashCooldown: 0
+  hasWeapon: 0
+  healthBar: {fileID: 0}
 --- !u!50 &5861283722429669609
 Rigidbody2D:
   serializedVersion: 5
