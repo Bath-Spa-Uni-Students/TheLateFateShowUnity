@@ -102571,7 +102571,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -112738,8 +112738,9 @@ MonoBehaviour:
   bullet: {fileID: 2212800752848840363, guid: 14a57630a0facd14eab7efaa3d22c199, type: 3}
   bulletTransform: {fileID: 1275901427}
   canShoot: 0
-  maxAmmo: 6
-  ammo: 6
+  maxAmmo: 5
+  ammo: 5
+  ammoText: {fileID: 1524131300}
 --- !u!114 &1451984668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112756,8 +112757,10 @@ MonoBehaviour:
   bulletTransform: {fileID: 1275901427}
   canShoot: 0
   maxAmmo: 6
+  ammo: 6
   pelletCount: 8
   bulletSpread: 40
+  ammoText: {fileID: 1524131300}
 --- !u!114 &1451984669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113008,6 +113011,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AmmoCount
   pistol: {fileID: 1451984667}
+  shotgun: {fileID: 0}
+  player: {fileID: 0}
   text: {fileID: 1524131303}
 --- !u!114 &1524131303
 MonoBehaviour:
@@ -121633,7 +121638,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 694698457661552619, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: health
-      value: 10
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 716220122586077043, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: health
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 924388334565585316, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
@@ -121677,6 +121686,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2690390355053380444, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_AngularSpeed
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714862911795207810, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: health
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2786569496353065993, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
@@ -121731,6 +121744,10 @@ PrefabInstance:
       propertyPath: stats
       value: 
       objectReference: {fileID: 1238458755}
+    - target: {fileID: 5098863188356419461, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: health
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 5426183504160448018, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_AutoBraking
       value: 0
@@ -121778,6 +121795,10 @@ PrefabInstance:
     - target: {fileID: 7428880500095709999, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: m_Color.r
       value: 0.6289307
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475854928496618149, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
+      propertyPath: health
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7539392561535378531, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
       propertyPath: speed

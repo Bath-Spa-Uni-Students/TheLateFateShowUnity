@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shotgun : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Shotgun : MonoBehaviour
 
     // Max ammo
     public int maxAmmo = 6;
+    public int ammo;
 
     // Pellet count
     public int pelletCount = 6;
@@ -26,11 +28,15 @@ public class Shotgun : MonoBehaviour
     // Bullet spread
     public float bulletSpread = 20f;
 
+    [SerializeField] private GameObject ammoText;
+
     // Start is called before the first frame update
     void Start()
     {
         // Get camera component
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        ammo = maxAmmo;
+        ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
     }
 
     // Update is called once per frame
@@ -51,9 +57,10 @@ public class Shotgun : MonoBehaviour
         // Player shoots
         if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
-            maxAmmo -= 1;
+            ammo -= 1;
+            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
-            if (maxAmmo <= 0)
+            if (ammo <= 0)
             {
                 canShoot = false;
             }
@@ -72,7 +79,8 @@ public class Shotgun : MonoBehaviour
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
-            maxAmmo = 6;
+            ammo = maxAmmo;
+            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
         }
     }
 }

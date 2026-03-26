@@ -4,21 +4,22 @@ using UnityEngine;
 public class AmmoCount : MonoBehaviour
 {
     public Pistol pistol;
+    public Shotgun shotgun;
+    public GameObject player;
     public TextMeshProUGUI text;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        UpdateAmmo();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateAmmo();
     }
 
-    private void UpdateAmmo()
+    public void UpdateAmmo(int gunAmmo)
     {
-        text.text = $"{pistol.ammo}";
+            text.text = $"{gunAmmo}";
     }
 }
