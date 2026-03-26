@@ -18,7 +18,8 @@ public class PistolBullet : MonoBehaviour
     [SerializeField] float bulletDamage = 50;
 
     // Call PistolPerks script
-    PistolPerks pistol;
+    private PistolPerks pistolPerks;
+    public Pistol pistol;
 
     // Start is called before the first frame update
     private void Start()
@@ -28,6 +29,7 @@ public class PistolBullet : MonoBehaviour
 
         // Gets rigidbody component
         rb = GetComponent<Rigidbody2D>();
+        pistolPerks = pistol.GetComponent<PistolPerks>();
 
         // Gets world coordintes
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -43,17 +45,15 @@ public class PistolBullet : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Get EnemyHealth script
-        DamageHandler enemy = collision.gameObject.GetComponent<DamageHandler>();
-
-        // Did the bullet hit an enemy?
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Take bullet damage
-            enemy.TakeDamage(bulletDamage);
+            var enemy = collision.gameObject.GetComponent<DamageHandler>();
 
-            // Call hit reload function
-            pistol.HitReloadPerk();
+            if (enemy != null)
+                enemy.TakeDamage(bulletDamage); // Damage is applied here
+                pistolPerks.HitReloadPerk();
+
+
         }
 
         Destroy(gameObject);

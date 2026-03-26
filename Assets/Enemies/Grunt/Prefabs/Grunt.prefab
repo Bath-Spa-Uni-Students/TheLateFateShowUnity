@@ -101,6 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1256596784936673505}
   - component: {fileID: 7599159783481423551}
+  - component: {fileID: 2938298360518379929}
   - component: {fileID: 5237618153534720533}
   - component: {fileID: 3025867042430400773}
   - component: {fileID: 814016242226724383}
@@ -191,6 +192,19 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2938298360518379929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8361983244019902799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bb6db8884a1a3d47991078a1f33bda9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageHandler
+  stats: {fileID: 5237618153534720533}
 --- !u!114 &5237618153534720533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +224,9 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.15
   fireCooldown: 0.5
+  canAttack: 1
+  isAttacking: 0
+  slamWaitTimer: 2
   followDistance: 1.5
   orbitSpeed: 2
   waypointArrivalDistance: 0.35

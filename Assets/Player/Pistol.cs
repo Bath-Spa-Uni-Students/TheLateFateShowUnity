@@ -9,10 +9,11 @@ public class Pistol : MonoBehaviour
     private Camera mainCam;
 
     // Bullet object
-    public GameObject bullet;
+    [SerializeField] private GameObject bullet;
+    private GameObject shotBullet;
 
     // Where bullet is being shot
-    public Transform bulletTransform;
+    [SerializeField] private Transform bulletTransform;
 
     // Can the player shoot
     public bool canShoot = false;
@@ -55,7 +56,8 @@ public class Pistol : MonoBehaviour
                 canShoot = false;
             }
             // Spawns bullet 
-            Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
+            shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
+            shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
         }
 
         GameObject Player = GameObject.FindGameObjectWithTag("Player");

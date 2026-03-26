@@ -7,7 +7,6 @@ public class PistolPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("fart");
             Destroy(gameObject);
 
             GameObject playerWeapon = GameObject.FindGameObjectWithTag("HeldWeapon");
