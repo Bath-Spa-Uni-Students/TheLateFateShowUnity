@@ -16,7 +16,10 @@ public class BossMelee : MonoBehaviour
     private float mDamage;
     private float mFireRate;
     private float mFireCooldown;
+
+    private BossBehaviour bossBehaviour;
     [SerializeField] private float mslamWaitTimer; // Time to wait after the attack animation before deactivating the barrier
+    [SerializeField] private float mSlamAnimFinished; // Time to wait after the attack animation before allowing the next attack
 
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class BossMelee : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
+        bossBehaviour = GetComponent<BossBehaviour>();
 
         stats = GetComponent<EnemyStats>();
         if (stats != null)
@@ -60,17 +64,23 @@ public class BossMelee : MonoBehaviour
         rb.linearVelocity = Vector2.zero;
 
         var playerRef = player.GetComponent<PlayerMovement>();
-        if (stats != null)
-            playerRef.DamagePlayer(mDamage);
 
-        yield return new WaitForSeconds(mFireRate);
+        yield return new WaitForSeconds(mSlamAnimFinished);
+
+        bossBehaviour.CheckPlayerDistance();
+
+        if (stats.canDamage)
+        {
+            if (stats != null)
+                playerRef.DamagePlayer(mDamage); // Apply damage to the player
+        }
 
         yield return new WaitForSeconds(mslamWaitTimer);
 
         attackBarrier.gameObject.SetActive(false);
         stats.isAttacking = false;
 
-        yield return new WaitForSeconds(mFireCooldown);
+        yield return new WaitForSeconds(mFireCooldown); // Wait for the cooldown before allowing the next attack
         stats.canAttack = true;
     }
 }

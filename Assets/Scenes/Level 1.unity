@@ -838,7 +838,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.24, y: -0.84}
+  m_AnchoredPosition: {x: 18.93, y: -18.52}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &519420033
@@ -983,7 +983,7 @@ Transform:
   m_GameObject: {fileID: 582290908}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.24, y: -0.84, z: -10}
+  m_LocalPosition: {x: 18.93, y: -18.52, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1203,11 +1203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6357293219859120257, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.24
+      value: 18.93
       objectReference: {fileID: 0}
     - target: {fileID: 6357293219859120257, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.84
+      value: -18.52
       objectReference: {fileID: 0}
     - target: {fileID: 6357293219859120257, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: m_LocalPosition.z
@@ -102618,6 +102618,8 @@ MonoBehaviour:
   damage: 10
   fireRate: 0.15
   fireCooldown: 0.5
+  attackCloseness: 0
+  canDamage: 0
   canAttack: 1
   isAttacking: 0
   slamWaitTimer: 2
@@ -121275,11 +121277,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!1 &1602749389 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2392225031223194748, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-  m_PrefabInstance: {fileID: 6271063778655527561}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1745899110 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 694698457661552619, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
@@ -121897,34 +121894,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3694319625376205023, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_IncludeLayers.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: gruntArea
       value: 
       objectReference: {fileID: 2005616718}
     - target: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: health
-      value: 500
+      propertyPath: detectionRadius
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: stoppingDistance
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5015297127349703977, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.509
-      objectReference: {fileID: 0}
-    - target: {fileID: 6839876201447674455, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_GravityScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7477454800623022473, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: attackBarrier
-      value: 
-      objectReference: {fileID: 1602749389}
     - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_Name
       value: BossGrunt

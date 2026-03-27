@@ -26,6 +26,10 @@ public class EnemyStats : MonoBehaviour
     [Tooltip("Cooldown after an attack.")]
     public float fireCooldown = 0.5f;
 
+    [Tooltip("Distance to player considered “close enough” for attacking.")]
+    [SerializeField] public float attackCloseness;              // Distance to player considered “close enough” for attacking
+    
+    public bool canDamage = false;                              // Whether the boss can currently damage the player
     public bool canAttack = true;
     public bool isAttacking = false;
 
