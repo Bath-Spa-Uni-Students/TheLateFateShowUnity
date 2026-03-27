@@ -38,6 +38,12 @@ public class EnemyStats : MonoBehaviour
     [Tooltip("Radius of the boss's shockwave attack.")]
     public float slamWaitTimer = 2f;
 
+    [Tooltip("Spin Speed Of The Beam")]
+    public float beamSpinSpeed = 100f; // Speed at which the beams spin during the attack
+
+    [Tooltip("Duration of the beam spin attack.")]
+    public float beamSpinDuration = 3f; // Duration for which the beams will spin during the attack
+
 
     [Header("Pack / AI")]
     [Tooltip("Distance to keep from the leader.")]

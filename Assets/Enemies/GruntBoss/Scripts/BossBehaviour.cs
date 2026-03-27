@@ -12,6 +12,7 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private BossRanged rangedAttackScript;      // Ranged attack script (if applicable)
     [SerializeField] private GameObject attackBarrier;           // Optional barrier that appears during attacks
     [SerializeField] private GameObject damageArea;              // Visual for the area that damages the player during melee attacks
+    [SerializeField] private GameObject triBeam;
 
     [Header("Player Info")]
     private Transform player;                                    // Reference to player
@@ -74,6 +75,7 @@ public class BossBehaviour : MonoBehaviour
     private void Start()
     {
         InitialSetup();
+        rangedAttackScript.SpinBeam();
     }
 
     private void Awake()
