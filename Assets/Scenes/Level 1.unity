@@ -337,6 +337,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2242045932937127281, guid: 1fc6559874407704189cc8ad8744e5dd, type: 3}
   m_PrefabInstance: {fileID: 1470580779625143370}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &363868892 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+  m_PrefabInstance: {fileID: 6271063778655527561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &363868901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+  m_PrefabInstance: {fileID: 6271063778655527561}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363868892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 694839307040cac46a8ffd8da8a6f744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
 --- !u!1 &380418690
 GameObject:
   m_ObjectHideFlags: 0
@@ -102623,6 +102639,8 @@ MonoBehaviour:
   canAttack: 1
   isAttacking: 0
   slamWaitTimer: 2
+  beamSpinSpeed: 100
+  beamSpinDuration: 3
   followDistance: 1.5
   orbitSpeed: 2
   waypointArrivalDistance: 0.35
@@ -121894,6 +121912,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3199715503384117030, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: gruntBoss
+      value: 
+      objectReference: {fileID: 363868892}
+    - target: {fileID: 3199715503384117030, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: enemyStats
+      value: 
+      objectReference: {fileID: 363868901}
     - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: gruntArea
       value: 
@@ -121902,11 +121928,16 @@ PrefabInstance:
       propertyPath: detectionRadius
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7960882441160667406, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_Name
       value: BossGrunt
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8240617860440579237, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
