@@ -16,8 +16,7 @@ public class BossRanged : MonoBehaviour
 
     private void Awake()
     {
-
-
+        stats = GetComponent<EnemyStats>();
         if (stats == null)
         {
             Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
@@ -34,6 +33,11 @@ public class BossRanged : MonoBehaviour
         canShoot = false;
 
         float timer = 0f;
+
+        if (stats == null)
+        {
+            Debug.Log("Stats not real");
+        }
 
         while (timer < stats.beamSpinDuration)
         {

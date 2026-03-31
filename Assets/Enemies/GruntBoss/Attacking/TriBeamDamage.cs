@@ -4,7 +4,6 @@ using UnityEngine;
 public class TriBeamDamage : MonoBehaviour
 
 {
-    private bool canShoot = true;
     private Rigidbody2D rb;
     private Transform player;
     private Animator animator;
@@ -51,9 +50,7 @@ public class TriBeamDamage : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            PlayerStats playerStats = collision.GetComponent<PlayerStats>();
-
-            if (playerRef != null && !playerStats.isInvulnerable)
+            if (playerRef != null && !playerRef.isInvulnerable)
             {
                 Debug.Log("TriBeamDamage hit player");
                 playerRef.DamagePlayer(enemyStats.damage); // Apply damage to the player
