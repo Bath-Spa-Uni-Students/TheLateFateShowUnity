@@ -773,9 +773,45 @@ PrefabInstance:
       propertyPath: enemyStats
       value: 
       objectReference: {fileID: 4678454769109109600}
+    - target: {fileID: 1900626225299293206, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900626225299293206, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900626225299293206, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2032246165168199615, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
       propertyPath: m_Name
       value: Tri-Beam
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381970382050342495, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381970382050342495, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2381970382050342495, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788433658088440973, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788433658088440973, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788433658088440973, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5094295547180178816, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
       propertyPath: gruntBoss
@@ -793,6 +829,10 @@ PrefabInstance:
       propertyPath: enemyStats
       value: 
       objectReference: {fileID: 4678454769109109600}
+    - target: {fileID: 6281725418795906992, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6431414097137841912, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -833,7 +873,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5407444170989459995, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

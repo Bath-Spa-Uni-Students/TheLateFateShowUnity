@@ -75,6 +75,7 @@ public class BossBehaviour : MonoBehaviour
     private void Start()
     {
         InitialSetup();
+        rangedAttackScript.gameObject.SetActive(true);
         rangedAttackScript.SpinBeam();
     }
 

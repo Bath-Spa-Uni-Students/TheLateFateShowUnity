@@ -16,13 +16,8 @@ public class BossRanged : MonoBehaviour
 
     private void Awake()
     {
-        var playerRef = player.GetComponent<PlayerMovement>();
-        rb = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        animator = GetComponent<Animator>();
-        bossBehaviour = GetComponent<BossBehaviour>();
 
-        stats = GetComponent<EnemyStats>();
+
         if (stats == null)
         {
             Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
