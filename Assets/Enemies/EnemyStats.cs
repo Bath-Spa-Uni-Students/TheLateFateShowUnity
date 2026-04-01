@@ -17,6 +17,7 @@ public class EnemyStats : MonoBehaviour
     [Header("Combat")]
     [Tooltip("Enemies Health")]
     public float health = 100f;
+    public float maxHealth = 100;
     [Tooltip("Damage dealt per attack.")]
     public float damage = 10f;
 
