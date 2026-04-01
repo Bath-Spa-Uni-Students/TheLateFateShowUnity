@@ -1259,6 +1259,7 @@ MonoBehaviour:
   stoppingDistance: 1
   detectionRadius: 5
   health: 500
+  maxHealth: 100
   damage: 10
   fireRate: 0.15
   fireCooldown: 0.5
@@ -1287,6 +1288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageHandler
   stats: {fileID: 4678454769109109600}
+  healthBar: {fileID: 1404311215685048134}
 --- !u!114 &4358639779486195371
 MonoBehaviour:
   m_ObjectHideFlags: 0
