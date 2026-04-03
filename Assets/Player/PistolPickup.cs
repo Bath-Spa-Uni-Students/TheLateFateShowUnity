@@ -1,10 +1,8 @@
 using UnityEngine;
-using FMODUnity;
 
 public class PistolPickup : MonoBehaviour
 {
 
-    [SerializeField] private EventReference pistolPickupSound;
 
     //Weapon overlaps with player
     private void OnTriggerEnter2D(Collider2D other)
@@ -21,7 +19,7 @@ public class PistolPickup : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
 
-            AudioManager.Instance.playoneShot(pistolPickupSound, this.transform.position);
+            AudioManager.Instance.playoneShot(FMODEvents.Instance.pistolPickup, this.transform.position);
         }
     }
 
