@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using FMOD.Studio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -36,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
     [SerializeField] private Slider healthBar;
 
+    //audio
+    private EventInstance playerFootsteps;
+
+    
     void Start()
     {
         healthBar.maxValue = health;
@@ -44,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
     }
 
     // Update is called once per frame
@@ -56,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = moveInput * moveSpeed;
 
         }
+
+        UpdateSound();
 
     }
 
@@ -136,6 +144,26 @@ public class PlayerMovement : MonoBehaviour
         {
             health -= damage;
             healthBar.value = health;
+        }
+    }
+
+    private void UpdateSound()
+    {
+        //start footsteps if player has an x velocity
+        if(animator.GetBool("IsWalking") == true)
+        {
+            // get the playback state of the footsteps
+            PLAYBACK_STATE playbackState;
+            playerFootsteps.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                playerFootsteps.start();
+            }
+        }
+        // otherwise stop the footsteps
+        else
+        {
+            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
 }
