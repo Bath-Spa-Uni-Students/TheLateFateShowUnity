@@ -16,8 +16,8 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Combat")]
     [Tooltip("Enemies Health")]
-    public float health = 100f;
-    public float maxHealth = 100;
+    public float health;
+    [HideInInspector] public float maxHealth;
     [Tooltip("Damage dealt per attack.")]
     public float damage = 10f;
 
@@ -63,4 +63,9 @@ public class EnemyStats : MonoBehaviour
 
     [Tooltip("Threshold to detect progress when stuck.")]
     public float stuckEpsilon = 0.03f;
+
+    private void Awake()
+    {
+        maxHealth = health; // Set maxHealth to the initial health value
+    }
 }
