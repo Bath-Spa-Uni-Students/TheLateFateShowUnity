@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PistolPickup : MonoBehaviour
 {
+
+
     //Weapon overlaps with player
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -16,6 +18,9 @@ public class PistolPickup : MonoBehaviour
 
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
+
+            AudioManager.Instance.playoneShot(FMODEvents.Instance.pistolPickup, this.transform.position);
         }
     }
+
 }
