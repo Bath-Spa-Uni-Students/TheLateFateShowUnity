@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class PistolPerks : MonoBehaviour
 {
+    [SerializeField] private Pistol pistol;
+    [SerializeField] private PlayerMovement player;
 
+    [Header("Hit Reload Perk")]
     [SerializeField] bool hitReload = false;
     [SerializeField] int hitReloadChance;
-    [SerializeField] private Pistol pistol;
 
-    private void Start()
-    {
-    }
+    [Header("Life Steal Perk")]
+    [SerializeField] bool lifeSteal = false;
+    [SerializeField] float lifeStealAmmount;
 
     // HitReload function
     public void HitReloadPerk()
@@ -26,6 +28,14 @@ public class PistolPerks : MonoBehaviour
                 // Add 1 bullet to clip
                 pistol.ammo += 1;
             }
+        }
+    }
+
+    public void LifeStealPerk()
+    {
+        if (lifeSteal)
+        {
+            player.health = player.health * 3f;
         }
     }
 }
