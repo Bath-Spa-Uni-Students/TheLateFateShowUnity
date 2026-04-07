@@ -52,7 +52,7 @@ public class PistolBullet : MonoBehaviour
             if (enemy != null)
                 enemy.TakeDamage(bulletDamage); // Damage is applied here
                 pistolPerks.HitReloadPerk();
-
+                pistolPerks.LifeStealPerk();
 
         }
 

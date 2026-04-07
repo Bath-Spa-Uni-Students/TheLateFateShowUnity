@@ -35,7 +35,6 @@ public class PistolPerks : MonoBehaviour
     {
         if (lifeSteal)
         {
-            player.health = player.health * 3f;
         }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Stats")]
     [Tooltip("Player Health and Walk Speed")]
+    [SerializeField] public float maxHealth;
     [SerializeField] public float health;
     [SerializeField] private float walkSpeed;
     [SerializeField] private LayerMask everythingLayer;
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        healthBar.maxValue = health;
+        healthBar.maxValue = maxHealth;
         healthBar.value = health;
         moveSpeed = walkSpeed;
         rb = GetComponent<Rigidbody2D>();
