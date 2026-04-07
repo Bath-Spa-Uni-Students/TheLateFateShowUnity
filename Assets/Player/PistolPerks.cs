@@ -11,9 +11,9 @@ public class PistolPerks : MonoBehaviour
 
     [Header("Life Steal Perk")]
     [SerializeField] bool lifeSteal = false;
-    [SerializeField] float lifeStealAmmount;
+    [SerializeField] float lifeStealAmount;
 
-    // HitReload function
+    // HitReload perk
     public void HitReloadPerk()
     {
         if (hitReload)
@@ -31,10 +31,21 @@ public class PistolPerks : MonoBehaviour
         }
     }
 
+    // LifeSteal perk
     public void LifeStealPerk()
     {
         if (lifeSteal)
         {
+            // Get health %
+            float heal = player.maxHealth * lifeStealAmount;
+
+            // Heal player
+            player.health += heal;
+
+            if (player.health > player.maxHealth)
+            {
+                player.health = player.maxHealth; 
+            }
         }
     }
 }
