@@ -1283,7 +1283,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: health
-      value: 100
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: dashTime
@@ -122192,6 +122192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2694395596082090241, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: triBeam
       value: 
@@ -122207,6 +122211,10 @@ PrefabInstance:
     - target: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: maxHealth
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4678454769109109600, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: fireCooldown
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7477454800623022473, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_Enabled

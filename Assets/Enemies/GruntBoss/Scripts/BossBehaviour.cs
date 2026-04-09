@@ -212,7 +212,7 @@ public class BossBehaviour : MonoBehaviour
     private EnemyState GetState()
     {
         if (player == null)
-            return EnemyState.Patrol;
+            return EnemyState.Sleep;
 
         float distance = Vector2.Distance(rb.position, player.position);
 
@@ -244,8 +244,59 @@ public class BossBehaviour : MonoBehaviour
         if (playerDetected)
             return EnemyState.Chase;
 
-        return EnemyState.Patrol;
+        return EnemyState.Sleep;
     }
+
+    //// Phases //////
+    #region Phases
+    private void Sleep()
+    {
+        rb.linearVelocity = Vector2.zero;
+
+        if (stats.health < stats.maxHealth)
+        {
+            stats.health += sleepHealRate * Time.deltaTime; // Heal over time while sleeping
+            stats.health = Mathf.Min(stats.health, stats.maxHealth); // Clamp to max health
+            Debug.Log("Healing in sleep. Current health: " + stats.health);
+        }
+    }
+    private void MeleeAttack()
+    {
+        if (stats.isAttacking)
+            return;
+
+        if (attackBarrier != null)
+            attackBarrier.SetActive(true);
+
+        meleeAttackScript.TryAttack();
+    }
+
+    private void RangedAttack()
+    {
+        rangedActive = true;
+        rangedAttackScript.enabled = true;
+        //triBeam.SetActive(true);
+        rangedAttackScript.SpinBeam();
+
+        MoveToTarget(player.position);
+    }
+
+    private void ReturnHome()
+    {
+        float distance = Vector2.Distance(transform.position, spawnPosition);
+
+        triBeam.SetActive(false); // Just in case we were in the middle of a ranged attack when we disengage
+        attackBarrier.SetActive(false);
+
+        MoveToTarget(spawnPosition);
+
+        if (distance <= 2f)
+        {
+            isAwake = false;
+            currentState = EnemyState.Sleep;
+        }
+    }
+    #endregion
 
     #region Movement States
     private void Patrol()
@@ -480,59 +531,4 @@ public class BossBehaviour : MonoBehaviour
         }
     }
 
-    //// Phases //////
-    #region Phases
-    private void Sleep()
-    {
-        rb.linearVelocity = Vector2.zero;
-
-        if (stats.health < stats.maxHealth)
-        {
-            stats.health += sleepHealRate * Time.deltaTime;
-            stats.health = Mathf.Min(stats.health, stats.maxHealth);
-        }
-    }
-    private void MeleeAttack()
-    {
-        if (stats.isAttacking)
-            return;
-
-        if (attackBarrier != null)
-            attackBarrier.SetActive(true);
-
-        meleeAttackScript.TryAttack();
-    }
-
-    private void RangedAttack()
-    {
-        rangedTimer -= Time.deltaTime;
-
-        if (!rangedActive && rangedTimer <= 0f)
-        {
-            rangedActive = true;
-            rangedTimer = rangedCooldown;
-            rangedAttackScript.enabled = true;
-            triBeam.SetActive(true);
-            rangedAttackScript.SpinBeam();
-        }
-
-        MoveToTarget(player.position);
-    }
-
-    private void ReturnHome()
-    {
-        float distance = Vector2.Distance(transform.position, spawnPosition);
-
-        triBeam.SetActive(false); // Just in case we were in the middle of a ranged attack when we disengage
-        attackBarrier.SetActive(false);
-
-        MoveToTarget(spawnPosition);
-
-        if (distance <= 0.5f)
-        {
-            isAwake = false;
-            currentState = EnemyState.Sleep;
-        }
-    }
-    #endregion
 }
