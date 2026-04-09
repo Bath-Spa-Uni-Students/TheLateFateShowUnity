@@ -30,6 +30,7 @@ public class BossRanged : MonoBehaviour
 
     private IEnumerator SpinBeamCoroutine()
     {
+        Debug.Log("infinite spin detected");
         canShoot = false;
 
         float timer = 0f;
