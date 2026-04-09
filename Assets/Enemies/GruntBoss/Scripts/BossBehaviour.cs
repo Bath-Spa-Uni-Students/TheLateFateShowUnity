@@ -212,7 +212,9 @@ public class BossBehaviour : MonoBehaviour
     private EnemyState GetState()
     {
         if (player == null)
+        {
             return EnemyState.Sleep;
+        }
 
         float distance = Vector2.Distance(rb.position, player.position);
 
@@ -223,26 +225,40 @@ public class BossBehaviour : MonoBehaviour
         if (!isAwake)
         {
             if (distance <= wakeRadius)
+            {
+                animator.SetTrigger("Detection");
                 isAwake = true;
+            }
             else
+            {
                 return EnemyState.Sleep;
+            }
         }
 
         // Phase check
         if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
+        {
             phase2Active = true;
+            animator.SetBool("Phase2", true);
+        }
 
         // Phase 2 prefers ranged attacks
         if (phase2Active && distance <= detectionRadius * 1.5f)
+        {
             return EnemyState.Ranged;
+        }
 
         // Melee check
         if (distance <= stats.stoppingDistance)
+        {
             return EnemyState.Melee;
+        }
 
         // Chase if player detected
         if (playerDetected)
+        {
             return EnemyState.Chase;
+        }
 
         return EnemyState.Sleep;
     }
@@ -251,6 +267,7 @@ public class BossBehaviour : MonoBehaviour
     #region Phases
     private void Sleep()
     {
+        animator.SetTrigger("Sleep");
         rb.linearVelocity = Vector2.zero;
 
         if (stats.health < stats.maxHealth)
@@ -262,6 +279,8 @@ public class BossBehaviour : MonoBehaviour
     }
     private void MeleeAttack()
     {
+        animator.SetTrigger("Attack");
+
         if (stats.isAttacking)
             return;
 
@@ -273,6 +292,8 @@ public class BossBehaviour : MonoBehaviour
 
     private void RangedAttack()
     {
+        animator.SetTrigger("Attack");
+
         rangedActive = true;
         rangedAttackScript.enabled = true;
         //triBeam.SetActive(true);
@@ -362,6 +383,8 @@ public class BossBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        //animator.SetTrigger("Detection");
+
         if (stats.isAttacking)
         {
             rb.linearVelocity = Vector2.zero;

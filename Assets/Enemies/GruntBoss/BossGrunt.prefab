@@ -1301,6 +1301,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 386e6854108aa6845be187d26e1e2ead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossBehaviour
+  phase2HealthThreshold: 0.5
+  rangedCooldown: 5
+  disengageRadius: 10
+  sleepHealRate: 5
+  wakeRadius: 6
   stats: {fileID: 4678454769109109600}
   damageHandler: {fileID: 7616477494777616497}
   meleeAttackScript: {fileID: 7477454800623022473}
@@ -1515,6 +1520,10 @@ PrefabInstance:
     - target: {fileID: 2032246165168199615, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
       propertyPath: m_Name
       value: Tri-Beam
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032246165168199615, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2381970382050342495, guid: 22951af2542f29846b7ce7325f6df1f1, type: 3}
       propertyPath: m_BodyType
