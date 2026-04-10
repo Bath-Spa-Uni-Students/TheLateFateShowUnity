@@ -1,17 +1,22 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using FMOD.Studio;
 
 public class EnemyMoveSpot : MonoBehaviour
 {
     [SerializeField] private GameObject enemy;
     private GameObject myMoveSpot;
     public Position moveSpotPosition;
-   // private bool overlapping;
+    // private bool overlapping;
+
+    //audio
+    private EventInstance gruntFootsteps;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       // myMoveSpot = enemy.GetComponent<EnemyBehaviour>().moveSpot;
+        // myMoveSpot = enemy.GetComponent<EnemyBehaviour>().moveSpot;
+        gruntFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntFootsteps);
     }
 
     // Update is called once per frame

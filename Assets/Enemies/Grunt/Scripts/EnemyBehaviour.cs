@@ -3,6 +3,8 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
+using FMOD.Studio;
+
 
 public class EnemyBehaviour : MonoBehaviour
 {
@@ -73,9 +75,13 @@ public class EnemyBehaviour : MonoBehaviour
 
     // ------------------------------------------ //
 
+    // Audio
+    private EventInstance gruntFootsteps;
+    
     private void Start()
     {
         InitialSetup();
+        gruntFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntFootsteps);
     }
 
     private void Awake()
@@ -443,7 +449,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
     }
 
-    private void UpdateAnimation()
+    public void UpdateAnimation()
     {
         Vector2 velocity = agent.velocity;
 
@@ -453,10 +459,31 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (speed > 0.01f)
         {
+           
             Vector2 dir = velocity.normalized;
 
             animator.SetFloat("PosX", dir.x);
             animator.SetFloat("PosY", dir.y);
+
+            UpdateSound();
         }
+    }
+
+    private void UpdateSound()
+    {
+
+        // get the playback state of the footsteps
+        PLAYBACK_STATE playbackState;
+                gruntFootsteps.getPlaybackState(out playbackState);
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+                {
+                    gruntFootsteps.start();
+                }
+        
+            // otherwise stop the footsteps
+            else
+            {
+                gruntFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+            }
     }
 }
