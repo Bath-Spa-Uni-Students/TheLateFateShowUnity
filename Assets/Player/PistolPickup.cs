@@ -14,8 +14,6 @@ public class PistolPickup : MonoBehaviour
             pistolWeapon.GetComponent<Pistol>().enabled = true;
             // Enable pistol sprite
             pistolWeapon.GetComponent<SpriteRenderer>().enabled = true;
-            // Shotgun script disabled (Player can not shoot the pistol and shotgun at the same time)
-            pistolWeapon.GetComponent<Shotgun>().enabled = false;
             // Pistol can shoot
             pistolWeapon.GetComponent<Pistol>().canShoot = true;
 
