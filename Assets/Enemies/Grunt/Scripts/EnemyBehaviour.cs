@@ -79,7 +79,10 @@ public class EnemyBehaviour : MonoBehaviour
     // Audio - StudioEventEmitter used here (not EventInstance) because enemy footsteps
     // must be spatialised - volume should drop off as the enemy moves away from the player
     private StudioEventEmitter emitter;
+    // One-shot attack sound fired by Animation Event on the attack frame
     private EventInstance gruntAttack;
+    // Plays when the enemy transitions into Chase state - one-shot, spatialised at enemy position
+    private EventInstance gruntAlert;
 
     private void Start()
     {
@@ -89,6 +92,8 @@ public class EnemyBehaviour : MonoBehaviour
         emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
         // Create attack sound instance played as a one-shot via Animation Event
         gruntAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
+        // Create alert sound instance played each time the enemy enters Chase state
+        gruntAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
     }
 
     private void Awake()
@@ -189,8 +194,15 @@ public class EnemyBehaviour : MonoBehaviour
             return EnemyState.Scatter;
 
         if (playerDetected && player != null)
+        {
+            if(currentState != EnemyState.Chase)
+            {
+                // Plays the alert sound when in chase state
+                gruntAlert.start();
+            }
             return EnemyState.Chase;
-
+        }
+            
         if (!isLeader && leader != null && !leaderDead)
             return EnemyState.Orbit;
 
