@@ -1139,7 +1139,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: health
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: dashTime
@@ -1153,6 +1153,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1022578248}
+    - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 120509498471914275, guid: f4c326a21940e1543bcf683f833be0ac, type: 3}
       propertyPath: walkSpeed
       value: 2
@@ -112770,9 +112774,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c42ff383307647408d063a986c7329d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PistolPerks
+  pistol: {fileID: 1451984667}
+  player: {fileID: 789520482}
   hitReload: 1
   hitReloadChance: 10
-  pistol: {fileID: 1451984667}
+  lifeSteal: 1
+  lifeStealAmount: 0.1
 --- !u!1 &1452882007
 GameObject:
   m_ObjectHideFlags: 0
