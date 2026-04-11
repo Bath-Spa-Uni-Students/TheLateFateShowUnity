@@ -159,7 +159,7 @@ public class BossBehaviour : MonoBehaviour
         }
 
         UpdateAnimation();
-        Debug.Log(currentState);
+        //Debug.Log(currentState);
     }
 
     private void InitialSetup()
@@ -226,11 +226,13 @@ public class BossBehaviour : MonoBehaviour
         {
             if (distance <= wakeRadius)
             {
+                Debug.Log("Boss wakes up! Player distance: " + distance);
                 animator.SetTrigger("Detection");
                 isAwake = true;
             }
             else
             {
+                Debug.Log("Boss is sleeping. Player distance: " + distance);
                 return EnemyState.Sleep;
             }
         }
@@ -268,6 +270,7 @@ public class BossBehaviour : MonoBehaviour
     private void Sleep()
     {
         animator.SetTrigger("Sleep");
+        animator.ResetTrigger("Detection");
         rb.linearVelocity = Vector2.zero;
 
         if (stats.health < stats.maxHealth)
@@ -279,8 +282,7 @@ public class BossBehaviour : MonoBehaviour
     }
     private void MeleeAttack()
     {
-        animator.SetTrigger("Attack");
-
+        animator.ResetTrigger("Sleep");
         if (stats.isAttacking)
             return;
 
@@ -288,11 +290,13 @@ public class BossBehaviour : MonoBehaviour
             attackBarrier.SetActive(true);
 
         meleeAttackScript.TryAttack();
+        animator.SetTrigger("Attack");
     }
 
     private void RangedAttack()
     {
-        animator.SetTrigger("Attack");
+        //animator.SetTrigger("Attack");
+        animator.ResetTrigger("Sleep");
 
         rangedActive = true;
         rangedAttackScript.enabled = true;
