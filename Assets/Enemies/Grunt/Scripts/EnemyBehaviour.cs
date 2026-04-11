@@ -79,6 +79,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Audio - StudioEventEmitter used here (not EventInstance) because enemy footsteps
     // must be spatialised - volume should drop off as the enemy moves away from the player
     private StudioEventEmitter emitter;
+    private EventInstance gruntAttack;
 
     private void Start()
     {
@@ -86,6 +87,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         // Register the emitter with AudioManager so it is cleaned up on scene change
         emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
+        // Create attack sound instance played as a one-shot via Animation Event
+        gruntAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
     }
 
     private void Awake()
@@ -468,12 +471,12 @@ public class EnemyBehaviour : MonoBehaviour
 
             animator.SetFloat("PosX", dir.x);
             animator.SetFloat("PosY", dir.y);
-            animator.SetBool("IsWalking", true);
+            animator.SetBool("IsWalking?", true);
             UpdateSound();
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            animator.SetBool("IsWalking?", false);
             UpdateSound();
         }
     }
@@ -481,7 +484,7 @@ public class EnemyBehaviour : MonoBehaviour
     // Starts or stops the spatialised footstep emitter based on the current walk state
     private void UpdateSound()
     {
-        if (animator.GetBool("IsWalking"))
+        if (animator.GetBool("IsWalking?"))
         {
             // Only call Play if not already playing - avoids restarting mid-loop
             if (!emitter.IsPlaying())
@@ -492,5 +495,11 @@ public class EnemyBehaviour : MonoBehaviour
             if (emitter.IsPlaying())
                 emitter.Stop();
         }
+    }
+
+    // Called by an Animation Event on the attack frame to play the grunt attack sound
+    public void PlayAttackSound()
+    {
+        gruntAttack.start();
     }
 }

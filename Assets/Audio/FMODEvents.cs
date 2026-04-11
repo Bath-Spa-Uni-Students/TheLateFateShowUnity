@@ -11,6 +11,7 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Grunt SFX")]
     [field: SerializeField] public EventReference gruntFootsteps { get; private set; }
+    [field: SerializeField] public EventReference gruntAttack { get; private set; }
     public static FMODEvents Instance { get; private set; }
 
     private void Awake()

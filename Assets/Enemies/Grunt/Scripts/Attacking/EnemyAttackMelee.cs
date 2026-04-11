@@ -15,6 +15,7 @@ public class EnemyAttackMelee : MonoBehaviour
     public float mFireRate;
     public float mFireCooldown;
 
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
