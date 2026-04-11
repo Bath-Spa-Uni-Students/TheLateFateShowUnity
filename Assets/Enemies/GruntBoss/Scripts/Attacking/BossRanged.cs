@@ -36,7 +36,7 @@ public class BossRanged : MonoBehaviour
     private IEnumerator SpinBeamCoroutine()
     {
         isAttacking = true;
-        canShoot = false;
+         canShoot = false;
 
         // Enable the beam at the start of the spin
         if (spinBeam != null)

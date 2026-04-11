@@ -228,6 +228,7 @@ public class BossBehaviour : MonoBehaviour
             {
                 Debug.Log("Boss wakes up! Player distance: " + distance);
                 animator.SetTrigger("Detection");
+                animator.ResetTrigger("Sleep");
                 isAwake = true;
             }
             else
@@ -247,6 +248,8 @@ public class BossBehaviour : MonoBehaviour
         // Phase 2 prefers ranged attacks
         if (phase2Active && distance <= detectionRadius * 1.5f)
         {
+            animator.SetTrigger("Detection");
+
             return EnemyState.Ranged;
         }
 
