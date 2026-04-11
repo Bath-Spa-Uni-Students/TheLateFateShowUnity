@@ -9,15 +9,15 @@ public class PistolPickup : MonoBehaviour
         {
             Destroy(gameObject);
 
-            GameObject playerWeapon = GameObject.FindGameObjectWithTag("HeldWeapon");
+            GameObject pistolWeapon = GameObject.FindGameObjectWithTag("PistolHeld");
             // Pistol script enabled
-            playerWeapon.GetComponent<Pistol>().enabled = true;
+            pistolWeapon.GetComponent<Pistol>().enabled = true;
             // Enable pistol sprite
-            playerWeapon.GetComponent<SpriteRenderer>().enabled = true;
+            pistolWeapon.GetComponent<SpriteRenderer>().enabled = true;
             // Shotgun script disabled (Player can not shoot the pistol and shotgun at the same time)
-            playerWeapon.GetComponent<Shotgun>().enabled = false;
+            pistolWeapon.GetComponent<Shotgun>().enabled = false;
             // Pistol can shoot
-            playerWeapon.GetComponent<Pistol>().canShoot = true;
+            pistolWeapon.GetComponent<Pistol>().canShoot = true;
 
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             // Player has a weapon
