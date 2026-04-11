@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -8,68 +7,94 @@ using FMOD.Studio;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Stats")]
-    [Tooltip("Player Health and Walk Speed")]
+    [Tooltip("Player health points")]
     [SerializeField] public float health;
+
+    [Tooltip("Base movement speed of the player")]
     [SerializeField] private float walkSpeed;
+
+    [Tooltip("Layer mask used for full collision (everything)")]
     [SerializeField] private LayerMask everythingLayer;
+
+    [Tooltip("Layer mask used for wall-only collision during dash")]
     [SerializeField] private LayerMask wallLayer;
+
+    // Runtime move speed (can be modified by buffs/debuffs)
     private float moveSpeed;
+
+    // Whether the player is currently immune to damage
     public bool isInvulnerable;
 
-    // Dash settings
+    // ------------------------------------------ //
+
     [Header("Dash Settings")]
-    [SerializeField] private float dashForce;      // How fast and far the dash moves the player
-    [SerializeField] private float dashTime;       // How long the dash lasts
-    [SerializeField] private float dashCooldown;   // Delay before the player can dash again
+    [Tooltip("Force applied to the player during a dash")]
+    [SerializeField] private float dashForce;
+
+    [Tooltip("How long (in seconds) the dash lasts")]
+    [SerializeField] private float dashTime;
+
+    [Tooltip("Cooldown (in seconds) before the player can dash again")]
+    [SerializeField] private float dashCooldown;
+
+   
     public bool hasWeapon = false;
-
-    // Dash state checks
-    bool isDashing = false; // Prevents normal movement during dash
-    bool canDash = true;    // Prevents dashing again during cooldown
-
+    bool isDashing = false;
+    bool canDash = true;
     private Vector2 lastMoveDir;
 
+    // ------------------------------------------ //
+
     [Header("References")]
-    // These create variables for components in the player
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
     private BoxCollider2D boxCollider;
+
+    [Tooltip("UI Slider that displays current player health")]
     [SerializeField] private Slider healthBar;
 
-    //audio
+    // ------------------------------------------ //
+
+    // Audio - EventInstance used here (not Emitter) because the player is always
+    // at the listener position, so spatialisation is not needed
     private EventInstance playerFootsteps;
 
-    
+    // ------------------------------------------ //
+
     void Start()
     {
+        // Initialise health bar to match starting health value
         healthBar.maxValue = health;
         healthBar.value = health;
+
+        // Set runtime speed to base walk speed
         moveSpeed = walkSpeed;
+
+        // Cache components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+
+        // Create footstep audio instance via AudioManager
         playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        // Only allow normal movement if the player is NOT dashing
+        // Only apply movement input when not mid-dash
         if (!isDashing)
         {
-            // Apply movement using Rigidbody velocity
             rb.linearVelocity = moveInput * moveSpeed;
-
         }
 
         UpdateSound();
-
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+
         if (moveInput != Vector2.zero)
         {
             lastMoveDir = moveInput.normalized;
@@ -78,11 +103,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.canceled)
         {
+            // On input release, store last direction for idle facing and stop walk anim
             animator.SetBool("IsWalking", false);
             animator.SetFloat("LastInputX", lastMoveDir.x);
             animator.SetFloat("LastInputY", lastMoveDir.y);
         }
 
+        // Update blend tree inputs
         animator.SetFloat("InputX", moveInput.x);
         animator.SetFloat("InputY", moveInput.y);
     }
@@ -90,37 +117,38 @@ public class PlayerMovement : MonoBehaviour
     public void Dash(InputAction.CallbackContext context)
     {
         if (!context.performed || !canDash || isDashing)
-        return;
-        //Start Dashing
-    StartCoroutine(DashCoroutine());
-}
+            return;
+
+        StartCoroutine(DashCoroutine());
+    }
+
     IEnumerator DashCoroutine()
     {
         isDashing = true;
         canDash = false;
 
-        // Turn on invulnerability at the start of the dash
+        // Grant invulnerability for the duration of the dash
         isInvulnerable = true;
-        //boxCollider.excludeLayers = everythingLayer; // Collide with nothing during dash
-        boxCollider.includeLayers = wallLayer; // Only collide with walls during dash
 
-        // If player hasn't moved yet, default dash direction
+        // Restrict collisions to walls only during the dash
+        boxCollider.includeLayers = wallLayer;
+
+        // Default dash direction if the player hasn't moved yet
         if (lastMoveDir == Vector2.zero)
             lastMoveDir = Vector2.down;
 
         // Apply dash velocity
         rb.linearVelocity = lastMoveDir * dashForce;
 
-        // Wait for the dash duration
+        // Hold dash for its full duration
         yield return new WaitForSeconds(dashTime);
 
-        // Turn off invulnerability when dash ends
+        // Remove invulnerability and end dash
         isInvulnerable = false;
-
-        // Stop dash
         isDashing = false;
-        //boxCollider.enabled = true; // Disable collider to prevent damage during dash
-        boxCollider.includeLayers = everythingLayer; // Only collide with walls during dash
+
+        // Restore full collision
+        boxCollider.includeLayers = everythingLayer;
 
         // Wait for cooldown before allowing another dash
         yield return new WaitForSeconds(dashCooldown);
@@ -132,7 +160,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
     public void DamagePlayer(float damage)
     {
         if (health <= 0 || health - damage <= 0)
@@ -147,22 +174,23 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Starts or stops the footstep audio based on the current walk state
     private void UpdateSound()
     {
-        //start footsteps if player has an x velocity
-        if(animator.GetBool("IsWalking") == true)
+        if (animator.GetBool("IsWalking"))
         {
-            // get the playback state of the footsteps
+            // Only start if not already playing
             PLAYBACK_STATE playbackState;
             playerFootsteps.getPlaybackState(out playbackState);
+
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
                 playerFootsteps.start();
             }
         }
-        // otherwise stop the footsteps
         else
         {
+            // Allow the tail of the sound to fade out naturally
             playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }

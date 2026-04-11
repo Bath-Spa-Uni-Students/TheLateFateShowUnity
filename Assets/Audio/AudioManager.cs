@@ -8,6 +8,7 @@ public class AudioManager : MonoBehaviour
 {
 
     private List<EventInstance> eventInstances;
+    private List<StudioEventEmitter> eventEmitters;
     public static AudioManager Instance { get; private set; }
 
     private void Awake()
@@ -23,6 +24,7 @@ public class AudioManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         eventInstances = new List<EventInstance>();
+        eventEmitters = new List<StudioEventEmitter>();
     }
 
     public void playoneShot(EventReference sound, Vector3 worldPos)
@@ -37,12 +39,25 @@ public class AudioManager : MonoBehaviour
         return eventInstance;
     }
 
+    public StudioEventEmitter CreateEventEmitter(EventReference eventReference, GameObject emitterGameObject)
+    {
+        StudioEventEmitter emitter = emitterGameObject.GetComponent<StudioEventEmitter>();
+        emitter.EventReference = eventReference;
+        eventEmitters.Add(emitter);
+        return emitter;
+    }
     private void CleanUP()
     {
+        //stop and release any created event instances
         foreach (EventInstance eventInstance in eventInstances)
         {
             eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             eventInstance.release();
+        }
+        //stop all event emmiters to prevent them persiting across scenes
+        foreach (StudioEventEmitter emitter in eventEmitters)
+        {
+            emitter.Stop();
         }
     }
 
