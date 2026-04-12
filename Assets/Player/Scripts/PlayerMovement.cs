@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
     // Audio - EventInstance used here (not Emitter) because the player is always
     // at the listener position, so spatialisation is not needed
     private EventInstance playerFootsteps;
+    private EventInstance playerHurt;
+    private EventInstance playerDeath;
 
     // ------------------------------------------ //
 
@@ -78,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Create footstep audio instance via AudioManager
         playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
+        playerHurt = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerHurt);
+        playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
     }
 
     void FixedUpdate()
@@ -158,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerDie()
     {
+        playerDeath.start();
         Destroy(gameObject);
     }
     public void DamagePlayer(float damage)
@@ -169,6 +174,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            playerHurt.start();
+            Debug.Log("Player took " + damage + " damage. Remaining health: " + (health - damage));
             health -= damage;
             healthBar.value = health;
         }

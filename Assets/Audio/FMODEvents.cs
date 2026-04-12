@@ -8,6 +8,8 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference playerFootsteps { get; private set; }
+    [field: SerializeField] public EventReference playerHurt { get; private set; }
+    [field: SerializeField] public EventReference playerDeath { get; private set; }
 
     [field: Header("Grunt SFX")]
     [field: SerializeField] public EventReference gruntFootsteps { get; private set; }
