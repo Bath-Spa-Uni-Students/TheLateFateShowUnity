@@ -14,8 +14,12 @@ public class PistolBullet : MonoBehaviour
     //Reference rigidbody
     private Rigidbody2D rb;
 
+    private CircleCollider2D circleCollider;
+
     [SerializeField] float bulletSpeed = 10;
     [SerializeField] float bulletDamage = 50;
+
+    [SerializeField] SortingLayer enemyLayer;
 
     // Call PistolPerks script
     private PistolPerks pistolPerks;
@@ -26,6 +30,7 @@ public class PistolBullet : MonoBehaviour
     {
         // Gets camera component
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        circleCollider = GetComponent<CircleCollider2D>();
 
         // Gets rigidbody component
         rb = GetComponent<Rigidbody2D>();
@@ -42,8 +47,39 @@ public class PistolBullet : MonoBehaviour
         // Move in the direction the bullet is facing
         rb.linearVelocity = transform.right * bulletSpeed;
 
+        // If pistol perks true
+        if (pistolPerks.pierce == true)
+        {
+            // Exclude layers
+            circleCollider.excludeLayers = LayerMask.GetMask("Enemy", "Player", "Player Projectile", "Enemy Projectile");
+        }
     }
+
+    // Pierce perk
     private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            var collidedEnemy = collision.gameObject.GetComponent<DamageHandler>();
+
+            if (collidedEnemy != null)
+            {
+                // If pierce is disabled
+                if (!pistolPerks.pierce)
+                {
+                    Destroy(gameObject);
+                }
+            }
+        }
+        // Destroy game object
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
+    // Bullet damage
+   private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -54,12 +90,6 @@ public class PistolBullet : MonoBehaviour
                 enemy.TakeDamage(bulletDamage); // Damage is applied here
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
-
-                if (!pistolPerks.pierce)
-                {
-                    Destroy(gameObject);
-                }
-
             }
 
         }

@@ -8,6 +8,7 @@ public class DamageHandler : MonoBehaviour
     {
         // Enemy loses health
         stats.health = stats.health - damage;
+        Debug.Log("damaged");
 
         // Destroy enemy if health is less than 0
         if (stats.health <= 0)
