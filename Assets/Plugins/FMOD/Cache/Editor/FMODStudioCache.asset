@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/SFX Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639116891892090448
+  lastModified: 639116946503238128
   FileSizes:
   - Name: 
     Value: 892
@@ -35,7 +35,7 @@ MonoBehaviour:
   Path: Assets/SFX Banks/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 639116891892120450
+  lastModified: 639116946503283547
   FileSizes: []
   Exists: 1
 --- !u!114 &-6061237747845427423
@@ -53,7 +53,7 @@ MonoBehaviour:
   Path: Assets/SFX Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639116891892080451
+  lastModified: 639116946503228110
   FileSizes: []
   Exists: 1
 --- !u!114 &-5319870258359391289
@@ -135,7 +135,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -8653468504897513651}
   cacheVersion: 131858
-  cacheTime: 639116891892120450
+  cacheTime: 639116946503283547
   SerializableEventsDict:
   - key: event:/Weapons/WeaponPickup
     index: 0

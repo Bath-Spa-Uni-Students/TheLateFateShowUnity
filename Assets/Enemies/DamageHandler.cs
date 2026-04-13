@@ -14,6 +14,7 @@ public class DamageHandler : MonoBehaviour
         enemyHealth = stats.health;
         maxHealth = stats.maxHealth;
         healthBar.Initialize(stats.maxHealth);
+
     }
 
     public void TakeDamage(float damage)
@@ -27,6 +28,7 @@ public class DamageHandler : MonoBehaviour
             Debug.Log("Damage is 0");
             return;
         }
+
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
 
