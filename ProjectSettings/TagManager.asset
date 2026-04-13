@@ -6,8 +6,10 @@ TagManager:
   tags:
   - Enemy
   - Weapon
-  - HeldWeapon
   - Projectile
+  - PistolBullet
+  - PistolHeld
+  - ShotgunHeld
   layers:
   - Default
   - TransparentFX

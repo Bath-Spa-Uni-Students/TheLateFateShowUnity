@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PistolPerks : MonoBehaviour
@@ -12,6 +13,9 @@ public class PistolPerks : MonoBehaviour
     [Header("Life Steal Perk")]
     [SerializeField] bool lifeSteal = false;
     [SerializeField] float lifeStealAmount;
+
+    [Header("Pierce Perk")]
+    [SerializeField] public bool pierce = false;
 
     // HitReload perk
     public void HitReloadPerk()

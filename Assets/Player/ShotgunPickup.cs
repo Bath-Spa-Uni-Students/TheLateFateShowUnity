@@ -3,9 +3,9 @@ using UnityEngine;
 public class ShotgunPickup : MonoBehaviour
 {
     //Weapon overlaps with player
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             Destroy(gameObject);
 

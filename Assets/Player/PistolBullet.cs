@@ -50,12 +50,18 @@ public class PistolBullet : MonoBehaviour
             var enemy = collision.gameObject.GetComponent<DamageHandler>();
 
             if (enemy != null)
+            {
                 enemy.TakeDamage(bulletDamage); // Damage is applied here
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
 
-        }
+                if (!pistolPerks.pierce)
+                {
+                    Destroy(gameObject);
+                }
 
-        Destroy(gameObject);
+            }
+
+        }
     }
 }
