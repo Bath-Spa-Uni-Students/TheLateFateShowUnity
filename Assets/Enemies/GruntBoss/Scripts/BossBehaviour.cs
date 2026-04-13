@@ -5,6 +5,19 @@ using UnityEngine.AI;
 
 public class BossBehaviour : MonoBehaviour
 {
+    [Header("Boss Phases")]
+    [SerializeField] private float phase2HealthThreshold = 0.5f;
+    [SerializeField] private float rangedCooldown = 5f;
+    [SerializeField] private float disengageRadius = 10f;
+    [SerializeField] private float sleepHealRate = 5f;
+
+    private float rangedTimer;
+    private Vector3 spawnPosition;
+    private bool phase2Active = false;
+    private bool rangedActive = false;
+    [SerializeField] private float wakeRadius = 6f;
+    private bool isAwake = false;
+
     [Header("Stats")]
     [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
     [SerializeField] private DamageHandler damageHandler;        // Reference to damage handler for taking damage
@@ -65,8 +78,12 @@ public class BossBehaviour : MonoBehaviour
     // --- Enemy States (for modular state logic) ---
     private enum EnemyState
     {
+        Sleep,
         Patrol,
         Chase,
+        Melee,
+        Ranged,
+        ReturnHome
     }
     private EnemyState currentState;                               // Current enemy state
 
@@ -74,9 +91,9 @@ public class BossBehaviour : MonoBehaviour
 
     private void Start()
     {
+        spawnPosition = transform.position;
         InitialSetup();
-        rangedAttackScript.gameObject.SetActive(true);
-        rangedAttackScript.SpinBeam();
+        rangedTimer = rangedCooldown;
     }
 
     private void Awake()
@@ -95,11 +112,35 @@ public class BossBehaviour : MonoBehaviour
 
         UpdateDetection();
 
-        currentState = GetState();
+        EnemyState newState = GetState();
+
+        if (newState != currentState)
+        {
+            // If we are leaving ranged attack
+            if (currentState == EnemyState.Ranged)
+            {
+                rangedActive = false;
+
+                if (triBeam != null)
+                    triBeam.SetActive(false);
+
+                rangedAttackScript.enabled = false;
+            }
+
+            currentState = newState;
+        }
 
         // Checks each state in order of priority and executes the first one that matches (e.g. if we can chase, we chase, if not but we can orbit, we orbit, etc.)
         switch (currentState)
         {
+            case EnemyState.Sleep:
+                Sleep();
+                break;
+
+            case EnemyState.ReturnHome:
+                ReturnHome();
+                break;
+
             case EnemyState.Patrol:
                 Patrol();
                 break;
@@ -107,9 +148,18 @@ public class BossBehaviour : MonoBehaviour
             case EnemyState.Chase:
                 ChasePlayer();
                 break;
+
+            case EnemyState.Melee:
+                MeleeAttack();
+                break;
+
+            case EnemyState.Ranged:
+                RangedAttack();
+                break;
         }
 
         UpdateAnimation();
+        //Debug.Log(currentState);
     }
 
     private void InitialSetup()
@@ -161,11 +211,117 @@ public class BossBehaviour : MonoBehaviour
 
     private EnemyState GetState()
     {
-        if (playerDetected && player != null)
-            return EnemyState.Chase;
+        if (player == null)
+        {
+            return EnemyState.Sleep;
+        }
 
-        return EnemyState.Patrol;
+        float distance = Vector2.Distance(rb.position, player.position);
+
+        if (distance > disengageRadius) // If the player is too far, disengage and return home
+            return EnemyState.ReturnHome;
+
+        // Wake up check
+        if (!isAwake)
+        {
+            if (distance <= wakeRadius)
+            {
+                Debug.Log("Boss wakes up! Player distance: " + distance);
+                animator.SetTrigger("Detection");
+                isAwake = true;
+            }
+            else
+            {
+                Debug.Log("Boss is sleeping. Player distance: " + distance);
+                return EnemyState.Sleep;
+            }
+        }
+
+        // Phase check
+        if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
+        {
+            phase2Active = true;
+            animator.SetBool("Phase2", true);
+        }
+
+        // Phase 2 prefers ranged attacks
+        if (phase2Active && distance <= detectionRadius * 1.5f)
+        {
+            return EnemyState.Ranged;
+        }
+
+        // Melee check
+        if (distance <= stats.stoppingDistance)
+        {
+            return EnemyState.Melee;
+        }
+
+        // Chase if player detected
+        if (playerDetected)
+        {
+            return EnemyState.Chase;
+        }
+
+        return EnemyState.Sleep;
     }
+
+    //// Phases //////
+    #region Phases
+    private void Sleep()
+    {
+        animator.SetTrigger("Sleep");
+        animator.ResetTrigger("Detection");
+        rb.linearVelocity = Vector2.zero;
+
+        if (stats.health < stats.maxHealth)
+        {
+            stats.health += sleepHealRate * Time.deltaTime; // Heal over time while sleeping
+            stats.health = Mathf.Min(stats.health, stats.maxHealth); // Clamp to max health
+            Debug.Log("Healing in sleep. Current health: " + stats.health);
+        }
+    }
+    private void MeleeAttack()
+    {
+        animator.ResetTrigger("Sleep");
+        if (stats.isAttacking)
+            return;
+
+        if (attackBarrier != null)
+            attackBarrier.SetActive(true);
+
+        meleeAttackScript.TryAttack();
+        animator.SetTrigger("Attack");
+    }
+
+    private void RangedAttack()
+    {
+        //animator.SetTrigger("Attack");
+        animator.ResetTrigger("Sleep");
+
+        rangedActive = true;
+        rangedAttackScript.enabled = true;
+        //triBeam.SetActive(true);
+        rangedAttackScript.SpinBeam();
+
+        MoveToTarget(player.position);
+    }
+
+    private void ReturnHome()
+    {
+        float distance = Vector2.Distance(transform.position, spawnPosition);
+
+        triBeam.SetActive(false); // Just in case we were in the middle of a ranged attack when we disengage
+        attackBarrier.SetActive(false);
+
+        MoveToTarget(spawnPosition);
+
+        if (distance <= 2f)
+        {
+            isAwake = false;
+            currentState = EnemyState.Sleep;
+        }
+    }
+    #endregion
 
     #region Movement States
     private void Patrol()
@@ -231,6 +387,8 @@ public class BossBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        //animator.SetTrigger("Detection");
+
         if (stats.isAttacking)
         {
             rb.linearVelocity = Vector2.zero;
@@ -332,8 +490,10 @@ public class BossBehaviour : MonoBehaviour
 
         return false;
     }
-#endregion
+    #endregion
 
+    // --- Utility ---
+    #region Utility
     private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
     {
         Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
@@ -361,6 +521,7 @@ public class BossBehaviour : MonoBehaviour
         if (minY == null) minY = gruntArea.transform.Find("minY");
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
     }
+    #endregion
     private void UpdateAnimation()
     {
         Vector2 velocity = agent.velocity;
@@ -396,4 +557,5 @@ public class BossBehaviour : MonoBehaviour
             stats.canDamage = false;
         }
     }
+
 }

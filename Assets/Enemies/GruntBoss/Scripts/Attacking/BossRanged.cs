@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossRanged : MonoBehaviour
@@ -13,6 +14,7 @@ public class BossRanged : MonoBehaviour
     private BossBehaviour bossBehaviour;
     private EnemyStats stats;
     private GameObject attackBarrier;
+    private bool isAttacking;
 
     private void Awake()
     {
@@ -25,12 +27,20 @@ public class BossRanged : MonoBehaviour
 
     public void SpinBeam()
     {
-        StartCoroutine(SpinBeamCoroutine());
+        if (!isAttacking)
+        {
+            StartCoroutine(SpinBeamCoroutine());
+        }
     }
 
     private IEnumerator SpinBeamCoroutine()
     {
+        isAttacking = true;
         canShoot = false;
+
+        // Enable the beam at the start of the spin
+        if (spinBeam != null)
+            spinBeam.SetActive(true);
 
         float timer = 0f;
 
@@ -44,11 +54,16 @@ public class BossRanged : MonoBehaviour
             spinBeam.transform.Rotate(0f, 0f, stats.beamSpinSpeed * Time.deltaTime);
             timer += Time.deltaTime;
 
-            yield return null;
+            yield return null; 
         }
+
+        // Spin finished, now start cooldown
+        if (spinBeam != null)
+            spinBeam.SetActive(false); // Disable beam during cooldown
 
         yield return new WaitForSeconds(stats.fireCooldown);
 
         canShoot = true;
+        isAttacking = false;
     }
 }
