@@ -3,7 +3,10 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
+using FMOD.Studio;
+using FMODUnity;
 
+[RequireComponent(typeof(StudioEventEmitter))]
 public class EnemyBehaviour : MonoBehaviour
 {
     [Header("Stats")]
@@ -22,11 +25,11 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
 
     [Header("Waypoints")]
-    [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered “arrived” at waypoint
+    [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered "arrived" at waypoint
     [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
     [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
     [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
-    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as “progress”
+    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
 
     [Header("Pack/Follower Info")]
     public bool isLeader = false;                                  // Is this enemy the pack leader?
@@ -73,9 +76,24 @@ public class EnemyBehaviour : MonoBehaviour
 
     // ------------------------------------------ //
 
+    // Audio - StudioEventEmitter used here (not EventInstance) because enemy footsteps
+    // must be spatialised - volume should drop off as the enemy moves away from the player
+    private StudioEventEmitter emitter;
+    // One-shot attack sound fired by Animation Event on the attack frame
+    private EventInstance gruntAttack;
+    // Plays when the enemy transitions into Chase state - one-shot, spatialised at enemy position
+    private EventInstance gruntAlert;
+
     private void Start()
     {
         InitialSetup();
+
+        // Register the emitter with AudioManager so it is cleaned up on scene change
+        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
+        // Create attack sound instance played as a one-shot via Animation Event
+        gruntAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
+        // Create alert sound instance played each time the enemy enters Chase state
+        gruntAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
     }
 
     private void Awake()
@@ -176,8 +194,15 @@ public class EnemyBehaviour : MonoBehaviour
             return EnemyState.Scatter;
 
         if (playerDetected && player != null)
+        {
+            if(currentState != EnemyState.Chase)
+            {
+                // Plays the alert sound when in chase state
+                gruntAlert.start();
+            }
             return EnemyState.Chase;
-
+        }
+            
         if (!isLeader && leader != null && !leaderDead)
             return EnemyState.Orbit;
 
@@ -292,7 +317,7 @@ public class EnemyBehaviour : MonoBehaviour
         // If we're close enough to the target orbit position, don't pathtrace (prevents jittery movement when close)
         Vector2 targetPos = (Vector2)leader.position + followOffset;
         float dist = Vector2.Distance(rb.position, targetPos);
-       
+
         if (dist < orbitStopDistance)
         {
             agent.velocity = Vector2.zero;
@@ -399,7 +424,7 @@ public class EnemyBehaviour : MonoBehaviour
 
         return false;
     }
-#endregion
+    #endregion
 
     private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
     {
@@ -443,7 +468,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
     }
 
-    private void UpdateAnimation()
+    public void UpdateAnimation()
     {
         Vector2 velocity = agent.velocity;
 
@@ -453,10 +478,40 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (speed > 0.01f)
         {
+
             Vector2 dir = velocity.normalized;
 
             animator.SetFloat("PosX", dir.x);
             animator.SetFloat("PosY", dir.y);
+            animator.SetBool("IsWalking?", true);
+            UpdateSound();
         }
+        else
+        {
+            animator.SetBool("IsWalking?", false);
+            UpdateSound();
+        }
+    }
+
+    // Starts or stops the spatialised footstep emitter based on the current walk state
+    private void UpdateSound()
+    {
+        if (animator.GetBool("IsWalking?"))
+        {
+            // Only call Play if not already playing - avoids restarting mid-loop
+            if (!emitter.IsPlaying())
+                emitter.Play();
+        }
+        else
+        {
+            if (emitter.IsPlaying())
+                emitter.Stop();
+        }
+    }
+
+    // Called by an Animation Event on the attack frame to play the grunt attack sound
+    public void PlayAttackSound()
+    {
+        gruntAttack.start();
     }
 }

@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,10 @@ public class Shotgun : MonoBehaviour
 
     [SerializeField] private GameObject ammoText;
 
+    //audio
+    private EventInstance shotgunShoot;
+    private EventInstance shotgunReload;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,8 +65,10 @@ public class Shotgun : MonoBehaviour
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunShoot, transform.position);
+
             // Cannot shoot if ammo is 0
-            if (maxAmmo <= 0)
+            if (ammo <= 0)
             {
                 canShoot = false;
             }
@@ -83,6 +90,7 @@ public class Shotgun : MonoBehaviour
             canShoot = true;
             ammo = maxAmmo;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunReload, transform.position);
         }
     }
 }

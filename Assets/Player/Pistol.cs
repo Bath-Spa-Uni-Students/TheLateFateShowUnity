@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using FMOD.Studio;
 
 public class Pistol : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class Pistol : MonoBehaviour
     // Clip size
     public int ammo = 6;
     [SerializeField] private GameObject ammoText;
+
+    //Audio
+    private EventInstance pistolShoot;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +60,9 @@ public class Pistol : MonoBehaviour
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
             // Cannot shoot if ammo is 0
+            
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolShoot, transform.position);
+
             if (ammo <= 0)
             {
                 canShoot = false;
@@ -72,6 +79,7 @@ public class Pistol : MonoBehaviour
             canShoot = true;
             ammo = maxAmmo;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position);
         }
     }
 }

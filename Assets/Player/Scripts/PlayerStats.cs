@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -7,11 +8,17 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private PlayerMovement playerMovement;
 
+
+    //audio
+    private EventInstance playerHurt;
+    private EventInstance playerDeath;
+
     public bool isInvulnerable;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerHurt = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerHurt);
+        playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
     }
 
     // Update is called once per frame
@@ -22,6 +29,7 @@ public class PlayerStats : MonoBehaviour
 
     void PlayerDie()
     {
+        playerDeath.start();
         Destroy(gameObject);
     }
 
@@ -33,7 +41,9 @@ public class PlayerStats : MonoBehaviour
         }
         else
         {
+            Debug.Log("Player took " + damage + " damage. Remaining health: " + (health - damage));
             health -= damage;
+            playerHurt.start();
         }
     }
 }
