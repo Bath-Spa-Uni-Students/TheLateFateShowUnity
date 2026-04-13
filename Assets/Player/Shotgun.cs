@@ -33,6 +33,7 @@ public class Shotgun : MonoBehaviour
 
     //audio
     private EventInstance shotgunShoot;
+    private EventInstance shotgunReload;
 
     // Start is called before the first frame update
     void Start()
@@ -87,6 +88,7 @@ public class Shotgun : MonoBehaviour
             canShoot = true;
             ammo = maxAmmo;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunReload, transform.position);
         }
     }
 }

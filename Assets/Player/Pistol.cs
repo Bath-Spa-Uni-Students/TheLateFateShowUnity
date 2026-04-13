@@ -76,6 +76,7 @@ public class Pistol : MonoBehaviour
             canShoot = true;
             ammo = maxAmmo;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position);
         }
     }
 }

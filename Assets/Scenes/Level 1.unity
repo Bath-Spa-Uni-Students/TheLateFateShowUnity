@@ -121497,6 +121497,48 @@ MonoBehaviour:
       Data3: -1718137947
       Data4: 1675390466
     Path: event:/Weapons/WeaponPickup
+  <pistolShoot>k__BackingField:
+    Guid:
+      Data1: -387144949
+      Data2: 1091793310
+      Data3: -936528207
+      Data4: -325574479
+    Path: event:/Weapons/PistolShoot
+  <pistolReload>k__BackingField:
+    Guid:
+      Data1: -1126001982
+      Data2: 1090227631
+      Data3: 1436482197
+      Data4: -2099337300
+    Path: event:/Weapons/PistolReload
+  <arShoot>k__BackingField:
+    Guid:
+      Data1: 1579027369
+      Data2: 1226657029
+      Data3: -651822170
+      Data4: 420218051
+    Path: event:/Weapons/ARShoot
+  <arReload>k__BackingField:
+    Guid:
+      Data1: -1126001982
+      Data2: 1090227631
+      Data3: 1436482197
+      Data4: -2099337300
+    Path: event:/Weapons/PistolReload
+  <shotgunShoot>k__BackingField:
+    Guid:
+      Data1: 1379396060
+      Data2: 1230833937
+      Data3: 1951898796
+      Data4: -444294579
+    Path: event:/Weapons/ShotgunShoot
+  <shotgunReload>k__BackingField:
+    Guid:
+      Data1: -1354823909
+      Data2: 1088789786
+      Data3: 1986089878
+      Data4: -748177453
+    Path: event:/Weapons/ShotgunReload
   <playerFootsteps>k__BackingField:
     Guid:
       Data1: -1810719169
@@ -121504,6 +121546,20 @@ MonoBehaviour:
       Data3: 675060113
       Data4: 641478668
     Path: event:/Player/PlayerFootsteps
+  <playerHurt>k__BackingField:
+    Guid:
+      Data1: 1202668187
+      Data2: 1258253780
+      Data3: 1076944812
+      Data4: 381121862
+    Path: event:/Player/PlayerHurt
+  <playerDeath>k__BackingField:
+    Guid:
+      Data1: 1202668187
+      Data2: 1258253780
+      Data3: 1076944812
+      Data4: 381121862
+    Path: event:/Player/PlayerHurt
   <gruntFootsteps>k__BackingField:
     Guid:
       Data1: -1468598414
