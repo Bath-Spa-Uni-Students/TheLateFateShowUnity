@@ -19,7 +19,7 @@ public class PistolPickup : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
 
-            AudioManager.Instance.playoneShot(FMODEvents.Instance.pistolPickup, this.transform.position);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolPickup, this.transform.position);
         }
     }
 

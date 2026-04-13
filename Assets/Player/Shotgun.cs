@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,9 @@ public class Shotgun : MonoBehaviour
 
     [SerializeField] private GameObject ammoText;
 
+    //audio
+    private EventInstance shotgunShoot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,6 +63,8 @@ public class Shotgun : MonoBehaviour
         {
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunShoot, transform.position);
 
             if (ammo <= 0)
             {

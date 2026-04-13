@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
         eventEmitters = new List<StudioEventEmitter>();
     }
 
-    public void playoneShot(EventReference sound, Vector3 worldPos)
+    public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
