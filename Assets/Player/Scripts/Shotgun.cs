@@ -1,7 +1,8 @@
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pistol : MonoBehaviour
+public class Shotgun : MonoBehaviour
 {
     // Reference mouse position
     private Vector3 mousePos;
@@ -10,27 +11,36 @@ public class Pistol : MonoBehaviour
     private Camera mainCam;
 
     // Bullet object
-    [SerializeField] private GameObject bullet;
-    private GameObject shotBullet;
+    public GameObject bullet;
 
     // Where bullet is being shot
-    [SerializeField] private Transform bulletTransform;
+    public Transform bulletTransform;
 
     // Can the player shoot
     public bool canShoot = false;
 
     // Max ammo
-    [SerializeField] int maxAmmo = 6;
+    public int maxAmmo = 6;
+    public int ammo;
 
-    // Clip size
-    public int ammo = 6;
+    // Pellet count
+    public int pelletCount = 6;
+
+    // Bullet spread
+    public float bulletSpread = 20f;
+
     [SerializeField] private GameObject ammoText;
+
+    //audio
+    private EventInstance shotgunShoot;
+    private EventInstance shotgunReload;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get camera component
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        ammo = maxAmmo;
         ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
     }
 
@@ -55,21 +65,32 @@ public class Pistol : MonoBehaviour
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunShoot, transform.position);
+
+            // Cannot shoot if ammo is 0
             if (ammo <= 0)
             {
                 canShoot = false;
             }
-            // Spawns bullet 
-            shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
-            shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
+            // Spawns spread
+            for (int i = 0; i < pelletCount; i++)
+            {
+                //Bullet spread is random
+                float spread = Random.Range(-bulletSpread, bulletSpread);
+                Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
+
+                Instantiate(bullet, bulletTransform.position, bulletTransform.rotation * spreadRotation);
+            }
         }
 
+        // Reload shotgun
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;
             ammo = maxAmmo;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunReload, transform.position);
         }
     }
 }

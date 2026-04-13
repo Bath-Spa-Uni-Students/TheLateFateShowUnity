@@ -14,18 +14,21 @@ public class DamageHandler : MonoBehaviour
         enemyHealth = stats.health;
         maxHealth = stats.maxHealth;
         healthBar.Initialize(stats.maxHealth);
+
     }
 
     public void TakeDamage(float damage)
     {
         // Enemy loses health
         stats.health = stats.health - damage;
+        Debug.Log("damaged");
 
         if (damage == 0)
         {
             Debug.Log("Damage is 0");
             return;
         }
+
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
 

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PistolPerks : MonoBehaviour
@@ -11,9 +12,12 @@ public class PistolPerks : MonoBehaviour
 
     [Header("Life Steal Perk")]
     [SerializeField] bool lifeSteal = false;
-    [SerializeField] float lifeStealAmmount;
+    [SerializeField] float lifeStealAmount;
 
-    // HitReload function
+    [Header("Pierce Perk")]
+    [SerializeField] public bool pierce = false;
+
+    // HitReload perk
     public void HitReloadPerk()
     {
         if (hitReload)
@@ -31,11 +35,21 @@ public class PistolPerks : MonoBehaviour
         }
     }
 
+    // LifeSteal perk
     public void LifeStealPerk()
     {
         if (lifeSteal)
         {
-            player.health = player.health * 3f;
+            // Get health %
+            float heal = player.maxHealth * lifeStealAmount;
+
+            // Heal player
+            player.health += heal;
+
+            if (player.health > player.maxHealth)
+            {
+                player.health = player.maxHealth; 
+            }
         }
     }
 }
