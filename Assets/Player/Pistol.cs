@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pistol : MonoBehaviour
 {
@@ -23,12 +24,14 @@ public class Pistol : MonoBehaviour
 
     // Clip size
     public int ammo = 6;
+    [SerializeField] private GameObject ammoText;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get camera component
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class Pistol : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && canShoot == true)
         {
             ammo -= 1;
+            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
             if (ammo <= 0)
             {
@@ -65,6 +69,7 @@ public class Pistol : MonoBehaviour
         {
             canShoot = true;
             ammo = maxAmmo;
+            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
         }
     }
 }

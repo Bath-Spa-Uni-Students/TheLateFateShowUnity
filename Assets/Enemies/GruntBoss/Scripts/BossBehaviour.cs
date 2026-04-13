@@ -11,12 +11,20 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private BossMelee meleeAttackScript;        // Melee or Ranged attack script
     [SerializeField] private BossRanged rangedAttackScript;      // Ranged attack script (if applicable)
     [SerializeField] private GameObject attackBarrier;           // Optional barrier that appears during attacks
+    [SerializeField] private GameObject damageArea;              // Visual for the area that damages the player during melee attacks
+    [SerializeField] private GameObject triBeam;
 
     [Header("Player Info")]
     private Transform player;                                    // Reference to player
     [SerializeField] private GameObject moveSpotGameObject;      // Optional debug waypoint visualizer
     [SerializeField] private float startWaitTime = 0.25f;        // Wait time at waypoints
     private float waitTimer;                                     // Internal wait timer
+    [SerializeField] private CapsuleCollider2D attackCapsule;    // Collider used for detecting if the player is in range during melee attacks
+    [SerializeField] private LayerMask playerLayer;
+
+    private ContactFilter2D filter;
+    private Collider2D[] results = new Collider2D[1];
+
 
     [Header("Detection")]
     [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
@@ -67,12 +75,18 @@ public class BossBehaviour : MonoBehaviour
     private void Start()
     {
         InitialSetup();
+        rangedAttackScript.gameObject.SetActive(true);
+        rangedAttackScript.SpinBeam();
     }
 
     private void Awake()
     {
         if (stats == null)
             stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
+
+        filter = new ContactFilter2D();
+        filter.SetLayerMask(playerLayer);
+        filter.useLayerMask = true;
     }
 
     private void FixedUpdate()
@@ -107,6 +121,7 @@ public class BossBehaviour : MonoBehaviour
         animator = GetComponent<Animator>();
         meleeAttackScript = GetComponent<BossMelee>();
         rangedAttackScript = GetComponent<BossRanged>();
+        attackCapsule = damageArea.GetComponent<CapsuleCollider2D>();
 
         detectionCircle.transform.localScale = new Vector3(detectionRadius * 2f, detectionRadius * 2f, 1f);
 
@@ -353,5 +368,32 @@ public class BossBehaviour : MonoBehaviour
         float speed = velocity.magnitude;
 
         animator.SetFloat("Speed", speed);
+    }
+
+    public void CheckPlayerDistance() 
+    {
+        /* if (player == null) return;
+        float distanceToPlayer = Vector2.Distance(rb.position, player.position);
+        if (distanceToPlayer <= stats.attackCloseness)
+        {
+            rb.linearVelocity = Vector2.zero;
+            stats.canDamage = true;
+        }
+        else
+        {
+            stats.canDamage = false;
+        }*/
+
+        int hits = attackCapsule.Overlap(filter, results);
+
+        if (hits > 0)
+        {
+            rb.linearVelocity = Vector2.zero;
+            stats.canDamage = true;
+        }
+        else
+        {
+            stats.canDamage = false;
+        }
     }
 }

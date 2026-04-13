@@ -16,7 +16,8 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Combat")]
     [Tooltip("Enemies Health")]
-    public float health = 100f;
+    public float health;
+    [HideInInspector] public float maxHealth;
     [Tooltip("Damage dealt per attack.")]
     public float damage = 10f;
 
@@ -26,6 +27,10 @@ public class EnemyStats : MonoBehaviour
     [Tooltip("Cooldown after an attack.")]
     public float fireCooldown = 0.5f;
 
+    [Tooltip("Distance to player considered “close enough” for attacking.")]
+    [SerializeField] public float attackCloseness;              // Distance to player considered “close enough” for attacking
+    
+    public bool canDamage = false;                              // Whether the boss can currently damage the player
     public bool canAttack = true;
     public bool isAttacking = false;
 
@@ -33,6 +38,12 @@ public class EnemyStats : MonoBehaviour
     [Header("Boss")]
     [Tooltip("Radius of the boss's shockwave attack.")]
     public float slamWaitTimer = 2f;
+
+    [Tooltip("Spin Speed Of The Beam")]
+    public float beamSpinSpeed = 100f; // Speed at which the beams spin during the attack
+
+    [Tooltip("Duration of the beam spin attack.")]
+    public float beamSpinDuration = 3f; // Duration for which the beams will spin during the attack
 
 
     [Header("Pack / AI")]
@@ -52,4 +63,9 @@ public class EnemyStats : MonoBehaviour
 
     [Tooltip("Threshold to detect progress when stuck.")]
     public float stuckEpsilon = 0.03f;
+
+    private void Awake()
+    {
+        maxHealth = health; // Set maxHealth to the initial health value
+    }
 }

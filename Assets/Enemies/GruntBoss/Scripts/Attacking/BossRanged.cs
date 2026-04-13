@@ -3,42 +3,52 @@ using UnityEngine;
 
 public class BossRanged : MonoBehaviour
 {
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject spinBeam;
     [SerializeField] private Transform firePoint;
 
     private bool canShoot = true;
+    private Rigidbody2D rb;
+    private Transform player;
+    private Animator animator;
+    private BossBehaviour bossBehaviour;
     private EnemyStats stats;
+    private GameObject attackBarrier;
 
     private void Awake()
     {
         stats = GetComponent<EnemyStats>();
+        if (stats == null)
+        {
+            Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
+        }
     }
 
-    public void TryAttack(Transform player)
+    public void SpinBeam()
     {
-        // Check if the enemy can shoot and if the player reference is valid
-        if (!canShoot || player == null) return;
-        StartCoroutine(Shoot(player));
+        StartCoroutine(SpinBeamCoroutine());
     }
 
-    private IEnumerator Shoot(Transform player)
+    private IEnumerator SpinBeamCoroutine()
     {
         canShoot = false;
 
-        Vector2 dir = (player.position - firePoint.position).normalized;
+        float timer = 0f;
 
-        // Instantiate projectile
-        GameObject proj = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        if (stats == null)
+        {
+            Debug.Log("Stats not real");
+        }
 
-        // Give projectile a velocity
-        proj.GetComponent<Rigidbody2D>().linearVelocity = dir * 10f;
+        while (timer < stats.beamSpinDuration)
+        {
+            spinBeam.transform.Rotate(0f, 0f, stats.beamSpinSpeed * Time.deltaTime);
+            timer += Time.deltaTime;
 
-        // Pass damage info to projectile
-        var bullet = proj.GetComponent<Projectile>();
-        if (bullet != null)
-            bullet.SetDamage(stats.damage);
+            yield return null;
+        }
 
         yield return new WaitForSeconds(stats.fireCooldown);
+
         canShoot = true;
     }
 }
