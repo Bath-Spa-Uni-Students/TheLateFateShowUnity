@@ -60,7 +60,8 @@ public class Shotgun : MonoBehaviour
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
-            if (ammo <= 0)
+            // Cannot shoot if ammo is 0
+            if (maxAmmo <= 0)
             {
                 canShoot = false;
             }
@@ -75,6 +76,7 @@ public class Shotgun : MonoBehaviour
             }
         }
 
+        // Reload shotgun
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {

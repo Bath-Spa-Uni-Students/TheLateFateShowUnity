@@ -55,6 +55,7 @@ public class Pistol : MonoBehaviour
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
+            // Cannot shoot if ammo is 0
             if (ammo <= 0)
             {
                 canShoot = false;
@@ -64,6 +65,7 @@ public class Pistol : MonoBehaviour
             shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
         }
 
+        // Reload pistol
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {

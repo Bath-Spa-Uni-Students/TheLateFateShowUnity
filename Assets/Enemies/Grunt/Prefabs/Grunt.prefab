@@ -617,7 +617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6202859786606319355}
   - component: {fileID: 149216281550972401}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1146,10 +1146,10 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3895
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

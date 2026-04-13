@@ -5,18 +5,22 @@ public class PistolPickup : MonoBehaviour
 
 
     //Weapon overlaps with player
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             Destroy(gameObject);
 
-            GameObject playerWeapon = GameObject.FindGameObjectWithTag("HeldWeapon");
-            playerWeapon.GetComponent<Pistol>().enabled = true;
-            playerWeapon.GetComponent<Shotgun>().enabled = false;
-            playerWeapon.GetComponent<Pistol>().canShoot = true;
+            GameObject pistolWeapon = GameObject.FindGameObjectWithTag("PistolHeld");
+            // Pistol script enabled
+            pistolWeapon.GetComponent<Pistol>().enabled = true;
+            // Enable pistol sprite
+            pistolWeapon.GetComponent<SpriteRenderer>().enabled = true;
+            // Pistol can shoot
+            pistolWeapon.GetComponent<Pistol>().canShoot = true;
 
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
+            // Player has a weapon
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
 
             AudioManager.Instance.playoneShot(FMODEvents.Instance.pistolPickup, this.transform.position);

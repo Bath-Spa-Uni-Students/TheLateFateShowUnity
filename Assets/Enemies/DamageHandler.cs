@@ -20,6 +20,7 @@ public class DamageHandler : MonoBehaviour
     {
         // Enemy loses health
         stats.health = stats.health - damage;
+        Debug.Log("damaged");
 
         if (damage == 0)
         {
