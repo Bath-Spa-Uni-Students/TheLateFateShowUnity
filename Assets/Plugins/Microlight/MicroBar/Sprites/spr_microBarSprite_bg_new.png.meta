@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 34ba8c01ac70d1c418c6a92d71972fc9
+AssetOrigin:
+  serializedVersion: 1
+  productId: 239154
+  packageName: MicroBar - Animated Health Bar Framework
+  packageVersion: 2.5.5
+  assetPath: Assets/Microlight/MicroBar/Sprites/spr_microBarSprite_bg_new.png
+  uploadId: 818790
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -154,10 +161,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 239154
-  packageName: MicroBar - Animated Health Bar Framework
-  packageVersion: 2.5.5
-  assetPath: Assets/Microlight/MicroBar/Sprites/spr_microBarSprite_bg_new.png
-  uploadId: 818790
