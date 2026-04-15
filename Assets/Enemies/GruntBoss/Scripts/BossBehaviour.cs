@@ -293,7 +293,7 @@ public class BossBehaviour : MonoBehaviour
             attackBarrier.SetActive(true);
 
         meleeAttackScript.TryAttack();
-        animator.SetTrigger("Attack");
+        //animator.SetTrigger("Attack");
     }
 
     private void RangedAttack()
