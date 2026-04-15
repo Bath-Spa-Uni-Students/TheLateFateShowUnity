@@ -213,6 +213,7 @@ public class BossBehaviour : MonoBehaviour
     {
         if (player == null)
         {
+            animator.SetTrigger("Sleep");
             return EnemyState.Sleep;
         }
 
@@ -292,8 +293,9 @@ public class BossBehaviour : MonoBehaviour
         if (attackBarrier != null)
             attackBarrier.SetActive(true);
 
-        meleeAttackScript.TryAttack();
         animator.SetTrigger("Attack");
+
+        meleeAttackScript.TryAttack();
     }
 
     private void RangedAttack()
