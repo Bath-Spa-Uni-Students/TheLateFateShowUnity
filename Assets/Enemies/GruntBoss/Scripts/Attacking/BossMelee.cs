@@ -58,7 +58,7 @@ public class BossMelee : MonoBehaviour
         attackBarrier.gameObject.SetActive(true);
 
         animator.SetTrigger("Attack");
-        animator.SetBool("isAttacking", true);
+        animator.SetBool("IsAttacking", true);
 
         stats.isAttacking = true;
         stats.canAttack = false;
@@ -80,7 +80,7 @@ public class BossMelee : MonoBehaviour
 
         attackBarrier.gameObject.SetActive(false);
         stats.isAttacking = false;
-        animator.SetBool("isAttacking", false);
+        animator.SetBool("IsAttacking", false);
 
         yield return new WaitForSeconds(mFireCooldown); // Wait for the cooldown before allowing the next attack
         stats.canAttack = true;
