@@ -6,8 +6,10 @@ public class BossRanged : MonoBehaviour
 {
     [SerializeField] private GameObject spinBeam;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private float firstSpinTime = 2f;
 
     private bool canShoot = true;
+    private bool firstTime = true;
     private Rigidbody2D rb;
     private Transform player;
     private Animator animator;
@@ -29,8 +31,24 @@ public class BossRanged : MonoBehaviour
     {
         if (!isAttacking)
         {
-            StartCoroutine(SpinBeamCoroutine());
+            if (firstTime != true)
+            {
+                StartCoroutine(SpinBeamCoroutine());
+
+            }
+            else
+            {
+                StartCoroutine(FirstSpinCoroutine());
+            }
         }
+    }
+
+    private IEnumerator FirstSpinCoroutine()
+    {
+        //rb.linearVelocity = Vector3.zero;
+        yield return new WaitForSeconds(firstSpinTime);
+        firstTime = false;
+        SpinBeam();
     }
 
     private IEnumerator SpinBeamCoroutine()
@@ -65,5 +83,6 @@ public class BossRanged : MonoBehaviour
 
         canShoot = true;
         isAttacking = false;
+        SpinBeam();
     }
 }
