@@ -46,11 +46,16 @@ public class BossMelee : MonoBehaviour
     public void TryAttack()
     {
         // Check if the enemy can attack and is not currently attacking
-        if (!stats.canAttack || stats.isAttacking) return;
+        if (!stats.canAttack || stats.isAttacking)
+        {
+            Debug.Log("Cannot attack: " + (stats.canAttack ? "Already attacking" : "Attack on cooldown"));
+            return;
+        }
 
         // Start the attack coroutine
-        StartCoroutine(HitCoroutine());
         stats.canAttack = mCanAttack;
+
+        StartCoroutine(HitCoroutine());
     }
 
     private IEnumerator HitCoroutine()
@@ -58,7 +63,7 @@ public class BossMelee : MonoBehaviour
         attackBarrier.gameObject.SetActive(true);
 
         animator.SetTrigger("Attack");
-        animator.SetBool("isAttacking", true);
+        animator.SetBool("IsAttacking", true);
 
         stats.isAttacking = true;
         stats.canAttack = false;
@@ -80,9 +85,11 @@ public class BossMelee : MonoBehaviour
 
         attackBarrier.gameObject.SetActive(false);
         stats.isAttacking = false;
-        animator.SetBool("isAttacking", false);
+        animator.SetBool("IsAttacking", false);
+        Debug.Log("Attack animation finished, waiting for cooldown.");
 
         yield return new WaitForSeconds(mFireCooldown); // Wait for the cooldown before allowing the next attack
         stats.canAttack = true;
+        Debug.Log("Attack cooldown finished, can attack again.");
     }
 }

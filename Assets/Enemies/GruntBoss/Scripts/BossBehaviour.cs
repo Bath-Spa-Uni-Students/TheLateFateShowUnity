@@ -213,7 +213,6 @@ public class BossBehaviour : MonoBehaviour
     {
         if (player == null)
         {
-            animator.SetTrigger("Sleep");
             return EnemyState.Sleep;
         }
 
@@ -228,7 +227,7 @@ public class BossBehaviour : MonoBehaviour
             if (distance <= wakeRadius)
             {
                 Debug.Log("Boss wakes up! Player distance: " + distance);
-                animator.SetTrigger("Detection");
+                animator.SetBool("Detected?", true);
                 animator.ResetTrigger("Sleep");
                 isAwake = true;
             }
@@ -249,7 +248,7 @@ public class BossBehaviour : MonoBehaviour
         // Phase 2 prefers ranged attacks
         if (phase2Active && distance <= detectionRadius * 1.5f)
         {
-            animator.SetTrigger("Detection");
+                animator.SetBool("Detected?", true);
 
             return EnemyState.Ranged;
         }
@@ -274,7 +273,7 @@ public class BossBehaviour : MonoBehaviour
     private void Sleep()
     {
         animator.SetTrigger("Sleep");
-        animator.ResetTrigger("Detection");
+        //animator.ResetTrigger("Detected?");
         rb.linearVelocity = Vector2.zero;
 
         if (stats.health < stats.maxHealth)
@@ -293,9 +292,8 @@ public class BossBehaviour : MonoBehaviour
         if (attackBarrier != null)
             attackBarrier.SetActive(true);
 
-        animator.SetTrigger("Attack");
-
         meleeAttackScript.TryAttack();
+        //animator.SetTrigger("Attack");
     }
 
     private void RangedAttack()
@@ -392,7 +390,7 @@ public class BossBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
-        //animator.SetTrigger("Detection");
+        //animator.SetTrigger("Detected?");
 
         if (stats.isAttacking)
         {
