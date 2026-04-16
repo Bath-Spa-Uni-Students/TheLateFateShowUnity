@@ -40,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
 
     public int fame;
 
+    [SerializeField] private int currentLevel = 1;
+    [SerializeField] private int currentXP = 0;
+
     public bool hasWeapon = false;
     bool isDashing = false;
     bool canDash = true;
@@ -69,8 +72,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Initialise health bar to match starting health value
-        healthBar.maxValue = health;
-        healthBar.value = health;
+        //healthBar.maxValue = health;
+        //healthBar.value = health;
 
         // Set runtime speed to base walk speed
         moveSpeed = walkSpeed;
@@ -208,5 +211,20 @@ public class PlayerMovement : MonoBehaviour
     public void AddFame(int amount)
     {
         fame += amount;
+        currentXP += amount;
+
+        while (currentXP >= GetXP(currentLevel))
+        {
+            currentXP -= GetXP(currentLevel);
+            currentLevel++;
+            currentXP = 0;
+        }
+    }
+
+    public int GetXP(int level)
+    {
+        float baseXP = 100f;
+        float multiplier = 2f;
+        return Mathf.FloorToInt(baseXP * Mathf.Pow(multiplier, level - 1));
     }
 }

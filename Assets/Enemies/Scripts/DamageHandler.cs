@@ -32,7 +32,7 @@ public class DamageHandler : MonoBehaviour
         // Destroy enemy if health is less than 0
         if (stats.health <= 0)
         {
-            playerMovement.AddFame(1);
+            playerMovement.AddFame(100);
             Debug.Log("fame+");
             Destroy(gameObject);
         }
