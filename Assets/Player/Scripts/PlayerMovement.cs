@@ -38,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Cooldown (in seconds) before the player can dash again")]
     [SerializeField] private float dashCooldown;
 
-   
+    public int fame = 0;
+
     public bool hasWeapon = false;
     bool isDashing = false;
     bool canDash = true;

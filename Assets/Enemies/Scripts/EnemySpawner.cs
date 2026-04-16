@@ -13,20 +13,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float bruiserSpawnTime;
     [SerializeField] private float speedsterSpawnTime;
 
+    //public GameObject grunt;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         // Start spawning enemies
-        StartCoroutine(spawnEnemy(gruntSpawnTime, grunt));
+        StartCoroutine(SpawnEnemy(gruntSpawnTime, grunt));
         //StartCoroutine(spawnEnemy(bruiserSpawnTime, bruiser));
         //StartCoroutine(spawnEnemy(speedsterSpawnTime, speedster));
     }
 
-    private IEnumerator spawnEnemy(float spawnTime, GameObject enemy)
+    private IEnumerator SpawnEnemy(float spawnTime, GameObject enemy)
     {
         yield return new WaitForSeconds(spawnTime);
         // Create new enemy in a random location
         GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-2f, 2), Random.Range(-3f, 3), 0), Quaternion.identity);
-        StartCoroutine(spawnEnemy(spawnTime, newEnemy));
+        StartCoroutine(SpawnEnemy(spawnTime, enemy));
     }
 }

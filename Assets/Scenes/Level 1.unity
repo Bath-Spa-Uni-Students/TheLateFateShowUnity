@@ -113217,7 +113217,7 @@ MonoBehaviour:
   hitReloadChance: 10
   lifeSteal: 0
   lifeStealAmount: 0.1
-  pierce: 1
+  pierce: 0
 --- !u!212 &1451984670
 SpriteRenderer:
   serializedVersion: 2

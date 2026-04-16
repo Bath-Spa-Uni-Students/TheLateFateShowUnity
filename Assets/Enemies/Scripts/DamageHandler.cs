@@ -6,6 +6,8 @@ public class DamageHandler : MonoBehaviour
 {
     [SerializeField] private EnemyStats stats;
     [SerializeField] private MicroBar healthBar;
+
+    PlayerMovement player;
     private float enemyHealth;
     private float maxHealth;
 
@@ -23,19 +25,14 @@ public class DamageHandler : MonoBehaviour
         stats.health = stats.health - damage;
         Debug.Log("damaged");
 
-        if (damage == 0)
-        {
-            Debug.Log("Damage is 0");
-            return;
-        }
-
-
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
 
         // Destroy enemy if health is less than 0
         if (stats.health <= 0)
         {
+
             Destroy(gameObject);
+            player.fame += 1;
         }
     }
 }
