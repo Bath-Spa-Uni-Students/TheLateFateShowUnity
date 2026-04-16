@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Cooldown (in seconds) before the player can dash again")]
     [SerializeField] private float dashCooldown;
 
-    public int fame = 0;
+    public int fame;
 
     public bool hasWeapon = false;
     bool isDashing = false;
@@ -202,5 +202,11 @@ public class PlayerMovement : MonoBehaviour
             // Allow the tail of the sound to fade out naturally
             playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
         }
+    }
+    
+    // Add fame
+    public void AddFame(int amount)
+    {
+        fame += amount;
     }
 }

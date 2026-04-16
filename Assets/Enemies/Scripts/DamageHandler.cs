@@ -7,7 +7,8 @@ public class DamageHandler : MonoBehaviour
     [SerializeField] private EnemyStats stats;
     [SerializeField] private MicroBar healthBar;
 
-    PlayerMovement player;
+    private PlayerMovement playerMovement;
+    private GameObject player;
     private float enemyHealth;
     private float maxHealth;
 
@@ -16,7 +17,8 @@ public class DamageHandler : MonoBehaviour
         enemyHealth = stats.health;
         maxHealth = stats.maxHealth;
         healthBar.Initialize(stats.maxHealth);
-
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     public void TakeDamage(float damage)
@@ -30,9 +32,9 @@ public class DamageHandler : MonoBehaviour
         // Destroy enemy if health is less than 0
         if (stats.health <= 0)
         {
-
+            playerMovement.AddFame(1);
+            Debug.Log("fame+");
             Destroy(gameObject);
-            player.fame += 1;
         }
     }
 }
