@@ -122015,6 +122015,13 @@ MonoBehaviour:
       Data3: 1076944812
       Data4: 381121862
     Path: event:/Player/PlayerHurt
+  <playerDash>k__BackingField:
+    Guid:
+      Data1: -1920758700
+      Data2: 1341660247
+      Data3: -424003703
+      Data4: 698594122
+    Path: event:/Player/PlayerDash
   <gruntFootsteps>k__BackingField:
     Guid:
       Data1: -1468598414
