@@ -35,7 +35,8 @@ public class DamageHandler : MonoBehaviour
         // Destroy enemy if health is less than 0
         if (stats.health <= 0)
         {
-            Destroy(gameObject);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gruntDeath, transform.position);
+            Destroy(gameObject);    
         }
     }
 }
