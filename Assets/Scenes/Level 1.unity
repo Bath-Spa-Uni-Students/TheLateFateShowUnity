@@ -122050,6 +122050,20 @@ MonoBehaviour:
       Data3: 1231939746
       Data4: -828190906
     Path: event:/Enemies/Grunt/GruntDeath
+  <bossDeath>k__BackingField:
+    Guid:
+      Data1: 794840774
+      Data2: 1292585099
+      Data3: 1231939746
+      Data4: -828190906
+    Path: event:/Enemies/Grunt/GruntDeath
+  <bossTheme>k__BackingField:
+    Guid:
+      Data1: -2061720419
+      Data2: 1236850625
+      Data3: 2133212556
+      Data4: 1707782529
+    Path: event:/BossTheme
 --- !u!1 &2004631174
 GameObject:
   m_ObjectHideFlags: 0

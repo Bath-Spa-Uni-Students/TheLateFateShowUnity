@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using System;
 
 public class AudioManager : MonoBehaviour
 {
@@ -64,5 +65,10 @@ public class AudioManager : MonoBehaviour
     private void OnDestroy()
         {
             CleanUP();
+    }
+
+    internal void PlayMusic(EventReference bossTheme1, out EventInstance bossTheme2)
+    {
+        throw new NotImplementedException();
     }
 }

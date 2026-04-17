@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
@@ -89,13 +90,21 @@ public class BossBehaviour : MonoBehaviour
 
     // ------------------------------------------ //
 
+    // Audio
+    private PARAMETER_ID phaseParamID;
+    private bool musicStarted = false;
+    private int currentMusicPhase = -1;
+    private EventInstance bossTheme;    
+
+
     private void Start()
     {
         spawnPosition = transform.position;
         InitialSetup();
         rangedTimer = rangedCooldown;
-    }
 
+        bossTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.bossTheme);
+    }
     private void Awake()
     {
         if (stats == null)
@@ -236,6 +245,19 @@ public class BossBehaviour : MonoBehaviour
                 Debug.Log("Boss is sleeping. Player distance: " + distance);
                 return EnemyState.Sleep;
             }
+            if (!musicStarted)
+            {
+                EventDescription desc;
+                bossTheme.getDescription(out desc);
+
+                PARAMETER_DESCRIPTION paramDesc;
+                desc.getParameterDescriptionByName("Phase", out paramDesc);
+                phaseParamID = paramDesc.id;
+
+                bossTheme.start();
+                musicStarted = true;
+                SetMusicPhase(0);
+            }
         }
 
         // Phase check
@@ -243,6 +265,9 @@ public class BossBehaviour : MonoBehaviour
         {
             phase2Active = true;
             animator.SetBool("Phase2", true);
+
+            if (musicStarted)
+                SetMusicPhase(1); // Switch music to phase 2
         }
 
         // Phase 2 prefers ranged attacks
@@ -561,4 +586,17 @@ public class BossBehaviour : MonoBehaviour
         }
     }
 
+    private void SetMusicPhase(int phase)
+    {
+        if (!musicStarted) return;
+        if (currentMusicPhase == phase) return;
+
+        bossTheme.setParameterByID(phaseParamID, phase);
+        currentMusicPhase = phase;
+    }
+    public void OnBossDeath()
+    {
+        SetMusicPhase(2); // Final phase
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
+    }
 }
