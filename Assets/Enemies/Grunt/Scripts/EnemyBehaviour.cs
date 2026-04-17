@@ -83,6 +83,7 @@ public class EnemyBehaviour : MonoBehaviour
     private EventInstance gruntAttack;
     // Plays when the enemy transitions into Chase state - one-shot, spatialised at enemy position
     private EventInstance gruntAlert;
+    private EventInstance gruntDeath;
 
     private void Start()
     {
@@ -94,6 +95,8 @@ public class EnemyBehaviour : MonoBehaviour
         gruntAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
         // Create alert sound instance played each time the enemy enters Chase state
         gruntAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
+        // Create death sound instance played on enemy death
+        gruntDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntDeath);
     }
 
     private void Awake()
@@ -220,6 +223,7 @@ public class EnemyBehaviour : MonoBehaviour
         // Destroy enemy if health is less than 0
         if (stats.health <= 0)
         {
+            gruntDeath.start();
             Destroy(gameObject);
         }
     }

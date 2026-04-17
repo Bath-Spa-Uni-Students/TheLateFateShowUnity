@@ -25,6 +25,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference gruntFootsteps { get; private set; }
     [field: SerializeField] public EventReference gruntAttack { get; private set; }
     [field: SerializeField] public EventReference gruntAlert { get; private set; }
+    [field: SerializeField] public EventReference gruntDeath { get; private set; }
     public static FMODEvents Instance { get; private set; }
 
     private void Awake()
