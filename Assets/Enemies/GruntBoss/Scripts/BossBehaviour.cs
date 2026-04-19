@@ -97,7 +97,6 @@ public class BossBehaviour : MonoBehaviour
     private EventInstance bossTheme;    
     private EventInstance bossWake;
     private EventInstance bossShellOpen;
-    private EventInstance bossWalk;
 
     private void Start()
     {
@@ -106,7 +105,6 @@ public class BossBehaviour : MonoBehaviour
         rangedTimer = rangedCooldown;
 
         bossTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.bossTheme);
-        bossWalk = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.bossFootsteps);
 
     }
     private void Awake()
@@ -172,7 +170,6 @@ public class BossBehaviour : MonoBehaviour
         }
 
         UpdateAnimation();
-        UpdateWalkSound();
         //Debug.Log(currentState);
     }
 
@@ -610,33 +607,11 @@ public class BossBehaviour : MonoBehaviour
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
     }
 
-    private void UpdateWalkSound()
-    {
-        float speed = agent.velocity.magnitude;
-
-        if (speed > 0.1f)
-        {
-            PLAYBACK_STATE playbackState;
-            bossWalk.getPlaybackState(out playbackState);
-
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                bossWalk.start();
-            }
-
-            bossWalk.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
-            bossWalk.setParameterByName("Phase", currentMusicPhase);
-        }
-        else
-        {
-            bossWalk.stop(STOP_MODE.ALLOWFADEOUT);
-        }
-    }
-   /* public void PlayFootstepHit()
+    public void PlayFootstepHit()
     {
         if (agent.velocity.magnitude > 0.1f)
         {
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossFootsteps, transform.position);
         }
-    }*/
+    }
 }
