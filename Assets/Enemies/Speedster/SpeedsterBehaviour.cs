@@ -11,7 +11,8 @@ public class SpeedsterBehaviour : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
-    [SerializeField] private EnemyAttackMelee attackScript;      // Melee or Ranged attack script
+    [SerializeField] private SpeedsterAttack attackScript;      // Melee or Ranged attack script
+    private float damage;                                           // Cached damage value from stats
 
     [Header("Player Info")]
     private Transform player;                                    // Reference to player
@@ -51,10 +52,10 @@ public class SpeedsterBehaviour : MonoBehaviour
 
     [Header("Grunt Area Bounds")]
     [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
-    [SerializeField] private Transform minX;
-    [SerializeField] private Transform maxX;
-    [SerializeField] private Transform minY;
-    [SerializeField] private Transform maxY;
+    private Transform minX;
+    private Transform maxX;
+    private Transform minY;
+    private Transform maxY;
 
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
@@ -134,11 +135,12 @@ public class SpeedsterBehaviour : MonoBehaviour
 
     private void InitialSetup()
     {
+        damage = stats.damage;
 
         // Component setup
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        attackScript = GetComponent<EnemyAttackMelee>();
+        attackScript = GetComponent<SpeedsterAttack>();
         animator = GetComponent<Animator>();
 
         // Store initial constraints so we can freeze/unfreeze during attack
