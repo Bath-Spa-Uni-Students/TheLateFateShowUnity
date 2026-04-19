@@ -121966,6 +121966,13 @@ MonoBehaviour:
       Data3: 1436482197
       Data4: -2099337300
     Path: event:/Weapons/PistolReload
+  <pistolNoAmmo>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <arShoot>k__BackingField:
     Guid:
       Data1: 1579027369
@@ -121980,6 +121987,13 @@ MonoBehaviour:
       Data3: 1436482197
       Data4: -2099337300
     Path: event:/Weapons/PistolReload
+  <arNoAmmo>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <shotgunShoot>k__BackingField:
     Guid:
       Data1: 1379396060
@@ -121994,6 +122008,13 @@ MonoBehaviour:
       Data3: 1986089878
       Data4: -748177453
     Path: event:/Weapons/ShotgunReload
+  <shotgunNoAmmo>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <playerFootsteps>k__BackingField:
     Guid:
       Data1: -1810719169
@@ -122022,6 +122043,13 @@ MonoBehaviour:
       Data3: -424003703
       Data4: 698594122
     Path: event:/Player/PlayerDash
+  <playerLevelUp>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <gruntFootsteps>k__BackingField:
     Guid:
       Data1: -1468598414
@@ -122050,6 +122078,83 @@ MonoBehaviour:
       Data3: 1231939746
       Data4: -828190906
     Path: event:/Enemies/Grunt/GruntDeath
+  <speedsterFootsteps>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <speedsterAttack>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <speedsterAlert>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <speedsterDeath>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserFootsteps>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserAttack>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserAlert>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserDeath>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <summonerSummon>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <summonerAttack>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <summonerDeath>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <bossDeath>k__BackingField:
     Guid:
       Data1: 794840774
@@ -122057,6 +122162,27 @@ MonoBehaviour:
       Data3: 1231939746
       Data4: -828190906
     Path: event:/Enemies/Grunt/GruntDeath
+  <bossAttackMelee>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bossAttackRanged>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bossPhaseChange>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <bossTheme>k__BackingField:
     Guid:
       Data1: -2061720419
@@ -122064,6 +122190,97 @@ MonoBehaviour:
       Data3: 2133212556
       Data4: 1707782529
     Path: event:/BossTheme
+  <perkSelect>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <perkTriggerGeneric>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <itemPickup>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <itemActivate>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <uiClick>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <uiHover>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <uiBack>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <uiConfirm>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <uiError>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <mainMenuTheme>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <levelAmbience>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <victoryStinger>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <defeatStinger>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
 --- !u!1 &2004631174
 GameObject:
   m_ObjectHideFlags: 0
