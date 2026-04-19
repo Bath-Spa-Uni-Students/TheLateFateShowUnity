@@ -62,6 +62,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bossWake { get; private set; }
     [field: SerializeField] public EventReference bossShellOpen { get; private set; }
     [field: SerializeField] public EventReference bossTheme { get; private set; }
+    [field: SerializeField] public EventReference bossFootsteps { get; private set; }
 
     // Perks and Items
 

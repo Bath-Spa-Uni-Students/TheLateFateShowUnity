@@ -122176,13 +122176,20 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <bossPhaseChange>k__BackingField:
+  <bossWake>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -2030970193
+      Data2: 1128220004
+      Data3: 715415473
+      Data4: -603237934
+    Path: event:/Enemies/Beetle Boss/BossWake
+  <bossShellOpen>k__BackingField:
+    Guid:
+      Data1: 775812514
+      Data2: 1187199005
+      Data3: 2081585063
+      Data4: 1575174690
+    Path: event:/Enemies/Beetle Boss/BossShellOpen
   <bossTheme>k__BackingField:
     Guid:
       Data1: -2061720419
@@ -122190,6 +122197,13 @@ MonoBehaviour:
       Data3: 2133212556
       Data4: 1707782529
     Path: event:/Enemies/Beetle Boss/BossTheme
+  <bossFootsteps>k__BackingField:
+    Guid:
+      Data1: 1108468587
+      Data2: 1322437783
+      Data3: -1103077213
+      Data4: -1005424935
+    Path: event:/Enemies/Beetle Boss/BossWalk
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
