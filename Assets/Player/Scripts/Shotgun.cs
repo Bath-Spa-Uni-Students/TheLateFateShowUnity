@@ -34,6 +34,7 @@ public class Shotgun : MonoBehaviour
     //audio
     private EventInstance shotgunShoot;
     private EventInstance shotgunReload;
+    private EventInstance shotgunNoAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -82,9 +83,14 @@ public class Shotgun : MonoBehaviour
                 Instantiate(bullet, bulletTransform.position, bulletTransform.rotation * spreadRotation);
             }
         }
+        // If player tries to shoot with no ammo, play no ammo sound
+        else if (Input.GetMouseButtonDown(0) && canShoot == false)
+        {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunNoAmmo, transform.position);
+        }
 
-        // Reload shotgun
-        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+            // Reload shotgun
+            GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
             canShoot = true;

@@ -121958,14 +121958,14 @@ MonoBehaviour:
       Data2: 1091793310
       Data3: -936528207
       Data4: -325574479
-    Path: event:/Weapons/PistolShoot
+    Path: event:/Weapons/Pistol/PistolShoot
   <pistolReload>k__BackingField:
     Guid:
       Data1: -1126001982
       Data2: 1090227631
       Data3: 1436482197
       Data4: -2099337300
-    Path: event:/Weapons/PistolReload
+    Path: event:/Weapons/Pistol/PistolReload
   <pistolNoAmmo>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -121979,14 +121979,14 @@ MonoBehaviour:
       Data2: 1226657029
       Data3: -651822170
       Data4: 420218051
-    Path: event:/Weapons/ARShoot
+    Path: event:/Weapons/AR/ARShoot
   <arReload>k__BackingField:
     Guid:
       Data1: -1126001982
       Data2: 1090227631
       Data3: 1436482197
       Data4: -2099337300
-    Path: event:/Weapons/PistolReload
+    Path: event:/Weapons/Pistol/PistolReload
   <arNoAmmo>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -122000,14 +122000,14 @@ MonoBehaviour:
       Data2: 1230833937
       Data3: 1951898796
       Data4: -444294579
-    Path: event:/Weapons/ShotgunShoot
+    Path: event:/Weapons/Shotgun/ShotgunShoot
   <shotgunReload>k__BackingField:
     Guid:
       Data1: -1354823909
       Data2: 1088789786
       Data3: 1986089878
       Data4: -748177453
-    Path: event:/Weapons/ShotgunReload
+    Path: event:/Weapons/Shotgun/ShotgunReload
   <shotgunNoAmmo>k__BackingField:
     Guid:
       Data1: 1686298193
