@@ -6,6 +6,9 @@ public class DamageHandler : MonoBehaviour
 {
     [SerializeField] private EnemyStats stats;
     [SerializeField] private MicroBar healthBar;
+
+    private PlayerMovement playerMovement;
+    private GameObject player;
     private float enemyHealth;
     private float maxHealth;
 
@@ -16,6 +19,8 @@ public class DamageHandler : MonoBehaviour
         enemyHealth = stats.health;
         maxHealth = stats.maxHealth;
         healthBar.Initialize(stats.maxHealth);
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerMovement = player.GetComponent<PlayerMovement>();
         bossBehaviour = GetComponent<BossBehaviour>(); // will be null on non-boss enemies
     }
 
@@ -24,13 +29,6 @@ public class DamageHandler : MonoBehaviour
         // Enemy loses health
         stats.health = stats.health - damage;
         Debug.Log("damaged");
-
-        if (damage == 0)
-        {
-            Debug.Log("Damage is 0");
-            return;
-        }
-
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
 
@@ -44,6 +42,8 @@ public class DamageHandler : MonoBehaviour
             {
                 AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gruntDeath, transform.position);
             }
+            playerMovement.AddFame(100);
+            Debug.Log("fame+");
             Destroy(gameObject);
         }
     }
