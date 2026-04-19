@@ -47,15 +47,7 @@ public class SpeedsterBehaviour : MonoBehaviour
     [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
     [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
 
-    [Header("Pack/Follower Info")]
-    public bool isLeader = false;                                  // Is this enemy the pack leader?
-    public Transform leader;                                       // Leader to follow
-    [HideInInspector] public Vector2 followOffset;                 // Orbit offset relative to leader
-    [SerializeField] private float followDistance = 1.5f;          // Orbit distance from leader
-    [SerializeField] private float orbitSpeed = 2f;                // Orbit rotation speed
-    [SerializeField] private float orbitStopDistance = 0.15f;      // Stop orbiting if within this distance
     [HideInInspector] public bool playerDetected = false;          // Updated detection flag
-    private bool leaderDead = false;                               // Tracks if leader is dead
 
     [Header("Grunt Area Bounds")]
     [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
@@ -85,8 +77,6 @@ public class SpeedsterBehaviour : MonoBehaviour
     {
         Patrol,
         Chase,
-        Orbit,
-        Scatter
     }
     private EnemyState currentState;                               // Current enemy state
 
@@ -121,7 +111,7 @@ public class SpeedsterBehaviour : MonoBehaviour
     private void FixedUpdate()
     {
         if (rb == null) return;
-        if (player == null && isLeader) return;
+        if (player == null) return;
 
         UpdateDetection();
 
@@ -136,14 +126,6 @@ public class SpeedsterBehaviour : MonoBehaviour
 
             case EnemyState.Chase:
                 ChasePlayer();
-                break;
-
-            case EnemyState.Orbit:
-                OrbitLeader();
-                break;
-
-            case EnemyState.Scatter:
-                Scatter();
                 break;
         }
 
@@ -187,28 +169,16 @@ public class SpeedsterBehaviour : MonoBehaviour
 
         waitTimer = startWaitTime;
 
-        // Leader handles patrol waypoint selection
-        if (isLeader)
-        {
-            if (moveSpotGameObject != null)
-                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
+        if (moveSpotGameObject != null)
+            moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
 
-            if (boxCollider != null && rb != null)
+        if (boxCollider != null && rb != null)
                 PickNewWaypoint();
-        }
-
-        // Followers get an initial orbit offset
-        if (!isLeader && leader != null)
-            followOffset = Random.insideUnitCircle * followDistance;
-
-
     }
 
     private EnemyState GetState()
     {
         // State priority:
-        if (!isLeader && leaderDead)
-            return EnemyState.Scatter;
 
         if (playerDetected && player != null)
         {
@@ -219,12 +189,6 @@ public class SpeedsterBehaviour : MonoBehaviour
             }
             return EnemyState.Chase;
         }
-            
-        if (!isLeader && leader != null && !leaderDead)
-            return EnemyState.Orbit;
-
-        if (isLeader)
-            return EnemyState.Patrol;
 
         return EnemyState.Patrol;
     }
@@ -322,28 +286,6 @@ public class SpeedsterBehaviour : MonoBehaviour
         HandleDash(player.position);
     }
 
-    private void OrbitLeader()
-    {
-        // Component check - if we lost our components, just skip movement (Prevent errors)
-        if (leader == null) return;
-
-        // Orbit around leader
-        float angle = orbitSpeed * Time.fixedDeltaTime;
-        followOffset = Quaternion.Euler(0f, 0f, angle) * followOffset;
-
-        // If we're close enough to the target orbit position, don't pathtrace (prevents jittery movement when close)
-        Vector2 targetPos = (Vector2)leader.position + followOffset;
-        float dist = Vector2.Distance(rb.position, targetPos);
-
-        if (dist < orbitStopDistance)
-        {
-            agent.velocity = Vector2.zero;
-            return;
-        }
-
-        HandleDash(targetPos);
-    }
-
     private void Scatter()
     {
         // Simple scatter: keep moving in a random direction
@@ -415,20 +357,10 @@ public class SpeedsterBehaviour : MonoBehaviour
 
     private void UpdateDetection()
     {
-        if (isLeader)
-        {
-            if (player != null)
-                playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
-            else
-                playerDetected = false;
-        }
+        if (player != null)
+            playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
         else
-        {
-            if (leader != null && leader.TryGetComponent(out EnemyBehaviour lb))
-                playerDetected = lb.playerDetected;
-            else
-                playerDetected = false;
-        }
+            playerDetected = false;
     }
 
     // --- Waypoint picking (Leader) ---
@@ -509,23 +441,9 @@ public class SpeedsterBehaviour : MonoBehaviour
         return new Vector2(rotated.x, rotated.y);
     }
 
-    public void LeaderDied()
-    {
-        leaderDead = true;
-        leader = null;
-    }
-
     private void OnDestroy()
     {
-        if (!isLeader) return;
 
-        Collider2D[] grunts = Physics2D.OverlapCircleAll(transform.position, 10f);
-        foreach (Collider2D grunt in grunts)
-        {
-            if (grunt == null) continue;
-            if (grunt.TryGetComponent(out EnemyBehaviour enemy) && !enemy.isLeader)
-                enemy.LeaderDied();
-        }
     }
 
     // Bounds  
