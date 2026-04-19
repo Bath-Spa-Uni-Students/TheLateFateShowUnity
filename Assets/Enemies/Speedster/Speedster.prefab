@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 2938298360518379929}
   - component: {fileID: 5237618153534720533}
   - component: {fileID: -3539114987199150228}
-  - component: {fileID: 814016242226724383}
+  - component: {fileID: 948915413511117397}
   - component: {fileID: 7232216552129871522}
   - component: {fileID: 2767776274418483840}
   - component: {fileID: 2577261637152805140}
@@ -977,7 +977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedsterBehaviour
   stats: {fileID: 5237618153534720533}
-  attackScript: {fileID: 814016242226724383}
+  attackScript: {fileID: 0}
   moveSpotGameObject: {fileID: 1854902710691883263, guid: 6290f8fb713cc574bafd42bf4ff08aa4, type: 3}
   startWaitTime: 3
   dashSpeed: 12
@@ -995,19 +995,9 @@ MonoBehaviour:
   waypointInflation: 0.05
   stuckDuration: 1.2
   stuckEpsilon: 0.03
-  isLeader: 0
-  leader: {fileID: 0}
-  followOffset: {x: 0, y: 0}
-  followDistance: 1.5
-  orbitSpeed: 2
-  orbitStopDistance: 0.15
   playerDetected: 0
   gruntArea: {fileID: 0}
-  minX: {fileID: 0}
-  maxX: {fileID: 0}
-  minY: {fileID: 0}
-  maxY: {fileID: 0}
---- !u!114 &814016242226724383
+--- !u!114 &948915413511117397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1016,9 +1006,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8361983244019902799}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22bef967054143b469b519b1b9bb61d9, type: 3}
+  m_Script: {fileID: 11500000, guid: e8fabb53f00490743a444978cea7513e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttackMelee
+  m_EditorClassIdentifier: Assembly-CSharp::SpeedsterAttack
   mDamage: 0
   mFireRate: 0
   mFireCooldown: 0
@@ -1029,7 +1019,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361983244019902799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.15
   m_Speed: 3.5
@@ -1052,7 +1042,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361983244019902799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: ba188ef6b5b4a404d9d1aa8900ad6a18, type: 2}
   m_CullingMode: 0
