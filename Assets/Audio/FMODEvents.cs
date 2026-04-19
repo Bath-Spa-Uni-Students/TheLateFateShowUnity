@@ -59,7 +59,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bossDeath { get; private set; }
     [field: SerializeField] public EventReference bossAttackMelee { get; private set; }
     [field: SerializeField] public EventReference bossAttackRanged { get; private set; }
-    [field: SerializeField] public EventReference bossPhaseChange { get; private set; }
+    [field: SerializeField] public EventReference bossWake { get; private set; }
+    [field: SerializeField] public EventReference bossShellOpen { get; private set; }
     [field: SerializeField] public EventReference bossTheme { get; private set; }
 
     // Perks and Items

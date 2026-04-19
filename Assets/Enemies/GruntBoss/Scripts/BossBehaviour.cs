@@ -95,7 +95,9 @@ public class BossBehaviour : MonoBehaviour
     private bool musicStarted = false;
     private int currentMusicPhase = -1;
     private EventInstance bossTheme;    
-
+    private EventInstance bossWake;
+    private EventInstance bossShellOpen;
+    private EventInstance bossWalk;
 
     private void Start()
     {
@@ -239,6 +241,7 @@ public class BossBehaviour : MonoBehaviour
                 animator.SetBool("Detected?", true);
                 animator.ResetTrigger("Sleep");
                 isAwake = true;
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossWake, transform.position);
             }
             else
             {
@@ -265,6 +268,10 @@ public class BossBehaviour : MonoBehaviour
         {
             phase2Active = true;
             animator.SetBool("Phase2", true);
+            //this sound will require some timing changes to sync up properly, so for now it just plays immediately when the phase starts, but ideally it should play at the moment the shell actually opens in the animation
+            //we could do this with an animation event, but for now this is good enough to get the feel in testing
+            //ideally the player freezes and the phase change is more of a spectacle
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
 
             if (musicStarted)
                 SetMusicPhase(1); // Switch music to phase 2
