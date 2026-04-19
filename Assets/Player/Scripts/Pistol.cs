@@ -29,6 +29,8 @@ public class Pistol : MonoBehaviour
 
     //Audio
     private EventInstance pistolShoot;
+    private EventInstance pistolReload;
+    private EventInstance pistolNoAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -65,11 +67,15 @@ public class Pistol : MonoBehaviour
 
             if (ammo <= 0)
             {
+                
                 canShoot = false;
             }
             // Spawns bullet 
             shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
             shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
+        }else if (Input.GetMouseButtonDown(0) && canShoot == false)
+        {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolNoAmmo, transform.position);
         }
 
         // Reload pistol

@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
@@ -89,13 +90,23 @@ public class BossBehaviour : MonoBehaviour
 
     // ------------------------------------------ //
 
+    // Audio
+    private PARAMETER_ID phaseParamID;
+    private bool musicStarted = false;
+    private int currentMusicPhase = -1;
+    private EventInstance bossTheme;    
+    private EventInstance bossWake;
+    private EventInstance bossShellOpen;
+
     private void Start()
     {
         spawnPosition = transform.position;
         InitialSetup();
         rangedTimer = rangedCooldown;
-    }
 
+        bossTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.bossTheme);
+
+    }
     private void Awake()
     {
         if (stats == null)
@@ -230,11 +241,25 @@ public class BossBehaviour : MonoBehaviour
                 animator.SetBool("Detected?", true);
                 animator.ResetTrigger("Sleep");
                 isAwake = true;
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossWake, transform.position);
             }
             else
             {
                 Debug.Log("Boss is sleeping. Player distance: " + distance);
                 return EnemyState.Sleep;
+            }
+            if (!musicStarted)
+            {
+                EventDescription desc;
+                bossTheme.getDescription(out desc);
+
+                PARAMETER_DESCRIPTION paramDesc;
+                desc.getParameterDescriptionByName("Phase", out paramDesc);
+                phaseParamID = paramDesc.id;
+
+                bossTheme.start();
+                musicStarted = true;
+                SetMusicPhase(0);
             }
         }
 
@@ -243,6 +268,13 @@ public class BossBehaviour : MonoBehaviour
         {
             phase2Active = true;
             animator.SetBool("Phase2", true);
+            //this sound will require some timing changes to sync up properly, so for now it just plays immediately when the phase starts, but ideally it should play at the moment the shell actually opens in the animation
+            //we could do this with an animation event, but for now this is good enough to get the feel in testing
+            //ideally the player freezes and the phase change is more of a spectacle
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+
+            if (musicStarted)
+                SetMusicPhase(1); // Switch music to phase 2
         }
 
         // Phase 2 prefers ranged attacks
@@ -561,4 +593,25 @@ public class BossBehaviour : MonoBehaviour
         }
     }
 
+    private void SetMusicPhase(int phase)
+    {
+        if (!musicStarted) return;
+        if (currentMusicPhase == phase) return;
+
+        bossTheme.setParameterByID(phaseParamID, phase);
+        currentMusicPhase = phase;
+    }
+    public void OnBossDeath()
+    {
+        SetMusicPhase(2); // Final phase
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
+    }
+
+    public void PlayFootstepHit()
+    {
+        if (agent.velocity.magnitude > 0.1f)
+        {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossFootsteps, transform.position);
+        }
+    }
 }

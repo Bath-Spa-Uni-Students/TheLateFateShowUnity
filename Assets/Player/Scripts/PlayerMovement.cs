@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     private EventInstance playerFootsteps;
     private EventInstance playerHurt;
     private EventInstance playerDeath;
+    private EventInstance playerDash;
 
     // ------------------------------------------ //
 
@@ -83,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
         playerHurt = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerHurt);
         playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
+        playerDash = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDash);
     }
 
     void FixedUpdate()
@@ -144,6 +146,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply dash velocity
         rb.linearVelocity = lastMoveDir * dashForce;
+        playerDash.start();
 
         // Hold dash for its full duration
         yield return new WaitForSeconds(dashTime);

@@ -9,12 +9,14 @@ public class DamageHandler : MonoBehaviour
     private float enemyHealth;
     private float maxHealth;
 
+    private BossBehaviour bossBehaviour;
+
     private void Start()
     {
         enemyHealth = stats.health;
         maxHealth = stats.maxHealth;
         healthBar.Initialize(stats.maxHealth);
-
+        bossBehaviour = GetComponent<BossBehaviour>(); // will be null on non-boss enemies
     }
 
     public void TakeDamage(float damage)
@@ -32,10 +34,19 @@ public class DamageHandler : MonoBehaviour
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
 
-        // Destroy enemy if health is less than 0
         if (stats.health <= 0)
         {
+            if (bossBehaviour != null)
+            {
+                bossBehaviour.OnBossDeath();
+            }
+            else
+            {
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gruntDeath, transform.position);
+            }
             Destroy(gameObject);
         }
     }
+
+  
 }
