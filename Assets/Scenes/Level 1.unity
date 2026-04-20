@@ -428,7 +428,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235402764}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bd1f991467666034981025bd1413bac4, type: 3}
   m_Name: 
@@ -113151,6 +113151,7 @@ MonoBehaviour:
   lifeSteal: 0
   lifeStealAmount: 0.1
   pierce: 0
+  ricochet: 0
 --- !u!212 &1451984670
 SpriteRenderer:
   serializedVersion: 2
@@ -121704,6 +121705,71 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1001 &1668044556
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3145301351826390646, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: health
+      value: 100000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928102909052291268, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 727349307}
+    - target: {fileID: 7175007397795854289, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_Name
+      value: Capsule (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843453610132411861, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
 --- !u!1 &1676887641
 GameObject:
   m_ObjectHideFlags: 0
@@ -122235,6 +122301,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3145301351826390646, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
+      propertyPath: health
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 3928102909052291268, guid: 26f8c9c7af5dced428e3eac97b471277, type: 3}
       propertyPath: healthBar
       value: 
@@ -122390,6 +122460,7 @@ SceneRoots:
   - {fileID: 2076326506}
   - {fileID: 582290911}
   - {fileID: 970789655756795982}
+  - {fileID: 1668044556}
   - {fileID: 428931948}
   - {fileID: 380418694}
   - {fileID: 1452882012}
