@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,6 +18,7 @@ public class MazeChanger : MonoBehaviour
     void Start()
     {
         GenerateAllSegments();
+        StartCoroutine(SegmentReset());
     }
 
     // Update is called once per frame
@@ -44,5 +46,12 @@ public class MazeChanger : MonoBehaviour
         SelectSegment(s6);
         SelectSegment(s7);
         SelectSegment(s8);
+    }
+
+    IEnumerator SegmentReset()
+    {
+        yield return new WaitForSeconds(10f);
+        GenerateAllSegments();
+        StartCoroutine(SegmentReset());
     }
 }
