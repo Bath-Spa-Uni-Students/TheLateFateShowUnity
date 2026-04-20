@@ -17,6 +17,9 @@ public class PistolPerks : MonoBehaviour
     [Header("Pierce Perk")]
     [SerializeField] public bool pierce = false;
 
+    [Header("Ricochet Perk")]
+    [SerializeField] public bool ricochet = false;
+
     // HitReload perk
     public void HitReloadPerk()
     {
