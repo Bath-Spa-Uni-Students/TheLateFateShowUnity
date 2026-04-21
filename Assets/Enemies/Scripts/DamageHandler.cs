@@ -17,6 +17,7 @@ public class DamageHandler : MonoBehaviour
 
 
     private Coroutine poisonCoroutine;
+    private Coroutine slowCoroutine;
 
     private void Start()
     {
@@ -59,6 +60,22 @@ public class DamageHandler : MonoBehaviour
         poisonCoroutine = StartCoroutine(PoisonCoroutine(damagePerTick, duration, tickRate));
     }
 
+    public void StartSlow(float slowMultiplier, float duration)
+    {
+        if (slowCoroutine != null) StopCoroutine(slowCoroutine);
+        slowCoroutine = StartCoroutine(SlowCoroutine(slowMultiplier, duration));
+    }
+
+    private IEnumerator SlowCoroutine(float slowMultiplier, float duration)
+    {
+        var movement = GetComponent<EnemyStats>();
+        if (movement == null) yield break;
+
+        float original = movement.speed;
+        movement.speed *= slowMultiplier;
+        yield return new WaitForSeconds(duration);
+        movement.speed = original;
+    }
     private IEnumerator PoisonCoroutine(float damagePerTick, float duration, float tickRate)
     {
         float elapsed = 0f;

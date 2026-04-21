@@ -30,6 +30,11 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] float poisonDuration = 3f;
     [SerializeField] float poisonTickRate = 0.5f;
 
+    [Header("Slow Rounds Perk")]
+    [SerializeField] public bool slowRounds = false;
+    [SerializeField] float slowAmount = 0.5f; 
+    [SerializeField] float slowDuration = 2f;
+
     // HitReload perk
     public void HitReloadPerk()
     {
@@ -80,6 +85,12 @@ public class PistolPerks : MonoBehaviour
         if (!poisonRounds || enemy == null) return;
         enemy.StartPoison(poisonDamagePerTick, poisonDuration, poisonTickRate);
     }
+    //slow rounds perk
+    public void ApplySlowRounds(DamageHandler enemy)
+    {
+        if (!slowRounds || enemy == null) return;
+        enemy.StartSlow(slowAmount, slowDuration);
+    }
 
     //Debugging perks in editor
     void Update()
@@ -90,7 +101,8 @@ public class PistolPerks : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4)) { poisonRounds = true; Debug.Log("Perk ON: Poison"); }
         if (Input.GetKeyDown(KeyCode.Alpha5)) { pierce = true; Debug.Log("Perk ON: Pierce"); }
         if (Input.GetKeyDown(KeyCode.Alpha6)) { ricochet = true; Debug.Log("Perk ON: Ricochet"); }
-        if(Input.GetKeyDown(KeyCode.Alpha9)) { ListPerks(); }
+        if (Input.GetKeyDown(KeyCode.Alpha7)) { slowRounds = true; Debug.Log("Perk ON: Slow Rounds"); }
+        if (Input.GetKeyDown(KeyCode.Alpha9)) { ListPerks(); }
         if (Input.GetKeyDown(KeyCode.Alpha0)) { ResetPerks(); Debug.Log("All perks reset"); }
     }
     void ListPerks()
