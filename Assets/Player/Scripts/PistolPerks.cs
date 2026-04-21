@@ -58,6 +58,7 @@ public class PistolPerks : MonoBehaviour
 
             // Heal player
             player.health += heal;
+            Debug.Log($"Player healed for {heal} health!");
 
             if (player.health > player.maxHealth)
             {
@@ -81,7 +82,6 @@ public class PistolPerks : MonoBehaviour
     }
 
     //Debugging perks in editor
-#if UNITY_EDITOR
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) { lifeSteal = true; Debug.Log("Perk ON: Life Steal"); }
@@ -108,5 +108,5 @@ public class PistolPerks : MonoBehaviour
         lifeSteal = false; hitReload = false; critChance = false;
         poisonRounds = false; pierce = false; ricochet = false;
     }
-#endif
+
 }
