@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PistolPickup : MonoBehaviour
+public class ARPickup : MonoBehaviour
 {
 
 
@@ -11,13 +11,13 @@ public class PistolPickup : MonoBehaviour
         {
             Destroy(gameObject);
 
-            GameObject pistolWeapon = GameObject.FindGameObjectWithTag("PistolHeld");
-            // Pistol script enabled
-            pistolWeapon.GetComponent<Pistol>().enabled = true;
-            // Enable pistol sprite
-            pistolWeapon.GetComponent<SpriteRenderer>().enabled = true;
-            // Pistol can shoot
-            pistolWeapon.GetComponent<Pistol>().canShoot = true;
+            GameObject ARWeapon = GameObject.FindGameObjectWithTag("ARHeld");
+            // AR script enabled
+            ARWeapon.GetComponent<AR>().enabled = true;
+            // Enable AR sprite
+            ARWeapon.GetComponent<SpriteRenderer>().enabled = true;
+            // AR can shoot
+            ARWeapon.GetComponent<AR>().canShoot = true;
 
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             // Player has a weapon

@@ -55,6 +55,8 @@ public class PistolPerks : MonoBehaviour
 
 
 
+
+
     // HitReload perk
     public void HitReloadPerk()
     {
@@ -147,6 +149,8 @@ public class PistolPerks : MonoBehaviour
         Vector2 knockbackDir = (enemyObject.transform.position - player.transform.position).normalized;
         enemyRb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
     }
+  
+
     //Debugging perks in editor
     void Update()
     {
