@@ -65,23 +65,10 @@ public class PistolBullet : MonoBehaviour
     // Ricochet perk
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log($"OnCollisionEnter2D hit: {collision.gameObject.name} tag: {collision.gameObject.tag}");
 
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            var enemy = collision.gameObject.GetComponent<DamageHandler>();
-            if (enemy != null)
-            {
-                float damage = bulletDamage;
-          
-                damage = pistolPerks.ApplyCrit(damage);
-
-                enemy.TakeDamage(damage);
-                pistolPerks.HitReloadPerk();
-                pistolPerks.LifeStealPerk();
-                pistolPerks.ApplyPoisonRounds(enemy);
-               
-            }
-        }
+        if (collision.gameObject.CompareTag("Enemy")) return;
+       
 
         if (!pistolPerks.ricochet)
         {
@@ -108,14 +95,18 @@ public class PistolBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject.GetComponent<DamageHandler>();
-
             if (enemy != null)
             {
-                enemy.TakeDamage(bulletDamage); // Damage is applied here
+                float damage = bulletDamage;
+                damage = pistolPerks.ApplyCrit(damage);
+
+                enemy.TakeDamage(damage);
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
+                pistolPerks.ApplyPoisonRounds(enemy);
             }
 
+            if (!pistolPerks.pierce) Destroy(gameObject); // <-- add this
         }
     }
 }

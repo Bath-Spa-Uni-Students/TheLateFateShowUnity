@@ -37,7 +37,7 @@ public class PistolPerks : MonoBehaviour
         {
             // Roll random number
             float roll = Random.Range(0, 100);
-            Debug.Log(roll);
+            Debug.Log($"random number rolled: {roll}");
 
             // If the roll number is the same as the hit chance
             if (roll <= hitReloadChance)
