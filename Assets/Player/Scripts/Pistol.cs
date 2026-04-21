@@ -23,6 +23,10 @@ public class Pistol : MonoBehaviour
     // Max ammo
     [SerializeField] int maxAmmo = 6;
 
+    //Fire rate
+    [SerializeField] public float fireRate = 0.8f; // seconds between shots
+    private float nextFireTime = 0f;
+
     // Clip size
     public int ammo = 6;
     [SerializeField] private GameObject ammoText;
@@ -56,8 +60,9 @@ public class Pistol : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotateZ);
 
         // Player shoots
-        if (Input.GetMouseButtonDown(0) && canShoot == true)
+        if (Input.GetMouseButtonDown(0) && canShoot == true && Time.time >= nextFireTime)
         {
+            nextFireTime = Time.time + fireRate;
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 

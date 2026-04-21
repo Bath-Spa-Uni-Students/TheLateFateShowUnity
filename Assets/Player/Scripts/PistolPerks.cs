@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -38,6 +39,14 @@ public class PistolPerks : MonoBehaviour
     [Header("Power Cell Perk")]
     [SerializeField] public bool powerCell = false;
     [SerializeField] float powerCellDamageMultiplier = 1.25f;
+
+    [Header("Speed Cell Perk")]
+    [SerializeField] bool speedCell = false;
+    [SerializeField][Range(0, 100)] int speedCellChance = 15;
+    [SerializeField] float speedCellFireRateMultiplier = 2f;
+    [SerializeField] float speedCellDuration = 2f;
+    private bool speedCellActive = false;
+
 
     // HitReload perk
     public void HitReloadPerk()
@@ -101,10 +110,28 @@ public class PistolPerks : MonoBehaviour
         return powerCell ? baseDamage * powerCellDamageMultiplier : baseDamage;
     }
 
+    // Speed Cell chance on shot to temporarily double fire rate
+    public void ApplySpeedCell()
+    {
+        if (!speedCell || speedCellActive) return;
+        if (Random.Range(0, 100) > speedCellChance) return;
+        StartCoroutine(SpeedCellCoroutine());
+    }
+
+    private IEnumerator SpeedCellCoroutine()
+    {
+        speedCellActive = true;
+        float original = pistol.fireRate;
+        pistol.fireRate /= speedCellFireRateMultiplier; // lower value = faster fire
+        yield return new WaitForSeconds(speedCellDuration);
+        pistol.fireRate = original;
+        speedCellActive = false;
+    }
+
     //Debugging perks in editor
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { lifeSteal = true; Debug.Log("Perk ON: Life Steal"); }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) { speedCell = true; Debug.Log("Perk ON: Speed Cell"); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { hitReload = true; Debug.Log("Perk ON: Hit Reload"); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { critChance = true; Debug.Log("Perk ON: Crit Chance"); }
         if (Input.GetKeyDown(KeyCode.Alpha4)) { poisonRounds = true; Debug.Log("Perk ON: Poison"); }
@@ -118,12 +145,14 @@ public class PistolPerks : MonoBehaviour
     void ListPerks()
     {
         Debug.Log($"Current active Perks:\n" +
-            $"Life Steal: {lifeSteal}\n" +
+            $"SpeedCell: {speedCell}\n" +
             $"Hit Reload:" + hitReload + $"\n" +
             $"Crit Chance: {critChance}\n" +
             $"Poison Rounds: {poisonRounds}\n" +
             $"Pierce: {pierce}\n" +
-            $"Ricochet: {ricochet}");
+            $"Ricochet: {ricochet}" +
+            $"\"SlowRounds: {slowRounds}" +
+            $"\"Power Cell: {powerCell}");
     }
     void ResetPerks()
     {

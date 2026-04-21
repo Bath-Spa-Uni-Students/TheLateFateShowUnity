@@ -10,6 +10,7 @@ TagManager:
   - PistolBullet
   - PistolHeld
   - ShotgunHeld
+  - Wall
   layers:
   - Default
   - TransparentFX
