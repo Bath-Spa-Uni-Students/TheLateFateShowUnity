@@ -48,6 +48,13 @@ public class PistolPerks : MonoBehaviour
     private bool speedCellActive = false;
 
 
+    [Header("Shockwave Loader")]
+    [SerializeField] bool shockwaveLoader = false;
+    [SerializeField][Range(0, 100)] int shockwaveChance = 25;
+    [SerializeField] float knockbackForce = 5f;
+
+
+
     // HitReload perk
     public void HitReloadPerk()
     {
@@ -128,11 +135,23 @@ public class PistolPerks : MonoBehaviour
         speedCellActive = false;
     }
 
+    // Shockwave Loader — chance to knock back enemy on hit
+    public void ApplyShockwaveLoader(GameObject enemyObject)
+    {
+        if (!shockwaveLoader) return;
+        if (Random.Range(0, 100) > shockwaveChance) return;
+
+        Rigidbody2D enemyRb = enemyObject.GetComponent<Rigidbody2D>();
+        if (enemyRb == null) return;
+
+        Vector2 knockbackDir = (enemyObject.transform.position - player.transform.position).normalized;
+        enemyRb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+    }
     //Debugging perks in editor
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) { speedCell = true; Debug.Log("Perk ON: Speed Cell"); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { hitReload = true; Debug.Log("Perk ON: Hit Reload"); }
+        if (Input.GetKeyDown(KeyCode.Alpha2)) { shockwaveLoader = true; Debug.Log("Perk ON: Shockwave Loader"); }
         if (Input.GetKeyDown(KeyCode.Alpha3)) { critChance = true; Debug.Log("Perk ON: Crit Chance"); }
         if (Input.GetKeyDown(KeyCode.Alpha4)) { poisonRounds = true; Debug.Log("Perk ON: Poison"); }
         if (Input.GetKeyDown(KeyCode.Alpha5)) { pierce = true; Debug.Log("Perk ON: Pierce"); }
@@ -146,13 +165,13 @@ public class PistolPerks : MonoBehaviour
     {
         Debug.Log($"Current active Perks:\n" +
             $"SpeedCell: {speedCell}\n" +
-            $"Hit Reload:" + hitReload + $"\n" +
+            $"Shockwave Loader: {shockwaveLoader}\n" +
             $"Crit Chance: {critChance}\n" +
             $"Poison Rounds: {poisonRounds}\n" +
             $"Pierce: {pierce}\n" +
-            $"Ricochet: {ricochet}" +
-            $"\"SlowRounds: {slowRounds}" +
-            $"\"Power Cell: {powerCell}");
+            $"Ricochet: {ricochet}\n" +
+            $"SlowRounds: {slowRounds}\n" +
+            $"Power Cell: {powerCell}");
     }
     void ResetPerks()
     {
