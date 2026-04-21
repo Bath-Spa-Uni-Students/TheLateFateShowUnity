@@ -108,8 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
   bulletSpeed: 10
-  bulletDamage: 50
+  bulletDamage: 2
   pistol: {fileID: 0}
+  bounces: 2
 --- !u!50 &2085445656318187281
 Rigidbody2D:
   serializedVersion: 5

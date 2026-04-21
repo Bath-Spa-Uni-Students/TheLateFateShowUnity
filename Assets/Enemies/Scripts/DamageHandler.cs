@@ -1,6 +1,7 @@
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using Microlight.MicroBar;
+using System.Collections;
 
 public class DamageHandler : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class DamageHandler : MonoBehaviour
     private float maxHealth;
 
     private BossBehaviour bossBehaviour;
+
+
+    private Coroutine poisonCoroutine;
 
     private void Start()
     {
@@ -28,7 +32,7 @@ public class DamageHandler : MonoBehaviour
     {
         // Enemy loses health
         stats.health = stats.health - damage;
-        Debug.Log("damaged");
+        Debug.Log("damaged " + damage);
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
 
@@ -48,5 +52,21 @@ public class DamageHandler : MonoBehaviour
         }
     }
 
-  
+    public void StartPoison(float damagePerTick, float duration, float tickRate)
+    {
+        // Don't stack
+        if (poisonCoroutine != null) StopCoroutine(poisonCoroutine);
+        poisonCoroutine = StartCoroutine(PoisonCoroutine(damagePerTick, duration, tickRate));
+    }
+
+    private IEnumerator PoisonCoroutine(float damagePerTick, float duration, float tickRate)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            yield return new WaitForSeconds(tickRate);
+            TakeDamage(damagePerTick);
+            elapsed += tickRate;
+        }
+    }
 }

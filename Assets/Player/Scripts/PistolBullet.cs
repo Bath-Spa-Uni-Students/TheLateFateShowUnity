@@ -18,7 +18,7 @@ public class PistolBullet : MonoBehaviour
     private CircleCollider2D circleCollider;
 
     [SerializeField] float bulletSpeed = 10;
-    [SerializeField] float bulletDamage = 50;
+    [SerializeField] float bulletDamage = 2;
 
     [SerializeField] SortingLayer enemyLayer;
 
@@ -65,6 +65,24 @@ public class PistolBullet : MonoBehaviour
     // Ricochet perk
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            var enemy = collision.gameObject.GetComponent<DamageHandler>();
+            if (enemy != null)
+            {
+                float damage = bulletDamage;
+          
+                damage = pistolPerks.ApplyCrit(damage);
+
+                enemy.TakeDamage(damage);
+                pistolPerks.HitReloadPerk();
+                pistolPerks.LifeStealPerk();
+                pistolPerks.ApplyPoisonRounds(enemy);
+               
+            }
+        }
+
         if (!pistolPerks.ricochet)
         {
             Destroy(gameObject);
