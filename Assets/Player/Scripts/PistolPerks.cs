@@ -20,6 +20,10 @@ public class PistolPerks : MonoBehaviour
     [Header("Ricochet Perk")]
     [SerializeField] public bool ricochet = false;
 
+    [Header("Crit Chance Perk")]
+    [SerializeField] public bool critChance = false;
+    [SerializeField][Range(0, 100)] int critChancePercent = 20;
+   
     // HitReload perk
     public void HitReloadPerk()
     {
@@ -54,5 +58,12 @@ public class PistolPerks : MonoBehaviour
                 player.health = player.maxHealth; 
             }
         }
+    }
+
+    // Crit Chance perk
+    public float ApplyCrit(float baseDamage)
+    {
+        if (!critChance) return baseDamage;
+        return Random.Range(0, 100) <= critChancePercent ? baseDamage * 2f : baseDamage;
     }
 }

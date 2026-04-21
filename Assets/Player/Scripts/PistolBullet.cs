@@ -46,6 +46,7 @@ public class PistolBullet : MonoBehaviour
         // Bullet shoots
         // Move in the direction the bullet is facing
         rb.linearVelocity = transform.right * bulletSpeed;
+        direction = transform.right;
 
         // If pistol perks true
         if (pistolPerks.pierce == true)
@@ -67,18 +68,20 @@ public class PistolBullet : MonoBehaviour
         if (!pistolPerks.ricochet)
         {
             Destroy(gameObject);
+            return;
         }
 
         bounces--;
-
         if (bounces <= 0)
         {
             Destroy(gameObject);
+            return;
         }
 
         var contact = collision.contacts[0];
-        Vector2 newVelocity = Vector2.Reflect(direction.normalized, contact.normal);
-        Ricochet(newVelocity.normalized);
+        Vector2 reflected = Vector2.Reflect(direction.normalized, contact.normal);
+        direction = reflected.normalized;
+        rb.linearVelocity = direction * bulletSpeed;
     }
 
     // Bullet damage
