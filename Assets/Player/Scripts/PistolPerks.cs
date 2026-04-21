@@ -35,6 +35,10 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] float slowAmount = 0.5f; 
     [SerializeField] float slowDuration = 2f;
 
+    [Header("Power Cell Perk")]
+    [SerializeField] public bool powerCell = false;
+    [SerializeField] float powerCellDamageMultiplier = 1.25f;
+
     // HitReload perk
     public void HitReloadPerk()
     {
@@ -91,6 +95,11 @@ public class PistolPerks : MonoBehaviour
         if (!slowRounds || enemy == null) return;
         enemy.StartSlow(slowAmount, slowDuration);
     }
+    //power cell perk
+    public float ApplyPowerCell(float baseDamage)
+    {
+        return powerCell ? baseDamage * powerCellDamageMultiplier : baseDamage;
+    }
 
     //Debugging perks in editor
     void Update()
@@ -102,6 +111,7 @@ public class PistolPerks : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha5)) { pierce = true; Debug.Log("Perk ON: Pierce"); }
         if (Input.GetKeyDown(KeyCode.Alpha6)) { ricochet = true; Debug.Log("Perk ON: Ricochet"); }
         if (Input.GetKeyDown(KeyCode.Alpha7)) { slowRounds = true; Debug.Log("Perk ON: Slow Rounds"); }
+        if (Input.GetKeyDown(KeyCode.Alpha8)) { powerCell = true; Debug.Log("Perk ON: Power Cell"); }
         if (Input.GetKeyDown(KeyCode.Alpha9)) { ListPerks(); }
         if (Input.GetKeyDown(KeyCode.Alpha0)) { ResetPerks(); Debug.Log("All perks reset"); }
     }
@@ -118,7 +128,7 @@ public class PistolPerks : MonoBehaviour
     void ResetPerks()
     {
         lifeSteal = false; hitReload = false; critChance = false;
-        poisonRounds = false; pierce = false; ricochet = false;
+        poisonRounds = false; pierce = false; ricochet = false; slowRounds = false; powerCell = false;
     }
 
 }

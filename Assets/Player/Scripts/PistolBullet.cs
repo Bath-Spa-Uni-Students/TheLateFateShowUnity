@@ -98,12 +98,16 @@ public class PistolBullet : MonoBehaviour
             if (enemy != null)
             {
                 float damage = bulletDamage;
+                damage = pistolPerks.ApplyPowerCell(damage);
                 damage = pistolPerks.ApplyCrit(damage);
+                
+                
 
                 enemy.TakeDamage(damage);
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
                 pistolPerks.ApplyPoisonRounds(enemy);
+                pistolPerks.ApplySlowRounds(enemy);
             }
 
             if (!pistolPerks.pierce) Destroy(gameObject); // <-- add this
