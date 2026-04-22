@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6042353297643838849}
   - component: {fileID: 5536335849369521558}
   - component: {fileID: 5706944996986989774}
-  - component: {fileID: 1588428637994043076}
   m_Layer: 6
   m_Name: PistolWeapon
   m_TagString: PistolHeld
@@ -69,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PistolPerks
   pistol: {fileID: 6042353297643838849}
   player: {fileID: 0}
-  PistolBullet: {fileID: 0}
+  scatterBullet: {fileID: 2212800752848840363, guid: 746826511fa35e54fb6370255a7d6e42, type: 3}
   hitReload: 0
   hitReloadChance: 10
   lifeSteal: 0
@@ -158,26 +157,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1588428637994043076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891506178819071994}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef5c5f0e74184a4eb2ada3f21e66934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Shotgun
-  bullet: {fileID: 2212800752848840363, guid: 1eb6a69d7a0a9b644b4aa6285771aadd, type: 3}
-  bulletTransform: {fileID: 1492145263774980354}
-  canShoot: 0
-  maxAmmo: 6
-  ammo: 6
-  pelletCount: 8
-  bulletSpread: 40
-  ammoText: {fileID: 0}
 --- !u!1 &8680008692758391414
 GameObject:
   m_ObjectHideFlags: 0

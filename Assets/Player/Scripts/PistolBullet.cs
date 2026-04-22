@@ -105,13 +105,13 @@ public class PistolBullet : MonoBehaviour
                 enemy.TakeDamage(damage);
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
-                pistolPerks.ScatterBullet();
                 pistolPerks.ApplyPoisonRounds(enemy);
                 pistolPerks.ApplySlowRounds(enemy);
                 pistolPerks.ApplyShockwaveLoader(collision.gameObject);
+                pistolPerks.ScatterBullet(damage); // pass damage through
             }
 
-            if (!pistolPerks.pierce) Destroy(gameObject); // <-- add this
+            if (!pistolPerks.pierce) Destroy(gameObject);
         }
     }
 }
