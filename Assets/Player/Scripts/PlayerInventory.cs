@@ -19,7 +19,7 @@ public class PlayerInventory : MonoBehaviour
     }
     public void Interact(InputAction.CallbackContext context)
     {
-       // EquipWeapon(equippedWeapon);
+       EquipWeapon(equippedWeapon);
     }
 
     /// <summary>
@@ -28,8 +28,8 @@ public class PlayerInventory : MonoBehaviour
     /// <param name="weapon"></param>
     //public void EquipWeapon (GameObject weapon)
    // {
-       // weaponSlot.gameObject.SetActive (true);
-     //   equippedWeapon = weapon;
+        weaponSlot.gameObject.SetActive (true);
+        equippedWeapon = weapon;
      //   Debug.Log("Weapon Equip");
 //}
 }//
