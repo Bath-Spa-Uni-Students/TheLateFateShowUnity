@@ -27,6 +27,7 @@ public class PistolBullet : MonoBehaviour
     public Pistol pistol;
 
     // How many times bullet bounces for ricochet rounds
+    [Header("Ricochet bounces")]
     [SerializeField] int bounces = 2;
 
     // Start is called before the first frame update
@@ -100,12 +101,11 @@ public class PistolBullet : MonoBehaviour
                 float damage = bulletDamage;
                 damage = pistolPerks.ApplyPowerCell(damage);
                 damage = pistolPerks.ApplyCrit(damage);
-                
-                
 
                 enemy.TakeDamage(damage);
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
+                pistolPerks.ScatterBullet();
                 pistolPerks.ApplyPoisonRounds(enemy);
                 pistolPerks.ApplySlowRounds(enemy);
                 pistolPerks.ApplyShockwaveLoader(collision.gameObject);

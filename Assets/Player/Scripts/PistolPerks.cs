@@ -6,6 +6,7 @@ public class PistolPerks : MonoBehaviour
 {
     [SerializeField] private Pistol pistol;
     [SerializeField] private PlayerMovement player;
+    [SerializeField] private GameObject PistolBullet;
 
     [Header("Hit Reload Perk")]
     [SerializeField] bool hitReload = false;
@@ -20,6 +21,13 @@ public class PistolPerks : MonoBehaviour
 
     [Header("Ricochet Perk")]
     [SerializeField] public bool ricochet = false;
+
+    [Header("Scatter Perk")]
+    [SerializeField] public bool scatter = false;
+    [SerializeField] int numBullets = 6;
+    [SerializeField] int bulletSpeed = 2;
+    [SerializeField] float angleSpread = 260f;
+
 
     [Header("Crit Chance Perk")]
     [SerializeField] public bool critChance = false;
@@ -93,6 +101,37 @@ public class PistolPerks : MonoBehaviour
             }
         }
     }
+
+    // Scatter perk
+
+    public void ScatterBullet()
+    {
+        if (scatter)
+        {
+            // Get scatter spread
+            float spread = angleSpread / numBullets;
+            
+            // Add bullets to scatter
+            for (int i = 0; i < numBullets; i++)
+            {
+                float angle = i * spread;
+                float rad = angle * Mathf.Deg2Rad;
+
+                Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+                GameObject bullet = Instantiate(PistolBullet, transform.position, Quaternion.identity);
+                
+                // Get rigid body of bullet
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                // Add force to scatter bullets
+                rb.linearVelocity = direction * bulletSpeed;
+            }
+        }
+    }
+
+
+
+
 
     // Crit Chance perk
     public float ApplyCrit(float baseDamage)
