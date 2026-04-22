@@ -39,7 +39,16 @@ public class EnemyAttackMelee : MonoBehaviour
 
     private void Start()
     {
-        pistolPerks = pistol.GetComponent<PistolPerks>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            pistol = player.GetComponentInChildren<Pistol>();
+            pistolPerks = pistol.GetComponent<PistolPerks>();
+        }
+        else
+        {
+            Debug.LogWarning("EnemyAttackMelee: Could not find Player in scene");
+        }
     }
 
     public void TryAttack()
@@ -62,14 +71,18 @@ public class EnemyAttackMelee : MonoBehaviour
         var stats = player.GetComponent<PlayerMovement>();
         if (stats != null)
         {
+            // Always damage the player
+            stats.DamagePlayer(mDamage);
+
+            // If thorns is active, reflect damage back to the attacker
             if (pistolPerks.thorns)
             {
-                stats.DamagePlayer(mDamage);
-                stats.health -= mDamage;
-            }
-            else
-            {
-                stats.DamagePlayer(mDamage);
+                var damageHandler = GetComponent<DamageHandler>();
+                if (damageHandler != null)
+                {
+                    damageHandler.TakeDamage(mDamage);
+                    Debug.Log($"Thorns reflected {mDamage} damage back to {gameObject.name}");
+                }
             }
         }
             

@@ -62,10 +62,6 @@ public class PistolPerks : MonoBehaviour
     [SerializeField][Range(0, 100)] int shockwaveChance = 25;
     [SerializeField] float knockbackForce = 5f;
 
-
-
-
-
     // HitReload perk
     public void HitReloadPerk()
     {
@@ -196,8 +192,8 @@ public class PistolPerks : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1)) { speedCell = true; Debug.Log("Perk ON: Speed Cell"); }
         if (Input.GetKeyDown(KeyCode.Alpha2)) { shockwaveLoader = true; Debug.Log("Perk ON: Shockwave Loader"); }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) { critChance = true; Debug.Log("Perk ON: Crit Chance"); }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) { poisonRounds = true; Debug.Log("Perk ON: Poison"); }
+        if (Input.GetKeyDown(KeyCode.Alpha3)) { thorns = true; Debug.Log("Perk ON: Crit Chance"); }
+        if (Input.GetKeyDown(KeyCode.Alpha4)) { scatter = true; Debug.Log("Perk ON: Poison"); }
         if (Input.GetKeyDown(KeyCode.Alpha5)) { pierce = true; Debug.Log("Perk ON: Pierce"); }
         if (Input.GetKeyDown(KeyCode.Alpha6)) { ricochet = true; Debug.Log("Perk ON: Ricochet"); }
         if (Input.GetKeyDown(KeyCode.Alpha7)) { slowRounds = true; Debug.Log("Perk ON: Slow Rounds"); }
@@ -210,8 +206,8 @@ public class PistolPerks : MonoBehaviour
         Debug.Log($"Current active Perks:\n" +
             $"SpeedCell: {speedCell}\n" +
             $"Shockwave Loader: {shockwaveLoader}\n" +
-            $"Crit Chance: {critChance}\n" +
-            $"Poison Rounds: {poisonRounds}\n" +
+            $"Thorns: {thorns}\n" +
+            $"Scatter: {scatter}\n" +
             $"Pierce: {pierce}\n" +
             $"Ricochet: {ricochet}\n" +
             $"SlowRounds: {slowRounds}\n" +
