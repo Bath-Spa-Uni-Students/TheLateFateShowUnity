@@ -60,7 +60,7 @@ public class AR : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotateZ);
 
         // Player shoots
-        if (Input.GetMouseButtonDown(0) && canShoot == true && Time.time >= nextFireTime)
+        if (Input.GetMouseButton(0) && canShoot == true && Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + fireRate;
             ammo -= 1;
