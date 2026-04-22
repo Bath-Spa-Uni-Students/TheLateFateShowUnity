@@ -19,13 +19,17 @@ public class PlayerInventory : MonoBehaviour
     }
     public void Interact(InputAction.CallbackContext context)
     {
-        EquipWeapon(equippedWeapon);
+       EquipWeapon(equippedWeapon);
     }
 
-    public void EquipWeapon (GameObject weapon)
-    {
+    /// <summary>
+    /// HAHA NOW THE EQUIP STOPS WORKING
+    /// </summary>
+    /// <param name="weapon"></param>
+    //public void EquipWeapon (GameObject weapon)
+   // {
         weaponSlot.gameObject.SetActive (true);
         equippedWeapon = weapon;
-        Debug.Log("Weapon Equip");
-    }
-}
+     //   Debug.Log("Weapon Equip");
+//}
+}//
