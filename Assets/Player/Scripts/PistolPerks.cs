@@ -28,6 +28,8 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] int bulletSpeed = 2;
     [SerializeField] float angleSpread = 260f;
 
+    [Header("Thorns perk")]
+    [SerializeField] public bool thorns = false;
 
     [Header("Crit Chance Perk")]
     [SerializeField] public bool critChance = false;
@@ -54,7 +56,6 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] float speedCellFireRateMultiplier = 2f;
     [SerializeField] float speedCellDuration = 2f;
     private bool speedCellActive = false;
-
 
     [Header("Shockwave Loader")]
     [SerializeField] bool shockwaveLoader = false;

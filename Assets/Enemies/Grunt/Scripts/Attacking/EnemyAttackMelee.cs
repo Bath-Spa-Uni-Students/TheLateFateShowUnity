@@ -15,6 +15,8 @@ public class EnemyAttackMelee : MonoBehaviour
     public float mFireRate;
     public float mFireCooldown;
 
+    private PistolPerks pistolPerks;
+    public Pistol pistol;
 
     private void Awake()
     {
@@ -34,6 +36,12 @@ public class EnemyAttackMelee : MonoBehaviour
             Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
         }
     }
+
+    private void Start()
+    {
+        pistolPerks = pistol.GetComponent<PistolPerks>();
+    }
+
     public void TryAttack()
     {
         // Check if the enemy can attack and is not currently attacking
@@ -53,8 +61,18 @@ public class EnemyAttackMelee : MonoBehaviour
 
         var stats = player.GetComponent<PlayerMovement>();
         if (stats != null)
-            stats.DamagePlayer(mDamage);
-
+        {
+            if (pistolPerks.thorns)
+            {
+                stats.DamagePlayer(mDamage);
+                stats.health -= mDamage;
+            }
+            else
+            {
+                stats.DamagePlayer(mDamage);
+            }
+        }
+            
         yield return new WaitForSeconds(mFireRate);
         isAttacking = false;
         transform.localScale = new Vector3(2, 2, 2);
