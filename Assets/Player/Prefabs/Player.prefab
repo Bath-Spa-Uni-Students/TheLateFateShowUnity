@@ -216,7 +216,6 @@ GameObject:
   - component: {fileID: 5319785327473283894}
   - component: {fileID: 5867586762772513268}
   - component: {fileID: 9166099829349384968}
-  - component: {fileID: 3398387400045630437}
   m_Layer: 6
   m_Name: PistolWeapon
   m_TagString: PistolHeld
@@ -247,7 +246,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6402766218844524773}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674db862ced7a79438efcaf6565750fb, type: 3}
   m_Name: 
@@ -256,6 +255,7 @@ MonoBehaviour:
   bulletTransform: {fileID: 1131718327549684986}
   canShoot: 0
   maxAmmo: 5
+  fireRate: 0.8
   ammo: 5
   ammoText: {fileID: 0}
 --- !u!114 &5867586762772513268
@@ -272,12 +272,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PistolPerks
   pistol: {fileID: 5319785327473283894}
   player: {fileID: 1302460837879173090}
+  scatterBullet: {fileID: 2212800752848840363, guid: 746826511fa35e54fb6370255a7d6e42, type: 3}
   hitReload: 0
   hitReloadChance: 10
   lifeSteal: 0
   lifeStealAmount: 0.1
   pierce: 1
   ricochet: 0
+  scatter: 0
+  numBullets: 6
+  scatterBulletSpeed: 10
+  angleSpread: 260
+  thorns: 0
+  critChance: 0
+  critChancePercent: 20
+  poisonRounds: 0
+  poisonDamagePerTick: 5
+  poisonDuration: 3
+  poisonTickRate: 0.5
+  slowRounds: 0
+  slowAmount: 0.5
+  slowDuration: 2
+  powerCell: 0
+  powerCellDamageMultiplier: 1.25
+  speedCell: 0
+  speedCellChance: 15
+  speedCellFireRateMultiplier: 2
+  speedCellDuration: 2
+  shockwaveLoader: 0
+  shockwaveChance: 25
+  knockbackForce: 5
 --- !u!212 &9166099829349384968
 SpriteRenderer:
   serializedVersion: 2
@@ -337,26 +361,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &3398387400045630437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6402766218844524773}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef5c5f0e74184a4eb2ada3f21e66934, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Shotgun
-  bullet: {fileID: 2212800752848840363, guid: 1eb6a69d7a0a9b644b4aa6285771aadd, type: 3}
-  bulletTransform: {fileID: 1131718327549684986}
-  canShoot: 0
-  maxAmmo: 6
-  ammo: 6
-  pelletCount: 8
-  bulletSpread: 40
-  ammoText: {fileID: 0}
 --- !u!1 &6894317398465169764
 GameObject:
   m_ObjectHideFlags: 0

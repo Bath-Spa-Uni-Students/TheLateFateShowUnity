@@ -9,11 +9,11 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] private GameObject scatterBullet;
 
     [Header("Hit Reload Perk")]
-    [SerializeField] bool hitReload = false;
+    [SerializeField] public bool hitReload = false;
     [SerializeField] int hitReloadChance;
 
     [Header("Life Steal Perk")]
-    [SerializeField] bool lifeSteal = false;
+    [SerializeField] public bool lifeSteal = false;
     [SerializeField] float lifeStealAmount;
 
     [Header("Pierce Perk")]
@@ -51,14 +51,14 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] float powerCellDamageMultiplier = 1.25f;
 
     [Header("Speed Cell Perk")]
-    [SerializeField] bool speedCell = false;
+    [SerializeField] public bool speedCell = false;
     [SerializeField][Range(0, 100)] int speedCellChance = 15;
     [SerializeField] float speedCellFireRateMultiplier = 2f;
     [SerializeField] float speedCellDuration = 2f;
-    private bool speedCellActive = false;
+    [SerializeField] public bool speedCellActive = false;
 
     [Header("Shockwave Loader")]
-    [SerializeField] bool shockwaveLoader = false;
+    [SerializeField] public bool shockwaveLoader = false;
     [SerializeField][Range(0, 100)] int shockwaveChance = 25;
     [SerializeField] float knockbackForce = 5f;
 

@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
 
     public int fame;
 
+    [SerializeField] private PerkSelectionUI perkSelectionUI;
+
     [SerializeField] private int currentLevel = 1;
     [SerializeField] private int currentXP = 0;
 
@@ -90,7 +92,10 @@ public class PlayerMovement : MonoBehaviour
         playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
         playerDash = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDash);
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {currentXP += 100; Debug.Log(currentLevel); }
+    }
     void FixedUpdate()
     {
         // Only apply movement input when not mid-dash
@@ -209,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
             playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
-    
+
     // Add fame
     public void AddFame(int amount)
     {
@@ -221,6 +226,7 @@ public class PlayerMovement : MonoBehaviour
             currentXP -= GetXP(currentLevel);
             currentLevel++;
             currentXP = 0;
+            perkSelectionUI.Show(); // trigger perk screen on every level up
         }
     }
 
