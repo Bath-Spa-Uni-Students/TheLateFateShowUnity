@@ -1,220 +1,508 @@
-using System;
 using System.Collections;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.AI;
+using FMOD.Studio;
+using FMODUnity;
+
+[RequireComponent(typeof(StudioEventEmitter))]
 public class EnemyBehaviour : MonoBehaviour
 {
-    // Player info
-    private Transform player;
-    [SerializeField] public GameObject moveSpot;
-    private float waitTime;
-    [SerializeField] private float startWaitTime;
+    [Header("Stats")]
+    [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
+    [SerializeField] private EnemyAttackMelee attackScript;      // Melee or Ranged attack script
 
-    // Enemy stats
-    [SerializeField] private float speed;
-    [SerializeField] private float stoppingDistance;
-    [SerializeField] private float damage;
+    [Header("Player Info")]
+    private Transform player;                                    // Reference to player
+    [SerializeField] private GameObject moveSpotGameObject;      // Optional debug waypoint visualizer
+    [SerializeField] private float startWaitTime = 0.25f;        // Wait time at waypoints
+    private float waitTimer;                                     // Internal wait timer
 
-    // Detection
-    [SerializeField] private float detectionRadius;
-    [SerializeField] private GameObject detectionCircle;
-    [SerializeField] private float moveSpotCheckRadius = 0.2f;
+    [Header("Detection")]
+    [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
+    [SerializeField] private GameObject detectionCircle;         // Optional visual for detection range
+    [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
 
-    // Attacking
-    [SerializeField] private GameObject projectile; //Old
-    [SerializeField] private float fireRate;
-    [SerializeField] private float fireCooldown;
-    private bool canAttack = true;
-    private bool isAttacking = false;
+    [Header("Waypoints")]
+    [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered "arrived" at waypoint
+    [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
+    [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
+    [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
+    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
 
-    // Wall avoidance
-    [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private float rayDistance;
-    [SerializeField] private float cornerUnstickDistance;
+    [Header("Pack/Follower Info")]
+    public bool isLeader = false;                                  // Is this enemy the pack leader?
+    public Transform leader;                                       // Leader to follow
+    [HideInInspector] public Vector2 followOffset;                 // Orbit offset relative to leader
+    [SerializeField] private float followDistance = 1.5f;          // Orbit distance from leader
+    [SerializeField] private float orbitSpeed = 2f;                // Orbit rotation speed
+    [SerializeField] private float orbitStopDistance = 0.15f;      // Stop orbiting if within this distance
+    [HideInInspector] public bool playerDetected = false;          // Updated detection flag
+    private bool leaderDead = false;                               // Tracks if leader is dead
 
-    [SerializeField] private GameObject gruntArea;
-    private int childCount;
-
-    private Rigidbody2D rb;
-    private bool patroling;
-    private float patrolTime;
-    public bool overlappingCollider;
-
+    [Header("Grunt Area Bounds")]
+    [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
     [SerializeField] private Transform minX;
-    private float pMinX;
     [SerializeField] private Transform maxX;
-    private float pMaxX;
     [SerializeField] private Transform minY;
-    private float pMinY;
     [SerializeField] private Transform maxY;
-    private float pMaxY;
 
-    void Start()
+    [Header("Components / Internals")]
+    private Rigidbody2D rb;                                        // Cached Rigidbody2D
+    private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
+    private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
+    private GameObject moveSpot;                                   // Debug move spot instance
+    private Vector2 currentWaypoint;                               // Current waypoint target
+    private bool hasWaypoint;                                      // Waypoint validity
+    private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
+    private float stuckTimer = 0f;                                 // Stuck timer
+    private Animator animator;                                     // Animator reference
+
+    [Header("Pathtracing")]
+    private Vector3 playerTarget;                                  // Target for pathfinding
+    private Vector3 randomTarget;                                  // Optional random target
+    private NavMeshAgent agent;                                    // NavMeshAgent reference
+
+    // --- Enemy States (for modular state logic) ---
+    private enum EnemyState
     {
-        //Instantiate(moveSpot, transform);
-        SetMoveSpot();
-        waitTime = startWaitTime;
+        Patrol,
+        Chase,
+        Orbit,
+        Scatter
+    }
+    private EnemyState currentState;                               // Current enemy state
+
+    // ------------------------------------------ //
+
+    // Audio - StudioEventEmitter used here (not EventInstance) because enemy footsteps
+    // must be spatialised - volume should drop off as the enemy moves away from the player
+    private StudioEventEmitter emitter;
+    // One-shot attack sound fired by Animation Event on the attack frame
+    private EventInstance gruntAttack;
+    // Plays when the enemy transitions into Chase state - one-shot, spatialised at enemy position
+    private EventInstance gruntAlert;
+    private EventInstance gruntDeath;
+
+    private void Start()
+    {
+        InitialSetup();
+
+        // Register the emitter with AudioManager so it is cleaned up on scene change
+        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
+        // Create attack sound instance played as a one-shot via Animation Event
+        gruntAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
+        // Create alert sound instance played each time the enemy enters Chase state
+        gruntAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
+        // Create death sound instance played on enemy death
+        gruntDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntDeath);
+    }
+
+    private void Awake()
+    {
+        if (stats == null)
+            stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb == null) return;
+        if (player == null && isLeader) return;
+
+        UpdateDetection();
+
+        currentState = GetState();
+
+        // Checks each state in order of priority and executes the first one that matches (e.g. if we can chase, we chase, if not but we can orbit, we orbit, etc.)
+        switch (currentState)
+        {
+            case EnemyState.Patrol:
+                Patrol();
+                break;
+
+            case EnemyState.Chase:
+                ChasePlayer();
+                break;
+
+            case EnemyState.Orbit:
+                OrbitLeader();
+                break;
+
+            case EnemyState.Scatter:
+                Scatter();
+                break;
+        }
+
+        UpdateAnimation();
+    }
+
+    private void InitialSetup()
+    {
+
+        // Component setup
         rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        attackScript = GetComponent<EnemyAttackMelee>();
+        animator = GetComponent<Animator>();
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        // Store initial constraints so we can freeze/unfreeze during attack
+        initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
 
-        // Setup detection circle
-        if (detectionCircle != null)
-            detectionCircle.transform.localScale = new Vector3(detectionRadius * 2, detectionRadius * 2, 1);
+        // Player must exist for detection/chasing
+        var playerTag = GameObject.FindGameObjectWithTag("Player");
+
+        // If no player found, we can still do patrol/leader-following but not detection/chasing
+        player = playerTag != null ? playerTag.transform : null;
+
+        SetGruntArea();
+
+        #region Pathtracing Setup
+        // Pathtracing setup
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        // Pathtracing Stats
+        agent.speed = stats.speed;
+        agent.acceleration = 140f;
+        agent.stoppingDistance = stats.stoppingDistance;
+
+        #endregion
+
+        waitTimer = startWaitTime;
+
+        // Leader handles patrol waypoint selection
+        if (isLeader)
+        {
+            if (moveSpotGameObject != null)
+                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
+
+            if (boxCollider != null && rb != null)
+                PickNewWaypoint();
+        }
+
+        // Followers get an initial orbit offset
+        if (!isLeader && leader != null)
+            followOffset = Random.insideUnitCircle * followDistance;
+
+
     }
 
-    void FixedUpdate()
+    private EnemyState GetState()
     {
-        if (Vector2.Distance(rb.position, player.position) > detectionRadius)
+        // State priority:
+        if (!isLeader && leaderDead)
+            return EnemyState.Scatter;
+
+        if (playerDetected && player != null)
         {
-            Patrol();
-            return;
-        }
-        ChasePlayer();
-    }
-
-    #region Movement
-    public void ChasePlayer()
-    {
-        // Direction vector pointing from enemy to player
-        Vector2 toPlayer = ((Vector2)player.position - rb.position);
-        float distance = toPlayer.magnitude;
-
-        // Stop if close enough to player
-        if (distance <= stoppingDistance)
-        {
-            HitPlayer();
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
-
-        Vector2 direction = toPlayer.normalized;
-
-        // Wall Detection
-        RaycastHit2D hit = Physics2D.Raycast(rb.position, direction, rayDistance, wallLayer);
-
-        if (hit.collider != null)
-        {
-            // Wall detected directly ahead, attempt to slide around
-            Vector2 right = new Vector2(direction.y, -direction.x); // perpendicular right
-            Vector2 left = new Vector2(-direction.y, direction.x);  // perpendicular left
-
-            // Check if right or left is free
-            bool rightFree = !Physics2D.Raycast(rb.position, right, rayDistance, wallLayer);
-            bool leftFree = !Physics2D.Raycast(rb.position, left, rayDistance, wallLayer);
-
-            // Choose direction
-            if (rightFree && !leftFree)
-                direction = right;
-            else if (leftFree && !rightFree)
-                direction = left;
-            else if (rightFree && leftFree)
-                direction = right; // arbitrary choice if both free
-            else
-                direction = Vector2.zero; // stuck
-
-            // Corner unsticking
-            // If enemy is almost not moving (stuck), push slightly forward or sideways
-            if (direction == Vector2.zero)
+            if(currentState != EnemyState.Chase)
             {
-                // Try small random nudge to unstick
-                direction = new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)).normalized * cornerUnstickDistance;
+                // Plays the alert sound when in chase state
+                gruntAlert.start();
             }
+            return EnemyState.Chase;
         }
+            
+        if (!isLeader && leader != null && !leaderDead)
+            return EnemyState.Orbit;
 
-        // Apply velocity to Rigidbody2D (physics handles collisions)
-        rb.linearVelocity = direction * speed;
+        if (isLeader)
+            return EnemyState.Patrol;
+
+        return EnemyState.Patrol;
     }
 
+    #region Movement States
     private void Patrol()
     {
-        //Debug.Log("Patrol");
-        //Moves to the random spot (delta time is used so it is not frames based
-        transform.position = Vector2.MoveTowards(transform.position, moveSpot.transform.position, speed * Time.deltaTime);
+        // Component check - if we lost our components, just skip movement (Prevent errors)
+        if (boxCollider == null || rb == null) return;
 
-        //Checks if close to the spot - This is done to prevent exact checks
-        if (Vector2.Distance(transform.position, moveSpot.transform.position) < 0.2f)
+        #region Waypoint Check
+        // If we don't have a waypoint, try to pick one
+        if (!hasWaypoint)
         {
-            //Timer to make enemy wait before moving to new spot
-            if (waitTime <= 0)
-            {
-                //sets random spot and resets the timer
-                SetMoveSpot();
-                waitTime = startWaitTime;
-            }
-            else
-            {
-                waitTime -= Time.deltaTime;
-            }
-        }
-    }
-    #endregion
-
-    #region Attack
-    private void HitPlayer()
-    {
-        if (!canAttack || isAttacking)
+            PickNewWaypoint();
             return;
-        StartCoroutine(HitCoroutine());
-    }
-
-    IEnumerator HitCoroutine()
-    {
-        isAttacking = true;
-        canAttack = false;
-        rb.linearVelocity = Vector2.zero;
-        rb.constraints = RigidbodyConstraints2D.FreezePosition;
-        player.GetComponent<PlayerStats>().DamagePlayer(damage);
-
-        // Wait for the attack duration
-        yield return new WaitForSeconds(fireRate);
-        rb.constraints = RigidbodyConstraints2D.None;
-        isAttacking = false;
-
-        // Wait for cooldown before allowing another attack
-        yield return new WaitForSeconds(fireCooldown);
-
-        canAttack = true;
-    }
-    #endregion
-
-    public void SetMoveSpot()
-    {
-        Vector2 randomPosition;
-        bool positionValid = false;
-
-        // Keep searching until a valid position is found
-        while (!positionValid)
-        {
-            // Generate random position inside patrol bounds
-            randomPosition = new Vector2(
-                UnityEngine.Random.Range(minX.position.x, maxX.position.x),
-                UnityEngine.Random.Range(minY.position.y, maxY.position.y)
-            );
-
-            // Check if this position overlaps a wall
-            Collider2D hit = Physics2D.OverlapCircle(randomPosition, moveSpotCheckRadius, wallLayer);
-
-            if (hit == null)
-            {
-                // No wall found, position is safe
-                moveSpot.transform.position = randomPosition;
-                positionValid = true;
-            }
         }
-    }
 
-    /*public void ShootPlayer()
-    {
-        if (fireTimer <= 0)
+        // Check arrival
+        Vector2 pos = rb.position;
+        float dist = Vector2.Distance(pos, currentWaypoint);
+
+        // Arrived?
+        if (dist <= waypointArrivalDistance)
         {
-            Instantiate(projectile, transform.position, Quaternion.identity);
-            fireTimer = fireRate;
+            agent.velocity = Vector2.zero;
+
+            waitTimer -= Time.fixedDeltaTime;
+            if (waitTimer <= 0f)
+            {
+                PickNewWaypoint();
+                waitTimer = startWaitTime;
+            }
+
+            // Reset stuck tracking after arrival
+            lastDistToWaypoint = Mathf.Infinity;
+            stuckTimer = 0f;
+
+            return;
+        }
+        #endregion
+
+        #region Stuck Detection
+        // Stuck detection (no progress)
+        if (dist < lastDistToWaypoint - stuckEpsilon)
+        {
+            lastDistToWaypoint = dist;
+            stuckTimer = 0f;
         }
         else
         {
-            fireTimer -= Time.fixedDeltaTime;
+            stuckTimer += Time.fixedDeltaTime;
+            if (stuckTimer >= stuckDuration)
+            {
+                PickNewWaypoint();
+                waitTimer = startWaitTime;
+                lastDistToWaypoint = Mathf.Infinity;
+                stuckTimer = 0f;
+                return;
+            }
         }
-    }*/
+        #endregion
+
+        MoveToTarget(currentWaypoint);
+    }
+
+    private void ChasePlayer()
+    {
+        // Component check - if we lost our components, just skip movement (Prevent errors)
+        if (player == null) return;
+
+        Vector2 toPlayer = (Vector2)player.position - rb.position;
+        float distance = toPlayer.magnitude;
+
+        // Check if we can hit the player from here
+        if (distance <= stats.stoppingDistance)
+        {
+            attackScript.TryAttack();
+            agent.velocity = Vector2.zero;
+            return;
+        }
+
+        MoveToTarget(player.position);
+    }
+
+    private void OrbitLeader()
+    {
+        // Component check - if we lost our components, just skip movement (Prevent errors)
+        if (leader == null) return;
+
+        // Orbit around leader
+        float angle = orbitSpeed * Time.fixedDeltaTime;
+        followOffset = Quaternion.Euler(0f, 0f, angle) * followOffset;
+
+        // If we're close enough to the target orbit position, don't pathtrace (prevents jittery movement when close)
+        Vector2 targetPos = (Vector2)leader.position + followOffset;
+        float dist = Vector2.Distance(rb.position, targetPos);
+
+        if (dist < orbitStopDistance)
+        {
+            agent.velocity = Vector2.zero;
+            return;
+        }
+
+        MoveToTarget(targetPos);
+    }
+
+    private void Scatter()
+    {
+        // Simple scatter: keep moving in a random direction
+        Vector2 dir = Random.insideUnitCircle.normalized;
+        rb.linearVelocity = dir * stats.speed;
+    }
+
+    void MoveToTarget(Vector3 target)
+    {
+        // Pathtracing movement
+        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+    }
+
+    #endregion
+
+    private void UpdateDetection()
+    {
+        if (isLeader)
+        {
+            if (player != null)
+                playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
+            else
+                playerDetected = false;
+        }
+        else
+        {
+            if (leader != null && leader.TryGetComponent(out EnemyBehaviour lb))
+                playerDetected = lb.playerDetected;
+            else
+                playerDetected = false;
+        }
+    }
+
+    // --- Waypoint picking (Leader) ---
+    #region Waypoint Picking
+    private void PickNewWaypoint()
+    {
+        if (boxCollider == null || rb == null) return;
+
+        if (TryGetRandomWaypoint(out Vector2 waypoint))
+        {
+            currentWaypoint = waypoint;
+            hasWaypoint = true;
+
+            if (moveSpot != null)
+                moveSpot.transform.position = waypoint;
+
+            lastDistToWaypoint = Mathf.Infinity;
+            stuckTimer = 0f;
+        }
+        else
+        {
+            hasWaypoint = false;
+        }
+    }
+
+    private bool TryGetRandomWaypoint(out Vector2 waypoint)
+    {
+        waypoint = Vector2.zero;
+        // We inflate the box collider size a bit for more forgiving waypoint picking (prevents picking waypoints that are just barely outside the collider and then getting stuck trying to get in)
+        Vector2 inflatedSize = new Vector2(
+            boxCollider.size.x + waypointInflation * 2f,
+            boxCollider.size.y + waypointInflation * 2f
+        );
+
+        // Get the current collider center in world space, accounting for rotation
+        float boxAngle = transform.eulerAngles.z;
+        Vector2 currentColliderCenter = GetBoxColliderWorldCenter(boxAngle);
+
+        // Try up to waypointMaxTries random positions within the bounds
+        for (int i = 0; i < waypointMaxTries; i++)
+        {
+            float randomX = Random.Range(minX.position.x, maxX.position.x);
+            float randomY = Random.Range(minY.position.y, maxY.position.y);
+
+            Vector2 candidatePos = new Vector2(randomX, randomY);
+            Vector2 candidateColliderCenter = candidatePos + GetRotatedOffset(boxCollider.offset, boxAngle);
+
+            // Check overlap at the position, if it overlaps a wall it skips it immediately (prevents picking waypoints that are inside walls)
+            if (Physics2D.OverlapBox(candidateColliderCenter, inflatedSize, boxAngle, wallLayer))
+                continue;
+
+            Vector2 delta = candidateColliderCenter - currentColliderCenter;
+            float dist = delta.magnitude;
+            if (dist < 0.01f) continue;
+
+            Vector2 dir = delta / dist;
+
+            if (Physics2D.BoxCast(currentColliderCenter, inflatedSize, boxAngle, dir, dist, wallLayer))
+                continue;
+
+            waypoint = candidatePos;
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
+
+    private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
+    {
+        Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
+        return (Vector2)rb.position + rotatedOffset;
+    }
+
+    private Vector2 GetRotatedOffset(Vector2 localOffset, float boxAngleDeg)
+    {
+        Vector3 rotated = Quaternion.Euler(0f, 0f, boxAngleDeg) * new Vector3(localOffset.x, localOffset.y, 0f);
+        return new Vector2(rotated.x, rotated.y);
+    }
+
+    public void LeaderDied()
+    {
+        leaderDead = true;
+        leader = null;
+    }
+
+    private void OnDestroy()
+    {
+        if (!isLeader) return;
+
+        Collider2D[] grunts = Physics2D.OverlapCircleAll(transform.position, 10f);
+        foreach (Collider2D grunt in grunts)
+        {
+            if (grunt == null) continue;
+            if (grunt.TryGetComponent(out EnemyBehaviour enemy) && !enemy.isLeader)
+                enemy.LeaderDied();
+        }
+    }
+
+    // Bounds  
+    private void SetGruntArea()
+    {
+        if (gruntArea == null) return;
+
+        if (minX == null) minX = gruntArea.transform.Find("minX");
+        if (maxX == null) maxX = gruntArea.transform.Find("maxX");
+        if (minY == null) minY = gruntArea.transform.Find("minY");
+        if (maxY == null) maxY = gruntArea.transform.Find("maxY");
+    }
+
+    public void UpdateAnimation()
+    {
+        Vector2 velocity = agent.velocity;
+
+        float speed = velocity.magnitude;
+
+        animator.SetFloat("Speed", speed);
+
+        if (speed > 0.01f)
+        {
+
+            Vector2 dir = velocity.normalized;
+
+            animator.SetFloat("PosX", dir.x);
+            animator.SetFloat("PosY", dir.y);
+            animator.SetBool("IsWalking?", true);
+            UpdateSound();
+        }
+        else
+        {
+            animator.SetBool("IsWalking?", false);
+            UpdateSound();
+        }
+    }
+
+    // Starts or stops the spatialised footstep emitter based on the current walk state
+    private void UpdateSound()
+    {
+        if (animator.GetBool("IsWalking?"))
+        {
+            // Only call Play if not already playing - avoids restarting mid-loop
+            if (!emitter.IsPlaying())
+                emitter.Play();
+        }
+        else
+        {
+            if (emitter.IsPlaying())
+                emitter.Stop();
+        }
+    }
+
+    // Called by an Animation Event on the attack frame to play the grunt attack sound
+    public void PlayAttackSound()
+    {
+        gruntAttack.start();
+    }
 }

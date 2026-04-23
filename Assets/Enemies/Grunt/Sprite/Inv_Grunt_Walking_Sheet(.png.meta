@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: f5aa3132237e431408ca0077a7e6aa97
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -191869384617100051
+    second: Grunt_Walking_Sheet(1)_0
+  - first:
+      213: -6343205995190270154
+    second: Grunt_Walking_Sheet(1)_1
+  - first:
+      213: -3876064390740433983
+    second: Grunt_Walking_Sheet(1)_2
+  - first:
+      213: 6607736805573519738
+    second: Grunt_Walking_Sheet(1)_3
+  - first:
+      213: -8139716956426895512
+    second: Grunt_Walking_Sheet(1)_4
+  - first:
+      213: 8473889794249697287
+    second: Grunt_Walking_Sheet(1)_5
+  - first:
+      213: 7777543814160057265
+    second: Grunt_Walking_Sheet(1)_6
+  - first:
+      213: -8848927399453870785
+    second: Grunt_Walking_Sheet(1)_7
+  - first:
+      213: 4670528997273624144
+    second: Grunt_Walking_Sheet(1)_8
+  - first:
+      213: 3030477206460578509
+    second: Grunt_Walking_Sheet(1)_9
+  - first:
+      213: -4745351775001392780
+    second: Grunt_Walking_Sheet(1)_10
+  - first:
+      213: -6505563941902105639
+    second: Grunt_Walking_Sheet(1)_11
+  - first:
+      213: -6085492191018979316
+    second: Grunt_Walking_Sheet(1)_12
+  - first:
+      213: -5313291250181752513
+    second: Grunt_Walking_Sheet(1)_13
+  - first:
+      213: -573189632973459497
+    second: Grunt_Walking_Sheet(1)_14
+  - first:
+      213: -2736941954964932836
+    second: Grunt_Walking_Sheet(1)_15
+  - first:
+      213: 6731181650070181009
+    second: Grunt_Walking_Sheet(1)_16
+  - first:
+      213: -2889136424429365381
+    second: Grunt_Walking_Sheet(1)_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 23
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: decff9eafc7565df0800000000000000
+      internalID: -191869384617100051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_1
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 2
+        width: 24
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6374e8f41c768f7a0800000000000000
+      internalID: -6343205995190270154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 2
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c3206f09f3753ac0800000000000000
+      internalID: -3876064390740433983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_3
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 2
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a79eb798d9563bb50800000000000000
+      internalID: 6607736805573519738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_4
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 1
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86f73ffdd8ae90f80800000000000000
+      internalID: -8139716956426895512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_5
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 0
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 708af0c0fdd499570800000000000000
+      internalID: 8473889794249697287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_6
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 2
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b30c0c44e26feb60800000000000000
+      internalID: 7777543814160057265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_7
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 2
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f35b450f96b423580800000000000000
+      internalID: -8848927399453870785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_8
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 2
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05ed7a3a06d01d040800000000000000
+      internalID: 4670528997273624144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_9
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 2
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dca300f86fa6e0a20800000000000000
+      internalID: 3030477206460578509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_10
+      rect:
+        serializedVersion: 2
+        x: 284
+        y: 2
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 479c5ccd3bf152eb0800000000000000
+      internalID: -4745351775001392780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_11
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 2
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d3c553101897b5a0800000000000000
+      internalID: -6505563941902105639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_12
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 1
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0076e6381dfb8ba0800000000000000
+      internalID: -6085492191018979316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_13
+      rect:
+        serializedVersion: 2
+        x: 369
+        y: 0
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f39b9bc42c56346b0800000000000000
+      internalID: -5313291250181752513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_14
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 2
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7df2ea1d01f9b08f0800000000000000
+      internalID: -573189632973459497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_15
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 1
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c17b37bfacd640ad0800000000000000
+      internalID: -2736941954964932836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_16
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 2
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1949f032c06f96d50800000000000000
+      internalID: 6731181650070181009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grunt_Walking_Sheet(1)_17
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 2
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b77de32bab9b7e7d0800000000000000
+      internalID: -2889136424429365381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Grunt_Walking_Sheet(1)_0: -191869384617100051
+      Grunt_Walking_Sheet(1)_1: -6343205995190270154
+      Grunt_Walking_Sheet(1)_10: -4745351775001392780
+      Grunt_Walking_Sheet(1)_11: -6505563941902105639
+      Grunt_Walking_Sheet(1)_12: -6085492191018979316
+      Grunt_Walking_Sheet(1)_13: -5313291250181752513
+      Grunt_Walking_Sheet(1)_14: -573189632973459497
+      Grunt_Walking_Sheet(1)_15: -2736941954964932836
+      Grunt_Walking_Sheet(1)_16: 6731181650070181009
+      Grunt_Walking_Sheet(1)_17: -2889136424429365381
+      Grunt_Walking_Sheet(1)_2: -3876064390740433983
+      Grunt_Walking_Sheet(1)_3: 6607736805573519738
+      Grunt_Walking_Sheet(1)_4: -8139716956426895512
+      Grunt_Walking_Sheet(1)_5: 8473889794249697287
+      Grunt_Walking_Sheet(1)_6: 7777543814160057265
+      Grunt_Walking_Sheet(1)_7: -8848927399453870785
+      Grunt_Walking_Sheet(1)_8: 4670528997273624144
+      Grunt_Walking_Sheet(1)_9: 3030477206460578509
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

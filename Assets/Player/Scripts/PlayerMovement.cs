@@ -1,50 +1,111 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using FMOD.Studio;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private float moveSpeed;
+    [Header("Stats")]
+    [Tooltip("Player Health and Walk Speed")]
+    [SerializeField] public float maxHealth;
+    [SerializeField] public float health;
 
-    // Dash settings
-    [SerializeField] private float dashForce;      // How fast and far the dash moves the player
-    [SerializeField] private float dashTime;       // How long the dash lasts
-    [SerializeField] private float dashCooldown;   // Delay before the player can dash again
+    [Tooltip("Base movement speed of the player")]
+    [SerializeField] private float walkSpeed;
 
-    // Dash state checks
-    bool isDashing = false; // Prevents normal movement during dash
-    bool canDash = true;    // Prevents dashing again during cooldown
+    [Tooltip("Layer mask used for full collision (everything)")]
+    [SerializeField] private LayerMask everythingLayer;
 
+    [Tooltip("Layer mask used for wall-only collision during dash")]
+    [SerializeField] private LayerMask wallLayer;
+
+    // Runtime move speed (can be modified by buffs/debuffs)
+    private float moveSpeed;
+
+    // Whether the player is currently immune to damage
+    public bool isInvulnerable;
+
+    // ------------------------------------------ //
+
+    [Header("Dash Settings")]
+    [Tooltip("Force applied to the player during a dash")]
+    [SerializeField] private float dashForce;
+
+    [Tooltip("How long (in seconds) the dash lasts")]
+    [SerializeField] private float dashTime;
+
+    [Tooltip("Cooldown (in seconds) before the player can dash again")]
+    [SerializeField] private float dashCooldown;
+
+    public int fame;
+
+    [SerializeField] private int currentLevel = 1;
+    [SerializeField] private int currentXP = 0;
+
+    public bool hasWeapon = false;
+    bool isDashing = false;
+    bool canDash = true;
     private Vector2 lastMoveDir;
 
-    // These create variables for components in the player
+    // ------------------------------------------ //
+
+    [Header("References")]
     private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
+    private BoxCollider2D boxCollider;
+
+    [Tooltip("UI Slider that displays current player health")]
+    [SerializeField] private Slider healthBar;
+
+    // ------------------------------------------ //
+
+    // Audio - EventInstance used here (not Emitter) because the player is always
+    // at the listener position, so spatialisation is not needed
+    private EventInstance playerFootsteps;
+    private EventInstance playerHurt;
+    private EventInstance playerDeath;
+    private EventInstance playerDash;
+
+    // ------------------------------------------ //
 
     void Start()
     {
-        moveSpeed = playerStats.walkSpeed;
+        // Initialise health bar to match starting health value
+        //healthBar.maxValue = health;
+        //healthBar.value = health;
+
+        // Set runtime speed to base walk speed
+        moveSpeed = walkSpeed;
+
+        // Cache components
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        // Create footstep audio instance via AudioManager
+        playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
+        playerHurt = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerHurt);
+        playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
+        playerDash = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDash);
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        // Only allow normal movement if the player is NOT dashing
+        // Only apply movement input when not mid-dash
         if (!isDashing)
         {
-            // Apply movement using Rigidbody velocity
             rb.linearVelocity = moveInput * moveSpeed;
         }
+
+        UpdateSound();
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+
         if (moveInput != Vector2.zero)
         {
             lastMoveDir = moveInput.normalized;
@@ -53,11 +114,13 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.canceled)
         {
+            // On input release, store last direction for idle facing and stop walk anim
             animator.SetBool("IsWalking", false);
             animator.SetFloat("LastInputX", lastMoveDir.x);
             animator.SetFloat("LastInputY", lastMoveDir.y);
         }
 
+        // Update blend tree inputs
         animator.SetFloat("InputX", moveInput.x);
         animator.SetFloat("InputY", moveInput.y);
     }
@@ -65,37 +128,106 @@ public class PlayerMovement : MonoBehaviour
     public void Dash(InputAction.CallbackContext context)
     {
         if (!context.performed || !canDash || isDashing)
-        return;
-        //Start Dashing
-    StartCoroutine(DashCoroutine());
-}
+            return;
+
+        StartCoroutine(DashCoroutine());
+    }
+
     IEnumerator DashCoroutine()
     {
         isDashing = true;
         canDash = false;
 
-        // Turn on invulnerability at the start of the dash
-        playerStats.isInvulnerable = true;
+        // Grant invulnerability for the duration of the dash
+        isInvulnerable = true;
 
-        // If player hasn't moved yet, default dash direction
+        // Restrict collisions to walls only during the dash
+        boxCollider.includeLayers = wallLayer;
+
+        // Default dash direction if the player hasn't moved yet
         if (lastMoveDir == Vector2.zero)
             lastMoveDir = Vector2.down;
 
         // Apply dash velocity
         rb.linearVelocity = lastMoveDir * dashForce;
+        playerDash.start();
 
-        // Wait for the dash duration
+        // Hold dash for its full duration
         yield return new WaitForSeconds(dashTime);
 
-        // Turn off invulnerability when dash ends
-        playerStats.isInvulnerable = false;
-
-        // Stop dash
+        // Remove invulnerability and end dash
+        isInvulnerable = false;
         isDashing = false;
+
+        // Restore full collision
+        boxCollider.includeLayers = everythingLayer;
 
         // Wait for cooldown before allowing another dash
         yield return new WaitForSeconds(dashCooldown);
 
         canDash = true;
+    }
+
+    void PlayerDie()
+    {
+        playerDeath.start();
+        Destroy(gameObject);
+    }
+    public void DamagePlayer(float damage)
+    {
+        if (health <= 0 || health - damage <= 0)
+        {
+            healthBar.value = health;
+            PlayerDie();
+        }
+        else
+        {
+            playerHurt.start();
+            Debug.Log("Player took " + damage + " damage. Remaining health: " + (health - damage));
+            health -= damage;
+            healthBar.value = health;
+        }
+    }
+
+    // Starts or stops the footstep audio based on the current walk state
+    private void UpdateSound()
+    {
+        if (animator.GetBool("IsWalking"))
+        {
+            // Only start if not already playing
+            PLAYBACK_STATE playbackState;
+            playerFootsteps.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                playerFootsteps.start();
+            }
+        }
+        else
+        {
+            // Allow the tail of the sound to fade out naturally
+            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+    }
+    
+    // Add fame
+    public void AddFame(int amount)
+    {
+        fame += amount;
+        currentXP += amount;
+
+        while (currentXP >= GetXP(currentLevel))
+        {
+            currentXP -= GetXP(currentLevel);
+            currentLevel++;
+            currentXP = 0;
+        }
+    }
+
+    public int GetXP(int level)
+    {
+        float baseXP = 100f;
+        float multiplier = 2f;
+        return Mathf.FloorToInt(baseXP * Mathf.Pow(multiplier, level - 1));
     }
 }

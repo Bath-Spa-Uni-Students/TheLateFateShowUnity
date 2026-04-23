@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: aeb59f44e701ed94ea19b1ab996b9477
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 98632624395754296
+    second: boss_waking up_sheet_0
+  - first:
+      213: 4021938999955052871
+    second: boss_waking up_sheet_1
+  - first:
+      213: -5653776050463775731
+    second: boss_waking up_sheet_2
+  - first:
+      213: -3708308977312156786
+    second: boss_waking up_sheet_3
+  - first:
+      213: -7553152840230681170
+    second: boss_waking up_sheet_4
+  - first:
+      213: -6906763210879829527
+    second: boss_waking up_sheet_5
+  - first:
+      213: 1018705313882365241
+    second: boss_waking up_sheet_6
+  - first:
+      213: 1271750483841862788
+    second: boss_waking up_sheet_7
+  - first:
+      213: 2371697449231340224
+    second: boss_waking up_sheet_8
+  - first:
+      213: -6453146718080292371
+    second: boss_waking up_sheet_9
+  - first:
+      213: 7024240587649957221
+    second: boss_waking up_sheet_10
+  - first:
+      213: -3102478364140252123
+    second: boss_waking up_sheet_11
+  - first:
+      213: -9041304797171433422
+    second: boss_waking up_sheet_12
+  - first:
+      213: 981363609598057565
+    second: boss_waking up_sheet_13
+  - first:
+      213: 395111045125353521
+    second: boss_waking up_sheet_14
+  - first:
+      213: 8920609592245873647
+    second: boss_waking up_sheet_15
+  - first:
+      213: -5940062185940915416
+    second: boss_waking up_sheet_16
+  - first:
+      213: 3919348052514947761
+    second: boss_waking up_sheet_17
+  - first:
+      213: -5458871707765034903
+    second: boss_waking up_sheet_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: boss_waking up_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 35
+        width: 83
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83b9f5c69d96e5100800000000000000
+      internalID: 98632624395754296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 35
+        width: 85
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7495c98163cc0d730800000000000000
+      internalID: 4021938999955052871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 35
+        width: 87
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d04ee7813a0c981b0800000000000000
+      internalID: -5653776050463775731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 31
+        width: 89
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e83bae1f1a0798cc0800000000000000
+      internalID: -3708308977312156786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 28
+        width: 99
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea541d7928fcd2790800000000000000
+      internalID: -7553152840230681170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 28
+        width: 111
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e975cb047f3620a0800000000000000
+      internalID: -6906763210879829527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 752
+        y: 25
+        width: 123
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93dd2cce51b232e00800000000000000
+      internalID: 1018705313882365241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 22
+        width: 123
+        height: 91
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48c4358b35a26a110800000000000000
+      internalID: 1271750483841862788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 1007
+        y: 20
+        width: 113
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c25228a346f9e020800000000000000
+      internalID: 2371697449231340224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 1137
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de9a8590041d176a0800000000000000
+      internalID: -6453146718080292371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 1262
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56db1c3399d1b7160800000000000000
+      internalID: 7024240587649957221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1387
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 524d51e8d58c1f4d0800000000000000
+      internalID: -3102478364140252123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 230cf8a9035d68280800000000000000
+      internalID: -9041304797171433422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 1637
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5c5691e0018e9d00800000000000000
+      internalID: 981363609598057565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1762
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 130b783f667bb7500800000000000000
+      internalID: 395111045125353521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 1887
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: febe1c5292f5ccb70800000000000000
+      internalID: 8920609592245873647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_16
+      rect:
+        serializedVersion: 2
+        x: 2012
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82be247e9e8a09da0800000000000000
+      internalID: -5940062185940915416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_17
+      rect:
+        serializedVersion: 2
+        x: 2137
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b2c545c942546630800000000000000
+      internalID: 3919348052514947761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: boss_waking up_sheet_18
+      rect:
+        serializedVersion: 2
+        x: 2262
+        y: 22
+        width: 103
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9603c38aa113e34b0800000000000000
+      internalID: -5458871707765034903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      boss_waking up_sheet_0: 98632624395754296
+      boss_waking up_sheet_1: 4021938999955052871
+      boss_waking up_sheet_10: 7024240587649957221
+      boss_waking up_sheet_11: -3102478364140252123
+      boss_waking up_sheet_12: -9041304797171433422
+      boss_waking up_sheet_13: 981363609598057565
+      boss_waking up_sheet_14: 395111045125353521
+      boss_waking up_sheet_15: 8920609592245873647
+      boss_waking up_sheet_16: -5940062185940915416
+      boss_waking up_sheet_17: 3919348052514947761
+      boss_waking up_sheet_18: -5458871707765034903
+      boss_waking up_sheet_2: -5653776050463775731
+      boss_waking up_sheet_3: -3708308977312156786
+      boss_waking up_sheet_4: -7553152840230681170
+      boss_waking up_sheet_5: -6906763210879829527
+      boss_waking up_sheet_6: 1018705313882365241
+      boss_waking up_sheet_7: 1271750483841862788
+      boss_waking up_sheet_8: 2371697449231340224
+      boss_waking up_sheet_9: -6453146718080292371
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
