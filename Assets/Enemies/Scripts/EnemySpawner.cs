@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
     // Get enemy prefabs
     [SerializeField] private GameObject grunt;
     //[SerializeField] private GameObject bruiser;
-    //[SerializeField] private GameObject speedster;
+    [SerializeField] private GameObject speedster;
 
     // Get enemy spawn time
     [SerializeField] private float gruntSpawnTime;
@@ -20,15 +20,17 @@ public class EnemySpawner : MonoBehaviour
         
         // Start spawning enemies
         StartCoroutine(SpawnEnemy(gruntSpawnTime, grunt));
-        //StartCoroutine(spawnEnemy(bruiserSpawnTime, bruiser));
-        //StartCoroutine(spawnEnemy(speedsterSpawnTime, speedster));
+        //StartCoroutine(SpawnEnemy(bruiserSpawnTime, bruiser));
+        StartCoroutine(SpawnEnemy(speedsterSpawnTime, speedster));
     }
+
+    [SerializeField] private Transform[] spawnPoints;
 
     private IEnumerator SpawnEnemy(float spawnTime, GameObject enemy)
     {
         yield return new WaitForSeconds(spawnTime);
-        // Create new enemy in a random location
-        GameObject newEnemy = Instantiate(enemy, new Vector3(Random.Range(-2f, 2), Random.Range(-3f, 3), 0), Quaternion.identity);
+        Transform point = spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Instantiate(enemy, point.position, Quaternion.identity);
         StartCoroutine(SpawnEnemy(spawnTime, enemy));
     }
 }

@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 828297148753925378}
   - component: {fileID: 5270709107807958075}
   - component: {fileID: -250731298887725880}
+  - component: {fileID: -423136252737158178}
   m_Layer: 8
   m_Name: Grunt
   m_TagString: Enemy
@@ -971,7 +972,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361983244019902799}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6e7dd4f696a2e44f922574e040fc66a, type: 3}
   m_Name: 
@@ -1017,6 +1018,7 @@ MonoBehaviour:
   mDamage: 0
   mFireRate: 0
   mFireCooldown: 0
+  pistol: {fileID: 0}
 --- !u!195 &7232216552129871522
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1201,3 +1203,15 @@ MonoBehaviour:
   OverrideAttenuation: 1
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &-423136252737158178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8361983244019902799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1daa98e64a724b419702b9509c3c373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
