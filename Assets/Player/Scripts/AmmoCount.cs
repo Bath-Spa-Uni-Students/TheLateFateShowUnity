@@ -5,6 +5,7 @@ public class AmmoCount : MonoBehaviour
 {
     public Pistol pistol;
     public Shotgun shotgun;
+    public AR ar;   
     public GameObject player;
     public TextMeshProUGUI text;
     // Start is called once before the first execution of Update after the MonoBehaviour is created

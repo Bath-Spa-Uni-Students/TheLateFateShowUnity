@@ -18,7 +18,7 @@ public class PistolBullet : MonoBehaviour
     private CircleCollider2D circleCollider;
 
     [SerializeField] float bulletSpeed = 10;
-    [SerializeField] float bulletDamage = 50;
+    [SerializeField] float bulletDamage = 2;
 
     [SerializeField] SortingLayer enemyLayer;
 
@@ -27,6 +27,7 @@ public class PistolBullet : MonoBehaviour
     public Pistol pistol;
 
     // How many times bullet bounces for ricochet rounds
+    [Header("Ricochet bounces")]
     [SerializeField] int bounces = 2;
 
     // Start is called before the first frame update
@@ -46,6 +47,7 @@ public class PistolBullet : MonoBehaviour
         // Bullet shoots
         // Move in the direction the bullet is facing
         rb.linearVelocity = transform.right * bulletSpeed;
+        direction = transform.right;
 
         // If pistol perks true
         if (pistolPerks.pierce == true)
@@ -64,21 +66,28 @@ public class PistolBullet : MonoBehaviour
     // Ricochet perk
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log($"OnCollisionEnter2D hit: {collision.gameObject.name} tag: {collision.gameObject.tag}");
+
+        if (collision.gameObject.CompareTag("Enemy")) return;
+       
+
         if (!pistolPerks.ricochet)
         {
             Destroy(gameObject);
+            return;
         }
 
         bounces--;
-
         if (bounces <= 0)
         {
             Destroy(gameObject);
+            return;
         }
 
         var contact = collision.contacts[0];
-        Vector2 newVelocity = Vector2.Reflect(direction.normalized, contact.normal);
-        Ricochet(newVelocity.normalized);
+        Vector2 reflected = Vector2.Reflect(direction.normalized, contact.normal);
+        direction = reflected.normalized;
+        rb.linearVelocity = direction * bulletSpeed;
     }
 
     // Bullet damage
@@ -87,14 +96,22 @@ public class PistolBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject.GetComponent<DamageHandler>();
-
             if (enemy != null)
             {
-                enemy.TakeDamage(bulletDamage); // Damage is applied here
+                float damage = bulletDamage;
+                damage = pistolPerks.ApplyPowerCell(damage);
+                damage = pistolPerks.ApplyCrit(damage);
+
+                enemy.TakeDamage(damage);
                 pistolPerks.HitReloadPerk();
                 pistolPerks.LifeStealPerk();
+                pistolPerks.ApplyPoisonRounds(enemy);
+                pistolPerks.ApplySlowRounds(enemy);
+                pistolPerks.ApplyShockwaveLoader(collision.gameObject);
+                pistolPerks.ScatterBullet(damage); // pass damage through
             }
 
+            if (!pistolPerks.pierce) Destroy(gameObject);
         }
     }
 }

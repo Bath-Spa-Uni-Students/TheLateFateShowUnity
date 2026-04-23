@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 8018547013501716923}
   - component: {fileID: 2085445656318187281}
   - component: {fileID: 7949325859320742368}
-  - component: {fileID: -9118345240344086261}
-  - component: {fileID: 188463936877699001}
-  - component: {fileID: -580509847773255363}
+  - component: {fileID: 1709091928214400993}
+  - component: {fileID: 5816500597579146881}
   m_Layer: 9
-  m_Name: ShotgunBullet
-  m_TagString: Projectile
+  m_Name: ScatterBullet
+  m_TagString: PistolBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0.2107, y: -1.7928, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -115,10 +114,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 0
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -159,43 +158,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0035947114, y: 0.00000008940697}
   m_Radius: 0.08661194
---- !u!114 &-9118345240344086261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2212800752848840363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d12b0bbf0a48844c93829a225fdb85c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShotgunBullet
-  bulletSpeed: 10
-  bulletDamage: 20
---- !u!95 &188463936877699001
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2212800752848840363}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ecb46358e45fead42a383eb23ea29ed9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!61 &-580509847773255363
+--- !u!61 &1709091928214400993
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,3 +204,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.17082745, y: 0.13248396}
   m_EdgeRadius: 0
+--- !u!114 &5816500597579146881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2212800752848840363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5f9037b637ebb479e74a5a8f97714c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScatterBullet
+  damage: 10
+  lifetime: 2

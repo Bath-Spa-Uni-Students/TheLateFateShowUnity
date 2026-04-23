@@ -4,9 +4,10 @@ using FMODUnity;
 public class FMODEvents : MonoBehaviour
 {
     // Weapons
+    [field: Header("Weapon SFX")]
+    [field: SerializeField] public EventReference weaponPickup { get; private set; }
 
     [field: Header("Pistol SFX")]
-    [field: SerializeField] public EventReference pistolPickup { get; private set; }
     [field: SerializeField] public EventReference pistolShoot { get; private set; }
     [field: SerializeField] public EventReference pistolReload { get; private set; }
     [field: SerializeField] public EventReference pistolNoAmmo { get; private set; }

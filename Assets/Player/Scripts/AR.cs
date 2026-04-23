@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using FMOD.Studio;
 
-public class Pistol : MonoBehaviour
+public class AR : MonoBehaviour
 {
     // Reference mouse position
     private Vector3 mousePos;
@@ -21,20 +21,20 @@ public class Pistol : MonoBehaviour
     public bool canShoot = false;
 
     // Max ammo
-    [SerializeField] int maxAmmo = 6;
+    [SerializeField] int maxAmmo = 15;
 
     //Fire rate
-    [SerializeField] public float fireRate = 0.8f; // seconds between shots
+    [SerializeField] public float fireRate = 0.2f; // seconds between shots
     private float nextFireTime = 0f;
 
     // Clip size
-    public int ammo = 6;
+    public int ammo = 10;
     [SerializeField] private GameObject ammoText;
 
     //Audio
-    private EventInstance pistolShoot;
-    private EventInstance pistolReload;
-    private EventInstance pistolNoAmmo;
+    private EventInstance ARShoot;
+    private EventInstance ARReload;
+    private EventInstance ARNoAmmo;
 
     // Start is called before the first frame update
     void Start()
@@ -60,30 +60,31 @@ public class Pistol : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, rotateZ);
 
         // Player shoots
-        if (Input.GetMouseButtonDown(0) && canShoot == true && Time.time >= nextFireTime)
+        if (Input.GetMouseButton(0) && canShoot == true && Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + fireRate;
             ammo -= 1;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
 
             // Cannot shoot if ammo is 0
-            
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolShoot, transform.position);
+
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.arShoot, transform.position);
 
             if (ammo <= 0)
             {
-                
+
                 canShoot = false;
             }
             // Spawns bullet 
             shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
-            shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
-        }else if (Input.GetMouseButtonDown(0) && canShoot == false)
+            shotBullet.GetComponent<ARBullet>().ar = gameObject.GetComponent<AR>();
+        }
+        else if (Input.GetMouseButtonDown(0) && canShoot == false)
         {
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolNoAmmo, transform.position);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.arNoAmmo, transform.position);
         }
 
-        // Reload pistol
+        // Reload AR
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {

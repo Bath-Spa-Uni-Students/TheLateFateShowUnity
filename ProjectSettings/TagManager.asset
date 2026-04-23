@@ -10,6 +10,10 @@ TagManager:
   - PistolBullet
   - PistolHeld
   - ShotgunHeld
+  - Wall
+  - ARHeld
+  - HeldWeapon
+  - ARBullet
   layers:
   - Default
   - TransparentFX
