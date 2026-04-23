@@ -32,7 +32,7 @@ public class DamageHandler : MonoBehaviour
     public void TakeDamage(float damage)
     {
         // Enemy loses health
-        stats.health = stats.health - damage;
+        stats.health -= damage;
         Debug.Log("damaged " + damage);
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);

@@ -41,8 +41,9 @@ public class PlayerMovement : MonoBehaviour
     public int fame;
 
     [SerializeField] private PerkSelectionUI perkSelectionUI;
+    [SerializeField] private EnemyStats enemyStats;
 
-    [SerializeField] private int currentLevel = 1;
+    [SerializeField] public int currentLevel = 1;
     [SerializeField] private int currentXP = 0;
 
     public bool hasWeapon = false;
