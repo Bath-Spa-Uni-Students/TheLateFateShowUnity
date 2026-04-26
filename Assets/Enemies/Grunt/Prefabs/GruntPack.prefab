@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: isLeader
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt Leader
@@ -146,6 +150,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 2242045932937127281}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (2)
@@ -208,6 +216,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 2242045932937127281}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (3)
@@ -270,6 +282,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 2242045932937127281}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (4)
@@ -332,6 +348,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: leader
+      value: 
+      objectReference: {fileID: 2242045932937127281}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (1)

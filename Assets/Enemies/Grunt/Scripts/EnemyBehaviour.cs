@@ -36,20 +36,12 @@ public class EnemyBehaviour : MonoBehaviour
     [HideInInspector] public bool playerDetected = false;          // Updated detection flag
     private bool leaderDead = false;                               // Tracks if leader is dead
 
-    [Header("Waypoints")]
-    [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
-    [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
-    [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
-    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
-
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
     private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
     private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
     private GameObject moveSpot;                                   // Debug move spot instance                            
 
-    private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
-    private float stuckTimer = 0f;                                 // Stuck timer
     private Animator animator;
 
     //Patrol State
@@ -66,19 +58,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private EnemyState currentState;                               // Current enemy state
 
-    /*old system
-    [Header("Grunt Area Bounds")]
-    [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
-    [SerializeField] private Transform minX;
-    [SerializeField] private Transform maxX;
-    [SerializeField] private Transform minY;
-    [SerializeField] private Transform maxY;
-    */
-    //new system
-
-
     // Animator reference
-
     [Header("Pathtracing")]
     private Vector3 playerTarget;                                  // Target for pathfinding
     private Vector3 randomTarget;                                  // Optional random target
@@ -135,26 +115,6 @@ public class EnemyBehaviour : MonoBehaviour
         agent.speed = stats.speed;
         agent.acceleration = 140f;
         agent.stoppingDistance = stats.stoppingDistance;
-
-        /* Follower orbit offset
-        if (!isLeader && leader != null)
-            followOffset = Random.insideUnitCircle * followDistance;
-        waitTimer = startWaitTime;
-
-        // Leader handles patrol waypoint selection
-        if (isLeader)
-        {
-            if (moveSpotGameObject != null)
-                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
-
-            if (boxCollider != null && rb != null)
-                PickNewWaypoint();
-        }
-
-        // Followers get an initial orbit offset
-        if (!isLeader && leader != null)
-            followOffset = Random.insideUnitCircle * followDistance;
-        */
 
     }
 
