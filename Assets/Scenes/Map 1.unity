@@ -15124,7 +15124,8 @@ GameObject:
   - component: {fileID: 40196255}
   - component: {fileID: 40196254}
   - component: {fileID: 40196253}
-  m_Layer: 0
+  - component: {fileID: 40196257}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17901,6 +17902,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &40196257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40196251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &63231733
 GameObject:
   m_ObjectHideFlags: 0
@@ -63075,7 +63096,8 @@ GameObject:
   - component: {fileID: 151506308}
   - component: {fileID: 151506307}
   - component: {fileID: 151506306}
-  m_Layer: 0
+  - component: {fileID: 151506310}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66428,6 +66450,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &151506310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151506304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &153485137
 GameObject:
   m_ObjectHideFlags: 0
@@ -84579,7 +84621,8 @@ GameObject:
   - component: {fileID: 241220324}
   - component: {fileID: 241220327}
   - component: {fileID: 241220326}
-  m_Layer: 0
+  - component: {fileID: 241220328}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87382,6 +87425,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &241220328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 241220322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &246425787
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93126,8 +93189,9 @@ GameObject:
   - component: {fileID: 296686234}
   - component: {fileID: 296686233}
   - component: {fileID: 296686232}
-  - component: {fileID: 296686231}
-  m_Layer: 0
+  - component: {fileID: 296686236}
+  - component: {fileID: 296686235}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93149,44 +93213,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1135484174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!19719996 &296686231
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296686229}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0
-  m_UseDelaunayMesh: 0
 --- !u!50 &296686232
 Rigidbody2D:
   serializedVersion: 5
@@ -96460,6 +96486,71 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &296686235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296686229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
+--- !u!66 &296686236
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 296686229}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 296686229}
 --- !u!1 &319437202
 GameObject:
   m_ObjectHideFlags: 0
@@ -96678,7 +96769,8 @@ GameObject:
   - component: {fileID: 382558500}
   - component: {fileID: 382558499}
   - component: {fileID: 382558498}
-  m_Layer: 0
+  - component: {fileID: 382558502}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99381,6 +99473,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &382558502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382558496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &386168042
 GameObject:
   m_ObjectHideFlags: 0
@@ -99394,7 +99506,8 @@ GameObject:
   - component: {fileID: 386168046}
   - component: {fileID: 386168045}
   - component: {fileID: 386168044}
-  m_Layer: 0
+  - component: {fileID: 386168048}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99575,6 +99688,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &386168048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386168042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &397371202
 GameObject:
   m_ObjectHideFlags: 0
@@ -105552,7 +105685,8 @@ GameObject:
   - component: {fileID: 463253646}
   - component: {fileID: 463253645}
   - component: {fileID: 463253644}
-  m_Layer: 0
+  - component: {fileID: 463253648}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107985,6 +108119,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &463253648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463253642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &473501062
 GameObject:
   m_ObjectHideFlags: 0
@@ -139823,7 +139977,8 @@ GameObject:
   - component: {fileID: 619226843}
   - component: {fileID: 619226842}
   - component: {fileID: 619226841}
-  m_Layer: 0
+  - component: {fileID: 619226845}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142166,6 +142321,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &619226845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619226839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &619741365
 GameObject:
   m_ObjectHideFlags: 0
@@ -148432,7 +148607,8 @@ GameObject:
   - component: {fileID: 707306551}
   - component: {fileID: 707306550}
   - component: {fileID: 707306549}
-  m_Layer: 0
+  - component: {fileID: 707306553}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151301,6 +151477,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &707306553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707306547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &721415067
 GameObject:
   m_ObjectHideFlags: 0
@@ -157335,7 +157531,8 @@ GameObject:
   - component: {fileID: 725572718}
   - component: {fileID: 725572717}
   - component: {fileID: 725572716}
-  m_Layer: 0
+  - component: {fileID: 725572720}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159466,6 +159663,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &725572720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725572714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &739396095
 GameObject:
   m_ObjectHideFlags: 0
@@ -169476,7 +169693,8 @@ GameObject:
   - component: {fileID: 818767552}
   - component: {fileID: 818767551}
   - component: {fileID: 818767550}
-  m_Layer: 0
+  - component: {fileID: 818767554}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171879,6 +172097,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &818767554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 818767548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &845743105
 GameObject:
   m_ObjectHideFlags: 0
@@ -171892,7 +172130,8 @@ GameObject:
   - component: {fileID: 845743109}
   - component: {fileID: 845743108}
   - component: {fileID: 845743107}
-  m_Layer: 0
+  - component: {fileID: 845743111}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175051,6 +175290,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &845743111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845743105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &849413634
 GameObject:
   m_ObjectHideFlags: 0
@@ -208270,7 +208529,8 @@ GameObject:
   - component: {fileID: 1127051247}
   - component: {fileID: 1127051246}
   - component: {fileID: 1127051245}
-  m_Layer: 0
+  - component: {fileID: 1127051249}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210673,6 +210933,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1127051249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127051243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1135484172
 GameObject:
   m_ObjectHideFlags: 0
@@ -210830,7 +211110,8 @@ GameObject:
   - component: {fileID: 1153483264}
   - component: {fileID: 1153483263}
   - component: {fileID: 1153483262}
-  m_Layer: 0
+  - component: {fileID: 1153483266}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212789,6 +213070,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1153483266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153483260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1172480989
 GameObject:
   m_ObjectHideFlags: 0
@@ -212802,7 +213103,8 @@ GameObject:
   - component: {fileID: 1172480993}
   - component: {fileID: 1172480992}
   - component: {fileID: 1172480991}
-  m_Layer: 0
+  - component: {fileID: 1172480995}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -215263,6 +215565,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1172480995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1172480989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1182593753
 GameObject:
   m_ObjectHideFlags: 0
@@ -240663,7 +240985,8 @@ GameObject:
   - component: {fileID: 1229472712}
   - component: {fileID: 1229472711}
   - component: {fileID: 1229472710}
-  m_Layer: 0
+  - component: {fileID: 1229472714}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243582,6 +243905,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1229472714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229472708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1241106171
 GameObject:
   m_ObjectHideFlags: 0
@@ -243952,7 +244295,8 @@ GameObject:
   - component: {fileID: 1302454197}
   - component: {fileID: 1302454196}
   - component: {fileID: 1302454195}
-  m_Layer: 0
+  - component: {fileID: 1302454199}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246415,6 +246759,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1302454199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302454193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1310971486
 GameObject:
   m_ObjectHideFlags: 0
@@ -258001,7 +258365,8 @@ GameObject:
   - component: {fileID: 1440377470}
   - component: {fileID: 1440377469}
   - component: {fileID: 1440377468}
-  m_Layer: 0
+  - component: {fileID: 1440377472}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -261894,6 +262259,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1440377472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440377466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1444388381
 GameObject:
   m_ObjectHideFlags: 0
@@ -261907,7 +262292,8 @@ GameObject:
   - component: {fileID: 1444388385}
   - component: {fileID: 1444388384}
   - component: {fileID: 1444388383}
-  m_Layer: 0
+  - component: {fileID: 1444388387}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264470,85 +264856,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1454105442
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1454105445}
-  - component: {fileID: 1454105444}
-  - component: {fileID: 1454105443}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1454105443
+--- !u!114 &1444388387
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454105442}
+  m_GameObject: {fileID: 1444388381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.UI.InputSystemUIInputModule
-  m_SendPointerHoverToParent: 1
-  m_MoveRepeatDelay: 0.5
-  m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
-  m_CursorLockBehavior: 0
-  m_ScrollDeltaPerTick: 6
---- !u!114 &1454105444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454105442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventSystem
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1454105445
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454105442}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1461566442
 GameObject:
   m_ObjectHideFlags: 0
@@ -264562,7 +264889,8 @@ GameObject:
   - component: {fileID: 1461566446}
   - component: {fileID: 1461566445}
   - component: {fileID: 1461566444}
-  m_Layer: 0
+  - component: {fileID: 1461566448}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267551,6 +267879,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1461566448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461566442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1480139071
 GameObject:
   m_ObjectHideFlags: 0
@@ -282207,7 +282555,8 @@ GameObject:
   - component: {fileID: 1548456091}
   - component: {fileID: 1548456090}
   - component: {fileID: 1548456089}
-  m_Layer: 0
+  - component: {fileID: 1548456093}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285580,6 +285929,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1548456093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1548456087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1569667775
 GameObject:
   m_ObjectHideFlags: 0
@@ -290894,7 +291263,8 @@ GameObject:
   - component: {fileID: 1591679050}
   - component: {fileID: 1591679049}
   - component: {fileID: 1591679048}
-  m_Layer: 0
+  - component: {fileID: 1591679052}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -294033,6 +294403,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1591679052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591679046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!114 &1615178799 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -301080,7 +301470,8 @@ GameObject:
   - component: {fileID: 1703185672}
   - component: {fileID: 1703185671}
   - component: {fileID: 1703185670}
-  m_Layer: 0
+  - component: {fileID: 1703185674}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304013,6 +304404,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1703185674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703185668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1716339521
 GameObject:
   m_ObjectHideFlags: 0
@@ -310869,7 +311280,8 @@ GameObject:
   - component: {fileID: 1754947069}
   - component: {fileID: 1754947068}
   - component: {fileID: 1754947067}
-  m_Layer: 0
+  - component: {fileID: 1754947071}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314712,6 +315124,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1754947071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1754947065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1786592425
 GameObject:
   m_ObjectHideFlags: 0
@@ -333805,7 +334237,8 @@ GameObject:
   - component: {fileID: 1859164093}
   - component: {fileID: 1859164092}
   - component: {fileID: 1859164091}
-  m_Layer: 0
+  - component: {fileID: 1859164095}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337188,6 +337621,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1859164095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1859164089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &1868759917
 GameObject:
   m_ObjectHideFlags: 0
@@ -337308,6 +337761,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1876983449}
   - component: {fileID: 1876983448}
+  - component: {fileID: 1876983451}
+  - component: {fileID: 1876983450}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -337399,6 +337854,50 @@ Transform:
   - {fileID: 1135484174}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876983450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876983447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e39f6090724e4a4a8aadeb042afa2bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Extensions.AgentOverride2d
+--- !u!114 &1876983451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876983447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 1975
+  m_UseGeometry: 1
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 28f898e496fc6dc40954c61de8ab5583, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &1878227796
 GameObject:
   m_ObjectHideFlags: 0
@@ -386987,7 +387486,8 @@ GameObject:
   - component: {fileID: 2126088096}
   - component: {fileID: 2126088095}
   - component: {fileID: 2126088094}
-  m_Layer: 0
+  - component: {fileID: 2126088098}
+  m_Layer: 11
   m_Name: 'Collision '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389686,6 +390186,26 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &2126088098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126088092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1 &2127703912
 GameObject:
   m_ObjectHideFlags: 0
@@ -399317,7 +399837,6 @@ SceneRoots:
   - {fileID: 1082160072}
   - {fileID: 1823986809}
   - {fileID: 1039624960}
-  - {fileID: 1454105445}
   - {fileID: 1026267171}
   - {fileID: 1914933564}
   - {fileID: 929361067}
