@@ -41,12 +41,17 @@ public class EnemyBehaviour : MonoBehaviour
     [HideInInspector] public bool playerDetected = false;          // Updated detection flag
     private bool leaderDead = false;                               // Tracks if leader is dead
 
+    //old system
     [Header("Grunt Area Bounds")]
     [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
     [SerializeField] private Transform minX;
     [SerializeField] private Transform maxX;
     [SerializeField] private Transform minY;
     [SerializeField] private Transform maxY;
+
+    //new system
+    [SerializeField] private float patrolRadius = 5f;
+    private Vector3 spawnPosition;
 
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
@@ -216,6 +221,11 @@ public class EnemyBehaviour : MonoBehaviour
     }
 
     #region Movement States
+    //simplify patrol state remove stuck detection as nav mesh will handle pathfinding around obstacles
+    //three step process
+    //step 1 wait at waypoint
+    //step 2 pick new waypoint
+    //3 check if arrived at waypoint
     private void Patrol()
     {
         // Component check - if we lost our components, just skip movement (Prevent errors)
@@ -372,6 +382,18 @@ public class EnemyBehaviour : MonoBehaviour
         {
             hasWaypoint = false;
         }
+    }
+
+    private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
+    {
+        //find the nearest point on the navmesh thats valid for the agent
+
+        //if(NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+        {
+            waypoint = hit.position;
+            return true;
+        }
+        return false;
     }
 
     private bool TryGetRandomWaypoint(out Vector2 waypoint)
