@@ -17,7 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Transform player;                                    // Reference to player
     [SerializeField] private GameObject moveSpotGameObject;      // Optional debug waypoint visualizer
     [SerializeField] private float startWaitTime = 0.25f;        // Wait time at waypoints
-    private float waitTimer;                                     // Internal wait timer
+                                        // Internal wait timer
 
     [Header("Detection")]
     [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
@@ -52,6 +52,10 @@ public class EnemyBehaviour : MonoBehaviour
     //new system
     [SerializeField] private float patrolRadius = 5f;
     private Vector3 spawnPosition;
+    private bool isWaiting = false;      // Waiting at a waypoint
+    private float waitTimer;
+    private float waitTimeAtWaypoint;
+    private bool waypoint = false
 
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
@@ -228,63 +232,37 @@ public class EnemyBehaviour : MonoBehaviour
     //3 check if arrived at waypoint
     private void Patrol()
     {
-        // Component check - if we lost our components, just skip movement (Prevent errors)
-        if (boxCollider == null || rb == null) return;
-
-        #region Waypoint Check
-        // If we don't have a waypoint, try to pick one
-        if (!hasWaypoint)
+        // Step 1  currently waiting at a waypoint
+        if (isWaiting)
         {
-            PickNewWaypoint();
-            return;
-        }
-
-        // Check arrival
-        Vector2 pos = rb.position;
-        float dist = Vector2.Distance(pos, currentWaypoint);
-
-        // Arrived?
-        if (dist <= waypointArrivalDistance)
-        {
-            agent.velocity = Vector2.zero;
-
             waitTimer -= Time.fixedDeltaTime;
             if (waitTimer <= 0f)
             {
-                PickNewWaypoint();
-                waitTimer = startWaitTime;
+                isWaiting = false;
+                hasWaypoint = false;
             }
-
-            // Reset stuck tracking after arrival
-            lastDistToWaypoint = Mathf.Infinity;
-            stuckTimer = 0f;
-
             return;
         }
-        #endregion
 
-        #region Stuck Detection
-        // Stuck detection (no progress)
-        if (dist < lastDistToWaypoint - stuckEpsilon)
+        // Step 2 - need a new waypoint
+        if (!hasWaypoint)
         {
-            lastDistToWaypoint = dist;
-            stuckTimer = 0f;
-        }
-        else
-        {
-            stuckTimer += Time.fixedDeltaTime;
-            if (stuckTimer >= stuckDuration)
+            if (TryGetNavMeshWaypoint(out Vector3 waypoint))
             {
-                PickNewWaypoint();
-                waitTimer = startWaitTime;
-                lastDistToWaypoint = Mathf.Infinity;
-                stuckTimer = 0f;
-                return;
+                currentWaypoint = waypoint;
+                hasWaypoint = true;
+                agent.SetDestination(currentWaypoint);
             }
+            return;
         }
-        #endregion
 
-        MoveToTarget(currentWaypoint);
+        // Step 3 - check if we arrived
+        float dist = Vector3.Distance(transform.position, currentWaypoint);
+        if (dist <= waypointArrivalDistance)
+        {
+            isWaiting = true;
+            waitTimer = waitTimeAtWaypoint;
+        }
     }
 
     private void ChasePlayer()
@@ -386,12 +364,16 @@ public class EnemyBehaviour : MonoBehaviour
 
     private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
     {
-        //find the nearest point on the navmesh thats valid for the agent
-
-        //if(NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+        for (int i = 0; i < 10; i++)
         {
-            waypoint = hit.position;
-            return true;
+            //find the nearest point on the navmesh thats valid for the agent
+            Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
+            Vector3 randomPoint = spawnPosition + new Vector3(randomCircle.x, randomCircle.y, 0f);
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+            {
+                waypoint = hit.position;
+                return true;
+            }
         }
         return false;
     }
