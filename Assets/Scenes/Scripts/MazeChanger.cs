@@ -32,7 +32,7 @@ public class MazeChanger : MonoBehaviour
     void Start()
     {
         GenerateAllSegments();
-        //StartCoroutine(SegmentReset());
+        switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
 
     // Update is called once per frame
@@ -41,28 +41,28 @@ public class MazeChanger : MonoBehaviour
 
     }
 
-    private void SelectSegment(GameObject[] segment)
+    private void SelectSegment(GameObject[] segment, Transform anchor)
     {
-
-        foreach (GameObject seg in segment)
+        int chosen = Random.Range(0, segment.Length);
+        for (int i = 0; i < segment.Length; i++)
         {
-            seg.SetActive(false);
+            segment[i].SetActive(i == chosen);
+            if (i == chosen && anchor != null)
+                segment[i].transform.position = anchor.position;
         }
-        segment[Random.Range(0, segment.Length)].SetActive(true);
 
-        //add anchor logic
     }
 
     private void GenerateAllSegments()
     {
-        SelectSegment(s1);
-        SelectSegment(s2);
-        SelectSegment(s3);
-        SelectSegment(s4);
-        SelectSegment(s5);
-        SelectSegment(s6);
-        SelectSegment(s7);
-        SelectSegment(s8);
+        SelectSegment(s1, anchor1);
+        SelectSegment(s2, anchor2);
+        SelectSegment(s3, anchor3);
+        SelectSegment(s4, anchor4);
+        SelectSegment(s5, anchor5);
+        SelectSegment(s6, anchor6);
+        SelectSegment(s7, anchor7);
+        SelectSegment(s8, anchor8);
 
         //rebake nav mesh here after rooms switch might casue slight lag but should be hideable with transition effect
     }
@@ -97,9 +97,23 @@ public class MazeChanger : MonoBehaviour
         }
     }
 
+    IEnumerator RoomSwitchLoop()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(switchInterval);
+            GenerateAllSegments();
+        }
+    }
+
     //debug here
     public void ForceSwitch()
     {
 
+        if (switchCoroutine != null)
+            StopCoroutine(switchCoroutine);
+
+        GenerateAllSegments();
+        switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
 }
