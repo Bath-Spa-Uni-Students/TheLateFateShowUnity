@@ -55,7 +55,7 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isWaiting = false;      // Waiting at a waypoint
     private float waitTimer;
     private float waitTimeAtWaypoint;
-    private bool waypoint = false
+    private bool waypoint = false;
 
     [Header("Components / Internals")]
     private Rigidbody2D rb;                                        // Cached Rigidbody2D
@@ -308,9 +308,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Scatter()
     {
-        // Simple scatter: keep moving in a random direction
-        Vector2 dir = Random.insideUnitCircle.normalized;
-        rb.linearVelocity = dir * stats.speed;
+        //paths to a random point on the navmesh 
+        if (TryGetNavMeshWaypoint(out Vector3 waypoint))
+            agent.SetDestination(waypoint);
     }
 
     void MoveToTarget(Vector3 target)
@@ -479,13 +479,12 @@ public class EnemyBehaviour : MonoBehaviour
             animator.SetFloat("PosX", dir.x);
             animator.SetFloat("PosY", dir.y);
             animator.SetBool("IsWalking?", true);
-            UpdateSound();
         }
         else
         {
             animator.SetBool("IsWalking?", false);
-            UpdateSound();
         }
+        UpdateSound();
     }
 
     // Starts or stops the spatialised footstep emitter based on the current walk state
