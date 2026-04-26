@@ -274,63 +274,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
         return false;
     }
-
-    
-    /*private bool TryGetRandomWaypoint(out Vector2 waypoint)
-    {
-        waypoint = Vector2.zero;
-        // We inflate the box collider size a bit for more forgiving waypoint picking (prevents picking waypoints that are just barely outside the collider and then getting stuck trying to get in)
-        Vector2 inflatedSize = new Vector2(
-            boxCollider.size.x + waypointInflation * 2f,
-            boxCollider.size.y + waypointInflation * 2f
-        );
-
-        // Get the current collider center in world space, accounting for rotation
-        float boxAngle = transform.eulerAngles.z;
-        Vector2 currentColliderCenter = GetBoxColliderWorldCenter(boxAngle);
-
-        // Try up to waypointMaxTries random positions within the bounds
-        for (int i = 0; i < waypointMaxTries; i++)
-        {
-            float randomX = Random.Range(minX.position.x, maxX.position.x);
-            float randomY = Random.Range(minY.position.y, maxY.position.y);
-
-            Vector2 candidatePos = new Vector2(randomX, randomY);
-            Vector2 candidateColliderCenter = candidatePos + GetRotatedOffset(boxCollider.offset, boxAngle);
-
-            // Check overlap at the position, if it overlaps a wall it skips it immediately (prevents picking waypoints that are inside walls)
-            if (Physics2D.OverlapBox(candidateColliderCenter, inflatedSize, boxAngle, wallLayer))
-                continue;
-
-            Vector2 delta = candidateColliderCenter - currentColliderCenter;
-            float dist = delta.magnitude;
-            if (dist < 0.01f) continue;
-
-            Vector2 dir = delta / dist;
-
-            if (Physics2D.BoxCast(currentColliderCenter, inflatedSize, boxAngle, dir, dist, wallLayer))
-                continue;
-
-            waypoint = candidatePos;
-            return true;
-        }
-
-        return false;
-    }
-    #endregion
-
-    private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
-    {
-        Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
-        return (Vector2)rb.position + rotatedOffset;
-    }
-
-    private Vector2 GetRotatedOffset(Vector2 localOffset, float boxAngleDeg)
-    {
-        Vector3 rotated = Quaternion.Euler(0f, 0f, boxAngleDeg) * new Vector3(localOffset.x, localOffset.y, 0f);
-        return new Vector2(rotated.x, rotated.y);
-    }*/
-
     private void ChasePlayer()
     {
         // Component check - if we lost our components, just skip movement (Prevent errors)
@@ -378,13 +321,6 @@ public class EnemyBehaviour : MonoBehaviour
         if (TryGetNavMeshWaypoint(out Vector3 waypoint))
             agent.SetDestination(waypoint);
     }
-
-    void MoveToTarget(Vector3 target)
-    {
-        // Pathtracing movement
-        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
-    }
-
     #endregion
 
     private void UpdateDetection()
@@ -405,31 +341,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    // --- Waypoint picking (Leader) ---
-    #region Waypoint Picking
-    private void PickNewWaypoint()
-    {
-        if (boxCollider == null || rb == null) return;
-
-        if (TryGetRandomWaypoint(out Vector2 waypoint))
-        {
-            currentWaypoint = waypoint;
-            hasWaypoint = true;
-
-            if (moveSpot != null)
-                moveSpot.transform.position = waypoint;
-
-            lastDistToWaypoint = Mathf.Infinity;
-            stuckTimer = 0f;
-        }
-        else
-        {
-            hasWaypoint = false;
-        }
-    }
-
-  
-
     public void LeaderDied()
     {
         leaderDead = true;
@@ -448,17 +359,6 @@ public class EnemyBehaviour : MonoBehaviour
                 enemy.LeaderDied();
         }
     }
-
-    /* Bounds  
-    private void SetGruntArea()
-    {
-        if (gruntArea == null) return;
-
-        if (minX == null) minX = gruntArea.transform.Find("minX");
-        if (maxX == null) maxX = gruntArea.transform.Find("maxX");
-        if (minY == null) minY = gruntArea.transform.Find("minY");
-        if (maxY == null) maxY = gruntArea.transform.Find("maxY");
-    }*/
 
     public void UpdateAnimation()
     {
@@ -505,4 +405,10 @@ public class EnemyBehaviour : MonoBehaviour
     {
         gruntAttack.start();
     }
+    void MoveToTarget(Vector3 target)
+    {
+        // Pathtracing movement
+        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
+    }
+ 
 }
