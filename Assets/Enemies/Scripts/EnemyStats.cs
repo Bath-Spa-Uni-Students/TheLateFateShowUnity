@@ -16,8 +16,8 @@ public class EnemyStats : MonoBehaviour
 
     [Header("Combat")]
     [Tooltip("Enemies Health")]
-    public int health;
-    [HideInInspector] public int maxHealth;
+    public float health;
+    [HideInInspector] public float maxHealth;
     [Tooltip("Damage dealt per attack.")]
     public float damage = 10f;
 
@@ -32,7 +32,7 @@ public class EnemyStats : MonoBehaviour
     // Scales health linearly and exponentially
     public void ScaleHealth(int playerLevel)
     {
-        int baseHealth = maxHealth;
+        float baseHealth = maxHealth;
         int linear = playerLevel * 3;
         int exponential = Mathf.FloorToInt(Mathf.Pow(1.05f, playerLevel));
 
