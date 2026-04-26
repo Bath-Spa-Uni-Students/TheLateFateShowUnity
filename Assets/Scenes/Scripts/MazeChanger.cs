@@ -1,119 +1,111 @@
 using NavMeshPlus.Components;
-using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class MazeChanger : MonoBehaviour
 {
-    [Header("Room Segment Gorups")]
-    [SerializeField] private GameObject[] s1;
-    [SerializeField] private GameObject[] s2;
-    [SerializeField] private GameObject[] s3;
-    [SerializeField] private GameObject[] s4;
-    [SerializeField] private GameObject[] s5;
-    [SerializeField] private GameObject[] s6;
-    [SerializeField] private GameObject[] s7;
-    [SerializeField] private GameObject[] s8;
-    private int roomCounter = 0;
+    [Header("Room Slots")]
+    [SerializeField] private GameObject[] slot1;
+    [SerializeField] private GameObject[] slot2;
+    [SerializeField] private GameObject[] slot3;
+    [SerializeField] private GameObject[] slot4;
+    [SerializeField] private GameObject[] slot5;
+    [SerializeField] private GameObject[] slot6;
+    [SerializeField] private GameObject[] slot7;
+    [SerializeField] private GameObject[] slot8;
 
     [Header("Settings")]
-    [SerializeField] private float switchInterval = 300f; // Set this value to somehting higher, ive set lower for testing
+    [SerializeField] private float switchInterval = 150f;//adjust this value for balance currently set quite quick for testing
+    [SerializeField] private bool debugMode = true; 
+
+    [Header("NavMesh")]
     [SerializeField] private NavMeshSurface navMeshSurface;
 
-    [Header("Transition")]
-    [SerializeField] private float transitionFadeTime = 0.5f; // for future fade effect
-
-    [SerializeField] private Transform anchor1, anchor2, anchor3, anchor4 ,anchor5, anchor6, anchor7, anchor8;
-
+    private GameObject[][] allSlots;
+    private int[] currentActiveIndex; // tracks which room variation is active
     private Coroutine switchCoroutine;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        allSlots = new GameObject[][]
+        {
+            slot1, slot2, slot3, slot4,
+            slot5, slot6, slot7, slot8
+        };
+
+        currentActiveIndex = new int[allSlots.Length];
+
         GenerateAllSegments();
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SelectSegment(GameObject[] segment, int slotIndex)
     {
+        if (segment == null || segment.Length == 0) return;
 
-    }
-
-    private void SelectSegment(GameObject[] segment, Transform anchor)
-    {
-        int chosen = Random.Range(0, segment.Length);
-        for (int i = 0; i < segment.Length; i++)
+        // Pick a random variant that isn't the current one
+        int chosen;
+        if (segment.Length > 1)
         {
-            segment[i].SetActive(i == chosen);
-            if (i == chosen && anchor != null)
-                segment[i].transform.position = anchor.position;
+            do
+            {
+                chosen = Random.Range(0, segment.Length);
+            }
+            while (chosen == currentActiveIndex[slotIndex]);
+        }
+        else
+        {
+            chosen = 0;
         }
 
+        // Swap active state
+        for (int i = 0; i < segment.Length; i++)
+        {
+            if (segment[i] != null)
+                segment[i].SetActive(i == chosen);
+        }
+
+        currentActiveIndex[slotIndex] = chosen;
     }
 
     private void GenerateAllSegments()
     {
-        SelectSegment(s1, anchor1);
-        SelectSegment(s2, anchor2);
-        SelectSegment(s3, anchor3);
-        SelectSegment(s4, anchor4);
-        SelectSegment(s5, anchor5);
-        SelectSegment(s6, anchor6);
-        SelectSegment(s7, anchor7);
-        SelectSegment(s8, anchor8);
-
-        //rebake nav mesh here after rooms switch might casue slight lag but should be hideable with transition effect
-    }
-
-    IEnumerator SegmentReset()
-    {
-        yield return new WaitForSeconds(10f);
-        GenerateAllSegments();
-        StartCoroutine(SegmentReset());
-
-  
-    }
-    private void CheckPlayerCollision(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
+        for (int i = 0; i < allSlots.Length; i++)
         {
-            GenerateAllSegments();
+            SelectSegment(allSlots[i], i);
         }
+
+        RebakeNavMesh();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void RebakeNavMesh()
     {
-        if (collision.CompareTag("Player"))
-        {
-            roomCounter++;
-            Debug.Log("Player entered a new room. Room counter: " + roomCounter);
-            if (roomCounter == 3)
-            {
-                GenerateAllSegments();
-                roomCounter = 0;
-            }
-        }
+        
     }
 
     IEnumerator RoomSwitchLoop()
     {
+        float interval = debugMode ? 60f : switchInterval;
+
         while (true)
         {
-            yield return new WaitForSeconds(switchInterval);
+            yield return new WaitForSeconds(interval);
             GenerateAllSegments();
+            Debug.Log("Rooms switched at: " + Time.time);
         }
     }
 
-    //debug here
+    // Debug
     public void ForceSwitch()
     {
-
         if (switchCoroutine != null)
             StopCoroutine(switchCoroutine);
 
         GenerateAllSegments();
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
+
+  
 }
