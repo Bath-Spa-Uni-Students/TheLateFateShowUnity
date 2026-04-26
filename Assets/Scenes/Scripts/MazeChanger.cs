@@ -82,7 +82,10 @@ public class MazeChanger : MonoBehaviour
 
     private void RebakeNavMesh()
     {
-        
+        if (navMeshSurface != null)
+            navMeshSurface.BuildNavMesh();
+        else
+            Debug.LogWarning("No NavMeshSurface assigned!");
     }
 
     IEnumerator RoomSwitchLoop()
@@ -107,5 +110,10 @@ public class MazeChanger : MonoBehaviour
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
 
-  
+    // calls which segment is active 
+    public int GetActiveVariant(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= currentActiveIndex.Length) return -1;
+        return currentActiveIndex[slotIndex];
+    }
 }
