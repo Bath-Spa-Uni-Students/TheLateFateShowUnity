@@ -15,21 +15,16 @@ public class EnemyBehaviour : MonoBehaviour
 
     [Header("Player Info")]
     private Transform player;                                    // Reference to player
-    [SerializeField] private GameObject moveSpotGameObject;      // Optional debug waypoint visualizer
-    [SerializeField] private float startWaitTime = 0.25f;        // Wait time at waypoints
-                                        // Internal wait timer
 
     [Header("Detection")]
     [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
-    [SerializeField] private GameObject detectionCircle;         // Optional visual for detection range
     [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
+    [SerializeField] private GameObject detectionCircle;         // Optional visual for detection range
 
-    [Header("Waypoints")]
-    [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered "arrived" at waypoint
-    [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
-    [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
-    [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
-    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
+    [Header("Patrol Settings")]
+    [SerializeField] private float patrolRadius = 5f;
+    [SerializeField] private float waypointArrivalDistance = 0.35f;// Distance considered "arrived" at waypoint
+    [SerializeField] private float waitTimeAtWaypoint = 0.25f;
 
     [Header("Pack/Follower Info")]
     public bool isLeader = false;                                  // Is this enemy the pack leader?
@@ -41,59 +36,66 @@ public class EnemyBehaviour : MonoBehaviour
     [HideInInspector] public bool playerDetected = false;          // Updated detection flag
     private bool leaderDead = false;                               // Tracks if leader is dead
 
-    //old system
+    [Header("Waypoints")]
+    [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
+    [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
+    [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
+    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
+
+    [Header("Components / Internals")]
+    private Rigidbody2D rb;                                        // Cached Rigidbody2D
+    private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
+    private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
+    private GameObject moveSpot;                                   // Debug move spot instance                            
+
+    private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
+    private float stuckTimer = 0f;                                 // Stuck timer
+    private Animator animator;
+
+    //Patrol State
+    private Vector3 spawnPosition;
+    private Vector3 currentWaypoint;   // Current waypoint target
+    private bool hasWaypoint = false; // Waypoint validity
+    private float waitTimer = 0f;
+    private bool isWaiting = false;      // Waiting at a waypoint
+
+    // --- Enemy States (for modular state logic) ---
+    private enum EnemyState
+    {
+        Patrol,Chase,Orbit,Scatter
+    }
+    private EnemyState currentState;                               // Current enemy state
+
+    /*old system
     [Header("Grunt Area Bounds")]
     [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
     [SerializeField] private Transform minX;
     [SerializeField] private Transform maxX;
     [SerializeField] private Transform minY;
     [SerializeField] private Transform maxY;
-
+    */
     //new system
-    [SerializeField] private float patrolRadius = 5f;
-    private Vector3 spawnPosition;
-    private bool isWaiting = false;      // Waiting at a waypoint
-    private float waitTimer;
-    private float waitTimeAtWaypoint;
-    private bool waypoint = false;
 
-    [Header("Components / Internals")]
-    private Rigidbody2D rb;                                        // Cached Rigidbody2D
-    private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
-    private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
-    private GameObject moveSpot;                                   // Debug move spot instance
-    private Vector2 currentWaypoint;                               // Current waypoint target
-    private bool hasWaypoint;                                      // Waypoint validity
-    private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
-    private float stuckTimer = 0f;                                 // Stuck timer
-    private Animator animator;                                     // Animator reference
+
+    // Animator reference
 
     [Header("Pathtracing")]
     private Vector3 playerTarget;                                  // Target for pathfinding
     private Vector3 randomTarget;                                  // Optional random target
     private NavMeshAgent agent;                                    // NavMeshAgent reference
 
-    // --- Enemy States (for modular state logic) ---
-    private enum EnemyState
-    {
-        Patrol,
-        Chase,
-        Orbit,
-        Scatter
-    }
-    private EnemyState currentState;                               // Current enemy state
-
-    // ------------------------------------------ //
-
-    // Audio - StudioEventEmitter used here (not EventInstance) because enemy footsteps
-    // must be spatialised - volume should drop off as the enemy moves away from the player
+    // Audio
     private StudioEventEmitter emitter;
-    // One-shot attack sound fired by Animation Event on the attack frame
     private EventInstance gruntAttack;
-    // Plays when the enemy transitions into Chase state - one-shot, spatialised at enemy position
     private EventInstance gruntAlert;
     private EventInstance gruntDeath;
 
+
+    private void Awake()
+    {
+        if (stats == null)
+            stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
+    }
     private void Start()
     {
         InitialSetup();
@@ -108,10 +110,52 @@ public class EnemyBehaviour : MonoBehaviour
         gruntDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntDeath);
     }
 
-    private void Awake()
+    private void InitialSetup()
     {
-        if (stats == null)
-            stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
+
+        // Component setup
+        rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        attackScript = GetComponent<EnemyAttackMelee>();
+        animator = GetComponent<Animator>();
+
+        // Player must exist for detection/chasing
+        var playerTag = GameObject.FindGameObjectWithTag("Player");
+        // If no player found, we can still do patrol/leader-following but not detection/chasing
+        player = playerTag != null ? playerTag.transform : null;
+
+
+        // Store spawn position for patrol radius
+        spawnPosition = transform.position;
+
+        //NavMeshA setup
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.speed = stats.speed;
+        agent.acceleration = 140f;
+        agent.stoppingDistance = stats.stoppingDistance;
+
+        /* Follower orbit offset
+        if (!isLeader && leader != null)
+            followOffset = Random.insideUnitCircle * followDistance;
+        waitTimer = startWaitTime;
+
+        // Leader handles patrol waypoint selection
+        if (isLeader)
+        {
+            if (moveSpotGameObject != null)
+                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
+
+            if (boxCollider != null && rb != null)
+                PickNewWaypoint();
+        }
+
+        // Followers get an initial orbit offset
+        if (!isLeader && leader != null)
+            followOffset = Random.insideUnitCircle * followDistance;
+        */
+
     }
 
     private void FixedUpdate()
@@ -120,7 +164,6 @@ public class EnemyBehaviour : MonoBehaviour
         if (player == null && isLeader) return;
 
         UpdateDetection();
-
         currentState = GetState();
 
         // Checks each state in order of priority and executes the first one that matches (e.g. if we can chase, we chase, if not but we can orbit, we orbit, etc.)
@@ -146,58 +189,7 @@ public class EnemyBehaviour : MonoBehaviour
         UpdateAnimation();
     }
 
-    private void InitialSetup()
-    {
-
-        // Component setup
-        rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        attackScript = GetComponent<EnemyAttackMelee>();
-        animator = GetComponent<Animator>();
-
-        // Store initial constraints so we can freeze/unfreeze during attack
-        initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
-
-        // Player must exist for detection/chasing
-        var playerTag = GameObject.FindGameObjectWithTag("Player");
-
-        // If no player found, we can still do patrol/leader-following but not detection/chasing
-        player = playerTag != null ? playerTag.transform : null;
-
-        SetGruntArea();
-
-        #region Pathtracing Setup
-        // Pathtracing setup
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        // Pathtracing Stats
-        agent.speed = stats.speed;
-        agent.acceleration = 140f;
-        agent.stoppingDistance = stats.stoppingDistance;
-
-        #endregion
-
-        waitTimer = startWaitTime;
-
-        // Leader handles patrol waypoint selection
-        if (isLeader)
-        {
-            if (moveSpotGameObject != null)
-                moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
-
-            if (boxCollider != null && rb != null)
-                PickNewWaypoint();
-        }
-
-        // Followers get an initial orbit offset
-        if (!isLeader && leader != null)
-            followOffset = Random.insideUnitCircle * followDistance;
-
-
-    }
+   
 
     private EnemyState GetState()
     {
@@ -264,6 +256,80 @@ public class EnemyBehaviour : MonoBehaviour
             waitTimer = waitTimeAtWaypoint;
         }
     }
+
+    private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
+    {
+        waypoint = Vector3.zero;
+
+        for (int i = 0; i < 10; i++)
+        {
+            //find the nearest point on the navmesh thats valid for the agent
+            Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
+            Vector3 randomPoint = spawnPosition + new Vector3(randomCircle.x, randomCircle.y, 0f);
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+            {
+                waypoint = hit.position;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
+    /*private bool TryGetRandomWaypoint(out Vector2 waypoint)
+    {
+        waypoint = Vector2.zero;
+        // We inflate the box collider size a bit for more forgiving waypoint picking (prevents picking waypoints that are just barely outside the collider and then getting stuck trying to get in)
+        Vector2 inflatedSize = new Vector2(
+            boxCollider.size.x + waypointInflation * 2f,
+            boxCollider.size.y + waypointInflation * 2f
+        );
+
+        // Get the current collider center in world space, accounting for rotation
+        float boxAngle = transform.eulerAngles.z;
+        Vector2 currentColliderCenter = GetBoxColliderWorldCenter(boxAngle);
+
+        // Try up to waypointMaxTries random positions within the bounds
+        for (int i = 0; i < waypointMaxTries; i++)
+        {
+            float randomX = Random.Range(minX.position.x, maxX.position.x);
+            float randomY = Random.Range(minY.position.y, maxY.position.y);
+
+            Vector2 candidatePos = new Vector2(randomX, randomY);
+            Vector2 candidateColliderCenter = candidatePos + GetRotatedOffset(boxCollider.offset, boxAngle);
+
+            // Check overlap at the position, if it overlaps a wall it skips it immediately (prevents picking waypoints that are inside walls)
+            if (Physics2D.OverlapBox(candidateColliderCenter, inflatedSize, boxAngle, wallLayer))
+                continue;
+
+            Vector2 delta = candidateColliderCenter - currentColliderCenter;
+            float dist = delta.magnitude;
+            if (dist < 0.01f) continue;
+
+            Vector2 dir = delta / dist;
+
+            if (Physics2D.BoxCast(currentColliderCenter, inflatedSize, boxAngle, dir, dist, wallLayer))
+                continue;
+
+            waypoint = candidatePos;
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
+
+    private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
+    {
+        Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
+        return (Vector2)rb.position + rotatedOffset;
+    }
+
+    private Vector2 GetRotatedOffset(Vector2 localOffset, float boxAngleDeg)
+    {
+        Vector3 rotated = Quaternion.Euler(0f, 0f, boxAngleDeg) * new Vector3(localOffset.x, localOffset.y, 0f);
+        return new Vector2(rotated.x, rotated.y);
+    }*/
 
     private void ChasePlayer()
     {
@@ -362,76 +428,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
-    {
-        for (int i = 0; i < 10; i++)
-        {
-            //find the nearest point on the navmesh thats valid for the agent
-            Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
-            Vector3 randomPoint = spawnPosition + new Vector3(randomCircle.x, randomCircle.y, 0f);
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
-            {
-                waypoint = hit.position;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private bool TryGetRandomWaypoint(out Vector2 waypoint)
-    {
-        waypoint = Vector2.zero;
-        // We inflate the box collider size a bit for more forgiving waypoint picking (prevents picking waypoints that are just barely outside the collider and then getting stuck trying to get in)
-        Vector2 inflatedSize = new Vector2(
-            boxCollider.size.x + waypointInflation * 2f,
-            boxCollider.size.y + waypointInflation * 2f
-        );
-
-        // Get the current collider center in world space, accounting for rotation
-        float boxAngle = transform.eulerAngles.z;
-        Vector2 currentColliderCenter = GetBoxColliderWorldCenter(boxAngle);
-
-        // Try up to waypointMaxTries random positions within the bounds
-        for (int i = 0; i < waypointMaxTries; i++)
-        {
-            float randomX = Random.Range(minX.position.x, maxX.position.x);
-            float randomY = Random.Range(minY.position.y, maxY.position.y);
-
-            Vector2 candidatePos = new Vector2(randomX, randomY);
-            Vector2 candidateColliderCenter = candidatePos + GetRotatedOffset(boxCollider.offset, boxAngle);
-
-            // Check overlap at the position, if it overlaps a wall it skips it immediately (prevents picking waypoints that are inside walls)
-            if (Physics2D.OverlapBox(candidateColliderCenter, inflatedSize, boxAngle, wallLayer))
-                continue;
-
-            Vector2 delta = candidateColliderCenter - currentColliderCenter;
-            float dist = delta.magnitude;
-            if (dist < 0.01f) continue;
-
-            Vector2 dir = delta / dist;
-
-            if (Physics2D.BoxCast(currentColliderCenter, inflatedSize, boxAngle, dir, dist, wallLayer))
-                continue;
-
-            waypoint = candidatePos;
-            return true;
-        }
-
-        return false;
-    }
-    #endregion
-
-    private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
-    {
-        Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
-        return (Vector2)rb.position + rotatedOffset;
-    }
-
-    private Vector2 GetRotatedOffset(Vector2 localOffset, float boxAngleDeg)
-    {
-        Vector3 rotated = Quaternion.Euler(0f, 0f, boxAngleDeg) * new Vector3(localOffset.x, localOffset.y, 0f);
-        return new Vector2(rotated.x, rotated.y);
-    }
+  
 
     public void LeaderDied()
     {
@@ -452,7 +449,7 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    // Bounds  
+    /* Bounds  
     private void SetGruntArea()
     {
         if (gruntArea == null) return;
@@ -461,7 +458,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (maxX == null) maxX = gruntArea.transform.Find("maxX");
         if (minY == null) minY = gruntArea.transform.Find("minY");
         if (maxY == null) maxY = gruntArea.transform.Find("maxY");
-    }
+    }*/
 
     public void UpdateAnimation()
     {
