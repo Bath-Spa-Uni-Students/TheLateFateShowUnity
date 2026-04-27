@@ -50,6 +50,8 @@ public class EnemyBehaviour : MonoBehaviour
     private bool hasWaypoint = false; // Waypoint validity
     private float waitTimer = 0f;
     private bool isWaiting = false;      // Waiting at a waypoint
+    private bool hasScatterTarget = false;
+    private Vector3 scatterWaypoint;
 
     // Leader state
     [HideInInspector] public int followerCount = 0;
@@ -160,8 +162,6 @@ public class EnemyBehaviour : MonoBehaviour
 
         UpdateAnimation();
     }
-
-   
 
     private EnemyState GetState()
     {
@@ -303,9 +303,26 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Scatter()
     {
-        //paths to a random point on the navmesh 
+        //Check if arrived at current scatter target 
+        //this hsould make the scatter more intentional and stop the spinning
+        if (hasScatterTarget)
+        {
+            float dist = Vector3.Distance(transform.position, scatterWaypoint);
+
+            // Once their pick a new point
+            if (dist <= waypointArrivalDistance)
+                hasScatterTarget = false;
+
+            return;
+        }
+
+        // Assign new scatter target
         if (TryGetNavMeshWaypoint(out Vector3 waypoint))
-            agent.SetDestination(waypoint);
+        {
+            scatterWaypoint = waypoint;
+            hasScatterTarget = true;
+            agent.SetDestination(scatterWaypoint);
+        }
     }
     #endregion
 
@@ -313,20 +330,20 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (isLeader)
         {
-            if (player != null)
-                playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
-            else
-                playerDetected = false;
+            playerDetected = player != null && Vector2.Distance(rb.position, player.position) <= detectionRadius;
         }
         else
         {
             // If follower has a living leader
             if (leader != null && !leaderDead && leader.TryGetComponent(out EnemyBehaviour lb))
+            {
                 playerDetected = lb.playerDetected;
+            }
             // If no leader detect on its own
             else
-                playerDetected = player != null &&
-                    Vector2.Distance(rb.position, player.position) <= detectionRadius;
+            {
+                playerDetected = player != null && Vector2.Distance(rb.position, player.position) <= detectionRadius;
+            }
         }
     }
 
