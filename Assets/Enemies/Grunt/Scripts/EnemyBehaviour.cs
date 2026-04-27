@@ -168,6 +168,12 @@ public class EnemyBehaviour : MonoBehaviour
         // State priority:
         if (!isLeader && leaderDead)
             return EnemyState.Scatter;
+        //Allows grunts to stop scattering 
+        if (currentState == EnemyState.Scatter)
+        {
+            hasScatterTarget = false;
+        }
+            
 
         if (playerDetected && player != null)
         {
@@ -304,7 +310,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Scatter()
     {
         //Check if arrived at current scatter target 
-        //this hsould make the scatter more intentional and stop the spinning
+        //this should make the scatter more intentional and stop the spinning
         if (hasScatterTarget)
         {
             float dist = Vector3.Distance(transform.position, scatterWaypoint);
@@ -355,14 +361,22 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!isLeader) return;
-
-        Collider2D[] grunts = Physics2D.OverlapCircleAll(transform.position, 10f);
-        foreach (Collider2D grunt in grunts)
+        if (!isLeader)
         {
-            if (grunt == null) continue;
-            if (grunt.TryGetComponent(out EnemyBehaviour enemy) && !enemy.isLeader)
-                enemy.LeaderDied();
+
+            Collider2D[] grunts = Physics2D.OverlapCircleAll(transform.position, 10f);
+            foreach (Collider2D grunt in grunts)
+            {
+                if (grunt == null) continue;
+                if (grunt.TryGetComponent(out EnemyBehaviour enemy) && !enemy.isLeader && enemy.leader == transform)
+                    enemy.LeaderDied();
+            }
+        }
+        else
+        {
+            // If was a follower unregister from leader so it can act independently
+            if (leader != null && leader.TryGetComponent(out EnemyBehaviour leaderBehaviour))
+                leaderBehaviour.UnregisterFollower();
         }
     }
 
