@@ -176072,11 +176072,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   gruntPrefab: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
   speedsterPrefab: {fileID: 8361983244019902799, guid: c698c96c1c7fa514bb7472fb9e79d5c6, type: 3}
+  gruntFollowerPrefab: {fileID: 8361983244019902799, guid: 9a4c7afb382ad3f4490e3665b8b2c0b8, type: 3}
+  gruntLeaderPrefab: {fileID: 8361983244019902799, guid: fbe7efdb293628544b58cb5514f22418, type: 3}
   spawnPoints:
   - {fileID: 852823033}
   - {fileID: 1288417853}
   packSpawnChance: 0
-  speedsterSpawnChance: 1
+  speedsterSpawnChance: 0.25
 --- !u!4 &909184703
 Transform:
   m_ObjectHideFlags: 0
@@ -388259,6 +388261,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   gruntPrefab: {fileID: 0}
   speedsterPrefab: {fileID: 0}
+  gruntFollowerPrefab: {fileID: 0}
+  gruntLeaderPrefab: {fileID: 0}
   spawnPoints: []
   packSpawnChance: 0
   speedsterSpawnChance: 0
