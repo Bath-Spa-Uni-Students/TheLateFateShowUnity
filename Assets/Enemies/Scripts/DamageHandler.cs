@@ -1,4 +1,3 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using Microlight.MicroBar;
 using System.Collections;
@@ -14,7 +13,7 @@ public class DamageHandler : MonoBehaviour
     private float maxHealth;
 
     private BossBehaviour bossBehaviour;
-
+    private EnemyBehaviour enemyBehaviour;  // Reference to check leader status
 
     private Coroutine poisonCoroutine;
     private Coroutine slowCoroutine;
@@ -31,12 +30,13 @@ public class DamageHandler : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        damage = ApplyDamageModifiers(damage);
         // Enemy loses health
         stats.health -= damage;
         Debug.Log("damaged " + damage);
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
-
+        Debug.Log($"{gameObject.name} took {damage} damage. Health remaining: {stats.health}");
         if (stats.health <= 0)
         {
             if (bossBehaviour != null)
@@ -53,6 +53,21 @@ public class DamageHandler : MonoBehaviour
         }
     }
 
+    private float ApplyDamageModifiers(float damage)
+    {
+        // Leader damage reduction if followers are alive
+        if (enemyBehaviour != null
+            && enemyBehaviour.isLeader
+            && enemyBehaviour.followerCount > 0)
+        {
+            float reduction = 1f - stats.leaderDamageReduction;
+            damage *= reduction;
+            Debug.Log($"Leader damage reduction applied ({stats.leaderDamageReduction * 100}%). " +
+                      $"Effective damage: {damage}");
+        }
+
+        return damage;
+    }
     public void StartPoison(float damagePerTick, float duration, float tickRate)
     {
         // Don't stack

@@ -96,6 +96,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5237618153534720533, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: canDamage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7599159783481423551, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Color.b
       value: 0.06132078
@@ -179,6 +183,10 @@ PrefabInstance:
       propertyPath: isLeader
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5237618153534720533, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: canDamage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (2)
@@ -249,6 +257,10 @@ PrefabInstance:
     - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: isLeader
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237618153534720533, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: canDamage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
@@ -321,6 +333,10 @@ PrefabInstance:
       propertyPath: isLeader
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5237618153534720533, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: canDamage
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name
       value: Grunt (4)
@@ -391,6 +407,10 @@ PrefabInstance:
     - target: {fileID: 3025867042430400773, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: isLeader
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237618153534720533, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
+      propertyPath: canDamage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361983244019902799, guid: 347a8dd512240fa4cb20bf83290ecd07, type: 3}
       propertyPath: m_Name

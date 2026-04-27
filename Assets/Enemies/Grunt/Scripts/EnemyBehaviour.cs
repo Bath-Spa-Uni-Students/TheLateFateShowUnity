@@ -51,6 +51,10 @@ public class EnemyBehaviour : MonoBehaviour
     private float waitTimer = 0f;
     private bool isWaiting = false;      // Waiting at a waypoint
 
+    // Leader state
+    [HideInInspector] public int followerCount = 0;
+    private bool isEnraged = false;
+
     // --- Enemy States (for modular state logic) ---
     private enum EnemyState
     {
@@ -116,9 +120,14 @@ public class EnemyBehaviour : MonoBehaviour
         agent.acceleration = 140f;
         agent.stoppingDistance = stats.stoppingDistance;
 
-        //Ensure follower enemies start with an offset so they don't all stack on the leader
+        // Followers register with leader and get an orbit offset
         if (!isLeader && leader != null)
+        {
             followOffset = Random.insideUnitCircle * followDistance;
+
+            if (leader.TryGetComponent(out EnemyBehaviour leaderBehaviour))
+                leaderBehaviour.RegisterFollower();
+        }
     }
 
     private void FixedUpdate()
@@ -178,6 +187,21 @@ public class EnemyBehaviour : MonoBehaviour
 
         return EnemyState.Patrol;
     }
+
+    // Called by each follower on Start to let the leader know it exists
+    public void RegisterFollower()
+    {
+        followerCount++;
+        Debug.Log(gameObject.name + " follower registered. Total: " + followerCount);
+    }
+
+    // Called by each follower on death so leader can track remaining pack size
+    public void UnregisterFollower()
+    {
+        followerCount = Mathf.Max(0, followerCount - 1);
+        Debug.Log(gameObject.name + " follower died. Remaining: " + followerCount);
+    }
+
 
     #region Movement States
     //simplify patrol state remove stuck detection as nav mesh will handle pathfinding around obstacles

@@ -16,7 +16,6 @@ public class EnemyStats : MonoBehaviour
     [Header("Leader")]
     [Tooltip("Damage reduction for leader while followers alive (0-1, e.g. 0.5 = 50% reduction)")]
     public float leaderDamageReduction = 0.5f;
-    private int followerCount = 0;
 
     [Header("Combat")]
     [Tooltip("Enemies Health")]
@@ -83,15 +82,4 @@ public class EnemyStats : MonoBehaviour
     }
 
     // Call this on the leader from each follower's InitialSetup
-    public void RegisterFollower()
-    {
-        followerCount++;
-    }
-
-    public void UnregisterFollower()
-    {
-        followerCount--;
-        // Clamp just in case
-        followerCount = Mathf.Max(0, followerCount);
-    }
 }
