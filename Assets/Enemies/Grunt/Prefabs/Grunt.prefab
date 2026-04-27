@@ -979,30 +979,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   stats: {fileID: 5237618153534720533}
   attackScript: {fileID: 814016242226724383}
-  moveSpotGameObject: {fileID: 1854902710691883263, guid: 6290f8fb713cc574bafd42bf4ff08aa4, type: 3}
-  startWaitTime: 3
   detectionRadius: 4
-  detectionCircle: {fileID: 6703722090438749903}
   wallLayer:
     serializedVersion: 2
     m_Bits: 2048
+  detectionCircle: {fileID: 6703722090438749903}
+  patrolRadius: 5
   waypointArrivalDistance: 0.35
-  waypointMaxTries: 40
-  waypointInflation: 0.05
-  stuckDuration: 1.2
-  stuckEpsilon: 0.03
+  waitTimeAtWaypoint: 0.25
   isLeader: 0
-  leader: {fileID: 0}
+  leader: {fileID: 1256596784936673505}
   followOffset: {x: 0, y: 0}
   followDistance: 1.5
   orbitSpeed: 2
   orbitStopDistance: 0.15
   playerDetected: 0
-  gruntArea: {fileID: 0}
-  minX: {fileID: 0}
-  maxX: {fileID: 0}
-  minY: {fileID: 0}
-  maxY: {fileID: 0}
 --- !u!114 &814016242226724383
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -116,6 +116,9 @@ public class EnemyBehaviour : MonoBehaviour
         agent.acceleration = 140f;
         agent.stoppingDistance = stats.stoppingDistance;
 
+        //Ensure follower enemies start with an offset so they don't all stack on the leader
+        if (!isLeader && leader != null)
+            followOffset = Random.insideUnitCircle * followDistance;
     }
 
     private void FixedUpdate()
