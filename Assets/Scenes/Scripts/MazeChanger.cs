@@ -72,10 +72,14 @@ public class MazeChanger : MonoBehaviour
 
     private void GenerateAllSegments()
     {
+        ClearAllEnemies();
+
         for (int i = 0; i < allSlots.Length; i++)
-        {
             SelectSegment(allSlots[i], i);
-        }
+
+        // Reset count since all enemies were just destroyed
+        if (SpawnManager.Instance != null)
+            SpawnManager.Instance.ResetEnemyCount();
 
         RebakeNavMesh();
     }
@@ -115,5 +119,13 @@ public class MazeChanger : MonoBehaviour
     {
         if (slotIndex < 0 || slotIndex >= currentActiveIndex.Length) return -1;
         return currentActiveIndex[slotIndex];
+    }
+
+    private void ClearAllEnemies()
+    {
+        // Find all enemies and destroy them before switching
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+            Destroy(enemy);
     }
 }

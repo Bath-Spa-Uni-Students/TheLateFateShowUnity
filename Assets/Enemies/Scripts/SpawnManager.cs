@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+
+    public static SpawnManager Instance { get; private set; }
     //this script will handle the caps and the amount of enemies that can be spawned at a time, and will also handle the spawn points and the spawn times for each enemy type
     [Header("Global Settings")]
     [SerializeField] private int baseEnemyCap = 20;
@@ -14,26 +16,50 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int followersPerLevelThreshold = 3; // gain +1 follower every X levels
 
     private int currentEnemyCount = 0;
+    private PlayerMovement playerMovement;
+
+    //scalable variables
+    public int GlobalCap => baseEnemyCap + (PlayerLevel * capIncreasePerLevel); // The maximum number of enemies allowed at once, scaling with player level
+    public float SpawnInterval => Mathf.Max(2f, baseSpawnInterval / (1f + PlayerLevel * spawnRateIncreasePerLevel)); // The time between spawns, decreasing as player level increases, with a minimum cap of 2 seconds
+    public int MaxFollowers => maxFollowersBase + Mathf.FloorToInt(PlayerLevel / followersPerLevelThreshold); // Follower handling for grunt packs
+    public int PlayerLevel => playerMovement != null ? playerMovement.currentLevel : 1; 
+    public bool CanSpawn => currentEnemyCount < GlobalCap; 
+
     private void Awake()
     {
-        
+        if (Instance != null && Instance != this)// Ensures only one instance of SpawnManager exists
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
      private void Start()
     {
 
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerMovement = player.GetComponent<PlayerMovement>();// Get the PlayerMovement component to access the current level for scaling
+        }
     }
     public void registerEnemy()
     {
-        //called by the spawner script to keep track of enemies in scene
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            playerMovement = player.GetComponent<PlayerMovement>();
     }
 
     public void unregisterEnemy()
     {
-        //called by the spawner script to keep track of enemies in scene
+        currentEnemyCount = Mathf.Max(0, currentEnemyCount - 1);
+        Debug.Log($"Enemy died. Total: {currentEnemyCount}/{GlobalCap}");
     }
     //called when the maze switches as all enemies will be despawned
     public void ResetEnemyCount()
     {
         currentEnemyCount = 0;
+        Debug.Log("Enemy count reset.");
     }
 }
