@@ -46,16 +46,36 @@ public class EnemySpawner : MonoBehaviour
     {
         // Determine which enemy to spawn based on chances
         float roll = Random.value;
-        GameObject enemyToSpawn;
+       
         if (roll < packSpawnChance)
-            enemyToSpawn = gruntPrefab; // Spawn a pack of grunts
+        {
+            SpawnSolo(gruntPrefab); // Spawn a non pack grunt
+        }
+            
         else if (roll < packSpawnChance + speedsterSpawnChance)
-            enemyToSpawn = speedsterPrefab; // Spawn a speedster
+        {
+            SpawnSolo(gruntPrefab);//jsut spawn a grunt for testing
+        }
         else
-            return; // No spawn this time
-        // Choose a random spawn point
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        // Instantiate the enemy at the chosen spawn point
-        Instantiate(enemyToSpawn, spawnPoint.position, Quaternion.identity);
+        {
+            SpawnSolo(gruntPrefab); //jsut spawn a grunt for testing
+        }
+    }
+
+    private void SpawnSolo(GameObject prefab)
+    {
+        if (prefab == null) return;
+
+        Transform point = GetRandomSpawnPoint();
+        if (point == null) return;
+
+        GameObject enemy = Instantiate(prefab, point.position, Quaternion.identity);// Spawn the enemy at the chosen spawn point
+        SpawnManager.Instance.RegisterEnemy();// Register the enemy with the SpawnManager to track the count
+    }
+
+    private Transform GetRandomSpawnPoint()//copilot wrote this for me and it looks good so I kept it, it just picks a random spawn point from the array of spawn points
+    {
+        if (spawnPoints == null || spawnPoints.Length == 0) return null;
+        return spawnPoints[Random.Range(0, spawnPoints.Length)];
     }
 }
