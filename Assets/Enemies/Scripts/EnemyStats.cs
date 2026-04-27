@@ -3,6 +3,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class EnemyStats : MonoBehaviour
 {
+    //All the stats need testing and balancing
     [Header("Movement")]
     [Tooltip("Movement speed of the enemy.")]
     public float speed = 2.5f;
