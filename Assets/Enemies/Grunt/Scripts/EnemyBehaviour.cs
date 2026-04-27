@@ -178,13 +178,12 @@ public class EnemyBehaviour : MonoBehaviour
             }
             return EnemyState.Chase;
         }
-            
+
+        // Only orbit if we actually have a living leader assigned
         if (!isLeader && leader != null && !leaderDead)
             return EnemyState.Orbit;
 
-        if (isLeader)
-            return EnemyState.Patrol;
-
+        // Both leaders and followers can patrol
         return EnemyState.Patrol;
     }
 
@@ -321,10 +320,13 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
-            if (leader != null && leader.TryGetComponent(out EnemyBehaviour lb))
+            // If follower has a living leader
+            if (leader != null && !leaderDead && leader.TryGetComponent(out EnemyBehaviour lb))
                 playerDetected = lb.playerDetected;
+            // If no leader detect on its own
             else
-                playerDetected = false;
+                playerDetected = player != null &&
+                    Vector2.Distance(rb.position, player.position) <= detectionRadius;
         }
     }
 
