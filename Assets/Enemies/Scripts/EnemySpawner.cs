@@ -83,9 +83,21 @@ public class EnemySpawner : MonoBehaviour
         SpawnManager.Instance.RegisterEnemy();
 
         //spawn followers based on the current max followers allowed, and the spawn points available and the max cap
-        //ensure followers spawn near the leader and not on top of each other a small radius around the leader
-        //use grunt follower prefab for the followers, and the grunt leader prefab for the leader, or just use the same prefab and have it decide on spawn whether it's a leader or follower based on a bool or something
-    }
+        int followerCount = Random.Range(1, SpawnManager.Instance.MaxFollowers + 1);
+
+        for (int i = 0; i < followerCount; i++)
+        {
+            if (!SpawnManager.Instance.CanSpawn) break;
+
+            Vector2 offset = Random.insideUnitCircle * 1.5f;
+            Vector3 followerPos = leaderPoint.position + new Vector3(offset.x, offset.y, 0f); //ensure followers spawn near the leader and not on top of each other a small radius around the leader
+
+            // Spawn follower from follower prefab
+            GameObject followerObj = Instantiate(gruntFollowerPrefab, followerPos, Quaternion.identity);
+
+            SpawnManager.Instance.RegisterEnemy();
+        }
+       }
 
     private Transform GetRandomSpawnPoint()//copilot wrote this for me and it looks good so I kept it, it just picks a random spawn point from the array of spawn points
     {
