@@ -835,7 +835,6 @@ GameObject:
   - component: {fileID: 828297148753925378}
   - component: {fileID: 5270709107807958075}
   - component: {fileID: -250731298887725880}
-  - component: {fileID: -423136252737158178}
   m_Layer: 8
   m_Name: Grunt
   m_TagString: Enemy
@@ -910,7 +909,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1660189031531099948, guid: 24dc758a2d4d44d4692049412d4f1d4f, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.6707725, b: 0.06132078, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -948,13 +947,14 @@ MonoBehaviour:
   speed: 1
   stoppingDistance: 0.35
   detectionRadius: 3.5
+  leaderDamageReduction: 0.5
   health: 10
   maxHealth: 10
   damage: 10
   fireRate: 0.15
   fireCooldown: 0.5
   attackCloseness: 0
-  canDamage: 0
+  canDamage: 1
   canAttack: 1
   isAttacking: 0
   slamWaitTimer: 2
@@ -962,9 +962,6 @@ MonoBehaviour:
   beamSpinDuration: 3
   followDistance: 1.5
   orbitSpeed: 2
-  waypointArrivalDistance: 0.35
-  stuckDuration: 1.2
-  stuckEpsilon: 0.03
 --- !u!114 &3025867042430400773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,6 +991,7 @@ MonoBehaviour:
   orbitSpeed: 2
   orbitStopDistance: 0.15
   playerDetected: 0
+  followerCount: 0
 --- !u!114 &814016242226724383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,15 +1192,3 @@ MonoBehaviour:
   OverrideAttenuation: 1
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
---- !u!114 &-423136252737158178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8361983244019902799}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1daa98e64a724b419702b9509c3c373, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement

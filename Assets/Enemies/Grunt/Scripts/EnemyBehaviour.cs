@@ -53,7 +53,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     // Leader state
     [HideInInspector] public int followerCount = 0;
-    private bool isEnraged = false;
+
 
     // --- Enemy States (for modular state logic) ---
     private enum EnemyState

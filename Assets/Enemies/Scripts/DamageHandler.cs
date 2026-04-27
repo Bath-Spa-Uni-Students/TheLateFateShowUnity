@@ -25,11 +25,22 @@ public class DamageHandler : MonoBehaviour
         healthBar.Initialize(stats.maxHealth);
         player = GameObject.FindGameObjectWithTag("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
-        bossBehaviour = GetComponent<BossBehaviour>(); // will be null on non-boss enemies
+    }
+
+    private void Awake()
+    {
+        enemyBehaviour = GetComponent<EnemyBehaviour>();
+        bossBehaviour = GetComponent<BossBehaviour>();
     }
 
     public void TakeDamage(float damage)
     {
+
+        Debug.Log($"enemyBehaviour is null: {enemyBehaviour == null}");
+
+        if (enemyBehaviour != null)
+            Debug.Log($"isLeader: {enemyBehaviour.isLeader} | followerCount: {enemyBehaviour.followerCount}");
+
         damage = ApplyDamageModifiers(damage);
         // Enemy loses health
         stats.health -= damage;
