@@ -176077,7 +176077,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 852823033}
   - {fileID: 1288417853}
-  packSpawnChance: 0
+  packSpawnChance: 1
   speedsterSpawnChance: 0.25
 --- !u!4 &909184703
 Transform:

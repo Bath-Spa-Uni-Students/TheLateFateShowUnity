@@ -53,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
             
         else if (roll < packSpawnChance + speedsterSpawnChance)
         {
-            SpawnSolo(gruntPrefab);//jsut spawn a grunt for testing
+            SpawnPack();
         }
         else
         {
@@ -74,8 +74,14 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnPack()
     {
-        //check if at minimum a leader can be spawned
-        //spawn leader grunt
+        if (gruntLeaderPrefab == null || gruntFollowerPrefab == null) return;//Ensure prefabs are assigned
+        if (!SpawnManager.Instance.CanSpawn) return; //check if at minimum a leader can be spawned
+                                            
+        Transform leaderPoint = GetRandomSpawnPoint();//spawn leader grunt
+        if (leaderPoint == null) return;
+        GameObject leader = Instantiate(gruntLeaderPrefab, leaderPoint.position, Quaternion.identity);
+        SpawnManager.Instance.RegisterEnemy();
+
         //spawn followers based on the current max followers allowed, and the spawn points available and the max cap
         //ensure followers spawn near the leader and not on top of each other a small radius around the leader
         //use grunt follower prefab for the followers, and the grunt leader prefab for the leader, or just use the same prefab and have it decide on spawn whether it's a leader or follower based on a bool or something
