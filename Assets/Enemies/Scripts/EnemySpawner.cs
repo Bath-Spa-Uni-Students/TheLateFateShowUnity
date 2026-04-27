@@ -11,16 +11,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
 
     [Header("Spawn Chances")]
-    [SerializeField] private float packSpawnChance;
-    [SerializeField] private float speedsterSpawnChance;
+    [SerializeField] private float packSpawnChance = 0.4f;
+    [Range(0f, 1f)]
+    [SerializeField] private float speedsterSpawnChance = 1f; //set to 1 for testing, will adjust later
 
     private Coroutine spawnCoroutine;
-
-    // Get enemy spawn time
-    [SerializeField] private float gruntSpawnTime;
-    [SerializeField] private float bruiserSpawnTime;
-    [SerializeField] private float speedsterSpawnTime;
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -47,9 +42,9 @@ public class EnemySpawner : MonoBehaviour
         // Determine which enemy to spawn based on chances
         float roll = Random.value;
        
-        if (roll < packSpawnChance)
+        if (roll < speedsterSpawnChance)
         {
-            SpawnSolo(gruntPrefab); // Spawn a non pack grunt
+            SpawnSolo(speedsterPrefab);
         }
             
         else if (roll < packSpawnChance + speedsterSpawnChance)
@@ -58,7 +53,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
         {
-            SpawnSolo(gruntPrefab); //jsut spawn a grunt for testing
+            SpawnSolo(gruntPrefab); // Spawn a non pack grunt
         }
     }
 

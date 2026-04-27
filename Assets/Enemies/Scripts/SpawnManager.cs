@@ -43,15 +43,14 @@ public class SpawnManager : MonoBehaviour
             playerMovement = player.GetComponent<PlayerMovement>();// Get the PlayerMovement component to access the current level for scaling
         }
     }
-    public void registerEnemy()
+    public void RegisterEnemy()
     {
-
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             playerMovement = player.GetComponent<PlayerMovement>();
     }
 
-    public void unregisterEnemy()
+    public void UnregisterEnemy()
     {
         currentEnemyCount = Mathf.Max(0, currentEnemyCount - 1);
         Debug.Log($"Enemy died. Total: {currentEnemyCount}/{GlobalCap}");
