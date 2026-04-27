@@ -52,6 +52,8 @@ public class EnemyBehaviour : MonoBehaviour
     private bool isWaiting = false;      // Waiting at a waypoint
     private bool hasScatterTarget = false;
     private Vector3 scatterWaypoint;
+    private int scatterWaypointsRemaining = 0;
+    private bool scatterComplete = false;
 
     // Leader state
     [HideInInspector] public int followerCount = 0;
@@ -172,6 +174,8 @@ public class EnemyBehaviour : MonoBehaviour
         if (currentState == EnemyState.Scatter)
         {
             hasScatterTarget = false;
+            scatterWaypointsRemaining = 0;
+            scatterComplete = false;
         }
             
 
@@ -309,20 +313,41 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Scatter()
     {
-        //Check if arrived at current scatter target 
-        //this should make the scatter more intentional and stop the spinning
+        //swtich to patrol behaviour after scattering to a few random waypoints
+        if (scatterComplete)
+        {
+            Patrol();
+            return;
+        }
+
+        // Instead of just going to 1 random point and then being "independent", we can have them scatter to a few random waypoints before switching to patrol
+        if (scatterWaypointsRemaining == 0 && !hasScatterTarget)
+        {
+            scatterWaypointsRemaining = Random.Range(1, 4); // 1 to 3
+            Debug.Log(gameObject.name + " scattering, waypoints: " + scatterWaypointsRemaining);
+        }
+
+        // check if we arrived
         if (hasScatterTarget)
         {
             float dist = Vector3.Distance(transform.position, scatterWaypoint);
 
-            // Once their pick a new point
             if (dist <= waypointArrivalDistance)
+            {
                 hasScatterTarget = false;
+                scatterWaypointsRemaining--;
 
+                // All scatter waypoints visited beocme inderpendent
+                if (scatterWaypointsRemaining <= 0)
+                {
+                    scatterComplete = true;
+                    Debug.Log(gameObject.name + " scatter complete, now independent");
+                }
+            }
             return;
         }
 
-        // Assign new scatter target
+        // Pick next scatter waypoint
         if (TryGetNavMeshWaypoint(out Vector3 waypoint))
         {
             scatterWaypoint = waypoint;
