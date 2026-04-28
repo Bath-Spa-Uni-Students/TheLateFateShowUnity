@@ -1,6 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
 using FMOD.Studio;
@@ -12,121 +9,119 @@ public class SpeedsterBehaviour : MonoBehaviour
     [Header("Stats")]
     [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
     [SerializeField] private SpeedsterAttack attackScript;      // Melee or Ranged attack script
-    private float damage;                                           // Cached damage value from stats
-
-    [Header("Player Info")]
-    private Transform player;                                    // Reference to player
-    [SerializeField] private GameObject moveSpotGameObject;      // Optional debug waypoint visualizer
-    [SerializeField] private float startWaitTime = 0.25f;        // Wait time at waypoints
-    private float waitTimer;                                     // Internal wait timer
-
-    [Header("Dash Settings")]
-    [SerializeField] private float dashSpeed = 12f;
-    [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashCooldown = 0.8f;
-
-    [SerializeField] private float minDashDistance = 1.2f;
-    [SerializeField] private float retargetDelay = 0.4f;
-
-    private bool isDashing = false;
-    private float dashTimer = 0f;
-    private float dashCooldownTimer = 0f;
-    private float retargetTimer = 0f;
-
-    private Vector2 dashDirection;
-    private Vector2 lastDashDirection;
 
     [Header("Detection")]
-    [SerializeField] private float detectionRadius = 3.5f;       // Radius for detecting player
-    [SerializeField] private GameObject detectionCircle;         // Optional visual for detection range
+    [SerializeField] private float detectionRadius = 6f;       // Radius for detecting player
+    [SerializeField] private float losePlayerRadius = 8f;      // Radius for losing player
     [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
 
-    [Header("Waypoints")]
-    [SerializeField] private float waypointArrivalDistance = 0.35f; // Distance considered "arrived" at waypoint
-    [SerializeField] private int waypointMaxTries = 40;             // Max attempts to find a valid waypoint
-    [SerializeField] private float waypointInflation = 0.05f;       // Inflates BoxCast/OverlapBox to avoid walls
-    [SerializeField] private float stuckDuration = 1.2f;            // Time stuck before picking new waypoint
-    [SerializeField] private float stuckEpsilon = 0.03f;            // Minimum movement to count as "progress"
+    [Header("Patrol Settings")]
+    [SerializeField] private float stalkRadius = 4f;             // Distance it circles the player at
+    [SerializeField] private float stalkSpeed = 2.5f;            // Speed while stalking
+    [SerializeField] private float stalkOrbitSpeed = 1.5f;       // How fast it circles
+    [SerializeField] private float stalkDuration = 2f;           // How long it stalks before attacking
+    [SerializeField] private float stalkDurationVariance = 1f;   // Random variance on stalk duration
 
-    [HideInInspector] public bool playerDetected = false;          // Updated detection flag
 
-    [Header("Grunt Area Bounds")]
-    [SerializeField] private GameObject gruntArea;                // Parent object containing bounds
-    private Transform minX;
-    private Transform maxX;
-    private Transform minY;
-    private Transform maxY;
+    [Header("Windup Settings")]
+    [SerializeField] private float windupDuration = 0.5f;        // How long it pauses before dashing
 
-    [Header("Components / Internals")]
-    private Rigidbody2D rb;                                        // Cached Rigidbody2D
-    private BoxCollider2D boxCollider;                             // Cached BoxCollider2D
-    private RigidbodyConstraints2D initialConstraints;            // Stored Rigidbody constraints
-    private GameObject moveSpot;                                   // Debug move spot instance
-    private Vector2 currentWaypoint;                               // Current waypoint target
-    private bool hasWaypoint;                                      // Waypoint validity
-    private float lastDistToWaypoint = Mathf.Infinity;             // Last distance to waypoint (stuck detection)
-    private float stuckTimer = 0f;                                 // Stuck timer
-    private Animator animator;                                     // Animator reference
+    [Header("Dash Settings")]
+    [SerializeField] private float dashSpeed = 14f;
+    [SerializeField] private float dashDuration = 0.25f;
+    [SerializeField] private float dashCooldown = 1.5f;          // Cooldown before it can dash again
 
-    [Header("Pathtracing")]
-    private Vector3 playerTarget;                                  // Target for pathfinding
-    private Vector3 randomTarget;                                  // Optional random target
-    private NavMeshAgent agent;                                    // NavMeshAgent reference
+    [Header("Retreat Settings")]
+    [SerializeField] private float retreatDistance = 4f;         // How far it backs off after attacking
+    [SerializeField] private float retreatSpeed = 3f;            // Speed during retreat
+    [SerializeField] private float retreatArrivalDistance = 0.5f;
 
-    // --- Enemy States (for modular state logic) ---
-    private enum EnemyState
-    {
-        Patrol,
-        Chase,
-    }
-    private EnemyState currentState;                               // Current enemy state
+    // Components
+    private Rigidbody2D rb;
+    private Animator animator;
+    private NavMeshAgent agent;
+    private Transform player;
 
-    // ------------------------------------------ //
+    // State machine
+    private enum SpeedsterState { Lurk, Stalk, Windup, Dash, Retreat }
+    private SpeedsterState currentState;
 
-    // Audio - StudioEventEmitter used here (not EventInstance) because enemy footsteps
-    // must be spatialised - volume should drop off as the enemy moves away from the player
+    // Detection
+    private bool playerDetected = false;
+
+    // Patrol state
+    private Vector3 spawnPosition;
+    private Vector3 currentWaypoint;
+    private bool hasWaypoint = false;
+    private bool isWaiting = false;
+    private float waitTimer = 0f;
+
+    // Stalk state
+    private float stalkTimer = 0f;
+    private float currentStalkDuration = 0f;
+    private Vector2 stalkOrbitOffset;
+
+    // Windup state
+    private float windupTimer = 0f;
+
+    // Dash state
+    private Vector2 dashDirection;
+    private float dashTimer = 0f;
+    private float dashCooldownTimer = 0f;
+    private bool dashHitPlayer = false;
+
+    // Retreat state
+    private Vector3 retreatTarget;
+    private bool hasRetreatTarget = false;
+
+    // Audio
     private StudioEventEmitter emitter;
-    // One-shot attack sound fired by Animation Event on the attack frame
-    private EventInstance gruntAttack;
-    // Plays when the enemy transitions into Chase state - one-shot, spatialised at enemy position
-    private EventInstance gruntAlert;
+    private EventInstance speedsterAlert;
+    private EventInstance speedsterAttack;
 
-    private void Start()
-    {
-        InitialSetup();
-
-        // Register the emitter with AudioManager so it is cleaned up on scene change
-        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
-        // Create attack sound instance played as a one-shot via Animation Event
-        gruntAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
-        // Create alert sound instance played each time the enemy enters Chase state
-        gruntAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
-    }
 
     private void Awake()
     {
         if (stats == null)
             stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
     }
+    private void Start()
+    {
+        InitialSetup();
+    }
+
+
 
     private void FixedUpdate()
     {
-        if (rb == null) return;
-        if (player == null) return;
+        if (rb == null || player == null) return;
 
         UpdateDetection();
+
 
         currentState = GetState();
 
         // Checks each state in order of priority and executes the first one that matches (e.g. if we can chase, we chase, if not but we can orbit, we orbit, etc.)
         switch (currentState)
         {
-            case EnemyState.Patrol:
+            case SpeedsterState.Lurk:
                 Patrol();
                 break;
 
-            case EnemyState.Chase:
-                ChasePlayer();
+            case SpeedsterState.Stalk:
+                StalkPlayer();
+                break;
+
+            case SpeedsterState.Windup:
+                Windup();
+                break;
+
+            case SpeedsterState.Dash:
+                Dash();
+                break;
+
+            case SpeedsterState.Retreat:
+                Retreat();
                 break;
         }
 
@@ -207,95 +202,8 @@ public class SpeedsterBehaviour : MonoBehaviour
         }
     }
 
-    #region Movement States
-    private void Patrol()
-    {
-        // Component check - if we lost our components, just skip movement (Prevent errors)
-        if (boxCollider == null || rb == null) return;
-
-        #region Waypoint Check
-        // If we don't have a waypoint, try to pick one
-        if (!hasWaypoint)
-        {
-            PickNewWaypoint();
-            return;
-        }
-
-        // Check arrival
-        Vector2 pos = rb.position;
-        float dist = Vector2.Distance(pos, currentWaypoint);
-
-        // Arrived?
-        if (dist <= waypointArrivalDistance)
-        {
-            agent.velocity = Vector2.zero;
-
-            waitTimer -= Time.fixedDeltaTime;
-            if (waitTimer <= 0f)
-            {
-                PickNewWaypoint();
-                waitTimer = startWaitTime;
-            }
-
-            // Reset stuck tracking after arrival
-            lastDistToWaypoint = Mathf.Infinity;
-            stuckTimer = 0f;
-
-            return;
-        }
-        #endregion
-
-        #region Stuck Detection
-        // Stuck detection (no progress)
-        if (dist < lastDistToWaypoint - stuckEpsilon)
-        {
-            lastDistToWaypoint = dist;
-            stuckTimer = 0f;
-        }
-        else
-        {
-            stuckTimer += Time.fixedDeltaTime;
-            if (stuckTimer >= stuckDuration)
-            {
-                PickNewWaypoint();
-                waitTimer = startWaitTime;
-                lastDistToWaypoint = Mathf.Infinity;
-                stuckTimer = 0f;
-                return;
-            }
-        }
-        #endregion
-
-        HandleDash(currentWaypoint);
-    }
-
-    private void ChasePlayer()
-    {
-        // Component check - if we lost our components, just skip movement (Prevent errors)
-        if (player == null) return;
-
-        Vector2 toPlayer = (Vector2)player.position - rb.position;
-        float distance = toPlayer.magnitude;
-
-        // Check if we can hit the player from here
-        if (distance <= stats.stoppingDistance)
-        {
-            attackScript.TryAttack();
-            agent.velocity = Vector2.zero;
-            return;
-        }
-
-        HandleDash(player.position);
-    }
-
-    private void Scatter()
-    {
-        // Simple scatter: keep moving in a random direction
-        Vector2 dir = Random.insideUnitCircle.normalized;
-        rb.linearVelocity = dir * stats.speed;
-    }
-
-    private void HandleDash(Vector2 target)
+   
+    private void Dash(Vector2 target)
     {
         dashCooldownTimer -= Time.fixedDeltaTime;
         retargetTimer -= Time.fixedDeltaTime;
@@ -365,88 +273,11 @@ public class SpeedsterBehaviour : MonoBehaviour
             playerDetected = false;
     }
 
-    // --- Waypoint picking (Leader) ---
-    #region Waypoint Picking
-    private void PickNewWaypoint()
-    {
-        if (boxCollider == null || rb == null) return;
 
-        if (TryGetRandomWaypoint(out Vector2 waypoint))
-        {
-            currentWaypoint = waypoint;
-            hasWaypoint = true;
+  
 
-            if (moveSpot != null)
-                moveSpot.transform.position = waypoint;
 
-            lastDistToWaypoint = Mathf.Infinity;
-            stuckTimer = 0f;
-        }
-        else
-        {
-            hasWaypoint = false;
-        }
-    }
 
-    private bool TryGetRandomWaypoint(out Vector2 waypoint)
-    {
-        waypoint = Vector2.zero;
-        // We inflate the box collider size a bit for more forgiving waypoint picking (prevents picking waypoints that are just barely outside the collider and then getting stuck trying to get in)
-        Vector2 inflatedSize = new Vector2(
-            boxCollider.size.x + waypointInflation * 2f,
-            boxCollider.size.y + waypointInflation * 2f
-        );
-
-        // Get the current collider center in world space, accounting for rotation
-        float boxAngle = transform.eulerAngles.z;
-        Vector2 currentColliderCenter = GetBoxColliderWorldCenter(boxAngle);
-
-        // Try up to waypointMaxTries random positions within the bounds
-        for (int i = 0; i < waypointMaxTries; i++)
-        {
-            float randomX = Random.Range(minX.position.x, maxX.position.x);
-            float randomY = Random.Range(minY.position.y, maxY.position.y);
-
-            Vector2 candidatePos = new Vector2(randomX, randomY);
-            Vector2 candidateColliderCenter = candidatePos + GetRotatedOffset(boxCollider.offset, boxAngle);
-
-            // Check overlap at the position, if it overlaps a wall it skips it immediately (prevents picking waypoints that are inside walls)
-            if (Physics2D.OverlapBox(candidateColliderCenter, inflatedSize, boxAngle, wallLayer))
-                continue;
-
-            Vector2 delta = candidateColliderCenter - currentColliderCenter;
-            float dist = delta.magnitude;
-            if (dist < 0.01f) continue;
-
-            Vector2 dir = delta / dist;
-
-            if (Physics2D.BoxCast(currentColliderCenter, inflatedSize, boxAngle, dir, dist, wallLayer))
-                continue;
-
-            waypoint = candidatePos;
-            return true;
-        }
-
-        return false;
-    }
-    #endregion
-
-    private Vector2 GetBoxColliderWorldCenter(float boxAngleDeg)
-    {
-        Vector2 rotatedOffset = GetRotatedOffset(boxCollider.offset, boxAngleDeg);
-        return (Vector2)rb.position + rotatedOffset;
-    }
-
-    private Vector2 GetRotatedOffset(Vector2 localOffset, float boxAngleDeg)
-    {
-        Vector3 rotated = Quaternion.Euler(0f, 0f, boxAngleDeg) * new Vector3(localOffset.x, localOffset.y, 0f);
-        return new Vector2(rotated.x, rotated.y);
-    }
-
-    private void OnDestroy()
-    {
-
-    }
 
     // Bounds  
     private void SetGruntArea()
@@ -513,5 +344,51 @@ public class SpeedsterBehaviour : MonoBehaviour
             isDashing = false;
             rb.linearVelocity = Vector2.zero;
         }
+    }
+
+    private void Lurk()
+    {
+        //slow patrol using the nav mesh similar to the grunt
+    }
+
+
+    private void Stalk()
+    {
+        //robit the player at a certain distance, circling around them for a few seconds before attacking
+    }
+
+    private void Windup()
+    {
+        //pause for a moment, woudl like to add a windup animation if possible
+    }
+
+    private void Retreat()
+    {
+        //back off for a few seconds after attacking, then return to stalking or patrolling depending on if the player is still detected
+    }
+
+
+    private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
+    {
+
+    }
+
+    private void UpdateSound()
+    {
+        if (animator.GetBool("IsWalking?"))
+        {
+            if (!emitter.IsPlaying())
+                emitter.Play();
+        }
+        else
+        {
+            if (emitter.IsPlaying())
+                emitter.Stop();
+        }
+    }
+
+        public void PlayAttackSound()
+    {
+        speedsterAttack.start();
     }
 }
