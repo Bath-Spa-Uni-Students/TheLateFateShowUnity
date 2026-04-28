@@ -16,12 +16,17 @@ public class SpeedsterBehaviour : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
 
     [Header("Patrol Settings")]
+    [SerializeField] private float patrolRadius = 8f;
+    [SerializeField] private float patrolSpeed = 1.5f;           // Slower lurking speed so its more menacing
+    [SerializeField] private float waypointArrivalDistance = 0.35f;
+    [SerializeField] private float waitTimeAtWaypoint = 0.5f;
+
+    [Header("Stalk Settings")]
     [SerializeField] private float stalkRadius = 4f;             // Distance it circles the player at
     [SerializeField] private float stalkSpeed = 2.5f;            // Speed while stalking
     [SerializeField] private float stalkOrbitSpeed = 1.5f;       // How fast it circles
     [SerializeField] private float stalkDuration = 2f;           // How long it stalks before attacking
     [SerializeField] private float stalkDurationVariance = 1f;   // Random variance on stalk duration
-
 
     [Header("Windup Settings")]
     [SerializeField] private float windupDuration = 0.5f;        // How long it pauses before dashing

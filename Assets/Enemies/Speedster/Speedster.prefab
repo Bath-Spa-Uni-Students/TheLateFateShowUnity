@@ -947,6 +947,7 @@ MonoBehaviour:
   speed: 1
   stoppingDistance: 0.35
   detectionRadius: 3.5
+  leaderDamageReduction: 0.5
   health: 10
   maxHealth: 10
   damage: 10
@@ -961,9 +962,6 @@ MonoBehaviour:
   beamSpinDuration: 3
   followDistance: 1.5
   orbitSpeed: 2
-  waypointArrivalDistance: 0.35
-  stuckDuration: 1.2
-  stuckEpsilon: 0.03
 --- !u!114 &-3539114987199150228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,7 +975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedsterBehaviour
   stats: {fileID: 5237618153534720533}
-  attackScript: {fileID: 0}
+  attackScript: {fileID: 948915413511117397}
   moveSpotGameObject: {fileID: 1854902710691883263, guid: 6290f8fb713cc574bafd42bf4ff08aa4, type: 3}
   startWaitTime: 3
   dashSpeed: 12

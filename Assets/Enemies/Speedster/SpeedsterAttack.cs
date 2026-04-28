@@ -46,5 +46,7 @@ public class SpeedsterAttack : MonoBehaviour
         {
             playerMovement.DamagePlayer(stats.damage);
         }
+
+        yield return new WaitForSeconds(1f); // Attack cooldown
     }
 }
