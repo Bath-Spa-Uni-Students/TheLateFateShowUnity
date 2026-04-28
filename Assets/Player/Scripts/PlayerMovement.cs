@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public int currentLevel = 1;
     [SerializeField] private int currentXP = 0;
 
+
     public bool hasWeapon = false;
     bool isDashing = false;
     bool canDash = true;
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
     private EventInstance playerHurt;
     private EventInstance playerDeath;
     private EventInstance playerDash;
+   
 
     // ------------------------------------------ //
 
@@ -229,6 +231,7 @@ public class PlayerMovement : MonoBehaviour
             currentXP = 0;
             perkSelectionUI.Show(); // trigger perk screen on every level up
         }
+       FameDisplayUpdater.Instance.UpdateFame(fame);
     }
 
     public int GetXP(int level)
