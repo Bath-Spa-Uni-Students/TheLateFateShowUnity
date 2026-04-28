@@ -124,19 +124,19 @@ TextureImporter:
       name: weapon_starting bullet_sheet_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 15
-        width: 16
-        height: 16
+        x: 18
+        y: 16
+        width: 14
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d7b11f450fb13d1d0800000000000000
+      spriteID: 95c5cb4357b56304ba4eb88cb55bde1e
       internalID: -3327284980665476227
       vertices: []
       indices: 
@@ -147,18 +147,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 66
-        y: 26
-        width: 6
-        height: 6
+        y: 15
+        width: 17
+        height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f75419732c1b1c100800000000000000
+      spriteID: 9a113d24f16e3ef489587c3ff094784d
       internalID: 126577712257123711
       vertices: []
       indices: 
@@ -168,19 +168,19 @@ TextureImporter:
       name: weapon_starting bullet_sheet_2
       rect:
         serializedVersion: 2
-        x: 67
+        x: 115
         y: 14
         width: 16
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a73551f6cb8425c70800000000000000
+      spriteID: 0e09b886675537645bc9d6ac20cfe728
       internalID: 8958302582948057978
       vertices: []
       indices: 
@@ -190,19 +190,19 @@ TextureImporter:
       name: weapon_starting bullet_sheet_3
       rect:
         serializedVersion: 2
-        x: 116
-        y: 26
-        width: 6
-        height: 6
+        x: 165
+        y: 14
+        width: 17
+        height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d575c33f2a24ffa10800000000000000
+      spriteID: f943d6889e56d3f4abe37c20eb23fb87
       internalID: 1945346831680296797
       vertices: []
       indices: 
@@ -212,86 +212,20 @@ TextureImporter:
       name: weapon_starting bullet_sheet_4
       rect:
         serializedVersion: 2
-        x: 121
-        y: 13
-        width: 11
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ff29095cad2f1d130800000000000000
-      internalID: 3589917399422374655
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: weapon_starting bullet_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 164
-        y: 13
-        width: 68
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3f5b246077f6af280800000000000000
-      internalID: -9008765547604429325
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: weapon_starting bullet_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 65
+        x: 215
         y: 14
-        width: 6
-        height: 6
+        width: 17
+        height: 17
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1bff35154d1567670800000000000000
-      internalID: 8536100116066729905
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: weapon_starting bullet_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 13
-        width: 8
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5f7e6793bd7f30040800000000000000
-      internalID: 4612802964291512309
+      spriteID: 84f3bf1b2cda6614d977e0bc1cd30e2b
+      internalID: 3589917399422374655
       vertices: []
       indices: 
       edges: []
@@ -300,7 +234,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ff749bff9ee00ab47bc45ed44e9dfcb2
     internalID: 0
     vertices: []
     indices: 
@@ -308,16 +242,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":60.0,"y":50.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       weapon_starting bullet_sheet_0: -3327284980665476227
       weapon_starting bullet_sheet_1: 126577712257123711
       weapon_starting bullet_sheet_2: 8958302582948057978
       weapon_starting bullet_sheet_3: 1945346831680296797
       weapon_starting bullet_sheet_4: 3589917399422374655
-      weapon_starting bullet_sheet_5: -9008765547604429325
-      weapon_starting bullet_sheet_6: 8536100116066729905
-      weapon_starting bullet_sheet_7: 4612802964291512309
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

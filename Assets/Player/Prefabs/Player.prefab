@@ -256,6 +256,7 @@ MonoBehaviour:
   canShoot: 0
   maxAmmo: 5
   fireRate: 0.8
+  muzzleFlashAnimator: {fileID: 1955997553785674451}
   ammo: 5
   ammoText: {fileID: 0}
 --- !u!114 &5867586762772513268
@@ -299,6 +300,7 @@ MonoBehaviour:
   speedCellChance: 15
   speedCellFireRateMultiplier: 2
   speedCellDuration: 2
+  speedCellActive: 0
   shockwaveLoader: 0
   shockwaveChance: 25
   knockbackForce: 5
@@ -508,6 +510,8 @@ MonoBehaviour:
   dashTime: 0.2
   dashCooldown: 0.25
   fame: 0
+  perkSelectionUI: {fileID: 0}
+  enemyStats: {fileID: 0}
   currentLevel: 1
   currentXP: 0
   hasWeapon: 0

@@ -27,6 +27,7 @@ public class Pistol : MonoBehaviour
     [SerializeField] public float fireRate = 0.8f; // seconds between shots
     private float nextFireTime = 0f;
 
+    [SerializeField] private Animator muzzleFlashAnimator;
     // Clip size
     public int ammo = 6;
     [SerializeField] private GameObject ammoText;
@@ -78,7 +79,10 @@ public class Pistol : MonoBehaviour
             // Spawns bullet 
             shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
             shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
-        }else if (Input.GetMouseButtonDown(0) && canShoot == false)
+
+            muzzleFlashAnimator.SetTrigger("Flash");
+        }
+        else if (Input.GetMouseButtonDown(0) && canShoot == false)
         {
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolNoAmmo, transform.position);
         }
@@ -91,6 +95,11 @@ public class Pistol : MonoBehaviour
             ammo = maxAmmo;
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            muzzleFlashAnimator.SetTrigger("Flash");
         }
     }
 }
