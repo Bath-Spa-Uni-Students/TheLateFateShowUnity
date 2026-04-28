@@ -291,15 +291,37 @@ public class SpeedsterBehaviour : MonoBehaviour
     }
 
     #endregion
-   
 
-    private void UpdateDetection()
+    private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
     {
-        if (player != null)
-            playerDetected = Vector2.Distance(rb.position, player.position) <= detectionRadius;
-        else
-            playerDetected = false;
+        //ripped straight from grunt behaviour, tries to find a random point on the nav mesh within patrol radius, returns false if it fails after several attempts
+        waypoint = Vector3.zero;
+
+        for (int i = 0; i < 10; i++)
+        {
+            Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
+            Vector3 randomPoint = spawnPosition + new Vector3(randomCircle.x, randomCircle.y, 0f);
+
+            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, patrolRadius, NavMesh.AllAreas))
+            {
+                waypoint = hit.position;
+                return true;
+            }
+        }
+
+        return false;
     }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        // Cancel dash on wall hit
+        if (((1 << col.gameObject.layer) & wallLayer) != 0 && currentState == SpeedsterState.Dash)
+        {
+            Debug.Log("Speedster dash cancelled by wall");
+            Retreat();
+        }
+    }
+
     public void UpdateAnimation()
     {
         Vector2 velocity = agent.velocity;
@@ -322,57 +344,6 @@ public class SpeedsterBehaviour : MonoBehaviour
         {
             animator.SetBool("IsWalking?", false);
             UpdateSound();
-        }
-    }
-
-    // Starts or stops the spatialised footstep emitter based on the current walk state
-    private void UpdateSound()
-    {
-        if (animator.GetBool("IsWalking?"))
-        {
-            // Only call Play if not already playing - avoids restarting mid-loop
-            if (!emitter.IsPlaying())
-                emitter.Play();
-        }
-        else
-        {
-            if (emitter.IsPlaying())
-                emitter.Stop();
-        }
-    }
-
-    // Called by an Animation Event on the attack frame to play the grunt attack sound
-    public void PlayAttackSound()
-    {
-        gruntAttack.start();
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (((1 << col.gameObject.layer) & wallLayer) != 0)
-        {
-            isDashing = false;
-            rb.linearVelocity = Vector2.zero;
-        }
-    }
-
-
-
-    private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
-    {
-
-    }
-
-
-    public void TakeDamage(float damage)
-    {
-        // Enemy loses health
-        stats.health = stats.health - damage;
-
-        // Destroy enemy if health is less than 0
-        if (stats.health <= 0)
-        {
-            Destroy(gameObject);
         }
     }
     private void UpdateSound()
