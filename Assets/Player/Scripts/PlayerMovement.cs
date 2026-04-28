@@ -231,7 +231,8 @@ public class PlayerMovement : MonoBehaviour
             currentXP = 0;
             perkSelectionUI.Show(); // trigger perk screen on every level up
         }
-       FameDisplayUpdater.Instance.UpdateFame(fame);
+        Debug.Log("fame+" + fame);
+        FameDisplayUpdater.Instance.UpdateFame(fame);
     }
 
     public int GetXP(int level)

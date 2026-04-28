@@ -34,4 +34,14 @@ public class FameDisplayUpdater : MonoBehaviour
         digit2.sprite = numberSprites[tens];
         digit3.sprite = numberSprites[ones];
     }
+    //testing method to add fame on key press
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            PlayerMovement player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+            player.AddFame(10);
+        }
+    }
+
 }
