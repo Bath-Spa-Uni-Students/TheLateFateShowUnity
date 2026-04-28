@@ -88,9 +88,33 @@ public class SpeedsterBehaviour : MonoBehaviour
     private void Start()
     {
         InitialSetup();
+
+        // Placeholder audio using grunt sounds until speedster sounds are made
+        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
+        speedsterAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
+        speedsterAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
     }
 
+    private void InitialSetup()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        attackScript = GetComponent<SpeedsterAttack>();
+        animator = GetComponent<Animator>();
 
+        var playerObj = GameObject.FindGameObjectWithTag("Player");
+        player = playerObj != null ? playerObj.transform : null;
+
+        spawnPosition = transform.position;
+
+        agent = GetComponent<NavMeshAgent>();
+        agent.updateRotation = false;
+        agent.updateUpAxis = false;
+        agent.speed = patrolSpeed;
+        agent.acceleration = 140f;
+        agent.stoppingDistance = 0f;
+
+        currentState = SpeedsterState.Lurk;
+    }
 
     private void FixedUpdate()
     {
@@ -105,11 +129,11 @@ public class SpeedsterBehaviour : MonoBehaviour
         switch (currentState)
         {
             case SpeedsterState.Lurk:
-                Patrol();
+                Lurk();
                 break;
 
             case SpeedsterState.Stalk:
-                StalkPlayer();
+                Stalk();
                 break;
 
             case SpeedsterState.Windup:
@@ -128,142 +152,146 @@ public class SpeedsterBehaviour : MonoBehaviour
         UpdateAnimation();
     }
 
-    private void InitialSetup()
-    {
-        damage = stats.damage;
-
-        // Component setup
-        rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        attackScript = GetComponent<SpeedsterAttack>();
-        animator = GetComponent<Animator>();
-
-        // Store initial constraints so we can freeze/unfreeze during attack
-        initialConstraints = rb != null ? rb.constraints : RigidbodyConstraints2D.None;
-
-        // Player must exist for detection/chasing
-        var playerTag = GameObject.FindGameObjectWithTag("Player");
-
-        // If no player found, we can still do patrol/leader-following but not detection/chasing
-        player = playerTag != null ? playerTag.transform : null;
-
-        SetGruntArea();
-
-        #region Pathtracing Setup
-        // Pathtracing setup
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        playerTarget = GameObject.FindGameObjectWithTag("Player").transform.position;
-
-        // Pathtracing Stats
-        agent.speed = stats.speed;
-        agent.acceleration = 140f;
-        agent.stoppingDistance = stats.stoppingDistance;
-        agent.enabled = false;
-
-        #endregion
-
-        waitTimer = startWaitTime;
-
-        if (moveSpotGameObject != null)
-            moveSpot = Instantiate(moveSpotGameObject, transform.position, Quaternion.identity);
-
-        if (boxCollider != null && rb != null)
-                PickNewWaypoint();
-    }
-
-    private EnemyState GetState()
-    {
-        // State priority:
-
-        if (playerDetected && player != null)
-        {
-            if(currentState != EnemyState.Chase)
-            {
-                // Plays the alert sound when in chase state
-                gruntAlert.start();
-            }
-            return EnemyState.Chase;
-        }
-
-        return EnemyState.Patrol;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        // Enemy loses health
-        stats.health = stats.health - damage;
-
-        // Destroy enemy if health is less than 0
-        if (stats.health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
-
    
-    private void Dash(Vector2 target)
+
+    private SpeedsterState GetState()
     {
-        dashCooldownTimer -= Time.fixedDeltaTime;
-        retargetTimer -= Time.fixedDeltaTime;
+        if (!playerDetected)
+            return SpeedsterState.Lurk;
 
-        // If currently dashing
-        if (isDashing)
+        if (playerDetected && currentState == SpeedsterState.Lurk)
         {
-            dashTimer -= Time.fixedDeltaTime;
+            Stalk();
+            return SpeedsterState.Stalk;
+        }
 
-            rb.linearVelocity = dashDirection * dashSpeed;
+        return currentState;
+    }
 
-            if (dashTimer <= 0f)
+    private void UpdateDetection()
+    {
+        if (player == null) return;
+
+        float dist = Vector2.Distance(rb.position, player.position);
+
+        if (!playerDetected && dist <= detectionRadius)
+        {
+            playerDetected = true;
+            speedsterAlert.start();
+        }
+        else if (playerDetected && dist > losePlayerRadius)
+        {
+            // Lost the player - go back to lurking
+            playerDetected = false;
+        }
+    }
+
+    #region States
+
+    private void Lurk()
+    {
+        //slow patrol using the nav mesh similar to the grunt
+        agent.speed = patrolSpeed;
+
+        if (isWaiting)
+        {
+            agent.velocity = Vector3.zero;// Stop moving while waiting
+            waitTimer -= Time.fixedDeltaTime;
+            if (waitTimer <= 0f)
             {
-                isDashing = false;
-                rb.linearVelocity = Vector2.zero;
+                isWaiting = false;
+                hasWaypoint = false;
             }
-
             return;
         }
 
-        // Prevent jitter when too close
-        float distance = Vector2.Distance(rb.position, target);
-        if (distance < minDashDistance)
-            return;
-
-        // Try to start a new dash
-        if (dashCooldownTimer <= 0f && retargetTimer <= 0f)
+        if (!hasWaypoint)
         {
-            Vector2 toPlayer = (target - rb.position).normalized;
-
-            // --- Overshoot ---
-            float overshootDistance = 2.0f;
-
-            // --- Side variation ---
-            float sideOffset = Random.Range(-1.5f, 1.5f);
-            Vector2 perpendicular = new Vector2(-toPlayer.y, toPlayer.x);
-
-            Vector2 dashTarget = (Vector2)target
-                               + toPlayer * overshootDistance
-                               + perpendicular * sideOffset;
-
-            Vector2 dir = (dashTarget - rb.position).normalized;
-
-            // --- Prevent perfect 180 flips ---
-            if (Vector2.Dot(dir, lastDashDirection) < -0.8f)
+            if (TryGetNavMeshWaypoint(out Vector3 waypoint))
             {
-                dir = Quaternion.Euler(0f, 0f, Random.Range(-45f, 45f)) * dir;
+                currentWaypoint = waypoint;
+                hasWaypoint = true;
+                agent.SetDestination(currentWaypoint);
             }
+            return;
+        }
 
-            dashDirection = dir;
-            lastDashDirection = dir;
+        float dist = Vector3.Distance(transform.position, currentWaypoint);
+        if (dist <= waypointArrivalDistance)
+        {
+            isWaiting = true;
+            waitTimer = waitTimeAtWaypoint;
+        }
+    }
 
-            isDashing = true;
-            dashTimer = dashDuration;
-            dashCooldownTimer = dashCooldown;
-            retargetTimer = retargetDelay;
+
+    private void Stalk()
+    {
+        //robit the player at a certain distance, circling around them for a few seconds before attacking
+        agent.speed = stalkSpeed;
+        stalkTimer += Time.fixedDeltaTime;
+
+        // Orbit around the player at stalkRadius
+        float angle = stalkOrbitSpeed * Time.fixedDeltaTime;
+        stalkOrbitOffset = Quaternion.Euler(0f, 0f, angle) * stalkOrbitOffset;
+
+        Vector2 targetPos = (Vector2)player.position + stalkOrbitOffset.normalized * stalkRadius;
+
+        agent.SetDestination(new Vector3(targetPos.x, targetPos.y, transform.position.z));
+
+    
+    }
+
+    private void Windup()
+    {
+        //pause for a moment, woudl like to add a windup animation if possible
+        // Stand still and face player during windup
+        agent.velocity = Vector3.zero;
+
+        windupTimer -= Time.fixedDeltaTime;
+
+        if (windupTimer <= 0f)
+            Dash();
+    }
+    private void Dash()
+    {
+
+        dashTimer -= Time.fixedDeltaTime;// Move in the dash direction at dash speed
+
+        rb.linearVelocity = dashDirection * dashSpeed;
+
+        // Check if we hit the player during the dash
+        float distToPlayer = Vector2.Distance(rb.position, player.position);
+        if (distToPlayer <= stats.stoppingDistance && !dashHitPlayer)// prevents multi hits
+        {
+            dashHitPlayer = true;
+            attackScript.OnDashHit();
+        }
+
+        // Dash finished or cancelled by wall (OnCollisionEnter2D handles wall cancel)
+        if (dashTimer <= 0f)
+           Retreat();
+    }
+    private void Retreat()
+    {
+        //back off for a few seconds after attacking, then return to stalking or patrolling depending on if the player is still detected
+        if (!hasRetreatTarget) return;
+
+        agent.SetDestination(retreatTarget);
+
+        float dist = Vector3.Distance(transform.position, retreatTarget);
+
+        // Reached retreat point - go back to stalking
+        if (dist <= retreatArrivalDistance)
+        {
+            hasRetreatTarget = false;
+            Stalk();
+            currentState = SpeedsterState.Stalk;
         }
     }
 
     #endregion
+   
 
     private void UpdateDetection()
     {
@@ -272,24 +300,6 @@ public class SpeedsterBehaviour : MonoBehaviour
         else
             playerDetected = false;
     }
-
-
-  
-
-
-
-
-    // Bounds  
-    private void SetGruntArea()
-    {
-        if (gruntArea == null) return;
-
-        if (minX == null) minX = gruntArea.transform.Find("minX");
-        if (maxX == null) maxX = gruntArea.transform.Find("maxX");
-        if (minY == null) minY = gruntArea.transform.Find("minY");
-        if (maxY == null) maxY = gruntArea.transform.Find("maxY");
-    }
-
     public void UpdateAnimation()
     {
         Vector2 velocity = agent.velocity;
@@ -346,26 +356,6 @@ public class SpeedsterBehaviour : MonoBehaviour
         }
     }
 
-    private void Lurk()
-    {
-        //slow patrol using the nav mesh similar to the grunt
-    }
-
-
-    private void Stalk()
-    {
-        //robit the player at a certain distance, circling around them for a few seconds before attacking
-    }
-
-    private void Windup()
-    {
-        //pause for a moment, woudl like to add a windup animation if possible
-    }
-
-    private void Retreat()
-    {
-        //back off for a few seconds after attacking, then return to stalking or patrolling depending on if the player is still detected
-    }
 
 
     private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
@@ -373,6 +363,18 @@ public class SpeedsterBehaviour : MonoBehaviour
 
     }
 
+
+    public void TakeDamage(float damage)
+    {
+        // Enemy loses health
+        stats.health = stats.health - damage;
+
+        // Destroy enemy if health is less than 0
+        if (stats.health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void UpdateSound()
     {
         if (animator.GetBool("IsWalking?"))
