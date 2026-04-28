@@ -176212,7 +176212,7 @@ MonoBehaviour:
   - {fileID: 852823033}
   - {fileID: 1288417853}
   packSpawnChance: 0.4
-  speedsterSpawnChance: 1
+  speedsterSpawnChance: 0.2
 --- !u!4 &909184703
 Transform:
   m_ObjectHideFlags: 0
@@ -208940,6 +208940,7 @@ GameObject:
   - component: {fileID: 1051774259}
   - component: {fileID: 1051774261}
   - component: {fileID: 1051774260}
+  - component: {fileID: 1051774262}
   m_Layer: 5
   m_Name: Gun Icons
   m_TagString: Untagged
@@ -209007,6 +209008,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051774258}
   m_CullTransparentMesh: 1
+--- !u!114 &1051774262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051774258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06581519d3e26c43beee817a34a9ca7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunUI
+  pistolUI: {fileID: 1853290122}
+  shotgunUI: {fileID: 1309577787}
+  arUI: {fileID: 1306231401}
 --- !u!114 &1062761881 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 948915413511117397, guid: c698c96c1c7fa514bb7472fb9e79d5c6, type: 3}
@@ -247638,7 +247654,7 @@ GameObject:
   - component: {fileID: 1306231404}
   - component: {fileID: 1306231403}
   m_Layer: 5
-  m_Name: Rifle
+  m_Name: AR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

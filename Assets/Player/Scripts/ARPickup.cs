@@ -24,6 +24,7 @@ public class ARPickup : MonoBehaviour
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
 
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.weaponPickup, this.transform.position);
+            GunUI.Instance.SetActiveGun("ARHeld");
         }
     }
 
