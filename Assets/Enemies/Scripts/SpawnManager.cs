@@ -4,6 +4,7 @@ public class SpawnManager : MonoBehaviour
 {
 
     public static SpawnManager Instance { get; private set; }
+    //All values in script need testing
     //this script will handle the caps and the amount of enemies that can be spawned at a time, and will also handle the spawn points and the spawn times for each enemy type
     [Header("Global Settings")]
     [SerializeField] private int baseEnemyCap = 20;
@@ -18,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     private int currentEnemyCount = 0;
     private PlayerMovement playerMovement;
 
-    //scalable variables
+    //scalable variables need testing
     public int GlobalCap => baseEnemyCap + (PlayerLevel * capIncreasePerLevel); // The maximum number of enemies allowed at once, scaling with player level
     public float SpawnInterval => Mathf.Max(2f, baseSpawnInterval / (1f + PlayerLevel * spawnRateIncreasePerLevel)); // The time between spawns, decreasing as player level increases, with a minimum cap of 2 seconds
     public int MaxFollowers => maxFollowersBase + Mathf.FloorToInt(PlayerLevel / followersPerLevelThreshold); // Follower handling for grunt packs

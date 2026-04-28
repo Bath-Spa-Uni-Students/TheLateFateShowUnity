@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PistolPerks : MonoBehaviour
 {
+    //all values need testing and balancing
     [SerializeField] private Pistol pistol;
     [SerializeField] private PlayerMovement player;
     [SerializeField] private GameObject scatterBullet;
