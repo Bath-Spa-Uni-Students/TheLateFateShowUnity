@@ -1,19 +1,16 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpeedsterAttack : MonoBehaviour
 {
     private EnemyStats stats;
-    private bool canAttack = true;
-    private bool isAttacking = false;
-
     private Rigidbody2D rb;
     private Transform player;
     private Animator animator;
 
-    public float mDamage;
-    public float mFireRate;
-    public float mFireCooldown;
+    [SerializeField] private bool canAttack = true;
+    [SerializeField] private bool isAttacking = false;
 
 
     private void Awake()
@@ -21,44 +18,33 @@ public class SpeedsterAttack : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
+        stats = GetComponent<EnemyStats>(); 
 
-        stats = GetComponent<EnemyStats>(); // ← add this
         if (stats != null)
         {
-            mDamage = stats.damage;
-            mFireRate = stats.fireRate;
-            mFireCooldown = stats.fireCooldown;
+            Debug.LogWarning("EnemyStats not found on " + gameObject.name);
         }
-        else
+    }
+   public void OnDashHit()
+    {
+        if (!canAttack || isAttacking) 
         {
-            Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
+            return;
         }
-    }
-    public void TryAttack()
-    {
-        // Check if the enemy can attack and is not currently attacking
-        if (!canAttack || isAttacking) return;
-
-        // Start the attack coroutine
-        StartCoroutine(HitCoroutine());
+        StartCoroutine(AttackCoroutine());
     }
 
-    private IEnumerator HitCoroutine()
+    private IEnumerator AttackCoroutine()
     {
-        transform.localScale = new Vector3(3,3,3);
         isAttacking = true;
         canAttack = false;
-        rb.linearVelocity = Vector2.zero;
 
-        var stats = player.GetComponent<PlayerMovement>();
-        if (stats != null)
-            stats.DamagePlayer(mDamage);
 
-        yield return new WaitForSeconds(mFireRate);
-        isAttacking = false;
-        transform.localScale = new Vector3(2, 2, 2);
-
-        yield return new WaitForSeconds(mFireCooldown);
-        canAttack = true;
+       //Deal damage to player
+       var playerMovement = player.GetComponent<PlayerMovement>();
+        if (playerMovement != null)
+        {
+            playerMovement.DamagePlayer(stats.damage);
+        }
     }
 }
