@@ -176075,7 +176075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &909184701
 SpriteRenderer:
   serializedVersion: 2
@@ -211666,6 +211666,10 @@ PrefabInstance:
       propertyPath: perkSelectionUI
       value: 
       objectReference: {fileID: 1039624956}
+    - target: {fileID: 2678125219070286614, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9b8c3fb814beafe4a916ac8242939fa9, type: 2}
     - target: {fileID: 5319785327473283894, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: ammoText
       value: 
@@ -254297,6 +254301,10 @@ PrefabInstance:
       propertyPath: attackScript
       value: 
       objectReference: {fileID: 1062761881}
+    - target: {fileID: -3539114987199150228, guid: c698c96c1c7fa514bb7472fb9e79d5c6, type: 3}
+      propertyPath: losePlayerRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1256596784936673505, guid: c698c96c1c7fa514bb7472fb9e79d5c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 40.298
