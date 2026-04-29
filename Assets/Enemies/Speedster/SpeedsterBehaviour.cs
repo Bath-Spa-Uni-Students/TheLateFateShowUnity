@@ -7,38 +7,29 @@ using FMODUnity;
 public class SpeedsterBehaviour : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private EnemyStats stats;                   // Stats container (speed, damage, stoppingDistance, etc.)
-    [SerializeField] private SpeedsterAttack attackScript;      // Melee or Ranged attack script
+    [SerializeField] private EnemyStats stats;
+    [SerializeField] private SpeedsterAttack attackScript;
 
     [Header("Detection")]
-    [SerializeField] private float detectionRadius = 6f;       // Radius for detecting player
-    [SerializeField] private float losePlayerRadius = 8f;      // Radius for losing player
-    [SerializeField] private LayerMask wallLayer;                // Layer mask for obstacles/walls
+    [SerializeField] private float detectionRadius = 6f;
 
     [Header("Patrol Settings")]
     [SerializeField] private float patrolRadius = 8f;
-    [SerializeField] private float patrolSpeed = 1.5f;           // Slower lurking speed so its more menacing
+    [SerializeField] private float patrolSpeed = 1.5f;
     [SerializeField] private float waypointArrivalDistance = 0.35f;
     [SerializeField] private float waitTimeAtWaypoint = 0.5f;
 
-    [Header("Stalk Settings")]
-    [SerializeField] private float stalkRadius = 4f;             // Distance it circles the player at
-    [SerializeField] private float stalkSpeed = 2.5f;            // Speed while stalking
-    [SerializeField] private float stalkOrbitSpeed = 1.5f;       // How fast it circles
-    [SerializeField] private float stalkDuration = 2f;           // How long it stalks before attacking
-    [SerializeField] private float stalkDurationVariance = 1f;   // Random variance on stalk duration
-
     [Header("Windup Settings")]
-    [SerializeField] private float windupDuration = 0.5f;        // How long it pauses before dashing
+    [SerializeField] private float windupDuration = 0.5f;
 
     [Header("Dash Settings")]
     [SerializeField] private float dashSpeed = 14f;
     [SerializeField] private float dashDuration = 0.25f;
-    [SerializeField] private float dashCooldown = 1.5f;          // Cooldown before it can dash again
+    [SerializeField] private float dashCooldown = 2f;
 
     [Header("Retreat Settings")]
-    [SerializeField] private float retreatDistance = 4f;         // How far it backs off after attacking
-    [SerializeField] private float retreatSpeed = 3f;            // Speed during retreat
+    [SerializeField] private float retreatDistance = 4f;
+    [SerializeField] private float retreatSpeed = 3f;
     [SerializeField] private float retreatArrivalDistance = 0.5f;
 
     // Components
@@ -47,61 +38,40 @@ public class SpeedsterBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     private Transform player;
 
-    // State machine
-    private enum SpeedsterState { Lurk, Stalk, Windup, Dash, Retreat }
+    private enum SpeedsterState { Patrol, Windup, Dash, Retreat }
     private SpeedsterState currentState;
-    private SpeedsterState previousState;
 
-    // Detection
-    private bool playerDetected = false;
-
-    // Patrol state
+    // Patrol state variables
     private Vector3 spawnPosition;
     private Vector3 currentWaypoint;
     private bool hasWaypoint = false;
     private bool isWaiting = false;
     private float waitTimer = 0f;
 
-    // Stalk state
-    private float stalkTimer = 0f;
-    private float currentStalkDuration = 0f;
-    private Vector2 stalkOrbitOffset;
-
-    // Windup state
+    // Windup state variables
     private float windupTimer = 0f;
 
-    // Dash state
+    // Dash state variables
     private Vector2 dashDirection;
     private float dashTimer = 0f;
     private float dashCooldownTimer = 0f;
     private bool dashHitPlayer = false;
 
-    // Retreat state
+    // Retreat state variables
     private Vector3 retreatTarget;
-    private bool hasRetreatTarget = false;
 
     // Audio
     private StudioEventEmitter emitter;
     private EventInstance speedsterAlert;
     private EventInstance speedsterAttack;
 
-
     private void Awake()
     {
         if (stats == null)
-            stats = GetComponent<EnemyStats>(); // auto-link if on same GameObject
+            stats = GetComponent<EnemyStats>();
     }
+
     private void Start()
-    {
-        InitialSetup();
-
-        // Placeholder audio using grunt sounds until speedster sounds are made
-        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
-        speedsterAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
-        speedsterAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
-    }
-
-    private void InitialSetup()
     {
         rb = GetComponent<Rigidbody2D>();
         attackScript = GetComponent<SpeedsterAttack>();
@@ -115,96 +85,115 @@ public class SpeedsterBehaviour : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.speed = patrolSpeed;
         agent.acceleration = 140f;
         agent.stoppingDistance = 0f;
 
-        currentState = SpeedsterState.Lurk;
-        previousState = SpeedsterState.Lurk;
+        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
+        speedsterAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
+        speedsterAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
+
+        // Always start in patrol
+        EnterPatrol();
     }
 
     private void FixedUpdate()
     {
         if (rb == null || player == null) return;
 
-        UpdateDetection();
+        // Count down the dash cooldown every frame
+        if (dashCooldownTimer > 0f)
+            dashCooldownTimer -= Time.fixedDeltaTime;
 
-        previousState = currentState;
-        currentState = GetState();
-
-        // Checks each state in order of priority and executes the first one that matches (e.g. if we can chase, we chase, if not but we can orbit, we orbit, etc.)
+        // Run the current states tick method each frame
         switch (currentState)
         {
-            case SpeedsterState.Lurk:
-                Lurk();
-                break;
-
-            case SpeedsterState.Stalk:
-                Stalk();
-                break;
-
-            case SpeedsterState.Windup:
-                Windup();
-                break;
-
-            case SpeedsterState.Dash:
-                Dash();
-                break;
-
-            case SpeedsterState.Retreat:
-                Retreat();
-                break;
+            case SpeedsterState.Patrol: TickPatrol(); break;
+            case SpeedsterState.Windup: TickWindup(); break;
+            case SpeedsterState.Dash: TickDash(); break;
+            case SpeedsterState.Retreat: TickRetreat(); break;
         }
 
         UpdateAnimation();
     }
 
-   
+    // State Entry Methods
+    // Called once when transitioning into a state, handles all setup
+ 
 
-    private SpeedsterState GetState()
+    private void EnterPatrol()
     {
-        // prevents state interrupts
-        if (currentState == SpeedsterState.Dash) return SpeedsterState.Dash;
-        if (currentState == SpeedsterState.Retreat) return SpeedsterState.Retreat;
-        if (currentState == SpeedsterState.Windup) return SpeedsterState.Windup;
-
-        if (!playerDetected) return SpeedsterState.Lurk;
-
-        return SpeedsterState.Stalk;
-    }
-
-    private void UpdateDetection()
-    {
-        if (player == null) return;
-
-        float dist = Vector2.Distance(rb.position, player.position);
-
-        if (!playerDetected && dist <= detectionRadius)
-        {
-            playerDetected = true;
-            speedsterAlert.start();
-        }
-        else if (playerDetected && dist > losePlayerRadius)
-        {
-            // Lost the player - go back to lurking
-            playerDetected = false;
-        }
-    }
-
-    #region States
-
-    private void Lurk()
-    {
-        //slow patrol using the nav mesh similar to the grunt
+        currentState = SpeedsterState.Patrol;
+        hasWaypoint = false;
+        isWaiting = false;
+        agent.enabled = true;
+        agent.isStopped = false;
         agent.speed = patrolSpeed;
+    }
 
-        // Re-enable agent if coming from dash
-        if (!agent.enabled)
-            agent.enabled = true;
+    private void EnterWindup()
+    {
+        currentState = SpeedsterState.Windup;
+        windupTimer = windupDuration;
+        // Stop the agent while telegraphing the attack
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
+        speedsterAlert.start();
+        // TODO: add windup animation trigger here when ready
+    }
 
+    private void EnterDash()
+    {
+        currentState = SpeedsterState.Dash;
+        // Lock in the direction to the player at the moment the dash starts
+        dashDirection = ((Vector2)player.position - rb.position).normalized;
+        dashTimer = dashDuration;
+        dashHitPlayer = false;
+        // Disable the agent so we can drive movement through the rigidbody directly
+        agent.enabled = false;
+        rb.linearVelocity = Vector2.zero;
+    }
+
+    private void EnterRetreat()
+    {
+        currentState = SpeedsterState.Retreat;
+        // Kill any leftover dash momentum
+        rb.linearVelocity = Vector2.zero;
+
+        agent.enabled = true;
+        agent.isStopped = false;
+        agent.speed = retreatSpeed;
+
+        // Find a point directly behind the enemy relative to the player
+        Vector2 awayFromPlayer = ((Vector2)transform.position - (Vector2)player.position).normalized;
+        Vector3 retreatPoint = transform.position + new Vector3(awayFromPlayer.x, awayFromPlayer.y, 0f) * retreatDistance;
+
+        // Sample the navmesh for a valid nearby point, fall back to spawn if none found
+        retreatTarget = NavMesh.SamplePosition(retreatPoint, out NavMeshHit hit, retreatDistance, NavMesh.AllAreas)
+            ? hit.position
+            : spawnPosition;
+
+        dashCooldownTimer = dashCooldown;
+        agent.SetDestination(retreatTarget);
+    }
+
+    // -----------------------------------------------------------------
+    // State Tick Methods
+    // Called every FixedUpdate while in that state
+    // -----------------------------------------------------------------
+
+    private void TickPatrol()
+    {
+        // Check if the player is close enough and the cooldown has expired
+        float dist = Vector2.Distance(rb.position, player.position);
+        if (dist <= detectionRadius && dashCooldownTimer <= 0f)
+        {
+            EnterWindup();
+            return;
+        }
+
+        // Wait at the current waypoint before picking a new one
         if (isWaiting)
         {
-            agent.velocity = Vector3.zero;
             waitTimer -= Time.fixedDeltaTime;
             if (waitTimer <= 0f)
             {
@@ -214,6 +203,7 @@ public class SpeedsterBehaviour : MonoBehaviour
             return;
         }
 
+        // Pick a new random waypoint if we dont have one
         if (!hasWaypoint)
         {
             if (TryGetNavMeshWaypoint(out Vector3 waypoint))
@@ -225,77 +215,29 @@ public class SpeedsterBehaviour : MonoBehaviour
             return;
         }
 
-        float dist = Vector3.Distance(transform.position, currentWaypoint);
-        if (dist <= waypointArrivalDistance)
+        // Check if we have arrived at the waypoint
+        if (Vector3.Distance(transform.position, currentWaypoint) <= waypointArrivalDistance)
         {
             isWaiting = true;
             waitTimer = waitTimeAtWaypoint;
         }
     }
 
-    private void Stalk()
+    private void TickWindup()
     {
-        if (previousState != SpeedsterState.Stalk)
-        {
-            currentStalkDuration = stalkDuration + Random.Range(-stalkDurationVariance, stalkDurationVariance);
-            stalkTimer = 0f;
-            stalkOrbitOffset = ((Vector2)transform.position - (Vector2)player.position).normalized * stalkRadius;
-            agent.speed = stalkSpeed;
-
-            if (!agent.enabled)
-                agent.enabled = true;
-        }
-
-        stalkTimer += Time.fixedDeltaTime;
-
-        // Orbit around player at stalkRadius
-        float angle = stalkOrbitSpeed * Time.fixedDeltaTime;
-        stalkOrbitOffset = Quaternion.Euler(0f, 0f, angle) * stalkOrbitOffset;
-
-        Vector2 targetPos = (Vector2)player.position + stalkOrbitOffset.normalized * stalkRadius;
-        agent.SetDestination(new Vector3(targetPos.x, targetPos.y, transform.position.z));
-
-        // After stalking long enough trigger windup
-        if (stalkTimer >= currentStalkDuration && dashCooldownTimer <= 0f)
-        {
-            windupTimer = windupDuration;
-            currentState = SpeedsterState.Windup;
-            agent.velocity = Vector3.zero;
-            agent.SetDestination(transform.position);
-        }
-    }
-    private void Windup()
-    {
-        //pause for a moment, woudl like to add a windup animation if possible
-        // First frame in windup
-        if (previousState != SpeedsterState.Windup)
-        {
-            windupTimer = windupDuration;
-            agent.velocity = Vector3.zero;
-            agent.SetDestination(transform.position);
-   //potential visual telegraphing here
-        }
-
-        agent.velocity = Vector3.zero;
+        // Count down the windup then launch the dash
         windupTimer -= Time.fixedDeltaTime;
-
         if (windupTimer <= 0f)
-        {
-            // Lock in dash direction at the moment windup ends
-            dashDirection = ((Vector2)player.position - rb.position).normalized;
-            dashTimer = dashDuration;
-            dashHitPlayer = false;
-            currentState = SpeedsterState.Dash;
-            agent.enabled = false;
-        }
+            EnterDash();
     }
-    private void Dash()
-    {
 
+    private void TickDash()
+    {
         dashTimer -= Time.fixedDeltaTime;
+        // Drive movement through the rigidbody during the dash
         rb.linearVelocity = dashDirection * dashSpeed;
 
-        // Check if we hit the player
+        // Check if we have hit the player
         float distToPlayer = Vector2.Distance(rb.position, player.position);
         if (distToPlayer <= stats.stoppingDistance && !dashHitPlayer)
         {
@@ -303,51 +245,34 @@ public class SpeedsterBehaviour : MonoBehaviour
             attackScript.OnDashHit();
         }
 
+        // End the dash when the timer runs out
         if (dashTimer <= 0f)
-            StartRetreat();
+            EnterRetreat();
     }
-    private void Retreat()
+
+    private void TickRetreat()
     {
-        //back off for a few seconds after attacking, then return to stalking or patrolling depending on if the player is still detected
-        if (previousState != SpeedsterState.Retreat)
+        // Once we have arrived at the retreat point go back to patrolling
+        if (Vector3.Distance(transform.position, retreatTarget) <= retreatArrivalDistance)
         {
-            rb.linearVelocity = Vector2.zero;
-            agent.enabled = true;
-            agent.speed = retreatSpeed;
-
-            Vector2 awayFromPlayer = ((Vector2)transform.position - (Vector2)player.position).normalized;
-            Vector3 retreatPoint = transform.position + new Vector3(awayFromPlayer.x, awayFromPlayer.y, 0f) * retreatDistance;
-
-            if (NavMesh.SamplePosition(retreatPoint, out NavMeshHit hit, retreatDistance, NavMesh.AllAreas))
-                retreatTarget = hit.position;
-            else
-                retreatTarget = spawnPosition;
-
-            dashCooldownTimer = dashCooldown;
-            agent.SetDestination(retreatTarget);
-        }
-
-        float dist = Vector3.Distance(transform.position, retreatTarget);
-        if (dist <= retreatArrivalDistance) //retreate done move back to stalking if player is still detected, otherwise patrol
-        {
-            stalkTimer = 0f;
-            currentState = SpeedsterState.Stalk;
+            agent.ResetPath();
+            EnterPatrol();
         }
     }
 
-    private void StartRetreat()
+ 
+
+    private void OnCollisionEnter2D(Collision2D col)
     {
-        currentState = SpeedsterState.Retreat;
+        // If we hit a wall while dashing cancel it and retreat
+        if (currentState == SpeedsterState.Dash)
+            EnterRetreat();
     }
-    #endregion
-
-
 
     private bool TryGetNavMeshWaypoint(out Vector3 waypoint)
     {
-        //ripped straight from grunt behaviour, tries to find a random point on the nav mesh within patrol radius, returns false if it fails after several attempts
+        // Try up to 10 times to find a valid point on the navmesh within patrol radius
         waypoint = Vector3.zero;
-
         for (int i = 0; i < 10; i++)
         {
             Vector2 randomCircle = Random.insideUnitCircle * patrolRadius;
@@ -359,46 +284,33 @@ public class SpeedsterBehaviour : MonoBehaviour
                 return true;
             }
         }
-
         return false;
-    }
-
-    private void OnCollisionEnter2D(Collision2D col)
-    {
-        if (((1 << col.gameObject.layer) & wallLayer) != 0 && currentState == SpeedsterState.Dash)
-        {
-            rb.linearVelocity = Vector2.zero;
-            StartRetreat();
-        }
     }
 
     public void UpdateAnimation()
     {
-        // Use rb velocity during dash (agent is disabled), otherwise use agent velocity
+        // Use rb velocity during dash since the agent is disabled
         Vector2 velocity = agent.enabled ? (Vector2)agent.velocity : rb.linearVelocity;
-
         float speed = velocity.magnitude;
-        animator.SetFloat("Speed", speed);
 
-        bool isMoving = speed > 0.01f;
-        animator.SetBool("IsWalking", isMoving);
+        animator.SetFloat("Speed", speed);
+        animator.SetBool("IsWalking", speed > 0.01f);
         UpdateSound();
     }
+
     private void UpdateSound()
     {
         if (animator.GetBool("IsWalking"))
         {
-            if (!emitter.IsPlaying())
-                emitter.Play();
+            if (!emitter.IsPlaying()) emitter.Play();
         }
         else
         {
-            if (emitter.IsPlaying())
-                emitter.Stop();
+            if (emitter.IsPlaying()) emitter.Stop();
         }
     }
 
-        public void PlayAttackSound()
+    public void PlayAttackSound()
     {
         speedsterAttack.start();
     }

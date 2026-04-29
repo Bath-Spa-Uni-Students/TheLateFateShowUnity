@@ -18,7 +18,7 @@ public class SpeedsterAttack : MonoBehaviour
         animator = GetComponent<Animator>();
         stats = GetComponent<EnemyStats>();
 
-        if (stats == null) // Fixed: was checking the wrong condition
+        if (stats == null) 
             Debug.LogWarning("EnemyStats not found on " + gameObject.name);
     }
 
@@ -35,17 +35,15 @@ public class SpeedsterAttack : MonoBehaviour
         isAttacking = true;
         canAttack = false;
 
-        // Play animation and wait for it to finish before dealing damage
         animator.SetTrigger("Attack");
         yield return new WaitForSeconds(GetAnimationLength("Attack"));
 
-        // Deal damage after animation completes
         var playerMovement = player?.GetComponent<PlayerMovement>();
         if (playerMovement != null)
             playerMovement.DamagePlayer(stats.damage);
 
         isAttacking = false;
-        canAttack = true; // Fixed: was never reset so enemy could only attack once
+        canAttack = true;
     }
 
     private float GetAnimationLength(string clipName)
