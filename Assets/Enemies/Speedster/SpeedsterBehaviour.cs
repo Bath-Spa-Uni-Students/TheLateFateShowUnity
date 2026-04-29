@@ -133,12 +133,23 @@ public class SpeedsterBehaviour : MonoBehaviour
     private void EnterWindup()
     {
         currentState = SpeedsterState.Windup;
-        windupTimer = windupDuration;
-        // Stop the agent while telegraphing the attack
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
         speedsterAlert.start();
-        // TODO: add windup animation trigger here when ready
+        animator.SetTrigger("Windup");
+        // Automatically match windup duration to the animation length
+        windupTimer = GetWindupAnimationLength();
+    }
+
+    private float GetWindupAnimationLength()
+    {
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == "Windup")
+                return clip.length;
+        }
+        Debug.LogWarning("Windup clip not found, defaulting to 0.5s");
+        return 0.5f;
     }
 
     private void EnterDash()
@@ -293,7 +304,6 @@ public class SpeedsterBehaviour : MonoBehaviour
         Vector2 velocity = agent.enabled ? (Vector2)agent.velocity : rb.linearVelocity;
         float speed = velocity.magnitude;
 
-        animator.SetFloat("Speed", speed);
         animator.SetBool("IsWalking", speed > 0.01f);
         UpdateSound();
     }
