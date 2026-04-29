@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using FMOD.Studio;
+using System;
 
 public class Pistol : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class Pistol : MonoBehaviour
     [SerializeField] public float fireRate = 0.8f; // seconds between shots
     private float nextFireTime = 0f;
 
-    [SerializeField] private Animator muzzleFlashAnimator;
+    [SerializeField] private Animator muzzleFlash;
     // Clip size
     public int ammo = 6;
     [SerializeField] private GameObject ammoText;
@@ -79,8 +80,16 @@ public class Pistol : MonoBehaviour
             // Spawns bullet 
             shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
             shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
-
-            muzzleFlashAnimator.SetTrigger("Flash");
+            
+            if (muzzleFlash != null && HasParameter("Flash", muzzleFlash))
+            {
+                muzzleFlash.SetTrigger("Flash");
+                Debug.Log("Flash triggered");
+            }
+            else
+            {
+                Debug.LogWarning("Muzzle flash animator does not have a 'Flash' trigger parameter.");
+            }
         }
         else if (Input.GetMouseButtonDown(0) && canShoot == false)
         {
@@ -96,10 +105,14 @@ public class Pistol : MonoBehaviour
             ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position);
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.F))
+    private bool HasParameter(string paramName, Animator animator)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
         {
-            muzzleFlashAnimator.SetTrigger("Flash");
+            if (param.name == paramName) return true;
         }
+        return false;
     }
 }

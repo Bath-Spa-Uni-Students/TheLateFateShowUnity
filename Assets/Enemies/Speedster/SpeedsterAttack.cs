@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpeedsterAttack : MonoBehaviour
@@ -12,25 +11,22 @@ public class SpeedsterAttack : MonoBehaviour
     [SerializeField] private bool canAttack = true;
     [SerializeField] private bool isAttacking = false;
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
-        stats = GetComponent<EnemyStats>(); 
+        stats = GetComponent<EnemyStats>();
 
-        if (stats != null)
-        {
+        if (stats == null) // Fixed: was checking the wrong condition
             Debug.LogWarning("EnemyStats not found on " + gameObject.name);
-        }
     }
-   public void OnDashHit()
+
+    public void OnDashHit()
     {
-        if (!canAttack || isAttacking) 
-        {
+        if (!canAttack || isAttacking)
             return;
-        }
+
         StartCoroutine(AttackCoroutine());
     }
 
@@ -39,14 +35,28 @@ public class SpeedsterAttack : MonoBehaviour
         isAttacking = true;
         canAttack = false;
 
+        // Play animation and wait for it to finish before dealing damage
+        animator.SetTrigger("Attack");
+        yield return new WaitForSeconds(GetAnimationLength("Attack"));
 
-       //Deal damage to player
-       var playerMovement = player.GetComponent<PlayerMovement>();
+        // Deal damage after animation completes
+        var playerMovement = player?.GetComponent<PlayerMovement>();
         if (playerMovement != null)
-        {
             playerMovement.DamagePlayer(stats.damage);
+
+        isAttacking = false;
+        canAttack = true; // Fixed: was never reset so enemy could only attack once
+    }
+
+    private float GetAnimationLength(string clipName)
+    {
+        foreach (AnimationClip clip in animator.runtimeAnimatorController.animationClips)
+        {
+            if (clip.name == clipName)
+                return clip.length;
         }
 
-        yield return new WaitForSeconds(1f); // Attack cooldown
+        Debug.LogWarning("Animation clip '" + clipName + "' not found, defaulting to 1 second");
+        return 1f;
     }
 }

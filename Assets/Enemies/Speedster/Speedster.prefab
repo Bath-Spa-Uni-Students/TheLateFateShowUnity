@@ -954,7 +954,7 @@ MonoBehaviour:
   fireRate: 0.15
   fireCooldown: 0.5
   attackCloseness: 0
-  canDamage: 0
+  canDamage: 1
   canAttack: 1
   isAttacking: 0
   slamWaitTimer: 2
@@ -976,25 +976,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpeedsterBehaviour
   stats: {fileID: 5237618153534720533}
   attackScript: {fileID: 948915413511117397}
-  moveSpotGameObject: {fileID: 1854902710691883263, guid: 6290f8fb713cc574bafd42bf4ff08aa4, type: 3}
-  startWaitTime: 3
-  dashSpeed: 12
-  dashDuration: 0.2
-  dashCooldown: 0.8
-  minDashDistance: 1.2
-  retargetDelay: 0.4
   detectionRadius: 4
-  detectionCircle: {fileID: 6703722090438749903}
+  losePlayerRadius: 8
   wallLayer:
     serializedVersion: 2
     m_Bits: 2048
+  patrolRadius: 8
+  patrolSpeed: 1.5
   waypointArrivalDistance: 0.35
-  waypointMaxTries: 40
-  waypointInflation: 0.05
-  stuckDuration: 1.2
-  stuckEpsilon: 0.03
-  playerDetected: 0
-  gruntArea: {fileID: 0}
+  waitTimeAtWaypoint: 0.5
+  stalkRadius: 4
+  stalkSpeed: 2.5
+  stalkOrbitSpeed: 1.5
+  stalkDuration: 2
+  stalkDurationVariance: 1
+  windupDuration: 0.5
+  dashSpeed: 12
+  dashDuration: 0.2
+  dashCooldown: 0.8
+  retreatDistance: 4
+  retreatSpeed: 3
+  retreatArrivalDistance: 0.5
 --- !u!114 &948915413511117397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,9 +1009,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8fabb53f00490743a444978cea7513e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpeedsterAttack
-  mDamage: 0
-  mFireRate: 0
-  mFireCooldown: 0
+  canAttack: 1
+  isAttacking: 0
 --- !u!195 &7232216552129871522
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1017,7 +1018,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361983244019902799}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.15
   m_Speed: 3.5
@@ -1040,9 +1041,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8361983244019902799}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ba188ef6b5b4a404d9d1aa8900ad6a18, type: 2}
+  m_Controller: {fileID: 9100000, guid: a18855959a7e1e940b3021e0ab32fdb0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

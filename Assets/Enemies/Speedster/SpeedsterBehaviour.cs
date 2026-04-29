@@ -374,31 +374,19 @@ public class SpeedsterBehaviour : MonoBehaviour
 
     public void UpdateAnimation()
     {
-        Vector2 velocity = agent.velocity;
+        // Use rb velocity during dash (agent is disabled), otherwise use agent velocity
+        Vector2 velocity = agent.enabled ? (Vector2)agent.velocity : rb.linearVelocity;
 
         float speed = velocity.magnitude;
-
         animator.SetFloat("Speed", speed);
 
-        if (speed > 0.01f)
-        {
-
-            Vector2 dir = velocity.normalized;
-
-            animator.SetFloat("PosX", dir.x);
-            animator.SetFloat("PosY", dir.y);
-            animator.SetBool("IsWalking?", true);
-            UpdateSound();
-        }
-        else
-        {
-            animator.SetBool("IsWalking?", false);
-            UpdateSound();
-        }
+        bool isMoving = speed > 0.01f;
+        animator.SetBool("IsWalking", isMoving);
+        UpdateSound();
     }
     private void UpdateSound()
     {
-        if (animator.GetBool("IsWalking?"))
+        if (animator.GetBool("IsWalking"))
         {
             if (!emitter.IsPlaying())
                 emitter.Play();
