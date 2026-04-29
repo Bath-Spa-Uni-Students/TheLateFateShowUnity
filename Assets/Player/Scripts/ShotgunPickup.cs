@@ -20,7 +20,6 @@ public class ShotgunPickup : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             // Player has a weapon
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
-            GunUI.Instance.SetActiveGun("ShotgunHeld");
         }
     }
 }

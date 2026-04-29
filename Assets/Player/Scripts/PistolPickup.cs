@@ -4,9 +4,6 @@ using UnityEngine.UI;
 
 public class PistolPickup : MonoBehaviour
 {
-
-
-    //Weapon overlaps with player
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -34,8 +31,6 @@ public class PistolPickup : MonoBehaviour
             gunDisplay.GetComponent<Image>().enabled = true;
 
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.weaponPickup, this.transform.position);
-
-            GunUI.Instance.SetActiveGun("PistolHeld");
            
         }
     }
