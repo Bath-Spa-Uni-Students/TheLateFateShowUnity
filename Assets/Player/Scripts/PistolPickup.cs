@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PistolPickup : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class PistolPickup : MonoBehaviour
             Destroy(gameObject);
 
             GameObject pistolWeapon = GameObject.FindGameObjectWithTag("PistolHeld");
+            GameObject ammoText = GameObject.FindGameObjectWithTag("AmmoText");
+            GameObject gunDisplay = GameObject.FindGameObjectWithTag("GunDisplayUI");
+
             // Pistol script enabled
             pistolWeapon.GetComponent<Pistol>().enabled = true;
             // Enable pistol sprite
@@ -22,6 +27,11 @@ public class PistolPickup : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             // Player has a weapon
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
+
+
+            ammoText.GetComponent<TextMeshProUGUI>().enabled = true;
+
+            gunDisplay.GetComponent<Image>().enabled = true;
 
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.weaponPickup, this.transform.position);
 
