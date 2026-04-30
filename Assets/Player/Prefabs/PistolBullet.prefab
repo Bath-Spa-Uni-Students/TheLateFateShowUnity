@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55765e7b7115f443b1b444895506cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerBullet
-  bulletSpeed: 2
+  bulletSpeed: 4
   bulletDamage: 10
   pistol: {fileID: 0}
   bounces: 2

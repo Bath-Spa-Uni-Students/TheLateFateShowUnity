@@ -78,8 +78,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Initialise health bar to match starting health value
-        //healthBar.maxValue = health;
-        //healthBar.value = health;
+        healthBar.maxValue = health;
+        healthBar.value = health;
 
         // Set runtime speed to base walk speed
         moveSpeed = walkSpeed;
@@ -185,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (health <= 0 || health - damage <= 0)
         {
+            health -= damage;
             healthBar.value = health;
             PlayerDie();
         }
