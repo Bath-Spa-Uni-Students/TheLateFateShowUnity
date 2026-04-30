@@ -80,11 +80,10 @@ public class Pistol : MonoBehaviour
             // Spawns bullet 
             shotBullet = Instantiate(bullet, bulletTransform.position, bulletTransform.rotation);
             shotBullet.GetComponent<PistolBullet>().pistol = gameObject.GetComponent<Pistol>();
-            muzzleFlash.SetTrigger("Flash");
 
             if (muzzleFlash != null && HasParameter("Flash", muzzleFlash))
             {
-                //muzzleFlash.SetTrigger("Flash");
+                muzzleFlash.SetTrigger("Flash");
                 Debug.Log("Flash triggered");
             }
             else
