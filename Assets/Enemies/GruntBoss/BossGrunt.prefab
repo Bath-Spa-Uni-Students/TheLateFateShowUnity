@@ -1233,7 +1233,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2233989047809775904, guid: f6ff2d6f9b26acf4688e191e9771a634, type: 3}
+  m_Sprite: {fileID: 879259124114631495, guid: 033cd509b36b6e94f89f8a51a6aba516, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1258,6 +1258,7 @@ MonoBehaviour:
   speed: 1
   stoppingDistance: 1
   detectionRadius: 5
+  leaderDamageReduction: 0.5
   health: 500
   maxHealth: 100
   damage: 10
@@ -1272,9 +1273,6 @@ MonoBehaviour:
   beamSpinDuration: 10
   followDistance: 1.5
   orbitSpeed: 2
-  waypointArrivalDistance: 0.35
-  stuckDuration: 1.2
-  stuckEpsilon: 0.03
 --- !u!114 &7616477494777616497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1364,6 +1362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BossRanged
   spinBeam: {fileID: 2694395596082090241}
   firePoint: {fileID: 0}
+  firstSpinTime: 2
 --- !u!95 &8774061901883215491
 Animator:
   serializedVersion: 7
@@ -1473,7 +1472,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.03, y: 0.92}
+    oldSize: {x: 3.25, y: 2.9}
     newSize: {x: 1.03, y: 0.92}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
