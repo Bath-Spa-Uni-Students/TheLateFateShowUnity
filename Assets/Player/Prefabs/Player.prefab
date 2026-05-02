@@ -511,6 +511,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5964464932427019635}
     m_Modifications:
+    - target: {fileID: 43245082067086761, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7501337544433254703, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
       propertyPath: m_Name
       value: ARWeapon
@@ -701,6 +705,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PistolWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 6042353297643838849, guid: 5954bce4e7793764098745828516b970, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042353297643838849, guid: 5954bce4e7793764098745828516b970, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 2678125219070286614}
     - target: {fileID: 6498121140623773038, guid: 5954bce4e7793764098745828516b970, type: 3}
       propertyPath: m_LocalPosition.x
       value: 374.78668

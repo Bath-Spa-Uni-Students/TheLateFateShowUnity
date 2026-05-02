@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GunUI : MonoBehaviour
 {
     public static GunUI Instance;
-
     public GameObject pistolUI;
     public GameObject shotgunUI;
     public GameObject arUI;
@@ -14,36 +12,23 @@ public class GunUI : MonoBehaviour
         Instance = this;
     }
 
-    public void SetActiveGun(string tag)
+    private void Start()
     {
-        pistolUI.SetActive(false);
-        shotgunUI.SetActive(false);
-        arUI.SetActive(false);
-
-        if (tag == "PistolHeld")
-            pistolUI.SetActive(true);
-
-        else if (tag == "ShotgunHeld")
-            shotgunUI.SetActive(true);
-
-        else if (tag == "ARHeld")
-            arUI.SetActive(true);
+        WeaponManager.Instance.OnWeaponChanged += OnWeaponChanged;
+        // Set initial state
+        OnWeaponChanged(WeaponManager.Instance.CurrentWeapon);
     }
 
-    //debug key to test gun UI
-    private void Update()
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetActiveGun("PistolHeld");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetActiveGun("ShotgunHeld");
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetActiveGun("ARHeld");
-        }
+        if (WeaponManager.Instance != null)
+            WeaponManager.Instance.OnWeaponChanged -= OnWeaponChanged;
+    }
+
+    private void OnWeaponChanged(WeaponInstance weapon)
+    {
+        pistolUI.SetActive(weapon.weaponType == WeaponType.Pistol);
+        shotgunUI.SetActive(weapon.weaponType == WeaponType.Shotgun);
+        arUI.SetActive(weapon.weaponType == WeaponType.AR);
     }
 }

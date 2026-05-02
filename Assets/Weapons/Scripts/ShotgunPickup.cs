@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//redundatn script
 public class ShotgunPickup : MonoBehaviour
 {
     //Weapon overlaps with player
@@ -20,7 +20,7 @@ public class ShotgunPickup : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
             // Player has a weapon
             Player.GetComponent<PlayerMovement>().hasWeapon = true;
-            GunUI.Instance.SetActiveGun("ShotgunHeld");
+            //GunUI.Instance.SetActiveGun("ShotgunHeld");
         }
     }
 }

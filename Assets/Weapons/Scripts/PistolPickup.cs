@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+//redundant script
 public class PistolPickup : MonoBehaviour
 {
 
@@ -35,7 +35,7 @@ public class PistolPickup : MonoBehaviour
 
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.weaponPickup, this.transform.position);
 
-            GunUI.Instance.SetActiveGun("PistolHeld");
+           // GunUI.Instance.SetActiveGun("PistolHeld");
            
         }
     }
