@@ -27,20 +27,17 @@ public class ChestSpawner : MonoBehaviour
 
     private void OnEnable() => allSpawners.Add(this);
     private void OnDisable() => allSpawners.Remove(this);
+    private void OnDestroy() => allSpawners.Remove(this);
 
     private void Awake()
     {
         if (!allSpawners.Contains(this))
         {
-            allSpawners.Add(this);
             Debug.Log($"[ChestSpawner] Registered: {gameObject.name} (total: {allSpawners.Count})");
         }
     }
 
-    private void OnDestroy()
-    {
-        allSpawners.Remove(this);
-    }
+ 
 
     private void Start()
     {

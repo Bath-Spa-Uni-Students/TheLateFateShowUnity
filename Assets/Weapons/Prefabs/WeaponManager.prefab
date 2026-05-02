@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8711739820925555903
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4939897996451677928}
+  - component: {fileID: 6021052122608641187}
+  m_Layer: 0
+  m_Name: WeaponManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4939897996451677928
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711739820925555903}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -915.2263, y: -159.3329, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6021052122608641187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711739820925555903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df81ffe4de824942a0d0cf1ced85ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
+  startingWeapon: 0
+  pistolObject: {fileID: 1891506178819071994, guid: 5954bce4e7793764098745828516b970, type: 3}
+  arObject: {fileID: 7501337544433254703, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
+  shotgunObject: {fileID: 8310665469226109603, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}
+  allPerks:
+  - {fileID: 11400000, guid: 11792ba3da549f642926adfb6924aed0, type: 2}
+  - {fileID: 11400000, guid: c0582216a8cf0e844b17a0b1074e9710, type: 2}
+  - {fileID: 11400000, guid: c9ce34054a0ceac4391ec84dfa69a5bf, type: 2}
+  - {fileID: 11400000, guid: cf32ba18c3f3e294ca3a984fd69f0274, type: 2}
+  - {fileID: 11400000, guid: 68dd4865a86c4824da5d50eb78132dc5, type: 2}
+  - {fileID: 11400000, guid: d7977940dbbb2f14b950e52ddf753743, type: 2}
+  - {fileID: 11400000, guid: a5701468255cc7e46bb7032fe885ca92, type: 2}
+  - {fileID: 11400000, guid: 991c8d957bd82c0468f505682971e47b, type: 2}
+  - {fileID: 11400000, guid: c7071f47fdc89a04b9bcd051b9d5b896, type: 2}
+  - {fileID: 11400000, guid: b217c3dfe6f569744bde9769ab29a8d7, type: 2}
+  - {fileID: 11400000, guid: 310199027cb11d14aa7e82fd40d7575b, type: 2}
+  - {fileID: 11400000, guid: 0809a48fe21f15147a34e2024ba79465, type: 2}
+  debugWeaponMangager: 0
