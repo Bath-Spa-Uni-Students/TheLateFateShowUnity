@@ -310518,10 +310518,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
   startingWeapon: 0
-  pistolObject: {fileID: 0}
-  arObject: {fileID: 0}
-  shotgunObject: {fileID: 0}
-  allPerks: []
+  pistolObject: {fileID: 1891506178819071994, guid: 5954bce4e7793764098745828516b970, type: 3}
+  arObject: {fileID: 7501337544433254703, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
+  shotgunObject: {fileID: 8310665469226109603, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}
+  allPerks:
+  - {fileID: 11400000, guid: 11792ba3da549f642926adfb6924aed0, type: 2}
+  - {fileID: 11400000, guid: c0582216a8cf0e844b17a0b1074e9710, type: 2}
+  - {fileID: 11400000, guid: c9ce34054a0ceac4391ec84dfa69a5bf, type: 2}
+  - {fileID: 11400000, guid: cf32ba18c3f3e294ca3a984fd69f0274, type: 2}
+  - {fileID: 11400000, guid: 68dd4865a86c4824da5d50eb78132dc5, type: 2}
+  - {fileID: 11400000, guid: d7977940dbbb2f14b950e52ddf753743, type: 2}
+  - {fileID: 11400000, guid: a5701468255cc7e46bb7032fe885ca92, type: 2}
+  - {fileID: 11400000, guid: 991c8d957bd82c0468f505682971e47b, type: 2}
+  - {fileID: 11400000, guid: c7071f47fdc89a04b9bcd051b9d5b896, type: 2}
+  - {fileID: 11400000, guid: b217c3dfe6f569744bde9769ab29a8d7, type: 2}
+  - {fileID: 11400000, guid: 310199027cb11d14aa7e82fd40d7575b, type: 2}
+  - {fileID: 11400000, guid: 0809a48fe21f15147a34e2024ba79465, type: 2}
   debugWeaponMangager: 0
 --- !u!4 &1020646963
 Transform:
@@ -313493,6 +313505,10 @@ PrefabInstance:
       propertyPath: fireRate
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 5319785327473283894, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: muzzleFlash
+      value: 
+      objectReference: {fileID: 1226157336}
     - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: pierce
       value: 0
@@ -313505,6 +313521,54 @@ PrefabInstance:
       propertyPath: powerCell
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkPierce
+      value: 
+      objectReference: {fileID: 11400000, guid: cf32ba18c3f3e294ca3a984fd69f0274, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkThorns
+      value: 
+      objectReference: {fileID: 11400000, guid: 0809a48fe21f15147a34e2024ba79465, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkScatter
+      value: 
+      objectReference: {fileID: 11400000, guid: 991c8d957bd82c0468f505682971e47b, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkRicochet
+      value: 
+      objectReference: {fileID: 11400000, guid: a5701468255cc7e46bb7032fe885ca92, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkHitReload
+      value: 
+      objectReference: {fileID: 11400000, guid: c0582216a8cf0e844b17a0b1074e9710, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkLifeSteal
+      value: 
+      objectReference: {fileID: 11400000, guid: c9ce34054a0ceac4391ec84dfa69a5bf, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkPowerCell
+      value: 
+      objectReference: {fileID: 11400000, guid: d7977940dbbb2f14b950e52ddf753743, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkSpeedCell
+      value: 
+      objectReference: {fileID: 11400000, guid: 310199027cb11d14aa7e82fd40d7575b, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkCritChance
+      value: 
+      objectReference: {fileID: 11400000, guid: 11792ba3da549f642926adfb6924aed0, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkSlowRounds
+      value: 
+      objectReference: {fileID: 11400000, guid: b217c3dfe6f569744bde9769ab29a8d7, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkPoisonRounds
+      value: 
+      objectReference: {fileID: 11400000, guid: 68dd4865a86c4824da5d50eb78132dc5, type: 2}
+    - target: {fileID: 5867586762772513268, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: perkShockwaveLoader
+      value: 
+      objectReference: {fileID: 11400000, guid: c7071f47fdc89a04b9bcd051b9d5b896, type: 2}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 185.2
@@ -313558,7 +313622,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4215419357214147588, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -335747,6 +335812,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &1226157336 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2678125219070286614, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+  m_PrefabInstance: {fileID: 1143229772}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1226843237
 GameObject:
   m_ObjectHideFlags: 0

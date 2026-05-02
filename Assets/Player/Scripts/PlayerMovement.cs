@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) {currentXP += 100; Debug.Log(currentLevel); }
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {AddFame(10); Debug.Log(currentLevel); }
     }
     void FixedUpdate()
     {
@@ -230,7 +230,13 @@ public class PlayerMovement : MonoBehaviour
             currentXP -= GetXP(currentLevel);
             currentLevel++;
             currentXP = 0;
-            perkSelectionUI.Show(); // trigger perk screen on every level up
+        }
+        if(currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
+        {
+            perkSelectionUI.Show(); // trigger perk screen on level up
+        }else if (currentLevel == 10)
+        {
+            Debug.Log("Max level reached!");
         }
         Debug.Log("fame+" + fame);
         FameDisplayUpdater.Instance.UpdateFame(fame);

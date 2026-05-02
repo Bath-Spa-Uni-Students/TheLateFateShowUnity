@@ -16,4 +16,4 @@ MonoBehaviour:
   description: 
   compatibleWithPistol: 1
   compatibleWithAR: 1
-  compatibleWithShotgun: 1
+  compatibleWithShotgun: 0
