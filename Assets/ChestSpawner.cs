@@ -28,12 +28,16 @@ public class ChestSpawner : MonoBehaviour
     private void OnEnable() => allSpawners.Add(this);
     private void OnDisable() => allSpawners.Remove(this);
 
-    private void Start()
+    private void Awake()
     {
-        TrySpawnChest();
+        allSpawners.Add(this);
+        Debug.Log($"[ChestSpawner] Registered in Awake: {gameObject.name} (total: {allSpawners.Count})");
     }
 
-
+    private void Start()
+    {
+       
+    }
 
     // Call this from maze manager when the maze regenerates and nav mesh rebakes
     public static void NotifyMazeRegenerated()
@@ -57,6 +61,7 @@ public class ChestSpawner : MonoBehaviour
 
     private void TrySpawnChest()
     {
+        Debug.Log($"[ChestSpawner] Attempting to spawn chest in sector {transform.parent.name}");// Validate spawn points and spawn chance
         if (spawnPoints == null || spawnPoints.Length == 0) return;// No valid spawn points assigned
         if (Random.value > spawnChance) return;// Failed spawn roll
         Debug.Log($"[ChestSpawner] Spawning chest in sector {transform.parent.name}");// Pick a random spawn point from the assigned list
