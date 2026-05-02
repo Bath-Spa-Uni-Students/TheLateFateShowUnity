@@ -44,6 +44,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] private bool debugEnemy = false; // Set to true to enable debug logs and visuals
     //Patrol State
     private Vector3 spawnPosition;
     private Vector3 currentWaypoint;   // Current waypoint target
@@ -201,14 +202,20 @@ public class EnemyBehaviour : MonoBehaviour
     public void RegisterFollower()
     {
         followerCount++;
-        Debug.Log(gameObject.name + " follower registered. Total: " + followerCount);
+        if (debugEnemy)
+        {
+            Debug.Log(gameObject.name + " follower registered. Total: " + followerCount);
+        }
     }
 
     // Called by each follower on death so leader can track remaining pack size
     public void UnregisterFollower()
     {
         followerCount = Mathf.Max(0, followerCount - 1);
-        Debug.Log(gameObject.name + " follower died. Remaining: " + followerCount);
+        if (debugEnemy)
+        {
+            Debug.Log(gameObject.name + " follower died. Remaining: " + followerCount);
+        }
     }
 
 
@@ -341,7 +348,10 @@ public class EnemyBehaviour : MonoBehaviour
                 if (scatterWaypointsRemaining <= 0)
                 {
                     scatterComplete = true;
-                    Debug.Log(gameObject.name + " scatter complete, now independent");
+                    if (debugEnemy)
+                    {
+                        Debug.Log(gameObject.name + " scatter complete, now independent");
+                    }
                 }
             }
             return;

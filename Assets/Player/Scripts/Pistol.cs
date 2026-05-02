@@ -33,6 +33,7 @@ public class Pistol : MonoBehaviour
     public int ammo = 6;
     [SerializeField] private GameObject ammoText;
 
+    [SerializeField] private bool debugPistol = false;
     //Audio
     private EventInstance pistolShoot;
     private EventInstance pistolReload;
@@ -84,11 +85,17 @@ public class Pistol : MonoBehaviour
             if (muzzleFlash != null && HasParameter("Flash", muzzleFlash))
             {
                 muzzleFlash.SetTrigger("Flash");
-                Debug.Log("Flash triggered");
+                if (debugPistol)
+                {
+                    Debug.Log("Flash triggered");
+                }
             }
             else
             {
-                Debug.LogWarning("Muzzle flash animator does not have a 'Flash' trigger parameter.");
+                if (debugPistol)
+                {
+                    Debug.LogWarning("Muzzle flash animator does not have a 'Flash' trigger parameter.");
+                }
             }
         }
         else if (Input.GetMouseButtonDown(0) && canShoot == false)
