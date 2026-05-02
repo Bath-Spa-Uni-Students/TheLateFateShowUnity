@@ -15,6 +15,8 @@ public class MazeChanger : MonoBehaviour
     [SerializeField] private GameObject[] slot6;
     [SerializeField] private GameObject[] slot7;
     [SerializeField] private GameObject[] slot8;
+    [SerializeField] private GameObject[] slot9;
+
 
     [Header("Settings")]
     [SerializeField] private float switchInterval = 150f;//adjust this value for balance currently set quite quick for testing
@@ -32,7 +34,7 @@ public class MazeChanger : MonoBehaviour
         allSlots = new GameObject[][]
         {
             slot1, slot2, slot3, slot4,
-            slot5, slot6, slot7, slot8
+            slot5, slot6, slot7, slot8, slot9
         };
 
         currentActiveIndex = new int[allSlots.Length];
@@ -82,6 +84,7 @@ public class MazeChanger : MonoBehaviour
             SpawnManager.Instance.ResetEnemyCount();
 
         RebakeNavMesh();
+        ChestSpawner.NotifyMazeRegenerated();
     }
 
     private void RebakeNavMesh()
