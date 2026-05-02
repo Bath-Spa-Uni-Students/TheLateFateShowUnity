@@ -106,8 +106,14 @@ public class MazeChanger : MonoBehaviour
             Debug.Log("Rooms switched at: " + Time.time);
         }
     }
-
-    // Debug
+    private void ClearAllEnemies()
+    {
+        // Find all enemies and destroy them before switching
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+            Destroy(enemy);
+    }
+   
     public void ForceSwitch()
     {
         if (switchCoroutine != null)
@@ -117,18 +123,5 @@ public class MazeChanger : MonoBehaviour
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
 
-    // calls which segment is active 
-    public int GetActiveVariant(int slotIndex)
-    {
-        if (slotIndex < 0 || slotIndex >= currentActiveIndex.Length) return -1;
-        return currentActiveIndex[slotIndex];
-    }
-
-    private void ClearAllEnemies()
-    {
-        // Find all enemies and destroy them before switching
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
-            Destroy(enemy);
-    }
+  
 }
