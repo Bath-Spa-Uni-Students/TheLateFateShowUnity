@@ -30,6 +30,9 @@ public class PistolBullet : MonoBehaviour
     [Header("Ricochet bounces")]
     [SerializeField] int bounces = 2;
 
+    [SerializeField] private PerkDefinition perkPierce;
+    [SerializeField] private PerkDefinition perkRicochet;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -50,7 +53,7 @@ public class PistolBullet : MonoBehaviour
         direction = transform.right;
 
         // If pistol perks true
-        if (pistolPerks.pierce == true)
+        if (WeaponManager.Instance.HasPerk(perkPierce))
         {
             // Exclude layers
             circleCollider.excludeLayers = LayerMask.GetMask("Enemy", "Player", "Player Projectile", "Enemy Projectile");
@@ -71,7 +74,7 @@ public class PistolBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy")) return;
        
 
-        if (!pistolPerks.ricochet)
+        if (WeaponManager.Instance.HasPerk(perkRicochet))
         {
             Destroy(gameObject);
             return;
@@ -111,7 +114,7 @@ public class PistolBullet : MonoBehaviour
                 pistolPerks.ScatterBullet(damage); // pass damage through
             }
 
-            if (!pistolPerks.pierce) Destroy(gameObject);
+            if (!WeaponManager.Instance.HasPerk(perkPierce)) Destroy(gameObject);
         }
     }
 }

@@ -70,13 +70,13 @@ public class PerkSelectionUI : MonoBehaviour
     // When a perk is selected apply it and close the screen
     private void OnPerkSelected(int index)
     {
-        ApplyPerk(currentSelection[index].name);
+        //ApplyPerk(currentSelection[index].name);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkTriggerGeneric, Vector3.zero);
         Hide();
     }
 
     // Apply perk to pistol
-    private void ApplyPerk(string perkName)
+  /*  private void ApplyPerk(string perkName)
     {
         switch (perkName)
         {
@@ -93,7 +93,7 @@ public class PerkSelectionUI : MonoBehaviour
             case "Hit Reload": pistolPerks.hitReload = true; break;
             case "Life Steal": pistolPerks.lifeSteal = true; break;
         }
-    }
+    }*/
 
     // Get random perks from the pool
     private PerkOption[] GetRandomPerks(int count)

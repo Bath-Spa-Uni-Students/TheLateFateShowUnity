@@ -41,6 +41,8 @@ public class PistolPerks : MonoBehaviour
     [SerializeField][Range(0, 100)] int shockwaveChance = 25;
     [SerializeField] float knockbackForce = 5f;
 
+    private bool speedCellActive = false;
+
     //check if perks are active
     private bool Has(PerkDefinition perk) => perk != null && WeaponManager.Instance != null && WeaponManager.Instance.HasPerk(perk);
 
@@ -51,37 +53,21 @@ public class PistolPerks : MonoBehaviour
             pistol.ammo += 1;
     }
 
-    // LifeSteal perk
     public void LifeStealPerk()
     {
         if (!Has(perkLifeSteal)) return;
-            // Get health %
-            float heal = player.maxHealth * lifeStealAmount;
-
-            // Heal player
-            player.health += heal;
-            Debug.Log($"Player healed for {heal} health!");
-
-            if (player.health > player.maxHealth)
-            {
-                player.health = player.maxHealth; 
-            }
-        }
+        float heal = player.maxHealth * lifeStealAmount;
+        player.health = Mathf.Min(player.health + heal, player.maxHealth);
     }
-
-    // Scatter perk
 
     public void ScatterBullet(float damage)
     {
-        if (!scatter) return;
-
+        if (!Has(perkScatter)) return;
         float spread = angleSpread / numBullets;
-
         for (int i = 0; i < numBullets; i++)
         {
             float angle = i * spread;
-            float rad = angle * Mathf.Deg2Rad;
-            Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            Vector2 direction = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
             GameObject bullet = Instantiate(scatterBullet, transform.position, Quaternion.identity);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             if (rb != null) rb.linearVelocity = direction * scatterBulletSpeed;
@@ -90,59 +76,59 @@ public class PistolPerks : MonoBehaviour
         }
     }
 
-    // Crit Chance perk
     public float ApplyCrit(float baseDamage)
     {
-        if (!critChance) return baseDamage;
+        if (!Has(perkCritChance)) return baseDamage;
         return Random.Range(0, 100) <= critChancePercent ? baseDamage * 2f : baseDamage;
     }
 
-    // Poison Rounds perk
     public void ApplyPoisonRounds(DamageHandler enemy)
     {
-        if (!poisonRounds || enemy == null) return;
+        if (!Has(perkPoisonRounds) || enemy == null) return;
         enemy.StartPoison(poisonDamagePerTick, poisonDuration, poisonTickRate);
     }
-    //slow rounds perk
+
     public void ApplySlowRounds(DamageHandler enemy)
     {
-        if (!slowRounds || enemy == null) return;
+        if (!Has(perkSlowRounds) || enemy == null) return;
         enemy.StartSlow(slowAmount, slowDuration);
     }
-    //power cell perk
+
     public float ApplyPowerCell(float baseDamage)
     {
-        return powerCell ? baseDamage * powerCellDamageMultiplier : baseDamage;
+        return Has(perkPowerCell) ? baseDamage * powerCellDamageMultiplier : baseDamage;
     }
 
-    // Speed Cell chance on shot to temporarily double fire rate
     public void ApplySpeedCell()
     {
-        if (!speedCell || speedCellActive) return;
+        if (!Has(perkSpeedCell) || speedCellActive) return;
         if (Random.Range(0, 100) > speedCellChance) return;
         StartCoroutine(SpeedCellCoroutine());
     }
+
+    public void ApplyShockwaveLoader(GameObject enemyObject)
+    {
+        if (!Has(perkShockwaveLoader)) return;
+        if (Random.Range(0, 100) > shockwaveChance) return;
+        Rigidbody2D enemyRb = enemyObject.GetComponent<Rigidbody2D>();
+        if (enemyRb == null) return;
+        Vector2 dir = (enemyObject.transform.position - player.transform.position).normalized;
+        enemyRb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
+    }
+
+    // Pierce and Ricochet are checked directly in Pistol/Bullet scripts
+    public PerkDefinition PerkPierce => perkPierce;
+    public PerkDefinition PerkRicochet => perkRicochet;
+    public PerkDefinition PerkThorns => perkThorns;
 
     private IEnumerator SpeedCellCoroutine()
     {
         speedCellActive = true;
         float original = pistol.fireRate;
-        pistol.fireRate /= speedCellFireRateMultiplier; // lower value = faster fire
+        pistol.fireRate /= speedCellFireRateMultiplier;
         yield return new WaitForSeconds(speedCellDuration);
         pistol.fireRate = original;
         speedCellActive = false;
     }
 
-    // Shockwave Loader — chance to knock back enemy on hit
-    public void ApplyShockwaveLoader(GameObject enemyObject)
-    {
-        if (!shockwaveLoader) return;
-        if (Random.Range(0, 100) > shockwaveChance) return;
-
-        Rigidbody2D enemyRb = enemyObject.GetComponent<Rigidbody2D>();
-        if (enemyRb == null) return;
-
-        Vector2 knockbackDir = (enemyObject.transform.position - player.transform.position).normalized;
-        enemyRb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
-    }
 }

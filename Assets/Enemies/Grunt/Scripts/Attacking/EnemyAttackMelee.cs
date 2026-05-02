@@ -18,6 +18,7 @@ public class EnemyAttackMelee : MonoBehaviour
     private PistolPerks pistolPerks;
     public Pistol pistol;
 
+    [SerializeField] private PerkDefinition perkThorns;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -75,7 +76,7 @@ public class EnemyAttackMelee : MonoBehaviour
             stats.DamagePlayer(mDamage);
 
             // If thorns is active, reflect damage back to the attacker
-            if (pistolPerks.thorns)
+            if (WeaponManager.Instance.HasPerk(perkThorns))
             {
                 var damageHandler = GetComponent<DamageHandler>();
                 if (damageHandler != null)

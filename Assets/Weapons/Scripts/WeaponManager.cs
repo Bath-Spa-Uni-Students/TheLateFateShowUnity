@@ -181,6 +181,4 @@ private void MergePerk(PerkDefinition incoming)
         if (arObject) arObject.SetActive(type == WeaponType.AR);
         if (shotgunObject) shotgunObject.SetActive(type == WeaponType.Shotgun);
     }
-
-
 }
