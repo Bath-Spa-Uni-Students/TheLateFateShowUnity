@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewPerk", menuName = "LateFateShow/Perk Definition")]
+[CreateAssetMenu(fileName = "NewPerk", menuName = "LateFateShow/Perk Definition", order = 1)]
 public class PerkDefinition : ScriptableObject
 {
     [Header("Name")]

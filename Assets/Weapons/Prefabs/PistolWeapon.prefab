@@ -52,6 +52,7 @@ MonoBehaviour:
   canShoot: 0
   maxAmmo: 5
   fireRate: 0.3
+  muzzleFlash: {fileID: 0}
   ammo: 5
   ammoText: {fileID: 0}
 --- !u!114 &5536335849369521558
@@ -77,7 +78,7 @@ MonoBehaviour:
   ricochet: 0
   scatter: 0
   numBullets: 6
-  bulletSpeed: 2
+  scatterBulletSpeed: 10
   angleSpread: 260
   thorns: 0
   critChance: 0
@@ -95,6 +96,7 @@ MonoBehaviour:
   speedCellChance: 15
   speedCellFireRateMultiplier: 2
   speedCellDuration: 2
+  speedCellActive: 0
   shockwaveLoader: 0
   shockwaveChance: 25
   knockbackForce: 5
@@ -106,7 +108,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891506178819071994}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
