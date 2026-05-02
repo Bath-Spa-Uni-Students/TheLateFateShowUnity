@@ -44,6 +44,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private Animator animator;
 
+    [SerializeField] private bool debugMode = false;                          // If true, will draw gizmos and spawn moveSpot indicators
+
     //Patrol State
     private Vector3 spawnPosition;
     private Vector3 currentWaypoint;   // Current waypoint target
@@ -201,14 +203,14 @@ public class EnemyBehaviour : MonoBehaviour
     public void RegisterFollower()
     {
         followerCount++;
-        Debug.Log(gameObject.name + " follower registered. Total: " + followerCount);
+        if (debugMode) Debug.Log(gameObject.name + " follower registered. Total: " + followerCount);
     }
 
     // Called by each follower on death so leader can track remaining pack size
     public void UnregisterFollower()
     {
         followerCount = Mathf.Max(0, followerCount - 1);
-        Debug.Log(gameObject.name + " follower died. Remaining: " + followerCount);
+        if (debugMode) Debug.Log(gameObject.name + " follower died. Remaining: " + followerCount);
     }
 
 
@@ -324,7 +326,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (scatterWaypointsRemaining == 0 && !hasScatterTarget)
         {
             scatterWaypointsRemaining = Random.Range(1, 4); // 1 to 3
-            Debug.Log(gameObject.name + " scattering, waypoints: " + scatterWaypointsRemaining);
+            if (debugMode) Debug.Log(gameObject.name + " scattering, waypoints: " + scatterWaypointsRemaining);
         }
 
         // check if we arrived
@@ -341,7 +343,7 @@ public class EnemyBehaviour : MonoBehaviour
                 if (scatterWaypointsRemaining <= 0)
                 {
                     scatterComplete = true;
-                    Debug.Log(gameObject.name + " scatter complete, now independent");
+                    if (debugMode) Debug.Log(gameObject.name + " scatter complete, now independent");
                 }
             }
             return;

@@ -34,7 +34,7 @@ public class WeaponInstance
     // Returns false if already at cap or already has perk
     public bool TryAddPerk(PerkDefinition perk)
     {
-        if (!HasPerkSlot || HasPerk(perk)) return false;
+        if (perks.Count >= MAX_PERKS) return false;
         perks.Add(perk);
         return true;
     }

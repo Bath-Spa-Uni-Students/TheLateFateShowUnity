@@ -86,7 +86,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6498121140623773038}
   - component: {fileID: 6042353297643838849}
-  - component: {fileID: 5536335849369521558}
   - component: {fileID: 5706944996986989774}
   m_Layer: 6
   m_Name: PistolWeapon
@@ -94,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6498121140623773038
 Transform:
   m_ObjectHideFlags: 0
@@ -132,50 +131,6 @@ MonoBehaviour:
   muzzleFlash: {fileID: 0}
   ammo: 5
   ammoText: {fileID: 0}
---- !u!114 &5536335849369521558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891506178819071994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c42ff383307647408d063a986c7329d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PistolPerks
-  pistol: {fileID: 6042353297643838849}
-  player: {fileID: 0}
-  scatterBullet: {fileID: 2212800752848840363, guid: 746826511fa35e54fb6370255a7d6e42, type: 3}
-  perkHitReload: {fileID: 0}
-  perkLifeSteal: {fileID: 0}
-  perkPierce: {fileID: 0}
-  perkRicochet: {fileID: 0}
-  perkScatter: {fileID: 0}
-  perkThorns: {fileID: 0}
-  perkCritChance: {fileID: 0}
-  perkPoisonRounds: {fileID: 0}
-  perkSlowRounds: {fileID: 0}
-  perkPowerCell: {fileID: 0}
-  perkSpeedCell: {fileID: 0}
-  perkShockwaveLoader: {fileID: 0}
-  hitReloadChance: 10
-  lifeStealAmount: 0.1
-  numBullets: 6
-  scatterBulletSpeed: 10
-  angleSpread: 260
-  critChancePercent: 20
-  poisonDamagePerTick: 5
-  poisonDuration: 3
-  poisonTickRate: 0.5
-  slowAmount: 0.5
-  slowDuration: 2
-  powerCellDamageMultiplier: 1.25
-  speedCellChance: 15
-  speedCellFireRateMultiplier: 2
-  speedCellDuration: 2
-  shockwaveChance: 25
-  knockbackForce: 5
 --- !u!212 &5706944996986989774
 SpriteRenderer:
   serializedVersion: 2
