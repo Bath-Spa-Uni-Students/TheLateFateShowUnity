@@ -30,8 +30,16 @@ public class ChestSpawner : MonoBehaviour
 
     private void Awake()
     {
-        allSpawners.Add(this);
-        Debug.Log($"[ChestSpawner] Registered in Awake: {gameObject.name} (total: {allSpawners.Count})");
+        if (!allSpawners.Contains(this))
+        {
+            allSpawners.Add(this);
+            Debug.Log($"[ChestSpawner] Registered: {gameObject.name} (total: {allSpawners.Count})");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        allSpawners.Remove(this);
     }
 
     private void Start()
@@ -42,7 +50,10 @@ public class ChestSpawner : MonoBehaviour
     // Call this from maze manager when the maze regenerates and nav mesh rebakes
     public static void NotifyMazeRegenerated()
     {
-        foreach (ChestSpawner spawner in allSpawners)
+        Debug.Log($"[ChestSpawner] NotifyMazeRegenerated — {allSpawners.Count} spawner(s) registered");
+
+        // Iterate a copy in case the list changes mid-loop
+        foreach (ChestSpawner spawner in new List<ChestSpawner>(allSpawners))
             spawner.OnMazeRegenerated();
     }
 
@@ -61,16 +72,58 @@ public class ChestSpawner : MonoBehaviour
 
     private void TrySpawnChest()
     {
-        Debug.Log($"[ChestSpawner] Attempting to spawn chest in sector {transform.parent.name}");// Validate spawn points and spawn chance
-        if (spawnPoints == null || spawnPoints.Length == 0) return;// No valid spawn points assigned
-        if (Random.value > spawnChance) return;// Failed spawn roll
-        Debug.Log($"[ChestSpawner] Spawning chest in sector {transform.parent.name}");// Pick a random spawn point from the assigned list
-        Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];// Spawn chest prefab at chosen spawn point
-        activeChest = Instantiate(chestPrefab, spawnPoint.position, Quaternion.identity);// Assign generated contents to the chest
+        //  prefab must be assigned
+        if (chestPrefab == null)
+        {
+            Debug.LogError($"[ChestSpawner] {gameObject.name} — chestPrefab is null! Assign it in the Inspector.");
+            return;
+        }
+
+        // spawn points must be assigned
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — no spawn points assigned, skipping.");
+            return;
+        }
+
+        //  perk list must have entries
+        if (allPerks == null || allPerks.Count == 0)
+        {
+            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — allPerks is empty! Assign PerkDefinitions in the Inspector.");
+            return;
+        }
+
+        // Spawn chance roll
+        if (Random.value > spawnChance)
+        {
+            Debug.Log($"[ChestSpawner] {gameObject.name} — spawn roll failed, no chest this cycle.");
+            return;
+        }
+
+        // Filter out any null spawn points
+        List<Transform> validPoints = new List<Transform>();
+        foreach (Transform t in spawnPoints)
+            if (t != null) validPoints.Add(t);
+
+        if (validPoints.Count == 0)
+        {
+            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — all assigned spawn points are null!");
+            return;
+        }
+
+        Transform chosen = validPoints[Random.Range(0, validPoints.Count)];
+        activeChest = Instantiate(chestPrefab, chosen.position, Quaternion.identity);
 
         ChestObject chest = activeChest.GetComponent<ChestObject>();
         if (chest != null)
+        {
             chest.contents = GenerateChestContents();
+            Debug.Log($"[ChestSpawner] {gameObject.name} — spawned {chest.contents.weaponType} chest with {chest.contents.perks.Count} perk(s) at {chosen.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — spawned chest prefab has no ChestObject component!");
+        }
     }
 
     private WeaponInstance GenerateChestContents()
@@ -78,9 +131,8 @@ public class ChestSpawner : MonoBehaviour
         WeaponType weaponType = RollWeaponType();
         WeaponInstance weapon = new WeaponInstance(weaponType);
 
-        // Add 1-2 random valid perks
         int perkCount = Random.Range(1, 3);
-        List<PerkDefinition> validPerks = allPerks.FindAll(p => p.IsCompatibleWith(weaponType));// Filter perks to only those compatible with the rolled weapon type
+        List<PerkDefinition> validPerks = allPerks.FindAll(p => p != null && p.IsCompatibleWith(weaponType));
 
         // Shuffle
         for (int i = validPerks.Count - 1; i > 0; i--)
@@ -94,17 +146,17 @@ public class ChestSpawner : MonoBehaviour
         for (int i = 0; i < Mathf.Min(perkCount, validPerks.Count); i++)
             weapon.TryAddPerk(validPerks[i]);
 
-        Debug.Log($"[ChestSpawner] Generated chest: {weaponType} with {weapon.perks.Count} perk(s)");
         return weapon;
+
     }
 
     private WeaponType RollWeaponType()
     {
         int total = pistolWeight + arWeight + shotgunWeight;
         int roll = Random.Range(0, total);
-
         if (roll < pistolWeight) return WeaponType.Pistol;
         if (roll < pistolWeight + arWeight) return WeaponType.AR;
         return WeaponType.Shotgun;
+
     }
 }

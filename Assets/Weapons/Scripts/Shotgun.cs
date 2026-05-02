@@ -25,6 +25,9 @@ public class Shotgun : MonoBehaviour
 
     // Pellet count
     public int pelletCount = 6;
+    //Fire rate
+    [SerializeField] public float fireRate = 1.0f; // seconds between shots
+    private float nextFireTime = 0f;
 
     // Bullet spread
     public float bulletSpread = 20f;
