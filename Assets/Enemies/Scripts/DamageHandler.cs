@@ -18,8 +18,6 @@ public class DamageHandler : MonoBehaviour
     private Coroutine poisonCoroutine;
     private Coroutine slowCoroutine;
 
-    [SerializeField] private bool debugDamage = false; // Set to true to enable debug damage on key press
-
     private void Start()
     {
         enemyHealth = stats.health;
@@ -38,10 +36,7 @@ public class DamageHandler : MonoBehaviour
     public void TakeDamage(float damage)
     {
 
-        if (debugDamage)
-            {
-            Debug.Log($"Attempting to apply {damage} damage to {gameObject.name}");
-        }
+        Debug.Log($"enemyBehaviour is null: {enemyBehaviour == null}");
 
         if (enemyBehaviour != null)
             Debug.Log($"isLeader: {enemyBehaviour.isLeader} | followerCount: {enemyBehaviour.followerCount}");
@@ -49,16 +44,10 @@ public class DamageHandler : MonoBehaviour
         damage = ApplyDamageModifiers(damage);
         // Enemy loses health
         stats.health -= damage;
-        if (debugDamage)
-        {
-            Debug.Log("damaged " + damage);
-        }   
+        Debug.Log("damaged " + damage);
 
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
-        if (debugDamage)
-        {
-            Debug.Log($"{gameObject.name} took {damage} damage. Health remaining: {stats.health}");
-        }   
+        Debug.Log($"{gameObject.name} took {damage} damage. Health remaining: {stats.health}");
         if (stats.health <= 0)
         {
             if (bossBehaviour != null)
@@ -83,11 +72,8 @@ public class DamageHandler : MonoBehaviour
         {
             float reduction = 1f - stats.leaderDamageReduction;
             damage *= reduction;
-            if (debugDamage)
-            {
-                Debug.Log($"Leader damage reduction applied ({stats.leaderDamageReduction * 100}%). " +
-                          $"Effective damage: {damage}");
-            }
+            Debug.Log($"Leader damage reduction applied ({stats.leaderDamageReduction * 100}%). " +
+                      $"Effective damage: {damage}");
         }
 
         return damage;

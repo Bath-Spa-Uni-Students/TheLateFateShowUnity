@@ -32,8 +32,6 @@ public class SpeedsterBehaviour : MonoBehaviour
     [SerializeField] private float retreatSpeed = 3f;
     [SerializeField] private float retreatArrivalDistance = 0.5f;
 
-    [SerializeField] private bool debugSpeedster = false;
-
     // Components
     private Rigidbody2D rb;
     private Animator animator;
@@ -150,10 +148,7 @@ public class SpeedsterBehaviour : MonoBehaviour
             if (clip.name == "Windup")
                 return clip.length;
         }
-        if (debugSpeedster)
-        {
-            Debug.LogWarning("Windup clip not found, defaulting to 0.5s");
-        }
+        Debug.LogWarning("Windup clip not found, defaulting to 0.5s");
         return 0.5f;
     }
 

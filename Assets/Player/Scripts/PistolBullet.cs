@@ -17,8 +17,6 @@ public class PistolBullet : MonoBehaviour
 
     private CircleCollider2D circleCollider;
 
-    [SerializeField] private bool debugBullet = false;
-
     [SerializeField] float bulletSpeed = 20;
     [SerializeField] float bulletDamage = 2;
 
@@ -68,10 +66,7 @@ public class PistolBullet : MonoBehaviour
     // Ricochet perk
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (debugBullet)
-        {
-            Debug.Log($"OnCollisionEnter2D hit: {collision.gameObject.name} tag: {collision.gameObject.tag}");
-        }
+        Debug.Log($"OnCollisionEnter2D hit: {collision.gameObject.name} tag: {collision.gameObject.tag}");
 
         if (collision.gameObject.CompareTag("Enemy")) return;
        
