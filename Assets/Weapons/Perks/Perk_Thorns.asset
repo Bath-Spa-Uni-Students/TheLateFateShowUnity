@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a2205985d618241868ea838da8801b, type: 3}
   m_Name: Perk_Thorns
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
-  perkName: 
-  description: 
+  perkName: Thorns
+  description: When taking physihcal damage form an enemy reflect some of the damage
+    back.
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1

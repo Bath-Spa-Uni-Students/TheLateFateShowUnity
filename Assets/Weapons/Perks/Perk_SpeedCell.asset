@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a2205985d618241868ea838da8801b, type: 3}
   m_Name: Perk_SpeedCell
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
-  perkName: 
-  description: 
+  perkName: Speec Cell
+  description: Chance for increased fire rate
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a2205985d618241868ea838da8801b, type: 3}
   m_Name: Perk_ShockwaveLoader
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
-  perkName: 
-  description: 
+  perkName: Shockwave loader
+  description: Bullets had a small chance to knockback enemies temporarily stunning
+    them
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1

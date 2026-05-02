@@ -230,16 +230,17 @@ public class PlayerMovement : MonoBehaviour
             currentXP -= GetXP(currentLevel);
             currentLevel++;
             currentXP = 0;
+
+            if (currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
+            {
+                perkSelectionUI.Show();
+            }
+            else if (currentLevel == 10)
+            {
+                Debug.Log("Max level reached!");
+                // Forced teleport goes here later
+            }
         }
-        if(currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
-        {
-            perkSelectionUI.Show(); // trigger perk screen on level up
-        }else if (currentLevel == 10)
-        {
-            Debug.Log("Max level reached!");
-        }
-        Debug.Log("fame+" + fame);
-        FameDisplayUpdater.Instance.UpdateFame(fame);
     }
 
     public int GetXP(int level)

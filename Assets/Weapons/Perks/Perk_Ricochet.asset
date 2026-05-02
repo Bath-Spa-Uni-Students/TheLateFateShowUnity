@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a2205985d618241868ea838da8801b, type: 3}
   m_Name: Perk_Ricochet
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
-  perkName: 
-  description: 
+  perkName: Richochet
+  description: Bullets now bounce off enemies up to 2 times
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 0

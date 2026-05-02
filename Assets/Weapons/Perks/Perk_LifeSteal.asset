@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a2205985d618241868ea838da8801b, type: 3}
   m_Name: Perk_LifeSteal
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
-  perkName: 
-  description: 
+  perkName: Life Steal
+  description: Heal back a portion of your health when damaging an enemy.
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1

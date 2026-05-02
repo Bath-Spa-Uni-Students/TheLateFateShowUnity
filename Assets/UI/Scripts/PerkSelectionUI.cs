@@ -18,6 +18,11 @@ public class PerkSelectionUI : MonoBehaviour
 
     private List<PerkDefinition> currentSelection = new List<PerkDefinition>();
 
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P)) Show();
+    }
     private void Start()
     {
         canvas.SetActive(false);
@@ -32,6 +37,8 @@ public class PerkSelectionUI : MonoBehaviour
     public void Show()
     {
         currentSelection = WeaponManager.Instance.GetRandomPerkSelection(3);
+        Debug.Log($"[PerkSelectionUI] Got {currentSelection.Count} perks to display");
+        foreach (var p in currentSelection) Debug.Log($"  - {p.perkName}");
 
         // Hide buttons if fewer than 3 valid perks remain
         for (int i = 0; i < perkButtons.Length; i++)
