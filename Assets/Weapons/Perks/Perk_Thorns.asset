@@ -18,3 +18,4 @@ MonoBehaviour:
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1
+  icon: {fileID: 7876038569948982909, guid: fd41167313675a748a978613a110e840, type: 3}

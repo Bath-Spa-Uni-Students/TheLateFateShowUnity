@@ -12,6 +12,9 @@ public class PerkDefinition : ScriptableObject
     public bool compatibleWithAR = true;
     public bool compatibleWithShotgun = true;
 
+    [Header("Visuals")]
+    public Sprite icon;
+
     // Returns true if this perk can be applied to the given weapon type.
     public bool IsCompatibleWith(WeaponType weaponType)
     {

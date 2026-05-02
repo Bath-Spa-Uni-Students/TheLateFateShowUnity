@@ -9,18 +9,18 @@ public class PistolPerks : MonoBehaviour
     [SerializeField] private GameObject scatterBullet;
 
     [Header("Perk Definitions ")]// Assign these in the Inspector with the PerkDefinition ScriptableObjects
-    [SerializeField] private PerkDefinition perkHitReload;
-    [SerializeField] private PerkDefinition perkLifeSteal;
-    [SerializeField] private PerkDefinition perkPierce;
-    [SerializeField] private PerkDefinition perkRicochet;
-    [SerializeField] private PerkDefinition perkScatter;
-    [SerializeField] private PerkDefinition perkThorns;
-    [SerializeField] private PerkDefinition perkCritChance;
-    [SerializeField] private PerkDefinition perkPoisonRounds;
-    [SerializeField] private PerkDefinition perkSlowRounds;
-    [SerializeField] private PerkDefinition perkPowerCell;
-    [SerializeField] private PerkDefinition perkSpeedCell;
-    [SerializeField] private PerkDefinition perkShockwaveLoader;
+    [SerializeField] private PerkDefinition perkHitReload;//
+    [SerializeField] private PerkDefinition perkLifeSteal;//
+    [SerializeField] private PerkDefinition perkPierce;//
+    [SerializeField] private PerkDefinition perkRicochet;//
+    [SerializeField] private PerkDefinition perkScatter;//
+    [SerializeField] private PerkDefinition perkThorns;//
+    [SerializeField] private PerkDefinition perkCritChance;//
+    [SerializeField] private PerkDefinition perkPoisonRounds;//
+    [SerializeField] private PerkDefinition perkSlowRounds;//
+    [SerializeField] private PerkDefinition perkPowerCell;//
+    [SerializeField] private PerkDefinition perkSpeedCell;//
+    [SerializeField] private PerkDefinition perkShockwaveLoader;//
 
     [Header("Perk Values (balance these)")]
     [SerializeField] int hitReloadChance = 25;
