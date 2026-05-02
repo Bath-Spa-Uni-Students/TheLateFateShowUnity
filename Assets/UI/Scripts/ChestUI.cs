@@ -50,14 +50,114 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private Image[] currentPerkIcons;
     [SerializeField] private Button swapDiscardButton;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [Header("Fallback Icon")]
+    [SerializeField] private Sprite fallbackIcon;
+
+    [Header("Debug")]
+    [SerializeField] private bool chestUIDebug = false;
+
+    // Internal state
+    private WeaponInstance pendingNewWeapon;
+    private PerkDefinition pendingMergePerk;   // perk chosen in merge, waiting for swap decision
+
+    private void Start()
     {
-        
+        canvas.SetActive(false);
+
+        WeaponManager.Instance.OnChestNewGun += HandleNewGun;
+        WeaponManager.Instance.OnChestMergePerk += HandleMergePerk;
+
+        // New Gun Mode buttons
+        for (int i = 0; i < carryPerkButtons.Length; i++)
+        {
+            int index = i;
+            carryPerkButtons[i].onClick.AddListener(() => OnCarryPerkChosen(index));
+        }
+        randomPerkButton.onClick.AddListener(OnRandomPerkChosen);
+        keepCurrentWeaponButton.onClick.AddListener(OnKeepCurrentWeapon);
+
+       
     }
 
-    // Update is called once per frame
-    void Update()
+
+    // NEW GUN MODE
+    // -------------------------------------------------------
+
+    private void HandleNewGun(WeaponInstance chestWeapon, List<PerkDefinition> compatiblePerks)
     {
-        
+        currentMode = ChestUIMode.NewGun;
+        pendingNewWeapon = chestWeapon;
+
+        headerText.text = "New Weapon Found";
+        subHeaderText.text = $"Switch to {chestWeapon.weaponType}?";
+        newGunNameText.text = chestWeapon.weaponType.ToString();
+
+        bool hasCompatible = compatiblePerks.Count > 0;
+
+        // Show carry perk buttons
+        for (int i = 0; i < carryPerkButtons.Length; i++)
+        {
+            bool show = hasCompatible && i < compatiblePerks.Count;
+            carryPerkButtons[i].gameObject.SetActive(show);
+            if (show)
+            {
+                carryPerkTexts[i].text = $"Carry over: {compatiblePerks[i].perkName}";
+                SetIcon(carryPerkIcons[i], compatiblePerks[i].icon);
+            }
+        }
+
+        // Show random perk button if no compatible perks
+        randomPerkButton.gameObject.SetActive(!hasCompatible);
+        if (!hasCompatible)
+            randomPerkText.text = "No compatible perks — receive a random one";
+
+        ShowPanel(newGunPanel);
+
+        if (chestUIDebug)
+            Debug.Log($"[ChestUI] New Gun Mode — {chestWeapon.weaponType} | compatible perks: {compatiblePerks.Count}");
+    }
+
+    private void OnCarryPerkChosen(int index)
+    {
+        // Get the compatible perks list again from current weapon
+        List<PerkDefinition> compatible = WeaponManager.Instance.CurrentWeapon.perks
+            .FindAll(p => p.IsCompatibleWith(pendingNewWeapon.weaponType));
+
+        if (index >= compatible.Count) return;
+
+        WeaponManager.Instance.ConfirmWeaponSwap(pendingNewWeapon, compatible[index]);
+        Hide();
+    }
+
+    private void OnRandomPerkChosen()
+    {
+        // WeaponManager will assign random after swap
+        WeaponManager.Instance.ConfirmWeaponSwap(pendingNewWeapon, null);
+        Hide();
+    }
+
+    private void OnKeepCurrentWeapon()
+    {
+        if (chestUIDebug)
+            Debug.Log("[ChestUI] Player kept current weapon.");
+        Hide();
+    }
+    private void ShowPanel(GameObject panel)
+    {
+        newGunPanel.SetActive(panel == newGunPanel);
+        mergePerkPanel.SetActive(panel == mergePerkPanel);
+        perkSwapPanel.SetActive(false); // only shown as sub-state of merge
+        canvas.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    private void Hide()
+    {
+        canvas.SetActive(false);
+        newGunPanel.SetActive(false);
+        mergePerkPanel.SetActive(false);
+        perkSwapPanel.SetActive(false);
+        Time.timeScale = 1f;
+        pendingNewWeapon = null;
+        pendingMergePerk = null;
     }
 }
