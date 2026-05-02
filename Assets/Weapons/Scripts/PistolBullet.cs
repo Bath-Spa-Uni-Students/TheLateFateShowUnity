@@ -72,9 +72,8 @@ public class PistolBullet : MonoBehaviour
         Debug.Log($"OnCollisionEnter2D hit: {collision.gameObject.name} tag: {collision.gameObject.tag}");
 
         if (collision.gameObject.CompareTag("Enemy")) return;
-       
 
-        if (WeaponManager.Instance.HasPerk(perkRicochet))
+        if (!WeaponManager.Instance.HasPerk(perkRicochet))
         {
             Destroy(gameObject);
             return;
