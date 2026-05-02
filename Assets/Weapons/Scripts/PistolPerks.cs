@@ -4,88 +4,57 @@ using UnityEngine;
 
 public class PistolPerks : MonoBehaviour
 {
-    //all values need testing and balancing
     [SerializeField] private Pistol pistol;
     [SerializeField] private PlayerMovement player;
     [SerializeField] private GameObject scatterBullet;
 
-    [Header("Hit Reload Perk")]
-    [SerializeField] public bool hitReload = false;
-    [SerializeField] int hitReloadChance;
+    [Header("Perk Definitions ")]// Assign these in the Inspector with the PerkDefinition ScriptableObjects
+    [SerializeField] private PerkDefinition perkHitReload;
+    [SerializeField] private PerkDefinition perkLifeSteal;
+    [SerializeField] private PerkDefinition perkPierce;
+    [SerializeField] private PerkDefinition perkRicochet;
+    [SerializeField] private PerkDefinition perkScatter;
+    [SerializeField] private PerkDefinition perkThorns;
+    [SerializeField] private PerkDefinition perkCritChance;
+    [SerializeField] private PerkDefinition perkPoisonRounds;
+    [SerializeField] private PerkDefinition perkSlowRounds;
+    [SerializeField] private PerkDefinition perkPowerCell;
+    [SerializeField] private PerkDefinition perkSpeedCell;
+    [SerializeField] private PerkDefinition perkShockwaveLoader;
 
-    [Header("Life Steal Perk")]
-    [SerializeField] public bool lifeSteal = false;
-    [SerializeField] float lifeStealAmount;
-
-    [Header("Pierce Perk")]
-    [SerializeField] public bool pierce = false;
-
-    [Header("Ricochet Perk")]
-    [SerializeField] public bool ricochet = false;
-
-    [Header("Scatter Perk")]
-    [SerializeField] public bool scatter = false;
+    [Header("Perk Values (balance these)")]
+    [SerializeField] int hitReloadChance = 25;
+    [SerializeField] float lifeStealAmount = 0.05f;
     [SerializeField] int numBullets = 6;
     [SerializeField] float scatterBulletSpeed = 10f;
     [SerializeField] float angleSpread = 260f;
-
-    [Header("Thorns perk")]
-    [SerializeField] public bool thorns = false;
-
-    [Header("Crit Chance Perk")]
-    [SerializeField] public bool critChance = false;
     [SerializeField][Range(0, 100)] int critChancePercent = 20;
-
-    [Header("Poison Rounds Perk")]
-    [SerializeField] public bool poisonRounds = false;
     [SerializeField] float poisonDamagePerTick = 5f;
     [SerializeField] float poisonDuration = 3f;
     [SerializeField] float poisonTickRate = 0.5f;
-
-    [Header("Slow Rounds Perk")]
-    [SerializeField] public bool slowRounds = false;
-    [SerializeField] float slowAmount = 0.5f; 
+    [SerializeField] float slowAmount = 0.5f;
     [SerializeField] float slowDuration = 2f;
-
-    [Header("Power Cell Perk")]
-    [SerializeField] public bool powerCell = false;
     [SerializeField] float powerCellDamageMultiplier = 1.25f;
-
-    [Header("Speed Cell Perk")]
-    [SerializeField] public bool speedCell = false;
     [SerializeField][Range(0, 100)] int speedCellChance = 15;
     [SerializeField] float speedCellFireRateMultiplier = 2f;
     [SerializeField] float speedCellDuration = 2f;
-    [SerializeField] public bool speedCellActive = false;
-
-    [Header("Shockwave Loader")]
-    [SerializeField] public bool shockwaveLoader = false;
     [SerializeField][Range(0, 100)] int shockwaveChance = 25;
     [SerializeField] float knockbackForce = 5f;
 
-    // HitReload perk
+    //check if perks are active
+    private bool Has(PerkDefinition perk) => perk != null && WeaponManager.Instance != null && WeaponManager.Instance.HasPerk(perk);
+
     public void HitReloadPerk()
     {
-        if (hitReload)
-        {
-            // Roll random number
-            float roll = Random.Range(0, 100);
-            Debug.Log($"random number rolled: {roll}");
-
-            // If the roll number is the same as the hit chance
-            if (roll <= hitReloadChance)
-            {
-                // Add 1 bullet to clip
-                pistol.ammo += 1;
-            }
-        }
+        if (!Has(perkHitReload)) return;
+        if (Random.Range(0, 100) <= hitReloadChance)
+            pistol.ammo += 1;
     }
 
     // LifeSteal perk
     public void LifeStealPerk()
     {
-        if (lifeSteal)
-        {
+        if (!Has(perkLifeSteal)) return;
             // Get health %
             float heal = player.maxHealth * lifeStealAmount;
 
@@ -176,37 +145,4 @@ public class PistolPerks : MonoBehaviour
         Vector2 knockbackDir = (enemyObject.transform.position - player.transform.position).normalized;
         enemyRb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
     }
-  
-    //Debugging perks in editor
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) { speedCell = true; Debug.Log("Perk ON: Speed Cell"); }
-        if (Input.GetKeyDown(KeyCode.Alpha2)) { shockwaveLoader = true; Debug.Log("Perk ON: Shockwave Loader"); }
-        if (Input.GetKeyDown(KeyCode.Alpha3)) { thorns = true; Debug.Log("Perk ON: Crit thorns"); }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) { scatter = true; Debug.Log("Perk ON: scatter"); }
-        if (Input.GetKeyDown(KeyCode.Alpha5)) { pierce = true; Debug.Log("Perk ON: Pierce"); }
-        if (Input.GetKeyDown(KeyCode.Alpha6)) { ricochet = true; Debug.Log("Perk ON: Ricochet"); }
-        if (Input.GetKeyDown(KeyCode.Alpha7)) { slowRounds = true; Debug.Log("Perk ON: Slow Rounds"); }
-        if (Input.GetKeyDown(KeyCode.Alpha8)) { powerCell = true; Debug.Log("Perk ON: Power Cell"); }
-        if (Input.GetKeyDown(KeyCode.Alpha9)) { ListPerks(); }
-        if (Input.GetKeyDown(KeyCode.Alpha0)) { ResetPerks(); Debug.Log("All perks reset"); }
-    }
-    void ListPerks()
-    {
-        Debug.Log($"Current active Perks:\n" +
-            $"SpeedCell: {speedCell}\n" +
-            $"Shockwave Loader: {shockwaveLoader}\n" +
-            $"Thorns: {thorns}\n" +
-            $"Scatter: {scatter}\n" +
-            $"Pierce: {pierce}\n" +
-            $"Ricochet: {ricochet}\n" +
-            $"SlowRounds: {slowRounds}\n" +
-            $"Power Cell: {powerCell}");
-    }
-    void ResetPerks()
-    {
-        lifeSteal = false; hitReload = false; thorns= false;
-        scatter = false; pierce = false; ricochet = false; slowRounds = false; powerCell = false;
-    }
-
 }
