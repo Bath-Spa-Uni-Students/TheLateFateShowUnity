@@ -20,6 +20,7 @@ public class PerkDefinition : ScriptableObject
             WeaponType.Pistol => compatibleWithPistol,
             WeaponType.AR => compatibleWithAR,
             WeaponType.Shotgun => compatibleWithShotgun,
+            _ => false
         };
     }
 }

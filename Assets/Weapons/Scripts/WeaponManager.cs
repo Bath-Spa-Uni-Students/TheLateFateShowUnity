@@ -141,29 +141,37 @@ private void MergePerk(PerkDefinition incoming)
         if (CurrentWeapon.HasPerk(incoming))
         {
             // Already have this perk, do nothing
+            if (debugWeaponMangager) Debug.Log($"[WeaponManager] Already have perk: {incoming.perkName}, skipping.");
+            return;
+
         }
 
         if (CurrentWeapon.HasPerkSlot)
         {
             // Add perk directly
+            CurrentWeapon.TryAddPerk(incoming);
+            OnPerksChanged?.Invoke(CurrentWeapon);
+            if (debugWeaponMangager) Debug.Log($"[WeaponManager] Added perk: {incoming.perkName}");
+
         }
         else
         {
             // if max perks PerkSwapUI can handle it
-            Debug.Log($"[WeaponManager] At perk cap. Requesting swap UI for: {incoming.perkName}");
-           
+            if (debugWeaponMangager) Debug.Log($"[WeaponManager] At perk cap. Requesting swap UI for: {incoming.perkName}");
+            OnPerkSwapRequired?.Invoke(incoming, CurrentWeapon.perks, (swapIndex) =>
             {
                 if (swapIndex >= 0)
                 {
                     // Replace perk at chosen index
                     CurrentWeapon.ReplacePerk(swapIndex, incoming);
-
+                    OnPerksChanged?.Invoke(CurrentWeapon);
+                    if (debugWeaponMangager) Debug.Log($"[WeaponManager] Replaced perk at index {swapIndex} with {incoming.perkName}");
                 }
                 else
                 {
-                    Debug.Log($"[WeaponManager] Player discarded incoming perk: {incoming.perkName}");
+                    if (debugWeaponMangager) Debug.Log($"[WeaponManager] Player discarded incoming perk: {incoming.perkName}");
                 }
-            }
+            });
         }
     }
 
