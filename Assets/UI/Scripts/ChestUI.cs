@@ -109,12 +109,12 @@ public class ChestUI : MonoBehaviour
         // Show random perk button if no compatible perks
         randomPerkButton.gameObject.SetActive(!hasCompatible);
         if (!hasCompatible)
-            randomPerkText.text = "No compatible perks — receive a random one";
+            randomPerkText.text = "No compatible perks - receive a random one";
 
         ShowPanel(newGunPanel);
 
         if (chestUIDebug)
-            Debug.Log($"[ChestUI] New Gun Mode — {chestWeapon.weaponType} | compatible perks: {compatiblePerks.Count}");
+            Debug.Log($"[ChestUI] New Gun Mode {chestWeapon.weaponType} | compatible perks: {compatiblePerks.Count}");
     }
 
     private void OnCarryPerkChosen(int index)
@@ -142,6 +142,84 @@ public class ChestUI : MonoBehaviour
             Debug.Log("[ChestUI] Player kept current weapon.");
         Hide();
     }
+
+    // MERGE PERK MODE
+    // -------------------------------------------------------
+
+    private void HandleMergePerk(List<PerkDefinition> availablePerks)
+    {
+        currentMode = ChestUIMode.MergePerk;
+
+        headerText.text = "Perk Found";
+        subHeaderText.text = WeaponManager.Instance.CurrentWeapon.HasPerkSlot
+            ? "Choose a perk to add"
+            : "Choose a perk — you'll need to swap one out";
+
+        for (int i = 0; i < chestPerkButtons.Length; i++)
+        {
+            bool show = i < availablePerks.Count;
+            chestPerkButtons[i].gameObject.SetActive(show);
+            if (show)
+            {
+                chestPerkNameTexts[i].text = availablePerks[i].perkName;
+                chestPerkDescTexts[i].text = availablePerks[i].description;
+                SetIcon(chestPerkIcons[i], availablePerks[i].icon);
+            }
+        }
+
+        ShowPanel(mergePerkPanel);
+
+        if (chestUIDebug)
+            Debug.Log($"[ChestUI] Merge Perk Mode — {availablePerks.Count} perk(s) available");
+    }
+
+
+    private void OnMergeDiscard()
+    {
+        if (chestUIDebug)
+            Debug.Log("[ChestUI] Player discarded chest perk.");
+        Hide();
+    }
+
+
+    // PERK SWAP MODE 
+    // -------------------------------------------------------
+
+    private void ShowPerkSwapMode(PerkDefinition incoming)
+    {
+        currentMode = ChestUIMode.PerkSwap;
+        pendingMergePerk = incoming;
+
+        headerText.text = "Perk Slots Full";
+        subHeaderText.text = "Replace a perk or discard";
+
+        incomingPerkName.text = incoming.perkName;
+        incomingPerkDesc.text = incoming.description;
+        SetIcon(incomingPerkIcon, incoming.icon);
+
+        List<PerkDefinition> current = WeaponManager.Instance.CurrentWeapon.perks;
+        for (int i = 0; i < currentPerkButtons.Length; i++)
+        {
+            bool show = i < current.Count;
+            currentPerkButtons[i].gameObject.SetActive(show);
+            if (show)
+            {
+                currentPerkNameTexts[i].text = current[i].perkName;
+                currentPerkDescTexts[i].text = current[i].description;
+                SetIcon(currentPerkIcons[i], current[i].icon);
+            }
+        }
+
+        mergePerkPanel.SetActive(false);
+        perkSwapPanel.SetActive(true);
+
+        if (chestUIDebug)
+            Debug.Log($"[ChestUI] Perk Swap Mode — incoming: {incoming.perkName}");
+    }
+
+    private List<PerkDefinition> cachedAvailablePerks = new List<PerkDefinition>();
+
+ 
     private void ShowPanel(GameObject panel)
     {
         newGunPanel.SetActive(panel == newGunPanel);
@@ -150,6 +228,7 @@ public class ChestUI : MonoBehaviour
         canvas.SetActive(true);
         Time.timeScale = 0f;
     }
+
     private void Hide()
     {
         canvas.SetActive(false);
@@ -159,5 +238,12 @@ public class ChestUI : MonoBehaviour
         Time.timeScale = 1f;
         pendingNewWeapon = null;
         pendingMergePerk = null;
+    }
+
+    private void SetIcon(Image image, Sprite icon)
+    {
+        if (image == null) return;
+        image.sprite = icon != null ? icon : fallbackIcon;
+        image.gameObject.SetActive(icon != null || fallbackIcon != null);
     }
 }
