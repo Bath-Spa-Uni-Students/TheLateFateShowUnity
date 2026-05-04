@@ -217,7 +217,13 @@ public class ChestUI : MonoBehaviour
             Debug.Log($"[ChestUI] Perk Swap Mode — incoming: {incoming.perkName}");
     }
 
-    private List<PerkDefinition> cachedAvailablePerks = new List<PerkDefinition>();
+    private void OnSwapDiscard()
+    {
+        // Player chooses to discard the incoming perk instead of swapping
+        WeaponManager.Instance.ConfirmMergePerk(pendingMergePerk, -1);
+
+        if (chestUIDebug)
+            Debug.Log("[ChestUI] Player discarded incoming perk in swap mode");
 
  
     private void ShowPanel(GameObject panel)
