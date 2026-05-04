@@ -152294,7 +152294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &319437203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316592,7 +316592,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fef5c5f0e74184a4eb2ada3f21e66934, type: 3}
   m_Name: 
@@ -319896,9 +319896,21 @@ PrefabInstance:
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 1285408986}
+    - target: {fileID: 2917424750087547974, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2917424750087547974, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 40733751
+      objectReference: {fileID: 0}
     - target: {fileID: 3118732395402709964, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3118732395402709964, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3788972224556571913, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: ammoText
@@ -319920,6 +319932,14 @@ PrefabInstance:
       propertyPath: shotgun
       value: 
       objectReference: {fileID: 1076475401}
+    - target: {fileID: 4423120706735869414, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423120706735869414, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4694597759034484329, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: ar
       value: 
@@ -319944,6 +319964,10 @@ PrefabInstance:
       propertyPath: muzzleFlash
       value: 
       objectReference: {fileID: 1226157336}
+    - target: {fileID: 5322866709142593751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: debugWeaponMangager
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5604011084901103751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -320048,9 +320072,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6735073238877475618, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6735073238877475618, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6894317398465169764, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7247743451317876978, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485999363909782310, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7485999363909782310, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8593281941221645056, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_Enabled
@@ -354002,7 +354046,7 @@ RectTransform:
   m_Father: {fileID: 1011083472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -416071,7 +416115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1676463776
 RectTransform:
   m_ObjectHideFlags: 0

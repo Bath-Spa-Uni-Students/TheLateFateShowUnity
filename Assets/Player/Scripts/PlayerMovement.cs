@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int currentXP = 0;
 
 
-    public bool hasWeapon = false;
+    public bool hasWeapon = true;
     bool isDashing = false;
     bool canDash = true;
     private Vector2 lastMoveDir;

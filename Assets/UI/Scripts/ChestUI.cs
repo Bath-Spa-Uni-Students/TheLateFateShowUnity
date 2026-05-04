@@ -49,12 +49,14 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] currentPerkDescTexts;
     [SerializeField] private Image[] currentPerkIcons;
     [SerializeField] private Button swapDiscardButton;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     [Header("Fallback Icon")]
     [SerializeField] private Sprite fallbackIcon;
 
     [Header("Debug")]
     [SerializeField] private bool chestUIDebug = false;
+
+    private List<PerkDefinition> cachedAvailablePerks = new List<PerkDefinition>();
 
     // Internal state
     private WeaponInstance pendingNewWeapon;
@@ -67,7 +69,7 @@ public class ChestUI : MonoBehaviour
         WeaponManager.Instance.OnChestNewGun += HandleNewGun;
         WeaponManager.Instance.OnChestMergePerk += HandleMergePerk;
 
-        // New Gun Mode buttons
+        // New Gun Mode
         for (int i = 0; i < carryPerkButtons.Length; i++)
         {
             int index = i;
@@ -76,9 +78,29 @@ public class ChestUI : MonoBehaviour
         randomPerkButton.onClick.AddListener(OnRandomPerkChosen);
         keepCurrentWeaponButton.onClick.AddListener(OnKeepCurrentWeapon);
 
-       
+        // Merge Perk Mode
+        for (int i = 0; i < chestPerkButtons.Length; i++)
+        {
+            int index = i;
+            chestPerkButtons[i].onClick.AddListener(() => OnChestPerkChosen(index));
+        }
+        mergeDiscardButton.onClick.AddListener(OnMergeDiscard);
+
+        // Perk Swap Mode
+        for (int i = 0; i < currentPerkButtons.Length; i++)
+        {
+            int index = i;
+            currentPerkButtons[i].onClick.AddListener(() => OnSwapOutChosen(index));
+        }
+        swapDiscardButton.onClick.AddListener(OnSwapDiscard);
     }
 
+    private void OnDestroy()
+    {
+        if (WeaponManager.Instance == null) return;
+        WeaponManager.Instance.OnChestNewGun -= HandleNewGun;
+        WeaponManager.Instance.OnChestMergePerk -= HandleMergePerk;
+    }
 
     // NEW GUN MODE
     // -------------------------------------------------------
@@ -94,38 +116,37 @@ public class ChestUI : MonoBehaviour
 
         bool hasCompatible = compatiblePerks.Count > 0;
 
-        // Show carry perk buttons
         for (int i = 0; i < carryPerkButtons.Length; i++)
         {
             bool show = hasCompatible && i < compatiblePerks.Count;
             carryPerkButtons[i].gameObject.SetActive(show);
             if (show)
             {
-                carryPerkTexts[i].text = $"Carry over: {compatiblePerks[i].perkName}";
+                carryPerkTexts[i].text = $"Carry: {compatiblePerks[i].perkName}";
                 SetIcon(carryPerkIcons[i], compatiblePerks[i].icon);
             }
         }
 
-        // Show random perk button if no compatible perks
         randomPerkButton.gameObject.SetActive(!hasCompatible);
         if (!hasCompatible)
-            randomPerkText.text = "No compatible perks - receive a random one";
+            randomPerkText.text = "No compatible perks — receive a random one";
 
         ShowPanel(newGunPanel);
 
         if (chestUIDebug)
-            Debug.Log($"[ChestUI] New Gun Mode {chestWeapon.weaponType} | compatible perks: {compatiblePerks.Count}");
+            Debug.Log($"[ChestUI] New Gun Mode {chestWeapon.weaponType} | compatible: {compatiblePerks.Count}");
     }
 
     private void OnCarryPerkChosen(int index)
     {
-        // Get the compatible perks list again from current weapon
-        List<PerkDefinition> compatible = WeaponManager.Instance.CurrentWeapon.perks
-            .FindAll(p => p.IsCompatibleWith(pendingNewWeapon.weaponType));
-
+        List<PerkDefinition> compatible = WeaponManager.Instance.CurrentWeapon.perks.FindAll(p => p.IsCompatibleWith(pendingNewWeapon.weaponType));
         if (index >= compatible.Count) return;
 
         WeaponManager.Instance.ConfirmWeaponSwap(pendingNewWeapon, compatible[index]);
+
+        if (chestUIDebug)
+            Debug.Log($"[ChestUI] Swapped to {pendingNewWeapon.weaponType}, carried: {compatible[index].perkName}");
+
         Hide();
     }
 
@@ -133,6 +154,9 @@ public class ChestUI : MonoBehaviour
     {
         // WeaponManager will assign random after swap
         WeaponManager.Instance.ConfirmWeaponSwap(pendingNewWeapon, null);
+
+        if (chestUIDebug)
+            Debug.Log($"[ChestUI] Swapped to {pendingNewWeapon.weaponType} with random perk");
         Hide();
     }
 
@@ -173,6 +197,26 @@ public class ChestUI : MonoBehaviour
             Debug.Log($"[ChestUI] Merge Perk Mode — {availablePerks.Count} perk(s) available");
     }
 
+    private void OnChestPerkChosen(int index)
+    {
+        if (index >= cachedAvailablePerks.Count) return;
+        PerkDefinition chosen = cachedAvailablePerks[index];
+
+        if (WeaponManager.Instance.CurrentWeapon.HasPerkSlot)
+        {
+            WeaponManager.Instance.ConfirmMergePerk(chosen);
+
+            if (chestUIDebug)
+                Debug.Log($"[ChestUI] Merged perk: {chosen.perkName}");
+
+            Hide();
+        }
+        else
+        {
+            // No free slot move to perk swap mode
+            ShowPerkSwapMode(chosen);
+        }
+    }
 
     private void OnMergeDiscard()
     {
@@ -217,6 +261,18 @@ public class ChestUI : MonoBehaviour
             Debug.Log($"[ChestUI] Perk Swap Mode — incoming: {incoming.perkName}");
     }
 
+    
+    private void OnSwapOutChosen(int index)
+    {
+        // Index corresponds to the perk slot the player wants to replace with the incoming perk
+        WeaponManager.Instance.ConfirmMergePerk(pendingMergePerk, index);
+
+        if (chestUIDebug)
+            Debug.Log($"[ChestUI] Swapped out slot {index} for {pendingMergePerk.perkName}");
+
+        Hide();
+    }
+
     private void OnSwapDiscard()
     {
         // Player chooses to discard the incoming perk instead of swapping
@@ -225,7 +281,9 @@ public class ChestUI : MonoBehaviour
         if (chestUIDebug)
             Debug.Log("[ChestUI] Player discarded incoming perk in swap mode");
 
- 
+        Hide();
+    }
+
     private void ShowPanel(GameObject panel)
     {
         newGunPanel.SetActive(panel == newGunPanel);

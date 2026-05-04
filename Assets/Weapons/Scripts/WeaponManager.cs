@@ -48,9 +48,6 @@ public class WeaponManager : MonoBehaviour
     public event Action<WeaponInstance, List<PerkDefinition>> OnChestNewGun;
     public event Action<List<PerkDefinition>> OnChestMergePerk;
 
-
-
-
     //when a chest is opened
     // If same weapon type: merge perks
     // If different weapon type swap immediately keep 1 valid perk.
@@ -172,7 +169,7 @@ public class WeaponManager : MonoBehaviour
         return valid.GetRange(0, Mathf.Min(count, valid.Count));
     }
 
-   /* private void SwapWeapon(WeaponInstance newWeapon)
+    private void SwapWeapon(WeaponInstance newWeapon)
     {
         // Find 1 perk from old weapon that's valid on the new weapon
         PerkDefinition carried = null;
@@ -208,8 +205,7 @@ public class WeaponManager : MonoBehaviour
         OnPerksChanged?.Invoke(CurrentWeapon);
 
         if (debugWeaponMangager) Debug.Log($"[WeaponManager] Swapped to {CurrentWeapon.weaponType}. Carried perk: {carried?.perkName ?? "none (random assigned)"}");
-    }*/
-
+    }
 private void MergePerk(PerkDefinition incoming)
     {
         if (CurrentWeapon.HasPerk(incoming))
@@ -254,5 +250,20 @@ private void MergePerk(PerkDefinition incoming)
         if (pistolObject) pistolObject.SetActive(type == WeaponType.Pistol);
         if (arObject) arObject.SetActive(type == WeaponType.AR);
         if (shotgunObject) shotgunObject.SetActive(type == WeaponType.Shotgun);
+
+        // Enable shooting on the newly active weapon
+        if (type == WeaponType.Pistol && pistolObject)
+            pistolObject.GetComponent<Pistol>().canShoot = true;
+        if (type == WeaponType.AR && arObject)
+            arObject.GetComponent<AR>().canShoot = true;
+        if (type == WeaponType.Shotgun && shotgunObject)
+            shotgunObject.GetComponent<Shotgun>().canShoot = true;
+
+        // Disable shooting on all weapons before switching
+        if (pistolObject) { var p = pistolObject.GetComponent<Pistol>(); if (p) p.canShoot = false; }
+        if (arObject) { var a = arObject.GetComponent<AR>(); if (a) a.canShoot = false; }
+        if (shotgunObject) { var s = shotgunObject.GetComponent<Shotgun>(); if (s) s.canShoot = false; }
     }
+
+
 }
