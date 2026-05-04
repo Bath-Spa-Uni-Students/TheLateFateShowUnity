@@ -60,7 +60,7 @@ public class WeaponManager : MonoBehaviour
         {
             // Different weapon find compatible carry-over perks
             List<PerkDefinition> compatible = CurrentWeapon.perks.FindAll(
-                p => p.IsCompatibleWith(chestWeapon.weaponType));
+                p => p.IsCompatibleWith(chestWeapon.weaponType) && !chestWeapon.HasPerk(p));
 
             OnChestNewGun?.Invoke(chestWeapon, compatible);
         }
@@ -106,8 +106,21 @@ public class WeaponManager : MonoBehaviour
     {
         WeaponInstance incoming = new WeaponInstance(newWeapon.weaponType);
 
+        // Add carried perk first
         if (carriedPerk != null)
             incoming.TryAddPerk(carriedPerk);
+        else
+        {
+            PerkDefinition random = GetRandomValidPerk();
+            if (random != null) incoming.TryAddPerk(random);
+        }
+
+        // Then merge chest weapon's own perks if slots remain
+        foreach (PerkDefinition perk in newWeapon.perks)
+        {
+            if (!incoming.HasPerk(perk))
+                incoming.TryAddPerk(perk);
+        }
 
         CurrentWeapon = incoming;
         ActivateWeaponObject(CurrentWeapon.weaponType);
@@ -115,7 +128,7 @@ public class WeaponManager : MonoBehaviour
         OnPerksChanged?.Invoke(CurrentWeapon);
 
         if (debugWeaponMangager)
-            Debug.Log($"[WeaponManager] Swapped to {CurrentWeapon.weaponType}. Carried perk: {carriedPerk?.perkName ?? "none"}");
+            Debug.Log($"[WeaponManager] Swapped to {CurrentWeapon.weaponType} with {CurrentWeapon.perks.Count} perk(s)");
     }
     // Called by ChestUI when player picks a perk to merge (with or without swap-out)
     public void ConfirmMergePerk(PerkDefinition chosen, int swapOutIndex = -1)

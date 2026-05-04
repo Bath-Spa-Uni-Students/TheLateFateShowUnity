@@ -96,7 +96,7 @@ public class ChestSpawner : MonoBehaviour
 
     private GameObject GetActiveRoom(GameObject sector)
     {
-        foreach (Transform child in sector.transform)
+        foreach (Transform child in sector.transform)// Active room should be the only active child of the sector
             if (child.gameObject.activeSelf) return child.gameObject;
         return null;
     }

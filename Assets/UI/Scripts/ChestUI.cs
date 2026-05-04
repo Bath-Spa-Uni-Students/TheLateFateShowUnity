@@ -22,7 +22,7 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private GameObject newGunPanel;
     [SerializeField] private TextMeshProUGUI newGunNameText;
     [SerializeField] private Button[] carryPerkButtons;         // one per compatible perk (max 4)
-    [SerializeField] private TextMeshProUGUI[] carryPerkTexts;
+    [SerializeField] private TextMeshProUGUI[] carryPerkDesc;
     [SerializeField] private Image[] carryPerkIcons;
     [SerializeField] private Button randomPerkButton;           // shown if no compatible perks
     [SerializeField] private TextMeshProUGUI randomPerkText;
@@ -147,7 +147,7 @@ public class ChestUI : MonoBehaviour
             carryPerkButtons[i].gameObject.SetActive(show);
             if (show)
             {
-                carryPerkTexts[i].text = compatiblePerks[i].perkName;
+                carryPerkDesc[i].text = compatiblePerks[i].description;
                 SetIcon(carryPerkIcons[i], compatiblePerks[i].icon);
             }
         }
