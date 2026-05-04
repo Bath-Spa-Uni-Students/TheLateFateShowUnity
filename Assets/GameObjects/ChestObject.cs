@@ -17,6 +17,10 @@ public class ChestObject : MonoBehaviour
     private bool playerInRange = false;
     private bool opened = false;
 
+    private void Awake()
+    {
+        contents = null;// ChestSpawner will assign contents after instantiating the chest prefab
+    }
     private void Update()
     {
         if (opened) return;

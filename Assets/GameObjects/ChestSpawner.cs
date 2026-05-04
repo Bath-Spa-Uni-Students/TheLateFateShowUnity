@@ -121,6 +121,11 @@ public class ChestSpawner : MonoBehaviour
         {
             Debug.LogWarning($"[ChestSpawner] {gameObject.name} — spawned chest prefab has no ChestObject component!");
         }
+
+
+        Debug.Log($"[ChestSpawner] Before assign — chest has {chest.contents?.perks?.Count ?? -1} perks");
+        chest.contents = GenerateChestContents();
+        Debug.Log($"[ChestSpawner] After assign — chest has {chest.contents.perks.Count} perks");
     }
 
     private WeaponInstance GenerateChestContents()

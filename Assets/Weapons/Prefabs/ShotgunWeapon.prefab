@@ -110,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &388811278147162701
 Transform:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shotgun
   bullet: {fileID: 2212800752848840363, guid: 1eb6a69d7a0a9b644b4aa6285771aadd, type: 3}
   bulletTransform: {fileID: 2110023966278243254}
-  canShoot: 0
+  canShoot: 1
   maxAmmo: 6
   ammo: 0
   pelletCount: 8
