@@ -111,7 +111,9 @@ public class ChestSpawner : MonoBehaviour
         Transform chosen = validPoints[Random.Range(0, validPoints.Count)];
         activeChest = Instantiate(chestPrefab, chosen.position, Quaternion.identity);
 
+       
         ChestObject chest = activeChest.GetComponent<ChestObject>();
+        Debug.Log($"[ChestSpawner] Before assign — chest has {chest.contents?.perks?.Count ?? -1} perks");
         if (chest != null)
         {
             chest.contents = GenerateChestContents();
@@ -122,10 +124,9 @@ public class ChestSpawner : MonoBehaviour
             Debug.LogWarning($"[ChestSpawner] {gameObject.name} — spawned chest prefab has no ChestObject component!");
         }
 
-
-        Debug.Log($"[ChestSpawner] Before assign — chest has {chest.contents?.perks?.Count ?? -1} perks");
-        chest.contents = GenerateChestContents();
         Debug.Log($"[ChestSpawner] After assign — chest has {chest.contents.perks.Count} perks");
+        Debug.Log($"[ChestSpawner] Generated {chest.contents.weaponType} with {chest.contents.perks.Count} perk(s):");
+        foreach (PerkDefinition p in chest.contents.perks) Debug.Log($"  - {p.perkName} | pistol:{p.compatibleWithPistol} ar:{p.compatibleWithAR} shotgun:{p.compatibleWithShotgun}");
     }
 
     private WeaponInstance GenerateChestContents()

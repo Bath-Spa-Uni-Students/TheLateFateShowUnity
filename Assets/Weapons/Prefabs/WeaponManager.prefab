@@ -61,4 +61,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b217c3dfe6f569744bde9769ab29a8d7, type: 2}
   - {fileID: 11400000, guid: 310199027cb11d14aa7e82fd40d7575b, type: 2}
   - {fileID: 11400000, guid: 0809a48fe21f15147a34e2024ba79465, type: 2}
-  debugWeaponMangager: 0
+  debugWeaponMangager: 1

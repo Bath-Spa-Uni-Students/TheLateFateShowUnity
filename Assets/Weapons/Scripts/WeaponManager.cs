@@ -53,6 +53,9 @@ public class WeaponManager : MonoBehaviour
     // If different weapon type swap immediately keep 1 valid perk.
     public void ReceiveChestWeapon(WeaponInstance chestWeapon)
     {
+        Debug.Log($"[WeaponManager] Current weapon: {CurrentWeapon.weaponType} | Current perks: {CurrentWeapon.perks.Count}");
+        foreach (PerkDefinition p in CurrentWeapon.perks)
+            Debug.Log($"  - {p.perkName} | compatible with chest weapon: {p.IsCompatibleWith(chestWeapon.weaponType)}");
         if (chestWeapon.weaponType != CurrentWeapon.weaponType)
         {
             // Different weapon find compatible carry-over perks
@@ -169,43 +172,6 @@ public class WeaponManager : MonoBehaviour
         return valid.GetRange(0, Mathf.Min(count, valid.Count));
     }
 
-    private void SwapWeapon(WeaponInstance newWeapon)
-    {
-        // Find 1 perk from old weapon that's valid on the new weapon
-        PerkDefinition carried = null;
-        foreach (PerkDefinition perk in CurrentWeapon.perks)
-        {
-            if (perk.IsCompatibleWith(newWeapon.weaponType))
-            {
-                carried = perk;
-                break;
-            }
-        }
-
-        // If nothing valid, assign a random perk for the new weapon
-        if (carried == null)
-        {
-            // Temporarily set weapon so GetRandomValidPerk works correctly
-            CurrentWeapon = newWeapon;
-            carried = GetRandomValidPerk();
-            if (carried != null) newWeapon.TryAddPerk(carried);
-        }
-        else
-        {
-            newWeapon.TryAddPerk(carried);
-        }
-
-        // Merge any perks that came on the chest weapon itself 
-        while (newWeapon.perks.Count > WeaponInstance.MAX_PERKS)
-            newWeapon.perks.RemoveAt(newWeapon.perks.Count - 1);
-
-        CurrentWeapon = newWeapon;
-        ActivateWeaponObject(CurrentWeapon.weaponType);
-        OnWeaponChanged?.Invoke(CurrentWeapon);
-        OnPerksChanged?.Invoke(CurrentWeapon);
-
-        if (debugWeaponMangager) Debug.Log($"[WeaponManager] Swapped to {CurrentWeapon.weaponType}. Carried perk: {carried?.perkName ?? "none (random assigned)"}");
-    }
 private void MergePerk(PerkDefinition incoming)
     {
         if (CurrentWeapon.HasPerk(incoming))
@@ -263,7 +229,14 @@ private void MergePerk(PerkDefinition incoming)
         if (pistolObject) { var p = pistolObject.GetComponent<Pistol>(); if (p) p.canShoot = false; }
         if (arObject) { var a = arObject.GetComponent<AR>(); if (a) a.canShoot = false; }
         if (shotgunObject) { var s = shotgunObject.GetComponent<Shotgun>(); if (s) s.canShoot = false; }
-    }
+
+    
+        Debug.Log($"[WeaponManager] ActivateWeaponObject: {type} | pistol:{pistolObject != null} ar:{arObject != null} shotgun:{shotgunObject != null}");
+        if (pistolObject) pistolObject.SetActive(type == WeaponType.Pistol);
+        if (arObject) arObject.SetActive(type == WeaponType.AR);
+        if (shotgunObject) shotgunObject.SetActive(type == WeaponType.Shotgun);
+
+}
 
 
 }
