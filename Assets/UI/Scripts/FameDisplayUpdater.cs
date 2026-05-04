@@ -40,7 +40,8 @@ public class FameDisplayUpdater : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             PlayerMovement player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-            player.AddFame(10);
+            player.AddFame(150);
+            Debug.Log("Added 150 fame. Current fame: " + player.fame);
         }
     }
 

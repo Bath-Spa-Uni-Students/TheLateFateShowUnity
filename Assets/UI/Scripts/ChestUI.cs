@@ -27,6 +27,14 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private Button randomPerkButton;           // shown if no compatible perks
     [SerializeField] private TextMeshProUGUI randomPerkText;
     [SerializeField] private Button keepCurrentWeaponButton;    // player declines swap
+    [SerializeField] private Image newGunIcon;                  // weapon sprite
+    [SerializeField] private Image[] chestWeaponPerkIcons;      // 1-2 perk icons on the chest weapon
+    [SerializeField] private TextMeshProUGUI[] chestWeaponPerkDesc; 
+
+    [Header("Weapon Icons")]
+    [SerializeField] private Sprite pistolSprite;
+    [SerializeField] private Sprite arSprite;
+    [SerializeField] private Sprite shotgunSprite;
 
     // ---- MERGE PERK MODE ----
     [Header("Merge Perk Mode")]
@@ -114,29 +122,54 @@ public class ChestUI : MonoBehaviour
         subHeaderText.text = $"Switch to {chestWeapon.weaponType}?";
         newGunNameText.text = chestWeapon.weaponType.ToString();
 
-        bool hasCompatible = compatiblePerks.Count > 0;
+        // Show weapon icon
+        if (newGunIcon != null)
+            newGunIcon.sprite = GetWeaponSprite(chestWeapon.weaponType);
 
+        // Show the perks already on the chest weapon
+        for (int i = 0; i < chestWeaponPerkIcons.Length; i++)
+        {
+            bool hasPerk = i < chestWeapon.perks.Count;
+            if (chestWeaponPerkIcons[i] != null)
+            {
+                SetIcon(chestWeaponPerkIcons[i], hasPerk ? chestWeapon.perks[i].icon : null);
+                chestWeaponPerkIcons[i].gameObject.SetActive(true);
+            }
+            if (chestWeaponPerkDesc != null && i < chestWeaponPerkDesc.Length && chestWeaponPerkDesc[i] != null)
+                chestWeaponPerkDesc[i].text = hasPerk ? chestWeapon.perks[i].description : string.Empty;
+        }
+
+        // Show carry over perk buttons
+        bool hasCompatible = compatiblePerks.Count > 0;
         for (int i = 0; i < carryPerkButtons.Length; i++)
         {
             bool show = hasCompatible && i < compatiblePerks.Count;
             carryPerkButtons[i].gameObject.SetActive(show);
             if (show)
             {
-                carryPerkTexts[i].text = $"Carry: {compatiblePerks[i].perkName}";
+                carryPerkTexts[i].text = compatiblePerks[i].perkName;
                 SetIcon(carryPerkIcons[i], compatiblePerks[i].icon);
             }
         }
 
+        // Show random button if no compatible perks
         randomPerkButton.gameObject.SetActive(!hasCompatible);
         if (!hasCompatible)
-            randomPerkText.text = "No compatible perks — receive a random one";
+            randomPerkText.text = "Receive a random perk";
 
         ShowPanel(newGunPanel);
-
-        if (chestUIDebug)
-            Debug.Log($"[ChestUI] New Gun Mode {chestWeapon.weaponType} | compatible: {compatiblePerks.Count}");
     }
 
+    private Sprite GetWeaponSprite(WeaponType type)
+    {
+        return type switch
+        {
+            WeaponType.Pistol => pistolSprite,
+            WeaponType.AR => arSprite,
+            WeaponType.Shotgun => shotgunSprite,
+            _ => null
+        };
+    }
     private void OnCarryPerkChosen(int index)
     {
         List<PerkDefinition> compatible = WeaponManager.Instance.CurrentWeapon.perks.FindAll(p => p.IsCompatibleWith(pendingNewWeapon.weaponType));
@@ -306,8 +339,10 @@ public class ChestUI : MonoBehaviour
 
     private void SetIcon(Image image, Sprite icon)
     {
+        Debug.Log($"[ChestUI] SetIcon — image null: {image == null} | icon null: {icon == null} | fallback null: {fallbackIcon == null}");
+
         if (image == null) return;
         image.sprite = icon != null ? icon : fallbackIcon;
-        image.gameObject.SetActive(icon != null || fallbackIcon != null);
+        image.gameObject.SetActive(true); // always visible
     }
 }
