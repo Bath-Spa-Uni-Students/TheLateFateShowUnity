@@ -9,7 +9,6 @@ public class ChestSpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
     [SerializeField] private GameObject chestPrefab;
-    [SerializeField] private Transform[] spawnPoints;       // Valid navmesh positions for the sector
     [SerializeField][Range(0f, 1f)] private float spawnChance = 0.4f; // Chance this sector gets a chest
 
     [Header("Perk Pool (assign all PerkDefinitions)")]
@@ -20,24 +19,18 @@ public class ChestSpawner : MonoBehaviour
     [SerializeField] private int arWeight = 3;
     [SerializeField] private int shotgunWeight = 3;
 
-    // Static list so the maze regeneration event can notify all spawners easily
-    private static List<ChestSpawner> allSpawners = new List<ChestSpawner>();
+    [Header("Sector Roots (assign all 9 sector GameObjects)")]
+    [SerializeField] private GameObject[] sectors;
 
-    private GameObject activeChest;
+    private List<GameObject> activeChests = new List<GameObject>();
 
-    private void OnEnable() => allSpawners.Add(this);
-    private void OnDisable() => allSpawners.Remove(this);
-    private void OnDestroy() => allSpawners.Remove(this);
+    public static ChestSpawner Instance { get; private set; }
+
 
     private void Awake()
     {
-        if (!allSpawners.Contains(this))
-        {
-            Debug.Log($"[ChestSpawner] Registered: {gameObject.name} (total: {allSpawners.Count})");
-        }
+        Instance = this;// Register this spawner in the static list
     }
-
- 
 
     private void Start()
     {
@@ -47,86 +40,74 @@ public class ChestSpawner : MonoBehaviour
     // Call this from maze manager when the maze regenerates and nav mesh rebakes
     public static void NotifyMazeRegenerated()
     {
-        Debug.Log($"[ChestSpawner] NotifyMazeRegenerated — {allSpawners.Count} spawner(s) registered");
-
-        // Iterate a copy in case the list changes mid-loop
-        foreach (ChestSpawner spawner in new List<ChestSpawner>(allSpawners))
-            spawner.OnMazeRegenerated();
+        if (Instance != null)
+            Instance.OnMazeRegenerated();
+        else
+            Debug.LogWarning("[ChestSpawner] No instance found!");
     }
 
     private void OnMazeRegenerated()
     {
-        // Destroy existing chest if present
-        if (activeChest != null)
+        // Clear existing chests
+        foreach (GameObject chest in activeChests)
+            if (chest != null) Destroy(chest);
+        activeChests.Clear();
+
+        // Try to spawn one chest per sector
+        foreach (GameObject sector in sectors)
         {
-            Destroy(activeChest);
-            activeChest = null;
+            if (sector == null) continue;
+
+            // Find the active room in this sector
+            GameObject activeRoom = GetActiveRoom(sector);
+            if (activeRoom == null)
+            {
+                Debug.LogWarning($"[ChestSpawner] No active room found in sector: {sector.name}");
+                continue;
+            }
+
+            // Collect spawn points from the active room's children
+            List<Transform> spawnPoints = GetSpawnPoints(activeRoom);
+            if (spawnPoints.Count == 0)
+            {
+                Debug.LogWarning($"[ChestSpawner] No spawn points found in room: {activeRoom.name}");
+                continue;
+            }
+
+            // Roll spawn chance
+            if (Random.value > spawnChance) continue;
+
+            // Pick a random spawn point
+            Transform chosen = spawnPoints[Random.Range(0, spawnPoints.Count)];
+            GameObject activeChest = Instantiate(chestPrefab, chosen.position, Quaternion.identity);
+            ChestObject chest = activeChest.GetComponent<ChestObject>();
+
+            if (chest != null)
+            {
+                chest.contents = GenerateChestContents();
+                Debug.Log($"[ChestSpawner] Spawned {chest.contents.weaponType} chest in {activeRoom.name} at {chosen.name}");
+            }
+
+            activeChests.Add(activeChest);
         }
 
-        // Chance to spawn a new chest in this sector
-        TrySpawnChest();
+        Debug.Log($"[ChestSpawner] Spawned {activeChests.Count} chest(s) across {sectors.Length} sector(s)");
     }
 
-    private void TrySpawnChest()
+    private GameObject GetActiveRoom(GameObject sector)
     {
-        //  prefab must be assigned
-        if (chestPrefab == null)
-        {
-            Debug.LogError($"[ChestSpawner] {gameObject.name} — chestPrefab is null! Assign it in the Inspector.");
-            return;
-        }
+        foreach (Transform child in sector.transform)
+            if (child.gameObject.activeSelf) return child.gameObject;
+        return null;
+    }
 
-        // spawn points must be assigned
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — no spawn points assigned, skipping.");
-            return;
-        }
-
-        //  perk list must have entries
-        if (allPerks == null || allPerks.Count == 0)
-        {
-            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — allPerks is empty! Assign PerkDefinitions in the Inspector.");
-            return;
-        }
-
-        // Spawn chance roll
-        if (Random.value > spawnChance)
-        {
-            Debug.Log($"[ChestSpawner] {gameObject.name} — spawn roll failed, no chest this cycle.");
-            return;
-        }
-
-        // Filter out any null spawn points
-        List<Transform> validPoints = new List<Transform>();
-        foreach (Transform t in spawnPoints)
-            if (t != null) validPoints.Add(t);
-
-        if (validPoints.Count == 0)
-        {
-            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — all assigned spawn points are null!");
-            return;
-        }
-
-        Transform chosen = validPoints[Random.Range(0, validPoints.Count)];
-        activeChest = Instantiate(chestPrefab, chosen.position, Quaternion.identity);
-
-       
-        ChestObject chest = activeChest.GetComponent<ChestObject>();
-        Debug.Log($"[ChestSpawner] Before assign — chest has {chest.contents?.perks?.Count ?? -1} perks");
-        if (chest != null)
-        {
-            chest.contents = GenerateChestContents();
-            Debug.Log($"[ChestSpawner] {gameObject.name} — spawned {chest.contents.weaponType} chest with {chest.contents.perks.Count} perk(s) at {chosen.name}");
-        }
-        else
-        {
-            Debug.LogWarning($"[ChestSpawner] {gameObject.name} — spawned chest prefab has no ChestObject component!");
-        }
-
-        Debug.Log($"[ChestSpawner] After assign — chest has {chest.contents.perks.Count} perks");
-        Debug.Log($"[ChestSpawner] Generated {chest.contents.weaponType} with {chest.contents.perks.Count} perk(s):");
-        foreach (PerkDefinition p in chest.contents.perks) Debug.Log($"  - {p.perkName} | pistol:{p.compatibleWithPistol} ar:{p.compatibleWithAR} shotgun:{p.compatibleWithShotgun}");
+    private List<Transform> GetSpawnPoints(GameObject room)
+    {
+        List<Transform> points = new List<Transform>();
+        foreach (Transform child in room.transform)
+            if (child.CompareTag("ChestSpawnPoint"))
+                points.Add(child);
+        return points;
     }
 
     private WeaponInstance GenerateChestContents()

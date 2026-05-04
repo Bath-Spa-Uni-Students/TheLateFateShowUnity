@@ -211,32 +211,30 @@ private void MergePerk(PerkDefinition incoming)
         }
     }
 
-    private void ActivateWeaponObject(WeaponType type)
+
+      private void ActivateWeaponObject(WeaponType type)
     {
-        if (pistolObject) pistolObject.SetActive(type == WeaponType.Pistol);
-        if (arObject) arObject.SetActive(type == WeaponType.AR);
-        if (shotgunObject) shotgunObject.SetActive(type == WeaponType.Shotgun);
+        if (pistolObject)
+        {
+            pistolObject.SetActive(type == WeaponType.Pistol);
+            var p = pistolObject.GetComponent<Pistol>();
+            if (p) { p.enabled = true; p.canShoot = type == WeaponType.Pistol; }
+        }
+        if (arObject)
+        {
+            arObject.SetActive(type == WeaponType.AR);
+            var a = arObject.GetComponent<AR>();
+            if (a) { a.enabled = true; a.canShoot = type == WeaponType.AR; }
+        }
+        if (shotgunObject)
+        {
+            shotgunObject.SetActive(type == WeaponType.Shotgun);
+            var s = shotgunObject.GetComponent<Shotgun>();
+            if (s) { s.enabled = true; s.canShoot = type == WeaponType.Shotgun; }
+        }
 
-        // Enable shooting on the newly active weapon
-        if (type == WeaponType.Pistol && pistolObject)
-            pistolObject.GetComponent<Pistol>().canShoot = true;
-        if (type == WeaponType.AR && arObject)
-            arObject.GetComponent<AR>().canShoot = true;
-        if (type == WeaponType.Shotgun && shotgunObject)
-            shotgunObject.GetComponent<Shotgun>().canShoot = true;
-
-        // Disable shooting on all weapons before switching
-        if (pistolObject) { var p = pistolObject.GetComponent<Pistol>(); if (p) p.canShoot = false; }
-        if (arObject) { var a = arObject.GetComponent<AR>(); if (a) a.canShoot = false; }
-        if (shotgunObject) { var s = shotgunObject.GetComponent<Shotgun>(); if (s) s.canShoot = false; }
-
-    
         Debug.Log($"[WeaponManager] ActivateWeaponObject: {type} | pistol:{pistolObject != null} ar:{arObject != null} shotgun:{shotgunObject != null}");
-        if (pistolObject) pistolObject.SetActive(type == WeaponType.Pistol);
-        if (arObject) arObject.SetActive(type == WeaponType.AR);
-        if (shotgunObject) shotgunObject.SetActive(type == WeaponType.Shotgun);
-
+    }
 }
 
 
-}
