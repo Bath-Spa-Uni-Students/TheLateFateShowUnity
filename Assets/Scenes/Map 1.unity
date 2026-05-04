@@ -18225,7 +18225,7 @@ GameObject:
   - component: {fileID: 62827225}
   - component: {fileID: 62827224}
   m_Layer: 0
-  m_Name: CurrentPerkButton_ (1)
+  m_Name: CurrentPerkButton_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172058,7 +172058,7 @@ GameObject:
   - component: {fileID: 472530261}
   - component: {fileID: 472530260}
   m_Layer: 0
-  m_Name: Name
+  m_Name: Name_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213342,7 +213342,7 @@ GameObject:
   - component: {fileID: 619771529}
   - component: {fileID: 619771528}
   m_Layer: 0
-  m_Name: Desc
+  m_Name: Desc_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249232,7 +249232,7 @@ GameObject:
   - component: {fileID: 769490193}
   - component: {fileID: 769490192}
   m_Layer: 0
-  m_Name: CarryPerkButton_ 1
+  m_Name: CarryPerkButton_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -255757,7 +255757,7 @@ GameObject:
   - component: {fileID: 899480629}
   - component: {fileID: 899480628}
   m_Layer: 0
-  m_Name: CurrentPerkButton_ (2)
+  m_Name: CurrentPerkButton_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273997,6 +273997,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 935148188}
+  - component: {fileID: 935148192}
   - component: {fileID: 935148191}
   - component: {fileID: 935148190}
   - component: {fileID: 935148189}
@@ -274093,6 +274094,82 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &935148192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935148187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4375be14280db364a979674c300306fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChestUI
+  canvas: {fileID: 935148187}
+  headerText: {fileID: 836725232}
+  subHeaderText: {fileID: 1839327993}
+  newGunPanel: {fileID: 1676463775}
+  newGunNameText: {fileID: 1837507715}
+  carryPerkButtons:
+  - {fileID: 1251515264}
+  - {fileID: 769490192}
+  - {fileID: 2004974924}
+  - {fileID: 1788610934}
+  carryPerkTexts:
+  - {fileID: 907008986}
+  - {fileID: 654313269}
+  - {fileID: 1364808201}
+  - {fileID: 1748662426}
+  carryPerkIcons:
+  - {fileID: 1251515265}
+  - {fileID: 769490193}
+  - {fileID: 2004974925}
+  - {fileID: 1788610935}
+  randomPerkButton: {fileID: 1004774319}
+  randomPerkText: {fileID: 1748662426}
+  keepCurrentWeaponButton: {fileID: 600829555}
+  mergePerkPanel: {fileID: 988626174}
+  chestPerkButtons:
+  - {fileID: 291200174}
+  - {fileID: 560029592}
+  chestPerkNameTexts:
+  - {fileID: 1142379909}
+  - {fileID: 337129527}
+  chestPerkDescTexts:
+  - {fileID: 1728057367}
+  - {fileID: 1645753757}
+  chestPerkIcons:
+  - {fileID: 291200175}
+  - {fileID: 560029593}
+  mergeDiscardButton: {fileID: 1761997893}
+  perkSwapPanel: {fileID: 554364818}
+  incomingPerkName: {fileID: 356768436}
+  incomingPerkDesc: {fileID: 1688415203}
+  incomingPerkIcon: {fileID: 942776653}
+  currentPerkButtons:
+  - {fileID: 1320110676}
+  - {fileID: 62827224}
+  - {fileID: 899480628}
+  - {fileID: 1379295284}
+  currentPerkNameTexts:
+  - {fileID: 1421124797}
+  - {fileID: 1999480204}
+  - {fileID: 2022809313}
+  - {fileID: 472530260}
+  currentPerkDescTexts:
+  - {fileID: 1368501249}
+  - {fileID: 1414147397}
+  - {fileID: 619771528}
+  - {fileID: 1932914952}
+  currentPerkIcons:
+  - {fileID: 1320110677}
+  - {fileID: 62827225}
+  - {fileID: 899480629}
+  - {fileID: 1379295285}
+  swapDiscardButton: {fileID: 1691507808}
+  fallbackIcon: {fileID: 0}
+  chestUIDebug: 0
 --- !u!1 &942776651
 GameObject:
   m_ObjectHideFlags: 0
@@ -356722,7 +356799,7 @@ GameObject:
   - component: {fileID: 1320110677}
   - component: {fileID: 1320110676}
   m_Layer: 0
-  m_Name: CurrentPerkButton_(0)
+  m_Name: CurrentPerkButton_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363494,7 +363571,7 @@ GameObject:
   - component: {fileID: 1368501250}
   - component: {fileID: 1368501249}
   m_Layer: 0
-  m_Name: Desc
+  m_Name: Desc_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -363632,7 +363709,7 @@ GameObject:
   - component: {fileID: 1379295285}
   - component: {fileID: 1379295284}
   m_Layer: 0
-  m_Name: CurrentPerkButton_ (3)
+  m_Name: CurrentPerkButton_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371306,7 +371383,7 @@ GameObject:
   - component: {fileID: 1414147398}
   - component: {fileID: 1414147397}
   m_Layer: 0
-  m_Name: Desc
+  m_Name: Desc_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371474,7 +371551,7 @@ GameObject:
   - component: {fileID: 1421124798}
   - component: {fileID: 1421124797}
   m_Layer: 0
-  m_Name: Name
+  m_Name: Name_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -438880,7 +438957,7 @@ GameObject:
   - component: {fileID: 1788610935}
   - component: {fileID: 1788610934}
   m_Layer: 0
-  m_Name: CarryPerkButton_ 3
+  m_Name: CarryPerkButton_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -479490,7 +479567,7 @@ GameObject:
   - component: {fileID: 1932914953}
   - component: {fileID: 1932914952}
   m_Layer: 0
-  m_Name: Desc
+  m_Name: Desc_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494855,7 +494932,7 @@ GameObject:
   - component: {fileID: 1999480205}
   - component: {fileID: 1999480204}
   m_Layer: 0
-  m_Name: Name
+  m_Name: Name_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495062,7 +495139,7 @@ GameObject:
   - component: {fileID: 2004974925}
   - component: {fileID: 2004974924}
   m_Layer: 0
-  m_Name: CarryPerkButton_ 2
+  m_Name: CarryPerkButton_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495288,7 +495365,7 @@ GameObject:
   - component: {fileID: 2022809314}
   - component: {fileID: 2022809313}
   m_Layer: 0
-  m_Name: Name
+  m_Name: Name_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
