@@ -112,6 +112,8 @@ MonoBehaviour:
   bulletDamage: 10
   pistol: {fileID: 0}
   bounces: 2
+  perkPierce: {fileID: 11400000, guid: cf32ba18c3f3e294ca3a984fd69f0274, type: 2}
+  perkRicochet: {fileID: 11400000, guid: a5701468255cc7e46bb7032fe885ca92, type: 2}
 --- !u!50 &2085445656318187281
 Rigidbody2D:
   serializedVersion: 5

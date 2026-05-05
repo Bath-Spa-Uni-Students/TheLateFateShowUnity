@@ -27,18 +27,27 @@ public class BeamVisual : MonoBehaviour
 
     private void Awake()
     {
-        
+        SetupLineRenderer();
+        SetupCoreLineRenderer();
+
     }
 
     private void OnEnable()
     {
-        
+        // Default to telegraph state when the object is switched on
+        SetTelegraphState();
+
     }
 
     private void OnDisable()
     {
+        isActive = false;
         if (pulseCoroutine != null)
+        {
             StopCoroutine(pulseCoroutine);
+            pulseCoroutine = null;
+        }
+
     }
 
     public void SetTelegraphState()
@@ -50,15 +59,30 @@ public class BeamVisual : MonoBehaviour
             StopCoroutine(pulseCoroutine);
             pulseCoroutine = null;
         }
+
+        ApplyColour(lr, telegraphColour, telegraphColour);
+        ApplyWidth(lr, beamWidthStart * 0.6f, beamWidthEnd * 0.6f);
+
+        if (coreLR != null)
+            coreLR.enabled = false;
+
     }
 
     public void SetActive()
     {
         isActive = true;
-  
+
+        if (coreLR != null)
+            coreLR.enabled = true;
+
+        if (pulseCoroutine != null)
+            StopCoroutine(pulseCoroutine);
+
+        pulseCoroutine = StartCoroutine(PulseCoroutine());
+
     }
- 
-    private void SetupLinerRenderer()
+
+    private void SetupLineRenderer()
     {
         lr = GetComponent<LineRenderer>();
         lr.useWorldSpace = false;          // positions are local 
@@ -69,27 +93,37 @@ public class BeamVisual : MonoBehaviour
         lr.numCapVertices = 6;
         lr.numCornerVertices = 4;
 
+        lr.material = CreateBeamMaterial(activeColour);
+        ApplyWidth(lr, beamWidthStart, beamWidthEnd);
+        ApplyColour(lr, telegraphColour, telegraphColour);
+
     }
 
     private void SetupCoreLineRenderer()
     {
-        GameObject coreObj = new GameObject("BeamCore");
-        coreObj.transform.SetParent(transform, false);
-        coreLR = coreObj.AddComponent<LineRenderer>();
-        coreLR.useWorldSpace = false;
-        coreLR.positionCount = 2;
+        var coreGO = new GameObject("BeamCore");
+        coreGO.transform.SetParent(transform, false);
+
+        coreLR = coreGO.AddComponent<LineRenderer>();// second LineRenderer for the inner glow
+        coreLR.useWorldSpace = false;// positions are local to the parent
+        coreLR.positionCount = 2;// same as main LR, but thinner and brighter for the inner glow
         coreLR.SetPosition(0, Vector3.zero);
-        coreLR.SetPosition(1, Vector3.up * beamLength);
-        coreLR.textureMode = LineTextureMode.Tile;
+        coreLR.SetPosition(1, Vector3.up * beamLength);// same length as main beam
+        coreLR.textureMode = LineTextureMode.Tile;// allows the texture to repeat along the length of the beam
         coreLR.numCapVertices = 6;
-        coreLR.numCornerVertices = 4;
+        coreLR.sortingOrder = (lr.sortingOrder + 1); // render on top
+        coreLR.material = CreateBeamMaterial(activeCoreColour);// brighter material for the core
+        ApplyWidth(coreLR, beamWidthStart * 0.35f, beamWidthEnd * 0.35f);
+        ApplyColour(coreLR, activeCoreColour, activeCoreColour);
+        coreLR.enabled = false;
+
     }
 
     private IEnumerator PulseCoroutine()
     {
         while (isActive)
         {
-           
+            yield return null;
         }
     }
 
