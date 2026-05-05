@@ -69,7 +69,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.15, y: 6}
   m_EdgeRadius: 0
 --- !u!114 &1383020178396625455
 MonoBehaviour:
@@ -96,7 +96,7 @@ MonoBehaviour:
   damagePerSecond: 8
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!120 &4007535265583146700
 LineRenderer:
   serializedVersion: 3
@@ -222,7 +222,7 @@ MonoBehaviour:
   beamLength: 6
   beamWidthStart: 0.15
   beamWidthEnd: 0.08
-  telegraphColour: {r: 0.55, g: 0.04, b: 0.04, a: 0.6}
+  telegraphColour: {r: 0.31764707, g: 0.04, b: 0.04, a: 0.6}
   activeColour: {r: 1, g: 0.08, b: 0.08, a: 1}
   activeCoreColour: {r: 1, g: 0.65, b: 0.65, a: 1}
   pulseSpeed: 6
@@ -776,7 +776,7 @@ MonoBehaviour:
   damagePerSecond: 8
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!120 &4095184949928151463
 LineRenderer:
   serializedVersion: 3
@@ -902,7 +902,7 @@ MonoBehaviour:
   beamLength: 6
   beamWidthStart: 0.15
   beamWidthEnd: 0.08
-  telegraphColour: {r: 0.55, g: 0.04, b: 0.04, a: 0.6}
+  telegraphColour: {r: 0.31764707, g: 0.04, b: 0.04, a: 0.6}
   activeColour: {r: 1, g: 0.08, b: 0.08, a: 1}
   activeCoreColour: {r: 1, g: 0.65, b: 0.65, a: 1}
   pulseSpeed: 6
@@ -941,7 +941,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -2.930862, y: 8.79314}
+  m_Offset: {x: 0, y: 3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -951,7 +951,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.15, y: 6}
   m_EdgeRadius: 0
 --- !u!1 &2780417759853490815
 GameObject:
@@ -1673,7 +1673,7 @@ MonoBehaviour:
   damagePerSecond: 8
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!120 &849972526311600123
 LineRenderer:
   serializedVersion: 3
@@ -1799,7 +1799,7 @@ MonoBehaviour:
   beamLength: 6
   beamWidthStart: 0.15
   beamWidthEnd: 0.08
-  telegraphColour: {r: 0.55, g: 0.04, b: 0.04, a: 0.6}
+  telegraphColour: {r: 0.31764707, g: 0.04, b: 0.04, a: 0.6}
   activeColour: {r: 1, g: 0.08, b: 0.08, a: 1}
   activeCoreColour: {r: 1, g: 0.65, b: 0.65, a: 1}
   pulseSpeed: 6
@@ -1838,7 +1838,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -2.930862, y: 8.79314}
+  m_Offset: {x: 0, y: 3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1848,7 +1848,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.15, y: 6}
   m_EdgeRadius: 0
 --- !u!1 &9150895092482176395
 GameObject:
@@ -1980,7 +1980,7 @@ MonoBehaviour:
   fireRate: 0.15
   fireCooldown: 0.5
   attackCloseness: 2
-  canDamage: 0
+  canDamage: 1
   canAttack: 1
   isAttacking: 0
   slamWaitTimer: 0.25

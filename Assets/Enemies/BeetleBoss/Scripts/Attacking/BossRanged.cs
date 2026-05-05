@@ -19,7 +19,9 @@ public class BossRanged : MonoBehaviour
     [SerializeField] private float telegraphDuration = 0.6f;// Time the telegraph (warning) is shown before the beams fire
     [SerializeField] private float fireDuration = 1.2f;// Time the beams are active and can damage the player
 
-    
+    private BeamVisual[] beamVisuals;
+    private BeamDamage[] beamDamages;
+
     private EnemyStats stats;
     private BossBehaviour boss;
     private bool isAttacking = false;
@@ -31,10 +33,21 @@ public class BossRanged : MonoBehaviour
         boss = GetComponent<BossBehaviour>();
 
         if (stats == null)
-            Debug.LogWarning("[BossRanged] EnemyStats component not found.");
+            Debug.LogWarning("[BossRanged] EnemyStats not found.");
 
-        // Ensure beams start hidden
+        // Cache per-beam components
+        beamVisuals = new BeamVisual[beamObjects.Length];
+        beamDamages = new BeamDamage[beamObjects.Length];
+
+        for (int i = 0; i < beamObjects.Length; i++)
+        {
+            if (beamObjects[i] == null) continue;
+            beamVisuals[i] = beamObjects[i].GetComponent<BeamVisual>();
+            beamDamages[i] = beamObjects[i].GetComponent<BeamDamage>();
+        }
+
         SetBeamsActive(false);
+
     }
 
     // Called every FixedUpdate while the boss is in Ranged state.
@@ -54,6 +67,8 @@ public class BossRanged : MonoBehaviour
         }
         isAttacking = false;
         SetBeamsActive(false);
+        SetBeamsDamaging(false);
+
     }
 
     private IEnumerator ConeAttackCoroutine()
@@ -65,18 +80,28 @@ public class BossRanged : MonoBehaviour
 
         //  2. Telegraph phase: show beams (different colour )
         SetBeamsActive(true);
-        yield return new WaitForSeconds(telegraphDuration);
+        SetBeamsTelegraph();
+        SetBeamsDamaging(false);
+
 
         // 3. Fire phase: beams are now damaging (active cololur)
+        SetBeamsActive(true);
+        SetBeamsActiveFire();
+        SetBeamsDamaging(true);
+
         yield return new WaitForSeconds(fireDuration);
+
 
         // 4. Hide beams and start cooldown
         SetBeamsActive(false);
+        SetBeamsDamaging(false);
 
         float cooldown = stats != null ? stats.fireCooldown : 1.5f;
         yield return new WaitForSeconds(cooldown);
 
         isAttacking = false;
+        // BossBehaviour calls FireConeBeams() again next FixedUpdate automatically
+
     }
 
     // Rotates the firePoint (and consequently all child beams) so the centre
@@ -84,19 +109,21 @@ public class BossRanged : MonoBehaviour
     // in local space via their own rotations set in the Inspector.
     private void AimBeamsAtPlayer()
     {
-        if (boss == null || boss.Player == null || firePoint == null) return;
+        if (boss == null || boss.Player == null) return;
 
-        Vector2 toPlayer = (Vector2)(boss.Player.position - firePoint.position);// Direction vector from firePoint to player
-        float angle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;// Angle in degrees from firePoint to player
+        Vector2 toPlayer = (Vector2)(boss.Player.position - transform.position);
+        float baseAngle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;
 
-        // Apply the three beam rotations around the firePoint pivot
-        float[] angles = { angle, angle + coneHalfAngle, angle - coneHalfAngle };
+        // Centre beam at player; outer beams fanned by coneHalfAngle
+        float[] angles = { baseAngle, baseAngle + coneHalfAngle, baseAngle - coneHalfAngle };
 
         for (int i = 0; i < beamObjects.Length && i < angles.Length; i++)
         {
             if (beamObjects[i] != null)
-                beamObjects[i].transform.rotation = Quaternion.Euler(0f, 0f, angles[i]);// Rotate each beam to its respective angle
+                beamObjects[i].transform.rotation = Quaternion.Euler(0f, 0f, angles[i] - 90f);
+            // -90 because BeamVisual draws along local +Y
         }
+
     }
 
     private void SetBeamsActive(bool active)
@@ -107,5 +134,24 @@ public class BossRanged : MonoBehaviour
                 beam.SetActive(active);// Set each beam's active state
         }
     }
+
+    private void SetBeamsTelegraph()
+    {
+        foreach (var bv in beamVisuals)
+            if (bv != null) bv.SetTelegraphState();
+    }
+
+    private void SetBeamsActiveFire()
+    {
+        foreach (var bv in beamVisuals)
+            if (bv != null) bv.SetActive();
+    }
+
+    private void SetBeamsDamaging(bool live)
+    {
+        foreach (var bd in beamDamages)
+            if (bd != null) bd.SetLive(live);
+    }
+
 
 }
