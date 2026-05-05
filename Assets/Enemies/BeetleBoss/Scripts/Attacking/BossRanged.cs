@@ -120,6 +120,12 @@ public class BossRanged : MonoBehaviour
 
     }
 
+    public void FireWarningShotSingle()
+    {
+        //will need to rewrite this with either a value that gets passed to say how many beams that shoudl eb fired or a new funciton that just fires one
+        if (isAttacking) return;
+        attackCoroutine = StartCoroutine(ConeAttackCoroutine());
+    }
     private void SetBeamsActive(bool active)
     {
         foreach (var beam in beamObjects)
