@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 3162790975373615209}
   - component: {fileID: 5609422344996027402}
   - component: {fileID: 4697837285286518572}
+  - component: {fileID: 8940631275467515840}
   m_Layer: 6
   m_Name: ShotgunWeapon
   m_TagString: ShotgunHeld
@@ -125,7 +126,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2110023966278243254}
-  - {fileID: 4466350576132120885}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &9150268212473009115
@@ -281,51 +281,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.28, y: 0.12}
   m_EdgeRadius: 0
---- !u!1 &8889922437381503873
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4466350576132120885}
-  - component: {fileID: 7864261837486324847}
-  m_Layer: 6
-  m_Name: ShotgunPerks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4466350576132120885
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889922437381503873}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00003051758, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 388811278147162701}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7864261837486324847
+--- !u!114 &8940631275467515840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8889922437381503873}
+  m_GameObject: {fileID: 8310665469226109603}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71ee447023f2fc144b43d79e3e7c5c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotgunPerks
-  shotgun: {fileID: 0}
+  shotgun: {fileID: 9150268212473009115}
   player: {fileID: 0}
   scatterBullet: {fileID: 2212800752848840363, guid: 746826511fa35e54fb6370255a7d6e42, type: 3}
   perkHitReload: {fileID: 11400000, guid: c0582216a8cf0e844b17a0b1074e9710, type: 2}
