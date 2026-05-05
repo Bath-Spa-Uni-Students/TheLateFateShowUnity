@@ -61,7 +61,7 @@ public class BossRanged : MonoBehaviour
         isAttacking = true;
 
         //  1. Aim at the player's current position
-
+        AimBeamsAtPlayer();
 
         //  2. Telegraph phase: show beams (different colour )
         SetBeamsActive(true);
@@ -78,4 +78,34 @@ public class BossRanged : MonoBehaviour
 
         isAttacking = false;
     }
+
+    // Rotates the firePoint (and consequently all child beams) so the centre
+    // beam points toward the player. The two outer beams are already offset
+    // in local space via their own rotations set in the Inspector.
+    private void AimBeamsAtPlayer()
+    {
+        if (boss == null || boss.Player == null || firePoint == null) return;
+
+        Vector2 toPlayer = (Vector2)(boss.Player.position - firePoint.position);
+        float angle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;// Angle in degrees from firePoint to player
+
+        // Apply the three beam rotations around the firePoint pivot
+        float[] angles = { angle, angle + coneHalfAngle, angle - coneHalfAngle };
+
+        for (int i = 0; i < beamObjects.Length && i < angles.Length; i++)
+        {
+            if (beamObjects[i] != null)
+                beamObjects[i].transform.rotation = Quaternion.Euler(0f, 0f, angles[i]);// Rotate each beam to its respective angle
+        }
+    }
+
+    private void SetBeamsActive(bool active)
+    {
+        foreach (var beam in beamObjects)
+        {
+            if (beam != null)
+                beam.SetActive(active);// Set each beam's active state
+        }
+    }
+
 }
