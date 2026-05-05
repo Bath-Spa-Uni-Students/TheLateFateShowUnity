@@ -16,6 +16,13 @@ public class BossTeleportBarrier : MonoBehaviour
     [SerializeField] private TMPro.TextMeshProUGUI quipText;
     [SerializeField] private float quipDuration = 3f;
 
+    [Header("Teleport Timing")]
+    [SerializeField] private float staticDuration = 0.6f;   // how long the static covers the screen
+    [SerializeField] private float cooldownDuration = 2f;   // lockout after a teleport finishes
+
+    [Header("Static Effect")]
+    [SerializeField] private GameObject staticPanel;//this could also be the curtains animation but i want to save that so will use this if we can produce it in time
+
     private static readonly string[] quips = new string[]
     {
         "\"Due to budget cuts, I regret to inform the boss can't turn around…\"",
@@ -23,6 +30,7 @@ public class BossTeleportBarrier : MonoBehaviour
 
     private string playerTag = "Player";
     private Coroutine hideCoroutine;
+    private bool isCoolingDown = false;
 
     private void Awake()
     {
@@ -34,14 +42,42 @@ public class BossTeleportBarrier : MonoBehaviour
 
         if (quipPanel != null)
             quipPanel.SetActive(false);
+
+        if (staticPanel != null)
+            staticPanel.SetActive(false);
     }
     // When the player enters the trigger, they are teleported to a point in front of the boss and a quip is displayed.
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
+        if (isCoolingDown) return;
 
-        TeleportPlayerToFront(other.transform);
+        StartCoroutine(TeleportSequence(other.transform));
+    }
+    private IEnumerator TeleportSequence(Transform playerTransform)
+    {
+        isCoolingDown = true;
+
+        // 1. Flash static on
+        if (staticPanel != null)
+            staticPanel.SetActive(true);
+
+        // 2. Wait for static to cover the screen, then teleport mid-flash
+        yield return new WaitForSeconds(staticDuration * 0.5f);
+        TeleportPlayerToFront(playerTransform);
+
+        // 3. Hold static for the second half
+        yield return new WaitForSeconds(staticDuration * 0.5f);
+
+        // 4. Static off, show quip
+        if (staticPanel != null)
+            staticPanel.SetActive(false);
+
         ShowQuip();
+
+        // 5. Cooldown before the barrier can trigger again
+        yield return new WaitForSeconds(cooldownDuration);
+        isCoolingDown = false;
     }
     // Teleports the player to a point in front of the boss. If BossBehaviour is available, it uses its method; otherwise, it defaults to a position slightly below the barrier's parent.
     private void TeleportPlayerToFront(Transform playerTransform)
