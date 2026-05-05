@@ -123,6 +123,20 @@ public class BeamVisual : MonoBehaviour
     {
         while (isActive)
         {
+            float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) * 0.5f;
+            float wStart = beamWidthStart + pulseWidthAmount * t;
+            float wEnd = beamWidthEnd + pulseWidthAmount * t;
+
+            Color pulsed = Color.Lerp(activeColour, activeCoreColour, t * 0.4f);
+            ApplyColour(lr, pulsed, pulsed);
+            ApplyWidth(lr, wStart, wEnd);
+
+            if (coreLR != null)
+            {
+                float coreW = (beamWidthStart * 0.35f) + pulseWidthAmount * 0.5f * t;
+                ApplyWidth(coreLR, coreW, coreW * 0.7f);
+            }
+
             yield return null;
         }
     }

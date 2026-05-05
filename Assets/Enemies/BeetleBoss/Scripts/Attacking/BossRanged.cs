@@ -86,7 +86,7 @@ public class BossRanged : MonoBehaviour
     {
         if (boss == null || boss.Player == null || firePoint == null) return;
 
-        Vector2 toPlayer = (Vector2)(boss.Player.position - firePoint.position);
+        Vector2 toPlayer = (Vector2)(boss.Player.position - firePoint.position);// Direction vector from firePoint to player
         float angle = Mathf.Atan2(toPlayer.y, toPlayer.x) * Mathf.Rad2Deg;// Angle in degrees from firePoint to player
 
         // Apply the three beam rotations around the firePoint pivot
