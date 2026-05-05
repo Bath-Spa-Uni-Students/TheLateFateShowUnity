@@ -8,6 +8,7 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float phase2HealthThreshold = 0.5f;
     [SerializeField] private float disengageRadius = 10f;
     [SerializeField] private float sleepHealRate = 5f;
+    [SerializeField] private float phase2SpeedMultiplier = 1.5f;
 
     private Vector3 spawnPosition;
     private bool phase2Active = false;
@@ -21,7 +22,7 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private BossRanged rangedAttackScript;//   Reference to the ranged attack script
     [SerializeField] private GameObject attackBarrier;
     [SerializeField] private GameObject damageArea;
-    [SerializeField] private GameObject triBeam;
+
 
     [Header("Player Info")]
     private Transform player;
@@ -41,6 +42,11 @@ public class BossBehaviour : MonoBehaviour
     private Animator animator;
     private NavMeshAgent agent;
 
+
+    // How far in front of the boss (local +Y) the teleport-barrier puts the player back
+    [Header("Teleport Barrier")]
+    [SerializeField] private float teleportInFrontDistance = 1.5f;
+
     private enum EnemyState
     {
         Sleep,
@@ -56,6 +62,16 @@ public class BossBehaviour : MonoBehaviour
     private bool musicStarted = false;
     private int currentMusicPhase = -1;
     private EventInstance bossTheme;
+
+    public Transform Player => player;
+
+    //Returns a world space point directly in front of the boss
+    public Vector3 GetPointInFront()
+    {
+        // Boss only faces downward, so "in front" is local -Y (down) in world space
+        return transform.position + Vector3.down * teleportInFrontDistance;
+    }
+
 
     private void Awake()
     {
@@ -84,12 +100,12 @@ public class BossBehaviour : MonoBehaviour
 
         if (newState != currentState)
         {
-            if (currentState == EnemyState.Ranged)// If we're leaving the Ranged state, make sure to disable the beam and ranged attack script
-            {
-                if (triBeam != null) triBeam.SetActive(false);
-                rangedAttackScript.enabled = false;
-            }
+            // Leaving Ranged state — tell BossRanged to stop
+            if (currentState == EnemyState.Ranged)
+                rangedAttackScript.StopBeam();
+
             currentState = newState;
+
         }
 
         switch (currentState)
@@ -113,7 +129,7 @@ public class BossBehaviour : MonoBehaviour
         attackCapsule = damageArea.GetComponent<CapsuleCollider2D>();
 
         detectionCircle.transform.localScale = new Vector3(detectionRadius * 2f, detectionRadius * 2f, 1f);
-
+        // Find player by tag (ensure the player GameObject has the "Player" tag assigned)
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj != null ? playerObj.transform : null;
         // Setup NavMeshAgent
@@ -166,6 +182,8 @@ public class BossBehaviour : MonoBehaviour
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
             if (musicStarted) SetMusicPhase(1);
         }
+
+
         // If in phase 2 and player is within extended detection range, switch to ranged attack
         if (phase2Active && distance <= detectionRadius * 1.5f)
         {
@@ -201,13 +219,13 @@ public class BossBehaviour : MonoBehaviour
     {
         animator.ResetTrigger("Sleep");// Ensure we don't play the sleep animation while attacking
         rangedAttackScript.enabled = true;
-        rangedAttackScript.SpinBeam();
+        rangedAttackScript.FireConeBeams();
         MoveToTarget(player.position);
     }
 
     private void ReturnHome()
     {
-        triBeam.SetActive(false);
+        rangedAttackScript.StopBeam();
         attackBarrier.SetActive(false);
         MoveToTarget(spawnPosition);
 
@@ -264,6 +282,7 @@ public class BossBehaviour : MonoBehaviour
     public void OnBossDeath()
     {
         SetMusicPhase(2);
+        rangedAttackScript.StopBeam();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
     }
 
