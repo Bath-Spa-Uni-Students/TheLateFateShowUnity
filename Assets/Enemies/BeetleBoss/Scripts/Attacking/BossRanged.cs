@@ -1,88 +1,81 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
+
+//This is the bosses second phase attack, the boss will fire 3 beams in a cone in front of it
+//the central beam is aimed at the players current transfrom, while the other two are angled to the left and right of the central beam
+//potential expansion for the beams to sweep left and right
 public class BossRanged : MonoBehaviour
 {
-    [SerializeField] private GameObject spinBeam;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float firstSpinTime = 2f;
 
-    private bool canShoot = true;
-    private bool firstTime = true;
-    private Rigidbody2D rb;
-    private Transform player;
-    private Animator animator;
-    private BossBehaviour bossBehaviour;
+    [Header("Beam Objects")]
+    [SerializeField] private GameObject[] beamObjects = new GameObject[3];
+    [SerializeField] private Transform firePoint; //the crystal in the middle of the boss where the beams will originate from
+
+    [Header("Cone Settings")]
+    [SerializeField] private float coneHalfAngle = 25f;// The half angle of the cone in degrees (e.g., 25 means a total cone angle of 50 degrees) smaller value means narrower cone
+
+    [Header("Timing")]
+    [SerializeField] private float telegraphDuration = 0.6f;// Time the telegraph (warning) is shown before the beams fire
+    [SerializeField] private float fireDuration = 1.2f;// Time the beams are active and can damage the player
+
+    
     private EnemyStats stats;
-    private GameObject attackBarrier;
-    private bool isAttacking;
+    private BossBehaviour boss;
+    private bool isAttacking = false;
+    private Coroutine attackCoroutine;
 
     private void Awake()
     {
         stats = GetComponent<EnemyStats>();
+        boss = GetComponent<BossBehaviour>();
+
         if (stats == null)
-        {
-            Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
-        }
+            Debug.LogWarning("[BossRanged] EnemyStats component not found.");
+
+        // Ensure beams start hidden
+        SetBeamsActive(false);
     }
 
-    public void SpinBeam()
+    // Called every FixedUpdate while the boss is in Ranged state.
+    // Starts a new attack cycle if one isn't already running.
+    public void FireConeBeams()
     {
-        if (!isAttacking)
-        {
-            if (firstTime != true)
-            {
-                StartCoroutine(SpinBeamCoroutine());
-
-            }
-            else
-            {
-                StartCoroutine(FirstSpinCoroutine());
-            }
-        }
+        if (isAttacking) return;
+        attackCoroutine = StartCoroutine(ConeAttackCoroutine());
     }
 
-    private IEnumerator FirstSpinCoroutine()
+    public void StopBeam()
     {
-        //rb.linearVelocity = Vector3.zero;
-        yield return new WaitForSeconds(firstSpinTime);
-        firstTime = false;
-        SpinBeam();
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+        isAttacking = false;
+        SetBeamsActive(false);
     }
 
-    private IEnumerator SpinBeamCoroutine()
+    private IEnumerator ConeAttackCoroutine()
     {
         isAttacking = true;
-         canShoot = false;
 
-        // Enable the beam at the start of the spin
-        if (spinBeam != null)
-            spinBeam.SetActive(true);
+        //  1. Aim at the player's current position
 
-        float timer = 0f;
 
-        if (stats == null)
-        {
-            Debug.Log("Stats not real");
-        }
+        //  2. Telegraph phase: show beams (different colour )
+        SetBeamsActive(true);
+        yield return new WaitForSeconds(telegraphDuration);
 
-        while (timer < stats.beamSpinDuration)
-        {
-            spinBeam.transform.Rotate(0f, 0f, stats.beamSpinSpeed * Time.deltaTime);
-            timer += Time.deltaTime;
+        // 3. Fire phase: beams are now damaging (active cololur)
+        yield return new WaitForSeconds(fireDuration);
 
-            yield return null; 
-        }
+        // 4. Hide beams and start cooldown
+        SetBeamsActive(false);
 
-        // Spin finished, now start cooldown
-        if (spinBeam != null)
-            spinBeam.SetActive(false); // Disable beam during cooldown
+        float cooldown = stats != null ? stats.fireCooldown : 1.5f;
+        yield return new WaitForSeconds(cooldown);
 
-        yield return new WaitForSeconds(stats.fireCooldown);
-
-        canShoot = true;
         isAttacking = false;
-        SpinBeam();
     }
 }
