@@ -30,16 +30,51 @@ public class BossTeleportBarrier : MonoBehaviour
 
     private void Awake()
     {
-        
+        // Auto-find BossBehaviour on parent if not assigned
+        if (bossBehaviour == null)
+            bossBehaviour = GetComponentInParent<BossBehaviour>();
+
+        if (bossBehaviour == null)
+            Debug.LogWarning("[BossTriggerBarrier] No BossBehaviour found. Teleport will still work but no front-point reference.");
+
+      
+
+        if (quipPanel != null)
+            quipPanel.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         //teleport player back in front of the boss
+        if (!other.CompareTag(playerTag)) return;
+
+        TeleportPlayerToFront(other.transform);
+        //ShowQuip();
     }
 
     private void TeleportPlayerToFront(Transform playerTransform)
     {
+        Vector3 destination;
+
+        if (bossBehaviour != null)
+        {
+            destination = bossBehaviour.GetPointInFront();
+        }
+        else
+        {
+            // Fallback: put player directly below the parent transform
+            destination = transform.parent != null
+                ? transform.parent.position + Vector3.down * 1.5f
+                : transform.position + Vector3.down * 1.5f;
+        }
+
+        destination.z = playerTransform.position.z;
+        playerTransform.position = destination;
+
+        // Zero out the player velocity so they don't slide through
+        var playerRb = playerTransform.GetComponent<Rigidbody2D>();
+        if (playerRb != null)
+            playerRb.linearVelocity = Vector2.zero;
 
     }
 

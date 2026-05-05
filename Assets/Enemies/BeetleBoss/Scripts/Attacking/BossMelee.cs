@@ -2,45 +2,45 @@ using System.Collections;
 using UnityEngine;
 
 public class BossMelee : MonoBehaviour
-{
-    [SerializeField] private GameObject attackBarrier;           // Optional barrier that appears during attacks
-
+{    [SerializeField] private GameObject attackBarrier;
+ 
     private EnemyStats stats;
-    private bool mCanAttack;
-    private bool mIsAttacking;
-
     private Rigidbody2D rb;
     private Transform player;
     private Animator animator;
-
-    private float mDamage;
-    private float mFireRate;
-    private float mFireCooldown;
-
     private BossBehaviour bossBehaviour;
-    [SerializeField] private float mslamWaitTimer; // Time to wait after the attack animation before deactivating the barrier
-    [SerializeField] private float mSlamAnimFinished; // Time to wait after the attack animation before allowing the next attack
+ 
+    private float mDamage;
+    private float mFireCooldown;
+    private float mSlamAnimFinished;  // Delay before hit-check (matches your attack animation's hit-frame)
+    private float mslamWaitTimer;     // Additional hold time after hit before the barrier drops
+ 
+
 
     private void Awake()
     {
-        attackBarrier.gameObject.SetActive(false);
-
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
         animator = GetComponent<Animator>();
         bossBehaviour = GetComponent<BossBehaviour>();
-
         stats = GetComponent<EnemyStats>();
+
+        if (attackBarrier != null)
+            attackBarrier.SetActive(false);
+
         if (stats != null)
         {
             mDamage = stats.damage;
-            mFireRate = stats.fireRate;
             mFireCooldown = stats.fireCooldown;
             mslamWaitTimer = stats.slamWaitTimer;
+            // slamWaitTimer doubles as the "hit-frame delay" in your original code.
+            // Split it in half so the hit lands mid-animation and the barrier lingers briefly.
+            mSlamAnimFinished = stats.slamWaitTimer * 0.5f;
+            mslamWaitTimer = stats.slamWaitTimer * 0.5f;
         }
         else
         {
-            Debug.LogWarning("EnemyStats component not found on " + gameObject.name);
+            Debug.LogWarning("[BossMelee] EnemyStats not found on " + gameObject.name);
         }
     }
     public void TryAttack()
@@ -53,43 +53,42 @@ public class BossMelee : MonoBehaviour
         }
 
         // Start the attack coroutine
-        stats.canAttack = mCanAttack;
-
         StartCoroutine(HitCoroutine());
     }
 
     private IEnumerator HitCoroutine()
     {
-        attackBarrier.gameObject.SetActive(true);
-
-        animator.SetTrigger("Attack");
-        animator.SetBool("IsAttacking", true);
-
+        //Setup 
         stats.isAttacking = true;
         stats.canAttack = false;
         rb.linearVelocity = Vector2.zero;
 
-        var playerRef = player.GetComponent<PlayerMovement>();
+        if (attackBarrier != null) attackBarrier.SetActive(true);
+        animator.SetTrigger("Attack");
+        animator.SetBool("IsAttacking", true);
 
+        //  Wait for the hit frame
         yield return new WaitForSeconds(mSlamAnimFinished);
 
         bossBehaviour.CheckPlayerDistance();
 
-        if (stats.canDamage)
+        if (stats.canDamage && player != null)
         {
-            if (stats != null)
-                playerRef.DamagePlayer(mDamage); // Apply damage to the player
+            var playerMovement = player.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+                playerMovement.DamagePlayer(mDamage);
         }
 
+        // Hold the barrier briefly then clean up 
         yield return new WaitForSeconds(mslamWaitTimer);
 
-        attackBarrier.gameObject.SetActive(false);
+        if (attackBarrier != null) attackBarrier.SetActive(false);
         stats.isAttacking = false;
         animator.SetBool("IsAttacking", false);
-        Debug.Log("Attack animation finished, waiting for cooldown.");
 
-        yield return new WaitForSeconds(mFireCooldown); // Wait for the cooldown before allowing the next attack
+        // Cooldown
+        yield return new WaitForSeconds(mFireCooldown);
         stats.canAttack = true;
-        Debug.Log("Attack cooldown finished, can attack again.");
+
     }
 }
