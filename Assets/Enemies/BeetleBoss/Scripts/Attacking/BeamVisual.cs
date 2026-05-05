@@ -6,8 +6,8 @@ public class BeamVisual : MonoBehaviour
 {
     [Header("Beam Shape")]
     [SerializeField] private float beamLength = 6f;
-    [SerializeField] private float beamWidthStart = 0.15f;
-    [SerializeField] private float beamWidthEnd = 0.08f;
+    [SerializeField] private float beamWidthStart = 0.15f;// Thickness at the origin
+    [SerializeField] private float beamWidthEnd = 0.08f;// Thickness at the tip
 
     [Header("Telegraph State")]
     [SerializeField] private Color telegraphColour = new Color(0.55f, 0.04f, 0.04f, 0.6f);
@@ -29,13 +29,6 @@ public class BeamVisual : MonoBehaviour
     {
         SetupLineRenderer();
         SetupCoreLineRenderer();
-
-    }
-
-    private void OnEnable()
-    {
-        // Default to telegraph state when the object is switched on
-        SetTelegraphState();
 
     }
 

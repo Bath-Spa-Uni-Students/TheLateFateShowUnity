@@ -79,29 +79,23 @@ public class BossRanged : MonoBehaviour
         AimBeamsAtPlayer();
 
         //  2. Telegraph phase: show beams (different colour )
-        SetBeamsActive(true);
         SetBeamsTelegraph();
         SetBeamsDamaging(false);
-
-
-        // 3. Fire phase: beams are now damaging (active cololur)
         SetBeamsActive(true);
+
+        yield return new WaitForSeconds(telegraphDuration);
+        // 3. Fire phase: beams are now damaging (active cololur)
         SetBeamsActiveFire();
         SetBeamsDamaging(true);
-
+   
         yield return new WaitForSeconds(fireDuration);
 
-
-        // 4. Hide beams and start cooldown
-        SetBeamsActive(false);
+        SetBeamsActive(true);
         SetBeamsDamaging(false);
 
-        float cooldown = stats != null ? stats.fireCooldown : 1.5f;
-        yield return new WaitForSeconds(cooldown);
-
+        // 4.start cooldown
+        yield return new WaitForSeconds(stats != null ? stats.fireCooldown : 1.5f);
         isAttacking = false;
-        // BossBehaviour calls FireConeBeams() again next FixedUpdate automatically
-
     }
 
     // Rotates the firePoint (and consequently all child beams) so the centre
