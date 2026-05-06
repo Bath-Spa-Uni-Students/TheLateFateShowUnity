@@ -7,36 +7,54 @@ public class TutorialEnemySpawner : MonoBehaviour
     [SerializeField] private GameObject gruntPrefab;
 
     [Header("Spawn Points")]
-    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform[] spawnPoints; 
 
+    [Header("Settings")]
+    [SerializeField] private int enemiesToSpawn = 3;   
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private int aliveCount = 0;
+    private bool hasSpawned = false;
+
+    public void SpawnTutorialEnemies()
     {
-        SpawnSolo(gruntPrefab); // Spawn a non pack grunt
-    }
-    private void SpawnSolo(GameObject prefab)
-    {
-        if (prefab == null) return;
+        if (hasSpawned) return;
+        hasSpawned = true;
+        aliveCount = 0;
 
-        Transform point = GetRandomSpawnPoint();
-        if (point == null) return;
-        //for loop to spawn an enemy at the chosen spawn point and then deactivate that spawn point so it can't be used again
-        for (int i = 0; i < spawnPoints.Length; i++)
+        int spawned = 0;
+        for (int i = 0; i < spawnPoints.Length && spawned < enemiesToSpawn; i++)
         {
-            if (spawnPoints[i] == point)
-            {
-                spawnPoints[i].gameObject.SetActive(false);
-                break;
-            }
+            if (spawnPoints[i] == null) continue;
+
+            GameObject enemy = Instantiate(gruntPrefab, spawnPoints[i].position, Quaternion.identity);
+
+            // Hook into the grunt's death event so we know when it dies
+            TutorialEnemy te = enemy.GetComponent<TutorialEnemy>();
+            if (te != null)
+                te.OnDeath += HandleEnemyDeath;
+            else
+                Debug.LogWarning($"TutorialEnemySpawner: Grunt prefab is missing a TutorialEnemy component on spawn point {i}.");
+
+            SpawnManager.Instance.RegisterEnemy();
+            aliveCount++;
+            spawned++;
         }
-        GameObject enemy = Instantiate(prefab, point.position, Quaternion.identity);// Spawn the enemy at the chosen spawn point
-        SpawnManager.Instance.RegisterEnemy();// Register the enemy with the SpawnManager to track the count
+
+        Debug.Log($"TutorialEnemySpawner: Spawned {aliveCount} tutorial enemies.");
     }
 
-    private Transform GetRandomSpawnPoint()//copilot wrote this for me and it looks good so I kept it, it just picks a random spawn point from the array of spawn points
+    // Death callback
+
+    private void HandleEnemyDeath()
     {
-        if (spawnPoints == null || spawnPoints.Length == 0) return null;
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        aliveCount = Mathf.Max(0, aliveCount - 1);
+        SpawnManager.Instance.UnregisterEnemy();
+
+        Debug.Log($"TutorialEnemySpawner: Enemy killed. Remaining: {aliveCount}");
+
+        if (aliveCount == 0)
+            TutorialManager.Instance.OnAllTutorialEnemiesDefeated();
     }
+
+    public bool AllDefeated => hasSpawned && aliveCount == 0;
 }

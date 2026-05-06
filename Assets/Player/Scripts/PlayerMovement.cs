@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PerkSelectionUI perkSelectionUI;
     [SerializeField] private EnemyStats enemyStats;
 
-    [SerializeField] public int currentLevel = 1;
+    [SerializeField] public int currentLevel = 0;
     [SerializeField] private int currentXP = 0;
 
 
@@ -231,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
             currentLevel++;
             currentXP = 0;
 
-            if (currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
+            if (currentLevel == 1 || currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
             {
                 perkSelectionUI.Show();
             }
