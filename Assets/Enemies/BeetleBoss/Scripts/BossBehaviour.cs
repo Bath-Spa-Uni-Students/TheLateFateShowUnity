@@ -8,8 +8,10 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float phase2HealthThreshold = 0.5f;
     [SerializeField] private float disengageRadius = 10f;
     [SerializeField] private float sleepHealRate = 5f;
+    [SerializeField] private float phase2SpeedMultiplier = 1.5f;
 
     private Vector3 spawnPosition;
+    private bool phase2Active = false;
     [SerializeField] private float wakeRadius = 6f;
     private bool isAwake = false;
 
@@ -43,11 +45,15 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float teleportInFrontDistance = 1.5f;
 
     [Header("Combat Rhythm")]
-    [SerializeField] private float advanceDuration = 3f;       // How long the boss chases before retreating after a melee
-    [SerializeField] private float retreatDuration = 1.8f;     // How long the retreat phase lasts
-    [SerializeField] private float retreatDistance = 3f;       // How far back the boss steps
-    [SerializeField] private float warningShotHoldTime = 1.2f; // How long the boss pauses after firing a warning shot
-    [SerializeField] private float warningShotCooldown = 4f;   // Minimum time between warning shots
+    [SerializeField] private float advanceDuration = 3f;        // How long the boss chases before retreating after a melee
+    [SerializeField] private float retreatDuration = 1.8f;      // How long the retreat phase lasts
+    [SerializeField] private float retreatDistance = 3f;        // How far back the boss steps
+    [SerializeField] private float warningShotHoldTime = 1.2f;  // How long the boss pauses after firing a warning shot
+    [SerializeField] private float warningShotCooldown = 4f;    // Minimum time between warning shots in phase 1
+    [SerializeField] private float p2AdvanceDuration = 2f;
+    [SerializeField] private float p2RetreatDuration = 1.4f;
+    [SerializeField] private float p2RetreatDistance = 2.5f;
+    [SerializeField] private float p2RangedHoldTime = 2.5f;     // How long the boss fires the cone beam before advancing again
 
     // Runtime rhythm tracking
     private float stateTimer = 0f;
@@ -57,10 +63,11 @@ public class BossBehaviour : MonoBehaviour
     private enum EnemyState
     {
         Sleep,
-        Advance,      // Walking toward the player
-        Melee,        // Close enough to swing
-        Retreat,      // Stepping back to create space
-        WarningShot,  // Single ranged shot fired from retreated position
+        Advance,        // Walking toward the player
+        Melee,          // Close enough to swing
+        Retreat,        // Stepping back to create space
+        WarningShot,    // Phase 1 single ranged shot fired from retreated position
+        Ranged,         // Phase 2 cone beam attack
         ReturnHome
     }
     private EnemyState currentState;
@@ -73,12 +80,21 @@ public class BossBehaviour : MonoBehaviour
 
     public Transform Player => player;
 
-    // Returns a world space point directly in front of the boss for the teleport barrier
+    // Returns a world-space point directly in front of the boss for the teleport barrier
     public Vector3 GetPointInFront()
     {
         return transform.position + Vector3.down * teleportInFrontDistance;
     }
 
+    private void Awake()
+    {
+        if (stats == null)
+            stats = GetComponent<EnemyStats>();
+
+        filter = new ContactFilter2D();
+        filter.SetLayerMask(playerLayer);
+        filter.useLayerMask = true;
+    }
     private void InitialSetup()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -98,16 +114,6 @@ public class BossBehaviour : MonoBehaviour
         agent.acceleration = 140f;
         agent.stoppingDistance = stats.stoppingDistance;
     }
-    private void Awake()
-    {
-        if (stats == null)
-            stats = GetComponent<EnemyStats>();
-
-        filter = new ContactFilter2D();
-        filter.SetLayerMask(playerLayer);
-        filter.useLayerMask = true;
-    }
-
     private void Start()
     {
         spawnPosition = transform.position;
@@ -129,21 +135,27 @@ public class BossBehaviour : MonoBehaviour
 
         if (newState != currentState)
         {
-            // Leaving Melee or Advance disable attack barrier
+            // Leaving Ranged state - tell BossRanged to stop
+            if (currentState == EnemyState.Ranged)
+                rangedAttackScript.StopBeam();
+
+            // Leaving Melee or Advance - disable the attack barrier
             if (currentState == EnemyState.Melee || currentState == EnemyState.Advance)
                 if (attackBarrier != null) attackBarrier.SetActive(false);
 
             currentState = newState;
             stateTimer = 0f;
 
-            // Entering Retreat calculate the step-back destination immediately
+            // Entering Retreat - calculate the step-back destination immediately
             if (currentState == EnemyState.Retreat)
             {
-                retreatTarget = transform.position + Vector3.up * retreatDistance;
+                float dist = phase2Active ? p2RetreatDistance : retreatDistance;
+                // Boss only moves on the vertical axis, so push straight up (away from player below)
+                retreatTarget = transform.position + Vector3.up * dist;
                 agent.SetDestination(retreatTarget);
             }
 
-            //  fire immediately and start the cooldown
+            // Entering WarningShot - fire immediately and start the cooldown
             if (currentState == EnemyState.WarningShot)
             {
                 agent.ResetPath();
@@ -151,6 +163,7 @@ public class BossBehaviour : MonoBehaviour
                 warningShotTimer = warningShotCooldown;
             }
 
+            // Entering Melee - enable the attack barrier
             if (currentState == EnemyState.Melee)
                 if (attackBarrier != null) attackBarrier.SetActive(true);
         }
@@ -160,8 +173,9 @@ public class BossBehaviour : MonoBehaviour
             case EnemyState.Sleep: Sleep(); break;
             case EnemyState.Advance: ChasePlayer(); break;
             case EnemyState.Melee: MeleeAttack(); break;
-            case EnemyState.Retreat: break;
-            case EnemyState.WarningShot: break; 
+            case EnemyState.Retreat: break; // Agent handles movement, nothing to do each tick
+            case EnemyState.WarningShot: break; // Shot already fired on enter, just hold position
+            case EnemyState.Ranged: RangedAttack(); break;
             case EnemyState.ReturnHome: ReturnHome(); break;
         }
 
@@ -203,7 +217,35 @@ public class BossBehaviour : MonoBehaviour
             }
         }
 
-        // Phase 1 rhythm: Advance | Melee | Retreat | Warning shot | Advance
+        // Transition to phase 2 when health crosses the threshold
+        if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
+        {
+            phase2Active = true;
+            agent.speed = stats.speed * phase2SpeedMultiplier;
+            animator.SetBool("Phase2", true);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+            if (musicStarted) SetMusicPhase(1);
+        }
+
+        // Phase 2 rhythm: Advance -> Melee -> Retreat -> Cone beam -> repeat
+        if (phase2Active)
+        {
+            if (distance <= stats.stoppingDistance)
+                return EnemyState.Melee;
+
+            if (currentState == EnemyState.Melee && stateTimer >= p2AdvanceDuration)
+                return EnemyState.Retreat;
+
+            if (currentState == EnemyState.Retreat && stateTimer >= p2RetreatDuration)
+                return EnemyState.Ranged;
+
+            if (currentState == EnemyState.Ranged && stateTimer >= p2RangedHoldTime)
+                return EnemyState.Advance;
+
+            return currentState == EnemyState.Sleep ? EnemyState.Advance : currentState;
+        }
+
+        // Phase 1 rhythm: Advance -> Melee -> Retreat -> Warning shot (if cooled down) -> Advance -> repeat
         if (distance <= stats.stoppingDistance)
             return EnemyState.Melee;
 
@@ -243,8 +285,16 @@ public class BossBehaviour : MonoBehaviour
         meleeAttackScript.TryAttack();
     }
 
+    private void RangedAttack()
+    {
+        animator.ResetTrigger("Sleep");
+        rangedAttackScript.enabled = true;
+        rangedAttackScript.FireConeBeams();
+    }
+
     private void ReturnHome()
     {
+        rangedAttackScript.StopBeam();
         attackBarrier.SetActive(false);
         MoveToTarget(spawnPosition);
 
@@ -301,6 +351,7 @@ public class BossBehaviour : MonoBehaviour
     public void OnBossDeath()
     {
         SetMusicPhase(2);
+        rangedAttackScript.StopBeam();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
     }
 
@@ -308,5 +359,5 @@ public class BossBehaviour : MonoBehaviour
     {
         if (agent.velocity.magnitude > 0.1f)
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossFootsteps, transform.position);
-    }   
+    }
 }
