@@ -19,13 +19,15 @@ public class SpawnManager : MonoBehaviour
     private int currentEnemyCount = 0;
     private PlayerMovement playerMovement;
 
+
+
     //scalable variables need testing
     public int GlobalCap => baseEnemyCap + (PlayerLevel * capIncreasePerLevel); // The maximum number of enemies allowed at once, scaling with player level
     public float SpawnInterval => Mathf.Max(2f, baseSpawnInterval / (1f + PlayerLevel * spawnRateIncreasePerLevel)); // The time between spawns, decreasing as player level increases, with a minimum cap of 2 seconds
     public int MaxFollowers => maxFollowersBase + Mathf.FloorToInt(PlayerLevel / followersPerLevelThreshold); // Follower handling for grunt packs
     public int PlayerLevel => playerMovement != null ? playerMovement.currentLevel : 1; 
-    public bool CanSpawn => currentEnemyCount < GlobalCap; 
-
+    public bool CanSpawn => currentEnemyCount < GlobalCap;
+    public bool AllTutorialEnemiesDefeated => currentEnemyCount == 0;
     private void Awake()
     {
         if (Instance != null && Instance != this)// Ensures only one instance of SpawnManager exists

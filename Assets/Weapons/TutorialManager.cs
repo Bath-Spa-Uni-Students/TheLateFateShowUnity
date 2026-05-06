@@ -15,7 +15,7 @@ public class TutorialManager : MonoBehaviour
 
     public float typeSpeeed = 0.05f;
 
-    public PlayerMovement playerStats;
+    public PlayerMovement playerMovement;
     public SpawnManager spawnManager;
 
     private Coroutine typeRoutine;
@@ -72,14 +72,14 @@ public class TutorialManager : MonoBehaviour
                     AdvanceStep();
                 }
                 break;
-            case 4://Perk selection tutorial
-                //if (//reference perk slots)
+            case 4://Enemy defeat tutorial
+                if (SpawnManager.Instance != null && SpawnManager.Instance.AllTutorialEnemiesDefeated)
                 {
                     AdvanceStep();
                 }
                 break;
-            case 5://Enemy defeat tutorial
-                // if(spawnManager.AllTutorialEnemiesDefeated())
+            case 5://Perk selection tutorial
+                if (playerMovement != null && playerMovement.currentLevel >= 1)
                 {
                     AdvanceStep();
                 }
@@ -142,13 +142,29 @@ public class TutorialManager : MonoBehaviour
 
     private void PlayHostAnimation(int stepIndex)
     {
-      int anim =(stepIndex == 4 || stepIndex == 6) ? animEcstatic : animTalk;
+      int anim =(stepIndex == 5 || stepIndex == 6) ? animEcstatic : animTalk;
         hostAnimator.CrossFade(anim, 0.2f);
     }
+
+
     private void TeleportPlayerToMaze()
     {
         // Teleport player to maze entrance
-        playerStats.transform.position = new Vector3(50, 0, 0); // Example position
+        playerMovement.transform.position = new Vector3(50, 0, 0); // Example position
         dialougeBox.SetActive(false);
+
+        EndTutorial();
+    }
+
+
+    private void EndTutorial()
+    {
+        dialougeBox.SetActive(false);
+
+        for (int i = 0; i < popUps.Length; i++)
+            popUps[i].SetActive(false);
+
+        hostAnimator.CrossFade(animIdle, 0.2f);
+        Debug.Log("Tutorial complete.");
     }
 }
