@@ -59,6 +59,8 @@ public class DamageHandler : MonoBehaviour
                 AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gruntDeath, transform.position);
             }
             playerMovement.AddFame(10);
+            GetComponent<TutorialEnemy>()?.NotifyDeath();
+
             Destroy(gameObject);
         }
     }

@@ -31,7 +31,10 @@ public class TutorialEnemySpawner : MonoBehaviour
             // Hook into the grunt's death event so we know when it dies
             TutorialEnemy te = enemy.GetComponent<TutorialEnemy>();
             if (te != null)
+            {
                 te.OnDeath += HandleEnemyDeath;
+                Debug.Log("TutorialEnemySpawner: Spawned a grunt and subscribed to its death event.");
+            }
             else
                 Debug.LogWarning($"TutorialEnemySpawner: Grunt prefab is missing a TutorialEnemy component on spawn point {i}.");
 

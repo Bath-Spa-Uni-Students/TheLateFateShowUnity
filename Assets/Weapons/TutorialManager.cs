@@ -22,6 +22,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private TutorialEnemySpawner tutorialSpawner;
     [SerializeField] private GameObject playerObject;
     private PlayerMovement playerMovement;
+    [SerializeField] private PerkSelectionUI perkSelectionUI;
 
     private readonly string[] dialogueLines = new string[]
     {
@@ -29,8 +30,8 @@ public class TutorialManager : MonoBehaviour
         "Hold Shift to dash. Great for dodging attacks!",        // 1 – dash
         "Left-click to shoot. Take aim and fire!",               // 2 – shoot
         "Press R to reload. Don't get caught empty!",            // 3 – reload
-        "You levelled up! Let's see what you can do.",         // 4 – kill tutorial enemies  
-        "Enemies incoming take them all down!",                // 5 – level up (currentLevel >= 1, started at 0)
+          "Enemies incoming take them all down!",        // 4 – kill tutorial enemies  
+         "You levelled up! Let's see what you can do.",   // 5 – level up (currentLevel >= 1, started at 0)
         "Well done! Head through the portal into the maze!"      // 6 – complete
     };
 
@@ -87,7 +88,12 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 4: // Kill all tutorial enemies
                 if (enemiesDefeated)
+                {
+
                     AdvanceStep();
+                    playerMovement.currentLevel = 1;
+                    perkSelectionUI.Show();
+                }
                 break;
             case 5: // Level up — player starts at 0, so level 1 = first level-up
                 if (playerMovement != null && playerMovement.currentLevel >= 1)
@@ -109,8 +115,8 @@ public class TutorialManager : MonoBehaviour
         string line = index < dialogueLines.Length ? dialogueLines[index] : "";
         typeRoutine = StartCoroutine(TypewriterRoutine(line, index));
 
-        // Spawn the tutorial enemies as soon as step 5 is shown
-        if (index == 5 && tutorialSpawner != null)
+        // Spawn the tutorial enemies as soon as step 4 is shown
+        if (index == 4 && tutorialSpawner != null)
             tutorialSpawner.SpawnTutorialEnemies();
     }
 
@@ -140,14 +146,12 @@ public class TutorialManager : MonoBehaviour
             yield return new WaitForSeconds(typeSpeed);
         }
 
-        hostAnimator.CrossFade(AnimIdle, 0.2f);
         stepComplete = false;
     }
 
     private void PlayHostAnimation(int stepIndex)
     {
         int anim = (stepIndex == 4 || stepIndex == 6) ? AnimExcite : AnimTalk;
-        hostAnimator.CrossFade(anim, 0.1f);
     }
 
     // External callbacks

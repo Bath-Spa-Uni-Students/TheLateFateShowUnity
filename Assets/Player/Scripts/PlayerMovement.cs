@@ -231,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
             currentLevel++;
             currentXP = 0;
 
-            if (currentLevel == 1 || currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
+            if (  currentLevel == 3 || currentLevel == 6 || currentLevel == 9)
             {
                 perkSelectionUI.Show();
             }

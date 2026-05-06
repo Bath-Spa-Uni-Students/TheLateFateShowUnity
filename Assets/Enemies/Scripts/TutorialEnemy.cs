@@ -7,6 +7,7 @@ public class TutorialEnemy : MonoBehaviour
 
     public void NotifyDeath()
     {
-        OnDeath?.Invoke();
+        OnDeath?.Invoke();// Notify any subscribers (like the spawner) that this enemy has died
+        Debug.Log("TutorialEnemy: Enemy has died and notified subscribers.");
     }
 }
