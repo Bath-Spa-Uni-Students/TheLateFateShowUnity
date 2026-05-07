@@ -26,13 +26,19 @@ public class HostManager : MonoBehaviour
     private Coroutine typeRoutine;
     public bool IsTalking { get; private set; }
 
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
-
+    private void Start()
+    {
+        // Host starts hidden
+        hostObject.SetActive(false);
+        dialogueBox.SetActive(false);
+    }
     // Show a line then hide automatically
     public void Say(string line, HostMood mood = HostMood.Talk, System.Action onComplete = null)
     {
@@ -74,7 +80,13 @@ public class HostManager : MonoBehaviour
         if (!hold)
         {
             yield return new WaitForSecondsRealtime(2f);
+            // Transition to idle while player reads
+            hostAnimator.CrossFade(AnimIdle, 0.2f);
             HideDialogue();
+        }
+        else
+        {
+            hostAnimator.CrossFade(AnimIdle, 0.2f);
         }
 
         IsTalking = false;
