@@ -944,11 +944,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694839307040cac46a8ffd8da8a6f744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  speed: 1
+  speed: 1.75
   stoppingDistance: 0.35
-  detectionRadius: 3.5
+  detectionRadius: 20
   leaderDamageReduction: 0.5
-  health: 20
+  health: 15
   maxHealth: 10
   damage: 10
   fireRate: 0.15
