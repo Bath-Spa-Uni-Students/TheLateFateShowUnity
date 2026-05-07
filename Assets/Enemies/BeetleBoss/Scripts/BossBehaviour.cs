@@ -60,6 +60,7 @@ public class BossBehaviour : MonoBehaviour
     private float warningShotTimer = 0f;
     private Vector3 retreatTarget;
 
+    private GameManager gameManager;
     private enum EnemyState
     {
         Sleep,
@@ -353,6 +354,8 @@ public class BossBehaviour : MonoBehaviour
         SetMusicPhase(2);
         rangedAttackScript.StopBeam();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
+        if (gameManager != null)
+            gameManager.OnGameWin();
     }
 
     public void PlayFootstepHit()

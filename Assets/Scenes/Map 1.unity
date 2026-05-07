@@ -164695,7 +164695,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &393893567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164721,7 +164721,6 @@ MonoBehaviour:
   - {fileID: 1400827514}
   - {fileID: 984402979}
   - {fileID: 1821464386}
-  perkIconImages: []
   fallbackIcon: {fileID: -2515477880896382604, guid: 96209343ad2ad014ba99b2c8bb5241d4, type: 3}
   perkSelectionDebug: 1
 --- !u!4 &393893568
@@ -401578,7 +401577,7 @@ MonoBehaviour:
   - {fileID: 1632036367}
   currentPerkIcons: []
   discardButton: {fileID: 2131021699}
-  fallbackIcon: {fileID: 0}
+  fallbackIcon: {fileID: -2515477880896382604, guid: 96209343ad2ad014ba99b2c8bb5241d4, type: 3}
   perkSwapDebug: 1
 --- !u!1 &1548456087
 GameObject:

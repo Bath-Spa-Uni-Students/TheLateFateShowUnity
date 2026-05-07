@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Layer mask used for wall-only collision during dash")]
     [SerializeField] private LayerMask wallLayer;
 
+    private GameManager gameManager;
     // Runtime move speed (can be modified by buffs/debuffs)
     private float moveSpeed;
 
@@ -179,6 +180,8 @@ public class PlayerMovement : MonoBehaviour
     void PlayerDie()
     {
         playerDeath.start();
+        if (gameManager != null)
+            gameManager.OnGameLose();
         Destroy(gameObject);
     }
     public void DamagePlayer(float damage)

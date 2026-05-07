@@ -99,7 +99,6 @@ public class TutorialManager : MonoBehaviour
                 if (playerMovement != null && playerMovement.currentLevel >= 1)
                     AdvanceStep();
                 break;
-                // case 6 is handled in ShowStep via OnTutorialSequenceComplete
         }
     }
 
@@ -130,46 +129,6 @@ public class TutorialManager : MonoBehaviour
         else
             OnTutorialSequenceComplete();
     }
-
-    //Typewriter 
-
-    private IEnumerator TypewriterRoutine(string line, int stepIndex)
-    {
-        stepComplete = true;
-        dialogueBox.SetActive(true);
-        dialogueText.text = "";
-
-        PlayHostAnimation(stepIndex);
-
-        foreach (char c in line)
-        {
-            dialogueText.text += c;
-            yield return new WaitForSecondsRealtime(typeSpeed);
-        }
-
-        stepComplete = false;
-    }
-
-    private void PlayHostAnimation(int stepIndex)
-    {
-        int anim = (stepIndex == 4 || stepIndex == 6) ? AnimExcite : AnimTalk;
-    }
-
-    //Tutorial end
-
-    private void OnTutorialSequenceComplete()
-    {
-        dialogueBox.SetActive(false);
-
-        for (int i = 0; i < popUps.Length; i++)
-            popUps[i].SetActive(false);
-
-        hostAnimator.CrossFade(AnimIdle, 0.2f);
-
-        // Hand off to GameManager to do the room swap and teleport
-        GameManager.Instance.OnTutorialComplete();
-    }
-
     public void OnAllTutorialEnemiesDefeated()
     {
         Debug.Log($"[TutorialManager] OnAllTutorialEnemiesDefeated called. stepComplete={stepComplete}, popUpIndex={popUpIndex}, enemiesDefeated={enemiesDefeated}");
@@ -191,4 +150,58 @@ public class TutorialManager : MonoBehaviour
 
         perkSelectionUI.Show();
     }
+
+    //Typewriter 
+
+    private IEnumerator TypewriterRoutine(string line, int stepIndex)
+    {
+        stepComplete = true;
+        dialogueBox.SetActive(true);
+        dialogueText.text = "";
+
+        PlayHostAnimation(stepIndex);
+
+        foreach (char c in line)
+        {
+            dialogueText.text += c;
+            yield return new WaitForSecondsRealtime(typeSpeed);
+        }
+
+        stepComplete = false;
+        Debug.Log($"[TutorialManager] TypewriterRoutine finished for step {stepIndex}");
+
+        // If this was the last step then we can complete the tutorial sequence immediately after the player finishes reading, instead of waiting for another input
+        if (stepIndex == dialogueLines.Length - 1)
+        {
+            Debug.Log("[TutorialManager] Final step typewriter done — starting CompleteAndTransition");
+            OnTutorialSequenceComplete();
+        }
+    }
+    private void PlayHostAnimation(int stepIndex)
+    {
+        int anim = (stepIndex == 4 || stepIndex == 6) ? AnimExcite : AnimTalk;
+    }
+
+    //Tutorial end
+
+    private void OnTutorialSequenceComplete()
+    {
+        StartCoroutine(CompleteAndTransition());
+    }
+    private IEnumerator CompleteAndTransition()
+    {
+        Debug.Log("[TutorialManager] CompleteAndTransition started");
+
+        // Let the player read the final line
+        yield return new WaitForSecondsRealtime(2f);
+
+        dialogueBox.SetActive(false);
+        for (int i = 0; i < popUps.Length; i++)
+            popUps[i].SetActive(false);
+
+        Debug.Log("[TutorialManager] Calling GameManager.OnTutorialComplete()");
+        GameManager.Instance.OnTutorialComplete();
+    }
+
+
 }

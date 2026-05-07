@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject tutorialRoom;         
     [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private TutorialEnemySpawner tutorialSpawner;
+    [SerializeField] private GameObject tutorialCanvas;  
 
     [Header("Main Game")]
     [SerializeField] private GameObject mazeArea;               
@@ -24,6 +25,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     private PlayerMovement playerMovement;
 
+    [Header("Transition")]
+    [SerializeField] private GameObject transitionCanvas;
+    [SerializeField] private Animation transitionAnimation;
+    [SerializeField] private float transitionDelay = 15f; // Delay for any transition animations not sure whether to use static animation or we will be right back
 
     private void Awake()
     {
@@ -62,25 +67,26 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator TransitionToMaze()
     {
-        // static animation here
-        yield return new WaitForSeconds(0.5f);
+        transitionCanvas.SetActive(true);
+        tutorialCanvas.SetActive(false);
+        transitionAnimation.Play();
 
+        // Teleport immediately while canvas covers the screen
         CurrentState = GameState.Game;
-
-        // Swap rooms
         tutorialRoom.SetActive(false);
         mazeArea.SetActive(true);
 
-        // Teleport player to the maze spawn point
         if (playerMovement != null && mazeTeleportPoint != null)
             playerMovement.transform.position = mazeTeleportPoint.position;
 
-        // Hand off spawning to the main maze spawner
         if (tutorialSpawner != null) tutorialSpawner.enabled = false;
         if (mazeSpawner != null) mazeSpawner.enabled = true;
-
         SpawnManager.Instance.ResetEnemyCount();
 
+        // Keep canvas up for animation to play out
+        yield return new WaitForSecondsRealtime(transitionDelay);
+
+        transitionCanvas.SetActive(false);
         Debug.Log("GameManager: Transitioned to maze.");
     }
     //call this in beetle boss death
