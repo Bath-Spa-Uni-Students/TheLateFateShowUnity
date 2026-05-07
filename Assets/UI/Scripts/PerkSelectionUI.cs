@@ -15,7 +15,6 @@ public class PerkSelectionUI : MonoBehaviour
     [SerializeField] private Button[] perkButtons;              // 3 buttons
     [SerializeField] private TextMeshProUGUI[] perkNameTexts;   // 3 name labels
     [SerializeField] private TextMeshProUGUI[] perkDescTexts;   // 3 description labels
-    [SerializeField] private Image[] perkIconImages;            // 3 icon images (optional)
 
 
     [Header("Fallback Icon")]
@@ -77,13 +76,6 @@ public class PerkSelectionUI : MonoBehaviour
                 perkNameTexts[i].text = perk.perkName;
                 perkDescTexts[i].text = perk.description;
 
-                // Icon — use perk icon if available, fallback otherwise
-                if (perkIconImages != null && i < perkIconImages.Length && perkIconImages[i] != null)
-                {
-                    perkIconImages[i].sprite = perk.icon != null ? perk.icon : fallbackIcon;
-                    perkIconImages[i].gameObject.SetActive(perk.icon != null || fallbackIcon != null);
-                }
-
                 if (perkSelectionDebug)
                 {
                     Debug.Log($"[PerkSelectionUI] Slot {i}: {perk.perkName} | Icon: {(perk.icon != null ? perk.icon.name : "none")}");
@@ -126,6 +118,7 @@ public class PerkSelectionUI : MonoBehaviour
 
         WeaponManager.Instance.ReceiveLevelUpPerk(chosen);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkTriggerGeneric, Vector3.zero);
+        TutorialManager.Instance.AdvanceStep();
         Hide();
     }
 }
