@@ -109,7 +109,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7740753476160680699
 Transform:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AR
   bullet: {fileID: 6169654884917813664, guid: 5d396b26589a36b4dac2e51633dce83b, type: 3}
   bulletTransform: {fileID: 5784528161853409585}
-  canShoot: 1
+  canShoot: 0
   maxAmmo: 15
   fireRate: 0.2
   ammo: 10

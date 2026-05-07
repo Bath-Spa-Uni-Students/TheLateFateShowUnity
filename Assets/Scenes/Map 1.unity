@@ -170757,7 +170757,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 1514178986}
+    TrackingTarget: {fileID: 0}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -170789,7 +170789,7 @@ Transform:
   m_GameObject: {fileID: 404324053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -184.3, y: -15.9, z: -10}
+  m_LocalPosition: {x: -197.37, y: -15.82, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -174863,7 +174863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &513594440
 Transform:
   m_ObjectHideFlags: 0
@@ -320375,7 +320375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1101150969
 Transform:
   m_ObjectHideFlags: 0
@@ -323806,11 +323806,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c7071f47fdc89a04b9bcd051b9d5b896, type: 2}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -184.3
+      value: -197.37
       objectReference: {fileID: 0}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.9
+      value: -15.82
       objectReference: {fileID: 0}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -358310,7 +358310,7 @@ RectTransform:
   m_Father: {fileID: 1011083472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 5, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -401496,17 +401496,12 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
---- !u!4 &1514178986 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-  m_PrefabInstance: {fileID: 1143229772}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1514178991 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1302460837879173090, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1994644900}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc77c20fe0ec2d343b90d48743f0b987, type: 3}
@@ -448312,7 +448307,7 @@ Transform:
   m_GameObject: {fileID: 1809603965}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -184.3, y: -15.9, z: -10}
+  m_LocalPosition: {x: -197.37, y: -15.82, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -470281,7 +470276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1868759918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501563,11 +501558,6 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
---- !u!1 &1994644900 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6894317398465169764, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-  m_PrefabInstance: {fileID: 1143229772}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1996622102 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7247743451317876978, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -510548,7 +510538,7 @@ MonoBehaviour:
   mazeArea: {fileID: 1315243726}
   mazeSpawner: {fileID: 909184702}
   mazeTeleportPoint: {fileID: 513594440}
-  playerObject: {fileID: 1994644900}
+  playerObject: {fileID: 0}
 --- !u!1 &2067001899
 GameObject:
   m_ObjectHideFlags: 0
@@ -510681,7 +510671,7 @@ MonoBehaviour:
   dialogueBox: {fileID: 429211976}
   typeSpeed: 0.04
   tutorialSpawner: {fileID: 350528365}
-  playerObject: {fileID: 1994644900}
+  playerObject: {fileID: 0}
   perkSelectionUI: {fileID: 393893567}
 --- !u!1 &2072282345
 GameObject:

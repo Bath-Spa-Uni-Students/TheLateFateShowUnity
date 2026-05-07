@@ -12,7 +12,7 @@ public class EnemyStats : MonoBehaviour
     public float stoppingDistance = 0.35f;
 
     [Tooltip("Radius in which the enemy detects the player.")]
-    public float detectionRadius = 3.5f;
+    public float detectionRadius = 6.5f;
 
     [Header("Leader")]
     [Tooltip("Damage reduction for leader while followers alive (0-1, e.g. 0.5 = 50% reduction)")]

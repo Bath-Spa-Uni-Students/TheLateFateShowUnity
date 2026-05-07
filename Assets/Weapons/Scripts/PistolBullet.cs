@@ -18,7 +18,7 @@ public class PistolBullet : MonoBehaviour
     private CircleCollider2D circleCollider;
 
     [SerializeField] float bulletSpeed = 20;
-    [SerializeField] float bulletDamage = 2;
+    [SerializeField] float bulletDamage = 1;
 
     [SerializeField] SortingLayer enemyLayer;
 
