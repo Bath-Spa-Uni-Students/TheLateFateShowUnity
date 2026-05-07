@@ -948,7 +948,7 @@ MonoBehaviour:
   stoppingDistance: 0.35
   detectionRadius: 3.5
   leaderDamageReduction: 0.5
-  health: 10
+  health: 20
   maxHealth: 10
   damage: 10
   fireRate: 0.15
@@ -991,6 +991,7 @@ MonoBehaviour:
   orbitSpeed: 2
   orbitStopDistance: 0.15
   playerDetected: 0
+  debugMode: 0
   followerCount: 0
 --- !u!114 &814016242226724383
 MonoBehaviour:
@@ -1008,6 +1009,7 @@ MonoBehaviour:
   mFireRate: 0
   mFireCooldown: 0
   pistol: {fileID: 0}
+  perkThorns: {fileID: 0}
 --- !u!195 &7232216552129871522
 NavMeshAgent:
   m_ObjectHideFlags: 0
