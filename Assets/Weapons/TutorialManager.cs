@@ -86,16 +86,16 @@ public class TutorialManager : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.R))
                     AdvanceStep();
                 break;
-            case 4: // Kill all tutorial enemies
-                if (enemiesDefeated)
+            case 4:
+                if (enemiesDefeated && !stepComplete)
                 {
-
-                    AdvanceStep();
+                    stepComplete = true;   // prevent re-entry
                     playerMovement.currentLevel = 1;
                     perkSelectionUI.Show();
                 }
                 break;
-            case 5: // Level up — player starts at 0, so level 1 = first level-up
+            case 5:
+                Debug.Log($"[TutorialManager] Update case 5 — currentLevel={playerMovement.currentLevel}, stepComplete={stepComplete}");
                 if (playerMovement != null && playerMovement.currentLevel >= 1)
                     AdvanceStep();
                 break;
@@ -120,8 +120,9 @@ public class TutorialManager : MonoBehaviour
             tutorialSpawner.SpawnTutorialEnemies();
     }
 
-    private void AdvanceStep()
+    public void AdvanceStep()
     {
+    Debug.Log($"[TutorialManager] AdvanceStep called — going from {popUpIndex} to {popUpIndex + 1}, stepComplete={stepComplete}");
         popUpIndex++;
 
         if (popUpIndex < dialogueLines.Length)
@@ -143,7 +144,7 @@ public class TutorialManager : MonoBehaviour
         foreach (char c in line)
         {
             dialogueText.text += c;
-            yield return new WaitForSeconds(typeSpeed);
+            yield return new WaitForSecondsRealtime(typeSpeed);
         }
 
         stepComplete = false;
@@ -152,15 +153,6 @@ public class TutorialManager : MonoBehaviour
     private void PlayHostAnimation(int stepIndex)
     {
         int anim = (stepIndex == 4 || stepIndex == 6) ? AnimExcite : AnimTalk;
-    }
-
-    // External callbacks
-
-
-    // Called by TutorialEnemySpawner when all 3 grunts are dead.
-    public void OnAllTutorialEnemiesDefeated()
-    {
-        enemiesDefeated = true;     // Update() will pick this up next frame
     }
 
     //Tutorial end
@@ -176,5 +168,27 @@ public class TutorialManager : MonoBehaviour
 
         // Hand off to GameManager to do the room swap and teleport
         GameManager.Instance.OnTutorialComplete();
+    }
+
+    public void OnAllTutorialEnemiesDefeated()
+    {
+        Debug.Log($"[TutorialManager] OnAllTutorialEnemiesDefeated called. stepComplete={stepComplete}, popUpIndex={popUpIndex}, enemiesDefeated={enemiesDefeated}");
+
+        if (enemiesDefeated)
+        {
+            Debug.LogWarning("[TutorialManager] OnAllTutorialEnemiesDefeated called MORE THAN ONCE — returning early");
+            return;
+        }
+
+        enemiesDefeated = true;
+        stepComplete = true;
+        popUpIndex = 5;
+
+        Debug.Log($"[TutorialManager] After setting flags — stepComplete={stepComplete}, popUpIndex={popUpIndex}");
+
+        playerMovement.currentLevel = 1;
+        Debug.Log($"[TutorialManager] Set currentLevel to {playerMovement.currentLevel}, calling perkSelectionUI.Show()");
+
+        perkSelectionUI.Show();
     }
 }
