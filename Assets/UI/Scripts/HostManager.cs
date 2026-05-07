@@ -12,6 +12,7 @@ public class HostManager : MonoBehaviour
     public Animator hostAnimator;
     public TMP_Text dialogueText;
     public GameObject dialogueBox;
+    public GameObject hostObject;
 
     [Header("Typewriter Settings")]
     public float typeSpeed = 0.04f;
@@ -50,6 +51,7 @@ public class HostManager : MonoBehaviour
     {
         if (typeRoutine != null) StopCoroutine(typeRoutine);
         dialogueBox.SetActive(false);
+        hostObject.SetActive(false);
         hostAnimator.CrossFade(AnimIdle, 0.2f);
         IsTalking = false;
     }
@@ -57,6 +59,7 @@ public class HostManager : MonoBehaviour
     private IEnumerator TypewriterRoutine(string line, HostMood mood, System.Action onComplete, bool hold = false)
     {
         IsTalking = true;
+        hostObject.SetActive(true);
         dialogueBox.SetActive(true);
         dialogueText.text = "";
 
