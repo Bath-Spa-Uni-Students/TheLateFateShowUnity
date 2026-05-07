@@ -109,12 +109,9 @@ public class TutorialManager : MonoBehaviour
         for (int i = 0; i < popUps.Length; i++)
             popUps[i].SetActive(i == index);
 
-        if (typeRoutine != null) StopCoroutine(typeRoutine);
+        HostMood mood = (index == 4 || index == 6) ? HostMood.Ecstatic : HostMood.Talk;
+        HostManager.Instance.SayAndHold(dialogueLines[index], mood);
 
-        string line = index < dialogueLines.Length ? dialogueLines[index] : "";
-        typeRoutine = StartCoroutine(TypewriterRoutine(line, index));
-
-        // Spawn the tutorial enemies as soon as step 4 is shown
         if (index == 4 && tutorialSpawner != null)
             tutorialSpawner.SpawnTutorialEnemies();
     }
@@ -151,32 +148,6 @@ public class TutorialManager : MonoBehaviour
         perkSelectionUI.Show();
     }
 
-    //Typewriter 
-
-    private IEnumerator TypewriterRoutine(string line, int stepIndex)
-    {
-        stepComplete = true;
-        dialogueBox.SetActive(true);
-        dialogueText.text = "";
-
-        PlayHostAnimation(stepIndex);
-
-        foreach (char c in line)
-        {
-            dialogueText.text += c;
-            yield return new WaitForSecondsRealtime(typeSpeed);
-        }
-
-        stepComplete = false;
-        Debug.Log($"[TutorialManager] TypewriterRoutine finished for step {stepIndex}");
-
-        // If this was the last step then we can complete the tutorial sequence immediately after the player finishes reading, instead of waiting for another input
-        if (stepIndex == dialogueLines.Length - 1)
-        {
-            Debug.Log("[TutorialManager] Final step typewriter done — starting CompleteAndTransition");
-            OnTutorialSequenceComplete();
-        }
-    }
     private void PlayHostAnimation(int stepIndex)
     {
         int anim = (stepIndex == 4 || stepIndex == 6) ? AnimExcite : AnimTalk;

@@ -124,10 +124,10 @@ public class GameManager : MonoBehaviour
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(true);
 
-        /*HostManager.Instance.Say(
+        HostManager.Instance.Say(
             "You've found all the keys. Press T whenever you're ready for the boss!",
-            //HostMood.Ecstatic
-        );*/
+            HostMood.Ecstatic
+        );
     }
 
     // Called from BossTeleportInput when player presses T for teleport
@@ -153,21 +153,21 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("[GameManager] Max level reached without all keys — host scolds player");
 
-            /*HostManager.Instance.Say(
+            HostManager.Instance.Say(
                 "Really? You reached max level without finding all the keys? Fine... to the boss you go.",
                 HostMood.Talk,
                 onComplete: () => StartCoroutine(TransitionToBoss())
-            );*/
+            );
         }
         else
         {
             Debug.Log("[GameManager] Max level reached with all keys — forcing boss transition");
 
-            /*HostManager.Instance.Say(
+            HostManager.Instance.Say(
                 "Max level and all the keys — time to face the boss!",
-                HostMood.Excited,
+                HostMood.Ecstatic,
                 onComplete: () => StartCoroutine(TransitionToBoss())
-            );*/
+            );
         }
     }
 
@@ -200,7 +200,7 @@ public class GameManager : MonoBehaviour
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
-       // HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Excited);
+       HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Ecstatic);
 
         Debug.Log("[GameManager] Player won!");
         // Show win screen here
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
         if (mazeSpawner != null) mazeSpawner.enabled = false;
         if (tutorialSpawner != null) tutorialSpawner.enabled = false;
 
-       //HostManager.Instance.Say("Oh dear... better luck next time.", HostMood.Talk);
+       HostManager.Instance.Say("Oh dear... better luck next time.", HostMood.Talk);
 
         Debug.Log("[GameManager] Player lost.");
         // Show game over screen here
