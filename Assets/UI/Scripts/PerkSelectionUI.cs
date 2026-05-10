@@ -72,7 +72,9 @@ public class PerkSelectionUI : MonoBehaviour
             if (hasOption)
             {
                 PerkDefinition perk = currentSelection[i];
-
+                //change button sprite to perk icon, or fallback if none assigned
+                Image buttonImage = perkButtons[i].GetComponent<Image>();
+                buttonImage.sprite = perk.icon != null ? perk.icon : fallbackIcon;
                 perkNameTexts[i].text = perk.perkName;
                 perkDescTexts[i].text = perk.description;
 
