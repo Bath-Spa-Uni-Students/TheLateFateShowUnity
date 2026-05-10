@@ -51,6 +51,8 @@ public class SpawnManager : MonoBehaviour
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             playerMovement = player.GetComponent<PlayerMovement>();
+        currentEnemyCount++;
+        Debug.Log($"Enemy registered. Total: {currentEnemyCount}/{GlobalCap}");
     }
 
     public void UnregisterEnemy()

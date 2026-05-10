@@ -17,17 +17,25 @@ public class EnemySpawner : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] private float packSpawnChance = 0.4f;
     [Range(0f, 1f)]
-    [SerializeField] private float speedsterSpawnChance = 1f; //set to 1 for testing, will adjust later
+    [SerializeField] private float speedsterSpawnChance = 0.4f; //set to 1 for testing, will adjust later
 
     private Coroutine spawnCoroutine;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void OnEnable()
     {
         spawnCoroutine = StartCoroutine(SpawnLoop());
-
     }
 
+    private void OnDisable()
+    {
+        if (spawnCoroutine != null)
+        {
+            StopCoroutine(spawnCoroutine);
+            spawnCoroutine = null;
+        }
+    }
+
+    // Remove the Start() method entirely
 
     private IEnumerator SpawnLoop()
     {
@@ -43,21 +51,20 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        // Determine which enemy to spawn based on chances
         float roll = Random.value;
-       
+
         if (roll < speedsterSpawnChance)
         {
             SpawnSolo(speedsterPrefab);
         }
-            
-        else if (roll < packSpawnChance + speedsterSpawnChance)
-        {
-            SpawnPack();
-        }
         else
         {
-            SpawnSolo(gruntPrefab); // Spawn a non pack grunt
+            // Of the remaining chance, split between pack and solo grunt
+            float remainingRoll = Random.value;
+            if (remainingRoll < packSpawnChance)
+                SpawnPack();
+            else
+                SpawnSolo(gruntPrefab);
         }
     }
 
