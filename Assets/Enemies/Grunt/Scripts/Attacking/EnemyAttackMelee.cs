@@ -17,6 +17,12 @@ public class EnemyAttackMelee : MonoBehaviour
 
     private PistolPerks pistolPerks;
     public Pistol pistol;
+    private ShotgunPerks shotgunPerks;
+    public Shotgun shotgun;
+    private ARPerks arPerks;
+    public AR ar;
+
+
 
     [SerializeField] private PerkDefinition perkThorns;
     private void Awake()
@@ -45,6 +51,10 @@ public class EnemyAttackMelee : MonoBehaviour
         {
             pistol = player.GetComponentInChildren<Pistol>();
             pistolPerks = pistol.GetComponent<PistolPerks>();
+            shotgun = player.GetComponentInChildren<Shotgun>();
+            shotgunPerks = shotgun.GetComponent<ShotgunPerks>();
+            ar = player.GetComponentInChildren<AR>();
+            arPerks = ar.GetComponent<ARPerks>();
         }
         else
         {

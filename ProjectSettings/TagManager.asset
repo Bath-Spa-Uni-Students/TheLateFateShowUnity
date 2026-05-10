@@ -15,6 +15,7 @@ TagManager:
   - HeldWeapon
   - ARBullet
   - ChestSpawnPoint
+  - KeySpawnPoint
   layers:
   - Default
   - TransparentFX

@@ -85,6 +85,7 @@ public class MazeChanger : MonoBehaviour
 
         RebakeNavMesh();
         ChestSpawner.NotifyMazeRegenerated();
+        KeySpawner.NotifyMazeRegenerated();
     }
 
     private void RebakeNavMesh()

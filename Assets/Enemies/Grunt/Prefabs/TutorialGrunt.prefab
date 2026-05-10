@@ -1009,8 +1009,10 @@ MonoBehaviour:
   mDamage: 0
   mFireRate: 0
   mFireCooldown: 0
-  pistol: {fileID: 0}
-  perkThorns: {fileID: 0}
+  pistol: {fileID: 6042353297643838849, guid: 5954bce4e7793764098745828516b970, type: 3}
+  shotgun: {fileID: 9150268212473009115, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}
+  ar: {fileID: 43245082067086761, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
+  perkThorns: {fileID: 11400000, guid: 0809a48fe21f15147a34e2024ba79465, type: 2}
 --- !u!195 &7232216552129871522
 NavMeshAgent:
   m_ObjectHideFlags: 0

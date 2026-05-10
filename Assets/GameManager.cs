@@ -93,7 +93,8 @@ public class GameManager : MonoBehaviour
         if (mazeSpawner != null) mazeSpawner.enabled = true;
 
         SpawnManager.Instance.ResetEnemyCount();
-
+        KeySpawner.Instance.Initialise(keysRequired);
+        KeySpawner.NotifyMazeRegenerated();
         // Keep canvas up for transition animation to play out
         yield return new WaitForSecondsRealtime(transitionDelay);
 
