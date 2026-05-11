@@ -18,10 +18,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mazeArea;
     [SerializeField] private EnemySpawner mazeSpawner;
     [SerializeField] private Transform mazeTeleportPoint;
+    [SerializeField] private MazeChanger mazeChanger;
 
     [Header("Boss Room")]
     [SerializeField] private GameObject bossRoom;
     [SerializeField] private Transform bossTeleportPoint;
+    [SerializeField] private GameObject beetleBoss;
 
     [Header("Key System")]
     [SerializeField] private int keysRequired = 3;
@@ -42,6 +44,15 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+    }
+
+    private void Update()
+    {
+        if (CurrentState != GameState.Game) return;
+        if (keysCollected < keysRequired) return;
+
+        if (Input.GetKeyDown(KeyCode.T))
+            OnPlayerRequestBossTeleport();
     }
 
     private void Start()
@@ -128,10 +139,9 @@ public class GameManager : MonoBehaviour
         HostManager.Instance.Say(
             "You've found all the keys. Press T whenever you're ready for the boss!",
             HostMood.Ecstatic
-        );
+        );  
     }
 
-    // Called from BossTeleportInput when player presses T for teleport
     public void OnPlayerRequestBossTeleport()
     {
         if (CurrentState != GameState.Game) return;
@@ -180,6 +190,10 @@ public class GameManager : MonoBehaviour
         mazeArea.SetActive(false);
         bossRoom.SetActive(true);
 
+        if (beetleBoss != null) beetleBoss.SetActive(true);
+
+        if (mazeChanger != null) mazeChanger.StopSwitching();
+
         if (playerMovement != null && bossTeleportPoint != null)
             playerMovement.transform.position = bossTeleportPoint.position;
 
@@ -191,9 +205,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("[GameManager] Transitioned to boss room.");
     }
 
-    // Win / Lose
-
-    // Call this from beetle boss death
     public void OnGameWin()
     {
         if (CurrentState != GameState.Boss) return;
@@ -206,8 +217,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("[GameManager] Player won!");
         // Show win screen here
     }
-
-    // Call this from PlayerMovement when the player dies
     public void OnGameLose()
     {
         CurrentState = GameState.Lose;

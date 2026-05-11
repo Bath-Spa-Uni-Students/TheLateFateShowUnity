@@ -124,5 +124,13 @@ public class MazeChanger : MonoBehaviour
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
 
-  
+    public void StopSwitching()
+    {
+        if (switchCoroutine != null)
+        {
+            StopCoroutine(switchCoroutine);
+            switchCoroutine = null;
+        }
+    }
+
 }

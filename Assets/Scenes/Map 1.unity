@@ -211,7 +211,7 @@ MonoBehaviour:
   m_BuildHeightMesh: 0
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: f0fb8b142fa28ed45b7777a790bd84c5, type: 2}
 --- !u!1 &148522978 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 665481331947155119, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
@@ -392,7 +392,7 @@ Transform:
   m_GameObject: {fileID: 404324053}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -184.3, y: -15.9, z: -10}
+  m_LocalPosition: {x: 189, y: -44, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -548,6 +548,11 @@ GameObject:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4863092607206308337, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
   m_PrefabInstance: {fileID: 3897635223001194719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1053403545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6837336700450993264, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+  m_PrefabInstance: {fileID: 3852142738098113873}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1076475401 stripped
 MonoBehaviour:
@@ -798,11 +803,11 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c7071f47fdc89a04b9bcd051b9d5b896, type: 2}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -184.3
+      value: 189
       objectReference: {fileID: 0}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.9
+      value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 5964464932427019635, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1559,7 +1564,7 @@ Transform:
   m_GameObject: {fileID: 1809603965}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -184.3, y: -15.9, z: -10}
+  m_LocalPosition: {x: 189, y: -44, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2120,10 +2125,12 @@ MonoBehaviour:
   tutorialSpawner: {fileID: 350528365}
   tutorialCanvas: {fileID: 2067001899}
   mazeArea: {fileID: 1315243726}
-  mazeSpawner: {fileID: 0}
+  mazeSpawner: {fileID: 6724060322285420697, guid: 0e565f63d1002fd4bbd549d9aa1dc842, type: 3}
   mazeTeleportPoint: {fileID: 513594440}
+  mazeChanger: {fileID: 1876983448}
   bossRoom: {fileID: 886526845}
   bossTeleportPoint: {fileID: 2082038759}
+  beetleBoss: {fileID: 1053403545}
   keysRequired: 3
   forcedBossLevel: 10
   bossTeleportButtonUI: {fileID: 1038727101}
@@ -2237,6 +2244,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Room
       objectReference: {fileID: 0}
+    - target: {fileID: 5035463091915581243, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5773675966283969059, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 79.8
@@ -2277,6 +2288,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6837336700450993264, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6985275202748254875, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+      propertyPath: stoppingDistance
+      value: 3.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2293,6 +2312,10 @@ PrefabInstance:
     - target: {fileID: 1000588821087758850, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_Name
       value: UI Components
+      objectReference: {fileID: 0}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: playerObject
@@ -2542,6 +2565,10 @@ PrefabInstance:
     - target: {fileID: 7464488088793449108, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
       propertyPath: m_Name
       value: MazeArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464488088793449108, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7465494629742413557, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
       propertyPath: m_LocalPosition.x
