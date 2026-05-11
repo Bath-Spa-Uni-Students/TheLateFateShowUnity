@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perk_CritChance
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
   perkName: Crit Chance
-  description: Small chacnce that bullets will crit and do double damage.
+  description: Small chance that bullets will crit and do double damage.
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1

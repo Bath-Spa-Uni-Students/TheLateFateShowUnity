@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perk_Thorns
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
   perkName: Thorns
-  description: When taking physihcal damage form an enemy reflect some of the damage
+  description: When taking physical damage from an enemy, reflect some of the damage
     back.
   compatibleWithPistol: 1
   compatibleWithAR: 1

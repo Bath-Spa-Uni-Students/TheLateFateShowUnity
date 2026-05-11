@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Perk_PoisonRounds
   m_EditorClassIdentifier: Assembly-CSharp::PerkDefinition
   perkName: Posion Rounds
-  description: Bullets have a chance to poison enemies on contact dealing a portion
-    fo their max health as damage overtime
+  description: Bullets have a chance to poison enemies on contact, dealing a portion
+    of their max health as damage overtime
   compatibleWithPistol: 1
   compatibleWithAR: 1
   compatibleWithShotgun: 1
