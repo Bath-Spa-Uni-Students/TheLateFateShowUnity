@@ -1,8 +1,9 @@
+using FMODUnity;
+using FMOD.Studio;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using FMOD.Studio;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -90,11 +91,8 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
 
-        // Create footstep audio instance via AudioManager
-        playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
-        playerHurt = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerHurt);
-        playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
         playerDash = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDash);
+        playerFootsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerFootsteps);
     }
     private void Update()
     {
@@ -107,8 +105,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = moveInput * moveSpeed;
         }
-
-        UpdateSound();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -133,7 +129,13 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("InputX", moveInput.x);
         animator.SetFloat("InputY", moveInput.y);
     }
+    public void OnFootstep()
+    {
+        if(moveInput == Vector2.zero) return;
 
+        playerFootsteps.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        playerFootsteps.start();
+    }
     public void Dash(InputAction.CallbackContext context)
     {
         if (!context.performed || !canDash || isDashing)
@@ -157,6 +159,7 @@ public class PlayerMovement : MonoBehaviour
         if (lastMoveDir == Vector2.zero)
             lastMoveDir = Vector2.down;
 
+
         // Apply dash velocity
         rb.linearVelocity = lastMoveDir * dashForce;
         playerDash.start();
@@ -179,9 +182,9 @@ public class PlayerMovement : MonoBehaviour
 
     void PlayerDie()
     {
-        playerDeath.start();
         if (gameManager != null)
             gameManager.OnGameLose();
+        RuntimeManager.PlayOneShot(FMODEvents.Instance.playerDeath, transform.position);
         Destroy(gameObject);
     }
     public void DamagePlayer(float damage)
@@ -194,33 +197,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            playerHurt.start();
+            RuntimeManager.PlayOneShot(FMODEvents.Instance.playerHurt, transform.position);
             Debug.Log("Player took " + damage + " damage. Remaining health: " + (health - damage));
             health -= damage;
             healthBar.value = health;
         }
     }
 
-    // Starts or stops the footstep audio based on the current walk state
-    private void UpdateSound()
-    {
-        if (animator.GetBool("IsWalking"))
-        {
-            // Only start if not already playing
-            PLAYBACK_STATE playbackState;
-            playerFootsteps.getPlaybackState(out playbackState);
-
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                playerFootsteps.start();
-            }
-        }
-        else
-        {
-            // Allow the tail of the sound to fade out naturally
-            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
-        }
-    }
 
     // Add fame
     public void AddFame(int amount)
@@ -252,5 +235,11 @@ public class PlayerMovement : MonoBehaviour
         float baseXP = 100f;
         float multiplier = 2f;
         return Mathf.FloorToInt(baseXP * Mathf.Pow(multiplier, level - 1));
+    }
+
+    private void OnDestroy()
+    {
+        playerDash.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        playerDash.release();
     }
 }

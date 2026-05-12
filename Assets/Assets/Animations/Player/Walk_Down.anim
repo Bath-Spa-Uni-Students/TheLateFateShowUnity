@@ -22,9 +22,9 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: -7836633220061443907, guid: 28b026b96e54ce74a89d38fc5aae0732, type: 3}
-    - time: 0.25
+    - time: 0.33333334
       value: {fileID: 8934778717053516290, guid: 28b026b96e54ce74a89d38fc5aae0732, type: 3}
-    - time: 0.5
+    - time: 0.5833333
       value: {fileID: -3786205677612502737, guid: 28b026b96e54ce74a89d38fc5aae0732, type: 3}
     - time: 0.75
       value: {fileID: 6983934847832328050, guid: 28b026b96e54ce74a89d38fc5aae0732, type: 3}
@@ -81,4 +81,25 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0
+    functionName: OnFootstep
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
+    functionName: OnFootstep
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
+    functionName: OnFootstep
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
