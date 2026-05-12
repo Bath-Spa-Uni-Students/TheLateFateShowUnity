@@ -130,12 +130,12 @@ TextureImporter:
       name: UI_start hover_sheet_0
       rect:
         serializedVersion: 2
-        x: 140
-        y: 11
-        width: 59
-        height: 95
+        x: 0
+        y: 0
+        width: 600
+        height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,12 +152,12 @@ TextureImporter:
       name: UI_start hover_sheet_1
       rect:
         serializedVersion: 2
-        x: 203
-        y: 11
-        width: 59
-        height: 95
+        x: 600
+        y: 0
+        width: 600
+        height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -170,187 +170,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 266
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73b4aebf2f8b5db90800000000000000
-      internalID: -7217659474043319497
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 329
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 51c72ad95ff85f330800000000000000
-      internalID: 3744056950302866453
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 392
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d58941b5820042a70800000000000000
-      internalID: 8801159745115560029
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 740
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9ccc6867665720850800000000000000
-      internalID: 6341760308226739401
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 803
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 225fdad780cab6940800000000000000
-      internalID: 5290511339745047842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 866
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0c92ab2d42ff66300800000000000000
-      internalID: 245163763357592000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_8
-      rect:
-        serializedVersion: 2
-        x: 929
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c851aa116f0e76880800000000000000
-      internalID: -8617672014487218804
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_start hover_sheet_9
-      rect:
-        serializedVersion: 2
-        x: 992
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2c10519acf221bec0800000000000000
-      internalID: -3553020162454781502
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0380346bc7c024d49a3b37814368c0ac
     internalID: 0
     vertices: []
     indices: 
@@ -358,18 +182,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":600.0,"y":120.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       UI_start hover_sheet_0: 7015084224088074723
       UI_start hover_sheet_1: 4808579991675208184
-      UI_start hover_sheet_2: -7217659474043319497
-      UI_start hover_sheet_3: 3744056950302866453
-      UI_start hover_sheet_4: 8801159745115560029
-      UI_start hover_sheet_5: 6341760308226739401
-      UI_start hover_sheet_6: 5290511339745047842
-      UI_start hover_sheet_7: 245163763357592000
-      UI_start hover_sheet_8: -8617672014487218804
-      UI_start hover_sheet_9: -3553020162454781502
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

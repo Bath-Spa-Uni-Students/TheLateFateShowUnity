@@ -124,12 +124,12 @@ TextureImporter:
       name: UI_exit hover_sheet_0
       rect:
         serializedVersion: 2
-        x: 176
-        y: 11
-        width: 59
-        height: 95
+        x: 0
+        y: 0
+        width: 600
+        height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,12 +146,12 @@ TextureImporter:
       name: UI_exit hover_sheet_1
       rect:
         serializedVersion: 2
-        x: 239
-        y: 11
-        width: 59
-        height: 95
+        x: 600
+        y: 0
+        width: 600
+        height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -164,143 +164,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: UI_exit hover_sheet_2
-      rect:
-        serializedVersion: 2
-        x: 302
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: df9e0ffd7afbcd540800000000000000
-      internalID: 5034109211230923261
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_exit hover_sheet_3
-      rect:
-        serializedVersion: 2
-        x: 365
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: be84d17dfb96f3340800000000000000
-      internalID: 4845707996742633707
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_exit hover_sheet_4
-      rect:
-        serializedVersion: 2
-        x: 776
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d9d94da1f49455fe0800000000000000
-      internalID: -1200973121522983523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_exit hover_sheet_5
-      rect:
-        serializedVersion: 2
-        x: 839
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dcfff487adbc05330800000000000000
-      internalID: 3697679433252995021
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_exit hover_sheet_6
-      rect:
-        serializedVersion: 2
-        x: 902
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b8821df281f613060800000000000000
-      internalID: 6931443451172038795
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_exit hover_sheet_7
-      rect:
-        serializedVersion: 2
-        x: 965
-        y: 11
-        width: 59
-        height: 95
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ad031562e9aade940800000000000000
-      internalID: 5327101530473574618
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e3ff5228f096434428748aa430c731c1
     internalID: 0
     vertices: []
     indices: 
@@ -308,16 +176,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":600.0,"y":120.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       UI_exit hover_sheet_0: -4453865503529728347
       UI_exit hover_sheet_1: 7855173911539344585
-      UI_exit hover_sheet_2: 5034109211230923261
-      UI_exit hover_sheet_3: 4845707996742633707
-      UI_exit hover_sheet_4: -1200973121522983523
-      UI_exit hover_sheet_5: 3697679433252995021
-      UI_exit hover_sheet_6: 6931443451172038795
-      UI_exit hover_sheet_7: 5327101530473574618
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
