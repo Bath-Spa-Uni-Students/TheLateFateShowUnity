@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: a89515d76d00ebf40b0409104f16b161
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3826885603441434231
+    second: UI_settings hover_sheet_0
+  - first:
+      213: 3401045452058315120
+    second: UI_settings hover_sheet_1
+  - first:
+      213: -8030222311551973570
+    second: UI_settings hover_sheet_2
+  - first:
+      213: -4349127277530436302
+    second: UI_settings hover_sheet_3
+  - first:
+      213: -3629957081561563954
+    second: UI_settings hover_sheet_4
+  - first:
+      213: 6933311629791591668
+    second: UI_settings hover_sheet_5
+  - first:
+      213: 7976760881854285315
+    second: UI_settings hover_sheet_6
+  - first:
+      213: -6582348089118668047
+    second: UI_settings hover_sheet_7
+  - first:
+      213: -1644889082314241554
+    second: UI_settings hover_sheet_8
+  - first:
+      213: 8455821595984103656
+    second: UI_settings hover_sheet_9
+  - first:
+      213: -4261719700346592355
+    second: UI_settings hover_sheet_10
+  - first:
+      213: 4380792295620098148
+    second: UI_settings hover_sheet_11
+  - first:
+      213: 6441208173022335127
+    second: UI_settings hover_sheet_12
+  - first:
+      213: 511581202099813049
+    second: UI_settings hover_sheet_13
+  - first:
+      213: -8805256981920226614
+    second: UI_settings hover_sheet_14
+  - first:
+      213: 7635924293228065756
+    second: UI_settings hover_sheet_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_0
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77ede2d3e24db1530800000000000000
+      internalID: 3826885603441434231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_1
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 079c4e2b1d0f23f20800000000000000
+      internalID: 3401045452058315120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_2
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3747848a5bee8090800000000000000
+      internalID: -8030222311551973570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23d26d3a8cbc4a3c0800000000000000
+      internalID: -4349127277530436302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 302
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eccfb93444dcf9dc0800000000000000
+      internalID: -3629957081561563954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fcffca6132183060800000000000000
+      internalID: 6933311629791591668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 306082562c523be60800000000000000
+      internalID: 7976760881854285315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_7
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fa4c18a94dc6a4a0800000000000000
+      internalID: -6582348089118668047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_8
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee9cdb9381e2c29e0800000000000000
+      internalID: -1644889082314241554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_9
+      rect:
+        serializedVersion: 2
+        x: 713
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e885b0d0fc195570800000000000000
+      internalID: 8455821595984103656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_10
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d93ae8813845bd4c0800000000000000
+      internalID: -4261719700346592355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_11
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4683437e163bbcc30800000000000000
+      internalID: 4380792295620098148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_12
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 790d655d4b4c36950800000000000000
+      internalID: 6441208173022335127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_13
+      rect:
+        serializedVersion: 2
+        x: 965
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ba3de09460891700800000000000000
+      internalID: 511581202099813049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_14
+      rect:
+        serializedVersion: 2
+        x: 1028
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac2ed9c5d617dc580800000000000000
+      internalID: -8805256981920226614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_settings hover_sheet_15
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 11
+        width: 59
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd372a510b048f960800000000000000
+      internalID: 7635924293228065756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      UI_settings hover_sheet_0: 3826885603441434231
+      UI_settings hover_sheet_1: 3401045452058315120
+      UI_settings hover_sheet_10: -4261719700346592355
+      UI_settings hover_sheet_11: 4380792295620098148
+      UI_settings hover_sheet_12: 6441208173022335127
+      UI_settings hover_sheet_13: 511581202099813049
+      UI_settings hover_sheet_14: -8805256981920226614
+      UI_settings hover_sheet_15: 7635924293228065756
+      UI_settings hover_sheet_2: -8030222311551973570
+      UI_settings hover_sheet_3: -4349127277530436302
+      UI_settings hover_sheet_4: -3629957081561563954
+      UI_settings hover_sheet_5: 6933311629791591668
+      UI_settings hover_sheet_6: 7976760881854285315
+      UI_settings hover_sheet_7: -6582348089118668047
+      UI_settings hover_sheet_8: -1644889082314241554
+      UI_settings hover_sheet_9: 8455821595984103656
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
