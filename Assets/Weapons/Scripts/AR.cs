@@ -1,6 +1,8 @@
 using FMOD.Studio;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class AR : MonoBehaviour
@@ -90,10 +92,17 @@ public class AR : MonoBehaviour
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
-            canShoot = true;
-            ammo = maxAmmo;
-            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position);
+            StartCoroutine(ReloadTimer());
         }
+    }
+
+    private IEnumerator ReloadTimer()
+    {
+        canShoot = false;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.arReload, transform.position); // Play reload sound
+        yield return new WaitForSeconds(2f); // Simulate reload time
+        ammo = maxAmmo;
+        ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+        canShoot = true;
     }
 }

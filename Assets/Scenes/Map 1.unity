@@ -953,6 +953,34 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1514178991}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionId
+      value: 34f7780d-004d-477b-8285-155a665d4daf
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionName
+      value: 'Player/Reload[/Keyboard/r]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1514178991}
+    - target: {fileID: 1041290417241648237, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1302460837879173090, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: hasWeapon
       value: 1
