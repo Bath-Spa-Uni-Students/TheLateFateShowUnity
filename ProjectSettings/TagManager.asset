@@ -57,6 +57,9 @@ TagManager:
   - name: Background
     uniqueID: 160741393
     locked: 0
+  - name: LavaLayer
+    uniqueID: 1548763575
+    locked: 0
   - name: Ground
     uniqueID: 886007311
     locked: 0
