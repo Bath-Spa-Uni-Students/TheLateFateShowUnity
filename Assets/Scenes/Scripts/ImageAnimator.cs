@@ -22,7 +22,7 @@ public class ImageAnimator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!loop && index >= frames.Length) return;
         frame ++;

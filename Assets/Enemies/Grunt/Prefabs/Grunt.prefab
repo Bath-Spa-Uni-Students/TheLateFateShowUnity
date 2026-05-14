@@ -945,8 +945,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
   speed: 1
-  stoppingDistance: 0.35
-  detectionRadius: 3.5
+  stoppingDistance: 3
+  detectionRadius: 8.58
   leaderDamageReduction: 0.5
   health: 10
   maxHealth: 10

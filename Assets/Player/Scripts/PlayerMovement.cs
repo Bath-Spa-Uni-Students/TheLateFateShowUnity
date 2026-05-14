@@ -250,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
     public int GetXP(int level)
     {
         float baseXP = 100f;
-        float multiplier = 2f;
+        float multiplier = 1.3f;
         return Mathf.FloorToInt(baseXP * Mathf.Pow(multiplier, level - 1));
     }
 }
