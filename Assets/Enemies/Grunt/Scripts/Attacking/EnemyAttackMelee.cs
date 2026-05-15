@@ -50,11 +50,11 @@ public class EnemyAttackMelee : MonoBehaviour
         if (player != null)
         {
             pistol = player.GetComponentInChildren<Pistol>();
-            pistolPerks = pistol.GetComponent<PistolPerks>();
+            if (pistol != null) pistolPerks = pistol.GetComponent<PistolPerks>();
             shotgun = player.GetComponentInChildren<Shotgun>();
-            shotgunPerks = shotgun.GetComponent<ShotgunPerks>();
+            if (shotgun != null) shotgunPerks = shotgun.GetComponent<ShotgunPerks>();
             ar = player.GetComponentInChildren<AR>();
-            arPerks = ar.GetComponent<ARPerks>();
+            if (ar != null) arPerks = ar.GetComponent<ARPerks>();
         }
         else
         {

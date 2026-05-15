@@ -1,5 +1,8 @@
 using System.Collections;
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public enum GameState { Tutorial, Game, Boss, Win, Lose }
 
@@ -38,7 +41,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Player")]
     [SerializeField] private GameObject playerObject;
+    [SerializeField] private GameObject gameManagerCanvas;
     private PlayerMovement playerMovement;
+    private PlayerInput playerInput;
 
     private void Awake()
     {
@@ -63,7 +68,13 @@ public class GameManager : MonoBehaviour
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(false);
 
-        EnterTutorial();
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+            EnterTutorial();
+        else
+        {
+            StartCoroutine(TransitionToMaze());
+            //playerInput.DeactivateInput();
+        }
     }
 
     // Tutorial 
@@ -84,11 +95,14 @@ public class GameManager : MonoBehaviour
     public void OnTutorialComplete()
     {
         if (CurrentState != GameState.Tutorial) return;
-        StartCoroutine(TransitionToMaze());
+        SceneManager.LoadScene("Map 1");
+        //StartCoroutine(TransitionToMaze());
     }
 
     private IEnumerator TransitionToMaze()
     {
+        Time.timeScale = 0f; // Pause the game during transition
+        gameManagerCanvas.SetActive(false);
         transitionCanvas.SetActive(true);
         tutorialCanvas.SetActive(false);
 
@@ -108,8 +122,11 @@ public class GameManager : MonoBehaviour
         KeySpawner.NotifyMazeRegenerated();
         // Keep canvas up for transition animation to play out
         yield return new WaitForSecondsRealtime(transitionDelay);
+        Time.timeScale = 1f;
 
         transitionCanvas.SetActive(false);
+        gameManagerCanvas.SetActive(true);
+        //playerInput.ActivateInput();
         Debug.Log("[GameManager] Transitioned to maze.");
     }
 
