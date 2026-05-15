@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     private PlayerMovement playerMovement;
     [SerializeField] private PerkSelectionUI perkSelectionUI;
+    [SerializeField] private GameObject spawnManager;
+    private SpawnManager spawnManagerScript;
+    [SerializeField] private GameObject maze;
+    private MazeChanger mazeChangerScript;
 
     private readonly string[] dialogueLines = new string[]
     {
@@ -33,6 +38,8 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
+        mazeChangerScript = maze.GetComponent<MazeChanger>();
+        spawnManagerScript = spawnManager.GetComponent<SpawnManager>();
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
@@ -128,8 +135,10 @@ public class TutorialManager : MonoBehaviour
 
         if (popUpIndex < dialogueLines.Length)
             ShowStep(popUpIndex);
-        else
+        else if (popUpIndex == 4 && spawnManagerScript.currentEnemyCount == 0)
+        {
             StartCoroutine(CompleteAndTransition());
+        }
     }
 
     // Completion 
@@ -137,7 +146,7 @@ public class TutorialManager : MonoBehaviour
     private IEnumerator CompleteAndTransition()
     {
         Debug.Log("[TutorialManager] CompleteAndTransition started");
-
+        mazeChangerScript.enabled = true;
         // Wait for final dialogue to finish if still playing
         yield return new WaitUntil(() => !HostManager.Instance.IsTalking);
 

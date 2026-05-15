@@ -29,7 +29,7 @@ public class MazeChanger : MonoBehaviour
     private int[] currentActiveIndex; // tracks which room variation is active
     private Coroutine switchCoroutine;
 
-    void Start()
+    void OnEnable()
     {
         allSlots = new GameObject[][]
         {
