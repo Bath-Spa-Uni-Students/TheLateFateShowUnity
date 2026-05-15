@@ -209,7 +209,7 @@ public class BossBehaviour : MonoBehaviour
                     phaseParamID = paramDesc.id;
                     bossTheme.start();
                     musicStarted = true;
-                    SetMusicPhase(0);
+                    //SetMusicPhase(0);
                 }
             }
             else
@@ -225,7 +225,7 @@ public class BossBehaviour : MonoBehaviour
             agent.speed = stats.speed * phase2SpeedMultiplier;
             animator.SetBool("Phase2", true);
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
-            if (musicStarted) SetMusicPhase(1);
+           // if (musicStarted) SetMusicPhase(1);
         }
 
         // Phase 2 rhythm: Advance -> Melee -> Retreat -> Cone beam -> repeat
@@ -342,16 +342,16 @@ public class BossBehaviour : MonoBehaviour
         stats.canDamage = hits > 0;
     }
 
-    private void SetMusicPhase(int phase)
+    /*private void SetMusicPhase(int phase)
     {
         if (!musicStarted || currentMusicPhase == phase) return;
         bossTheme.setParameterByID(phaseParamID, phase);
         currentMusicPhase = phase;
-    }
+    }*/
 
     public void OnBossDeath()
     {
-        SetMusicPhase(2);
+        //SetMusicPhase(2);
         rangedAttackScript.StopBeam();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
         if (gameManager != null)

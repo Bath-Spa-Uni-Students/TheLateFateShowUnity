@@ -1553,25 +1553,25 @@ MonoBehaviour:
     Path: event:/Placeholder
   <bossAttackMelee>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 531053688
+      Data2: 1328332645
+      Data3: 1042276540
+      Data4: 568124663
+    Path: event:/Enemies/Beetle Boss/BossAttackMelee
   <bossAttackRanged>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -725790096
+      Data2: 1321062212
+      Data3: -1144438102
+      Data4: 2036417406
+    Path: event:/Enemies/Beetle Boss/BossAttackRanged
   <bossWake>k__BackingField:
     Guid:
-      Data1: -2030970193
-      Data2: 1128220004
-      Data3: 715415473
-      Data4: -603237934
-    Path: event:/Enemies/Beetle Boss/BossWake
+      Data1: -795398421
+      Data2: 1170961476
+      Data3: -1748556655
+      Data4: 1655857119
+    Path: event:/Enemies/Beetle Boss/BossWakeUp
   <bossShellOpen>k__BackingField:
     Guid:
       Data1: 775812514
@@ -1585,13 +1585,13 @@ MonoBehaviour:
       Data2: 1236850625
       Data3: 2133212556
       Data4: 1707782529
-    Path: event:/Enemies/Beetle Boss/BossTheme
+    Path: event:/Scores/BossTheme
   <bossFootsteps>k__BackingField:
     Guid:
-      Data1: 1108468587
-      Data2: 1322437783
-      Data3: -1103077213
-      Data4: -1005424935
+      Data1: -1007267890
+      Data2: 1150707351
+      Data3: -1893826930
+      Data4: -148631829
     Path: event:/Enemies/Beetle Boss/BossWalk
   <perkSelect>k__BackingField:
     Guid:
@@ -1658,18 +1658,18 @@ MonoBehaviour:
     Path: event:/UI/UIError
   <mainMenuTheme>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1861549931
+      Data2: 1132151640
+      Data3: -1990418287
+      Data4: -1142157847
+    Path: event:/Scores/TitleTheme
   <levelAmbience>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -889314634
+      Data2: 1231641684
+      Data3: 635409074
+      Data4: 1479822921
+    Path: event:/Scores/MazeExplorationTheme
   <victoryStinger>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -134641,7 +134641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 669140991850865147, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.9979248
+      value: 3.9980469
       objectReference: {fileID: 0}
     - target: {fileID: 669140991850865147, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchoredPosition.y

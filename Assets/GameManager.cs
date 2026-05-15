@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using FMOD.Studio;
 
 public enum GameState { Tutorial, Game, Boss, Win, Lose }
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject playerObject;
     private PlayerMovement playerMovement;
 
+    private EventInstance explorationTheme;
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(false);
 
+        explorationTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.levelAmbience);
         EnterTutorial();
     }
 
@@ -111,6 +114,8 @@ public class GameManager : MonoBehaviour
 
         transitionCanvas.SetActive(false);
         Debug.Log("[GameManager] Transitioned to maze.");
+        explorationTheme.start();
+
     }
 
     // Key System 
@@ -184,6 +189,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator TransitionToBoss()
     {
+        explorationTheme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         transitionCanvas.SetActive(true);
 
         CurrentState = GameState.Boss;

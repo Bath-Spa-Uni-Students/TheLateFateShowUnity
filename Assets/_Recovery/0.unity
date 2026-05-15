@@ -5802,7 +5802,8 @@ Animation:
   m_Enabled: 1
   serializedVersion: 4
   m_Animation: {fileID: 7400000, guid: 81eaa8223da14984680cc5950f1e21db, type: 2}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: 81eaa8223da14984680cc5950f1e21db, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -10861,13 +10862,13 @@ MonoBehaviour:
       Data2: 1236850625
       Data3: 2133212556
       Data4: 1707782529
-    Path: event:/Enemies/Beetle Boss/BossTheme
+    Path: event:/Scores/BossTheme
   <bossFootsteps>k__BackingField:
     Guid:
-      Data1: 1108468587
-      Data2: 1322437783
-      Data3: -1103077213
-      Data4: -1005424935
+      Data1: -1007267890
+      Data2: 1150707351
+      Data3: -1893826930
+      Data4: -148631829
     Path: event:/Enemies/Beetle Boss/BossWalk
   <perkSelect>k__BackingField:
     Guid:
@@ -17852,8 +17853,10 @@ MonoBehaviour:
   mazeArea: {fileID: 1315243726}
   mazeSpawner: {fileID: 909184702}
   mazeTeleportPoint: {fileID: 513594440}
+  mazeChanger: {fileID: 0}
   bossRoom: {fileID: 886526845}
   bossTeleportPoint: {fileID: 2082038759}
+  beetleBoss: {fileID: 0}
   keysRequired: 3
   forcedBossLevel: 10
   bossTeleportButtonUI: {fileID: 1038727101}

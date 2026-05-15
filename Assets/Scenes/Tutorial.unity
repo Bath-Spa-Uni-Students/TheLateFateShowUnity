@@ -1097,13 +1097,13 @@ MonoBehaviour:
       Data2: 1236850625
       Data3: 2133212556
       Data4: 1707782529
-    Path: event:/Enemies/Beetle Boss/BossTheme
+    Path: event:/Scores/BossTheme
   <bossFootsteps>k__BackingField:
     Guid:
-      Data1: 1108468587
-      Data2: 1322437783
-      Data3: -1103077213
-      Data4: -1005424935
+      Data1: -1007267890
+      Data2: 1150707351
+      Data3: -1893826930
+      Data4: -148631829
     Path: event:/Enemies/Beetle Boss/BossWalk
   <perkSelect>k__BackingField:
     Guid:
