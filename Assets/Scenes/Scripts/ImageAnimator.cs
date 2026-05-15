@@ -13,6 +13,7 @@ public class ImageAnimator : MonoBehaviour
     private int index = 0;
     private Image image;
     private int frame = 0;
+    private float timer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
@@ -22,18 +23,36 @@ public class ImageAnimator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!loop && index >= frames.Length) return;
-        frame ++;
-        if (frame < spritePerFrame) return;
-        image.sprite = frames [index];
-        frame = 0;
-        index++;
-        if (index >= frames.Length)
+
+        timer += Time.unscaledDeltaTime; // Use unscaledDeltaTime to ignore time scale changes
+
+        float frameDuration = 1f / spritePerFrame; // Duration of each frame in seconds
+
+        while (timer >= frameDuration)
         {
-            if (loop) index = 0;
-            if(destroyOnEnd) Destroy(gameObject);
+            timer -= frameDuration;
+
+            image.sprite = frames[index];
+            index++;
+            if (index >= frames.Length)
+            {
+                if (loop)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    if (destroyOnEnd)
+                    {
+                        Destroy(gameObject);
+                    }
+
+                    break;
+                }
+            }
         }
     }
 }
