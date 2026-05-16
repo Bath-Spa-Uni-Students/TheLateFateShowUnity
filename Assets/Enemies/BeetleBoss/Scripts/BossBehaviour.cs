@@ -8,6 +8,18 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float sleepHealRate = 5f;
     [SerializeField] private float phase2SpeedMultiplier = 1.5f;
 
+    [Header("Jitter Movement")]
+    [SerializeField] private float jitterMinSpeed = 2f;
+    [SerializeField] private float jitterMaxSpeed = 7f;
+    [SerializeField] private float jitterMinInterval = 0.08f;
+    [SerializeField] private float jitterMaxInterval = 0.28f;
+    [SerializeField] private float jitterBoundRadius = 5f;
+
+    [SerializeField] private BossLavaZone lavaZone;
+
+    private float jitterTimer = 0f;
+    private float jitterDirection = 1f;
+    private float jitterSpeed = 0f;
     private Vector3 spawnPosition;
     private bool phase2Active = false;
     [SerializeField] private float wakeRadius = 6f;
@@ -104,12 +116,16 @@ public class BossBehaviour : MonoBehaviour
         detectionCircle.transform.localScale = new Vector3(detectionRadius * 2f, detectionRadius * 2f, 1f);
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj != null ? playerObj.transform : null;
+
+        rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        rangedAttackScript.enabled = false;
     }
     private void Start()
     {
         spawnPosition = transform.position;
         InitialSetup();
         bossTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.bossTheme);
+        PickNewJitter();
     }
 
     private void FixedUpdate()
@@ -330,5 +346,37 @@ public class BossBehaviour : MonoBehaviour
     {
         if (rb.linearVelocity.magnitude > 0.1f)
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossFootsteps, transform.position);
+    }
+
+    #region Jitter (for phase 1 attacks)
+
+    private void PickNewJitter()
+    {
+        jitterDirection = Random.value > 0.5f ? 1f : -1f;
+        jitterSpeed = Random.Range(jitterMinSpeed, jitterMaxSpeed);
+        jitterTimer = Random.Range(jitterMinInterval, jitterMaxInterval);
+    }
+
+    private void JitterMove()
+    {
+        jitterTimer -= Time.fixedDeltaTime;
+        if (jitterTimer <= 0f) PickNewJitter();
+
+        float xOffset = transform.position.x - spawnPosition.x;
+        if (Mathf.Abs(xOffset) >= jitterBoundRadius)
+            jitterDirection = -Mathf.Sign(xOffset);
+
+        rb.linearVelocity = new Vector2(jitterDirection * jitterSpeed, 0f);
+    }
+    #endregion
+    private void EnterPhase2()
+    {
+        phase2Active = true;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("Phase2", true);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+        lavaZone.gameObject.SetActive(false);
+        rangedAttackScript.enabled = true;
+        if (musicStarted) SetMusicPhase(1);
     }
 }
