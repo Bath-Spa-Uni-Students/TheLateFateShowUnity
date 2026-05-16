@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int maxFollowersBase = 1;
     [SerializeField] private int followersPerLevelThreshold = 3; // gain +1 follower every X levels
 
-    private int currentEnemyCount = 0;
+    public int currentEnemyCount = 0;
     private PlayerMovement playerMovement;
 
 

@@ -1206,6 +1206,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3215508172070617098, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
   m_PrefabInstance: {fileID: 3897635223001194719}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1300050594 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5296949934430335703, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+  m_PrefabInstance: {fileID: 3897635223001194719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1327544448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,6 +1246,7 @@ MonoBehaviour:
   spawnRateIncreasePerLevel: 0.1
   maxFollowersBase: 1
   followersPerLevelThreshold: 3
+  currentEnemyCount: 0
 --- !u!4 &1327544450
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,7 +1625,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876983447}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36d57518dd765e941a5f1b954e32cbb7, type: 3}
   m_Name: 
@@ -1935,6 +1941,7 @@ MonoBehaviour:
   transitionCanvas: {fileID: 71435300}
   transitionDelay: 7.5
   playerObject: {fileID: 1994644900}
+  gameManagerCanvas: {fileID: 1300050594}
 --- !u!1 &2067001899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 394110235058728925, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
@@ -88041,6 +88048,10 @@ PrefabInstance:
       value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: maze
+      value: 
+      objectReference: {fileID: 1876983447}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -88048,6 +88059,10 @@ PrefabInstance:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 1994644900}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: spawnManager
+      value: 
+      objectReference: {fileID: 1327544448}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: tutorialSpawner
       value: 
@@ -88195,6 +88210,14 @@ PrefabInstance:
     - target: {fileID: 6608037929640205411, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769414088706275061, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -972
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769414088706275061, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 7250589030266564582, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_Camera
