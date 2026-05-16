@@ -80,7 +80,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1262449019
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 3377276554866747640, guid: 7011fbb8f98ee6d44ae4e3f65385f0a6, type: 3}
@@ -107,10 +107,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChestObject
   contents:
     weaponType: 0
-    perks: []
+    perks:
+    - {fileID: 11400000, guid: 11792ba3da549f642926adfb6924aed0, type: 2}
+    - {fileID: 11400000, guid: c0582216a8cf0e844b17a0b1074e9710, type: 2}
+    - {fileID: 11400000, guid: c9ce34054a0ceac4391ec84dfa69a5bf, type: 2}
+    - {fileID: 11400000, guid: cf32ba18c3f3e294ca3a984fd69f0274, type: 2}
+    - {fileID: 11400000, guid: 68dd4865a86c4824da5d50eb78132dc5, type: 2}
+    - {fileID: 11400000, guid: d7977940dbbb2f14b950e52ddf753743, type: 2}
+    - {fileID: 11400000, guid: a5701468255cc7e46bb7032fe885ca92, type: 2}
+    - {fileID: 11400000, guid: 991c8d957bd82c0468f505682971e47b, type: 2}
+    - {fileID: 11400000, guid: c7071f47fdc89a04b9bcd051b9d5b896, type: 2}
+    - {fileID: 11400000, guid: b217c3dfe6f569744bde9769ab29a8d7, type: 2}
+    - {fileID: 11400000, guid: 310199027cb11d14aa7e82fd40d7575b, type: 2}
+    - {fileID: 11400000, guid: 0809a48fe21f15147a34e2024ba79465, type: 2}
   interactRadius: 1.5
   interactKey: 101
   interactPrompt: {fileID: 0}
+  humIntervalMin: 5
+  humIntervalMax: 12
+  humMaxDistance: 40
 --- !u!61 &5605259728910506998
 BoxCollider2D:
   m_ObjectHideFlags: 0

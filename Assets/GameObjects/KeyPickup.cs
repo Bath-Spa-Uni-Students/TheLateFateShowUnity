@@ -11,6 +11,7 @@ public class KeyPickup : MonoBehaviour
     private int keyIndex = 0; 
     private bool collected = false;
     private Coroutine humCoroutine;
+    private EventInstance humInstance;
 
     [Header("Hum Settings")]
     [SerializeField] private float humIntervalMin = 4f;
@@ -22,25 +23,32 @@ public class KeyPickup : MonoBehaviour
         spawner = owner;
         keyIndex = index;
 
-        // Apply the sprite that corresponds to this slot
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         if (sr != null && keySprites != null && index < keySprites.Length)
             sr.sprite = keySprites[index];
         else if (keySprites == null || keySprites.Length == 0)
             Debug.LogWarning("[KeyPickup] No keySprites assigned on the prefab!");
         else if (index >= keySprites.Length)
-            Debug.LogWarning($"[KeyPickup] keyIndex {index} is out of range — only {keySprites.Length} sprite(s) assigned.");
+            Debug.LogWarning($"[KeyPickup] keyIndex {index} out of range — only {keySprites.Length} sprite(s) assigned.");
     }
 
     private void Start()
     {
+        humInstance = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.keyHum);
+        humInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+
         humCoroutine = StartCoroutine(HumLoop());
+    }
+    private void Update()
+    {
+        //Fmod keep track of the key when maze changes
+        if (!collected)
+            humInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
     }
 
     private void OnDestroy()
     {
-        if (humCoroutine != null)
-            StopCoroutine(humCoroutine);
+        StopHum();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -50,17 +58,8 @@ public class KeyPickup : MonoBehaviour
 
         collected = true;
 
-        // Stop the hum so it doesn't fire again during destroy
-        if (humCoroutine != null)
-        {
-            StopCoroutine(humCoroutine);
-            humCoroutine = null;
-        }
-
-        // Play pickup SFX at this position
+        StopHum();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.keyPickup, transform.position);
-
-        // Pass keyIndex so the spawner knows exactly which UI slot to light up
         spawner.OnKeyCollected(gameObject, keyIndex);
     }
 
@@ -68,19 +67,31 @@ public class KeyPickup : MonoBehaviour
     {
         while (!collected)
         {
-            float wait = Random.Range(humIntervalMin, humIntervalMax);
-            yield return new WaitForSeconds(wait);
-
+            yield return new WaitForSeconds(Random.Range(humIntervalMin, humIntervalMax));
             if (collected) yield break;
 
-            // Only pulse if a player exists and is within range
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                float dist = Vector2.Distance(transform.position, player.transform.position);
-                if (dist <= humMaxDistance)
-                    AudioManager.Instance.PlayOneShot(FMODEvents.Instance.keyHum, transform.position);
-            }
+            if (player == null) continue;
+
+            float dist = Vector2.Distance(transform.position, player.transform.position);
+            if (dist > humMaxDistance) continue;
+
+            // Retrigger the instance
+            humInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            humInstance.start();
         }
+    }
+
+    private void StopHum()
+    {
+        if (humCoroutine != null)
+        {
+            StopCoroutine(humCoroutine);
+            humCoroutine = null;
+        }
+
+        // Stop and release the FMOD instance so it doesn't linger in memory.
+        humInstance.stop(STOP_MODE.IMMEDIATE);
+        humInstance.release();
     }
 }

@@ -1,7 +1,9 @@
+using FMOD.Studio;
+using System.Collections;
 using UnityEngine;
 
 
-// Cehsts are Placed in the maze they Contain a weapons with 1-2 pre-attached perks
+// Chests are Placed in the maze they Contain a weapons with 1-2 pre-attached perks
 // When the player interacts hands the WeaponInstance to WeaponManager.
 
 public class ChestObject : MonoBehaviour
@@ -14,20 +16,42 @@ public class ChestObject : MonoBehaviour
     [SerializeField] private KeyCode interactKey = KeyCode.E;
     [SerializeField] private GameObject interactPrompt; // Optional "Press E" UI
 
+    [Header("Hum Settings")]
+    [SerializeField] private float humIntervalMin = 5f;
+    [SerializeField] private float humIntervalMax = 12f;
+    [SerializeField] private float humMaxDistance = 15f;
+
     private bool playerInRange = false;
     private bool opened = false;
-
+    private EventInstance humInstance;
+    private Coroutine humCoroutine;
     private void Awake()
-    {
-        contents = null;// ChestSpawner will assign contents after instantiating the chest prefab
+    { 
+        // ChestSpawner assigns contents after Instantiate.
+        contents = null;
     }
+    private void Start()
+    {
+        humInstance = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.chestHum);
+        humInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+        humCoroutine = StartCoroutine(HumLoop());
+    }
+
     private void Update()
     {
         if (opened) return;
+
+        // Keep FMOD position in sync
+        humInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(transform.position));
+
         if (playerInRange && Input.GetKeyDown(interactKey))
             Open();
     }
-
+    private void OnDestroy()
+    {
+        // Called when ChestSpawner destroys stale chests on maze regen this ensures the hum no ghost 
+        StopHum();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (opened) return;
@@ -56,19 +80,48 @@ public class ChestObject : MonoBehaviour
         }
 
         opened = true;
+        StopHum();
+
         if (interactPrompt) interactPrompt.SetActive(false);
 
-        Debug.Log($"[ChestObject] Opened chest containing: {contents.weaponType} with {contents.perks.Count} perk(s)");
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.chestOpen, transform.position);
+
+        Debug.Log($"[ChestObject] Opened chest: {contents.weaponType} with {contents.perks.Count} perk(s)");
 
         WeaponManager.Instance.ReceiveChestWeapon(contents);
 
-        // Chest animation here
-        // AudioManager.Instance.PlayOneShot(chestOpening)
-
-        // Destroy after a short delay to allow animations to finish
-        Destroy(gameObject, 0.1f);
+        // Destroy after a short delay to allow open animation to finish.
+        Destroy(gameObject, 0.5f);
     }
 
+    private IEnumerator HumLoop()
+    {
+        while (!opened)
+        {
+            yield return new WaitForSeconds(Random.Range(humIntervalMin, humIntervalMax));
+            if (opened) yield break;
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) continue;
+
+            float dist = Vector2.Distance(transform.position, player.transform.position);
+            if (dist > humMaxDistance) continue;
+
+            humInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            humInstance.start();
+        }
+    }
+    private void StopHum()
+    {
+        if (humCoroutine != null)
+        {
+            StopCoroutine(humCoroutine);
+            humCoroutine = null;
+        }
+
+        humInstance.stop(STOP_MODE.IMMEDIATE);
+        humInstance.release();
+    }
     // Visualise interact radius in editor
     private void OnDrawGizmosSelected()
     {
