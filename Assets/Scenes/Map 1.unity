@@ -801,6 +801,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3138985244659927673, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
   m_PrefabInstance: {fileID: 6627960521845959320}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &960267461 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6421348743248967368, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+  m_PrefabInstance: {fileID: 3897635223001194719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 702327f8ee86db9478b492c8a50ef4dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeyMergeUI
 --- !u!1 &986517974 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8847127545331142529, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
@@ -1558,11 +1569,11 @@ MonoBehaviour:
     Path: event:/Enemies/Beetle Boss/BossWalk
   <bossTakeDamage>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -795965625
+      Data2: 1145794260
+      Data3: 25181110
+      Data4: 1924636298
+    Path: event:/Enemies/Beetle Boss/BossTakeDamage
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1670,11 +1681,11 @@ MonoBehaviour:
     Path: event:/Placeholder
   <keyHum>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1579246532
+      Data2: 1114374040
+      Data3: -990918225
+      Data4: 173875210
+    Path: event:/GameObjects/KeyHum
   <keyMerge>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1684,18 +1695,18 @@ MonoBehaviour:
     Path: event:/Placeholder
   <chestOpen>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1819701850
+      Data2: 1222378013
+      Data3: 1616675261
+      Data4: 314335840
+    Path: event:/GameObjects/ChestOpen
   <chestHum>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1668757602
+      Data2: 1197264305
+      Data3: 1796189570
+      Data4: 722618476
+    Path: event:/GameObjects/ChestHum
 --- !u!95 &1226157336 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2678125219070286614, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -1767,6 +1778,7 @@ MonoBehaviour:
   maxFollowersBase: 1
   followersPerLevelThreshold: 3
   currentEnemyCount: 0
+  debugMode: 0
 --- !u!4 &1327544450
 Transform:
   m_ObjectHideFlags: 0
@@ -2381,6 +2393,7 @@ MonoBehaviour:
   - {fileID: 943077254}
   - {fileID: 1608252467}
   - {fileID: 1793797351}
+  keyMergeUI: {fileID: 960267461}
 --- !u!114 &1885901438 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3788972224556571913, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -134617,6 +134630,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 195765741958102339, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 342392961568133380, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -134632,6 +134649,10 @@ PrefabInstance:
     - target: {fileID: 342392961568133380, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 480
+      objectReference: {fileID: 0}
+    - target: {fileID: 349577459610170850, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 669140991850865147, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_SizeDelta.x
@@ -135140,6 +135161,10 @@ PrefabInstance:
     - target: {fileID: 8618712227522886413, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -35
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621675332869547661, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8928761262118767856, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_Enabled
