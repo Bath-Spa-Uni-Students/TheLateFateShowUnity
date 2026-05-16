@@ -1759,6 +1759,7 @@ MonoBehaviour:
   spawnRateIncreasePerLevel: 0.1
   maxFollowersBase: 1
   followersPerLevelThreshold: 3
+  currentEnemyCount: 0
 --- !u!4 &1327544450
 Transform:
   m_ObjectHideFlags: 0
@@ -134971,7 +134972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5997182272559750239, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554916757405966632, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchorMax.x

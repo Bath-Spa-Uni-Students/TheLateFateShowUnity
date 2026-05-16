@@ -1,7 +1,5 @@
 using FMOD.Studio;
 using UnityEngine;
-using UnityEngine.AI;
-
 public class BossBehaviour : MonoBehaviour
 {
     [Header("Boss Phases")]
@@ -39,7 +37,6 @@ public class BossBehaviour : MonoBehaviour
     [Header("Components")]
     private Rigidbody2D rb;
     private Animator animator;
-    private NavMeshAgent agent;
 
     [Header("Teleport Barrier")]
     [SerializeField] private float teleportInFrontDistance = 1.5f;
@@ -107,13 +104,6 @@ public class BossBehaviour : MonoBehaviour
         detectionCircle.transform.localScale = new Vector3(detectionRadius * 2f, detectionRadius * 2f, 1f);
         var playerObj = GameObject.FindGameObjectWithTag("Player");
         player = playerObj != null ? playerObj.transform : null;
-
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-        agent.speed = stats.speed;
-        agent.acceleration = 140f;
-        agent.stoppingDistance = stats.stoppingDistance;
     }
     private void Start()
     {
@@ -124,7 +114,7 @@ public class BossBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (rb == null || agent == null || !agent.isOnNavMesh) return;
+        if (rb == null) return;
 
         UpdateDetection();
 
@@ -153,13 +143,11 @@ public class BossBehaviour : MonoBehaviour
                 float dist = phase2Active ? p2RetreatDistance : retreatDistance;
                 // Boss only moves on the vertical axis, so push straight up (away from player below)
                 retreatTarget = transform.position + Vector3.up * dist;
-                agent.SetDestination(retreatTarget);
             }
 
             // Entering WarningShot - fire immediately and start the cooldown
             if (currentState == EnemyState.WarningShot)
             {
-                agent.ResetPath();
                 rangedAttackScript.FireWarningShotSingle();
                 warningShotTimer = warningShotCooldown;
             }
@@ -172,7 +160,7 @@ public class BossBehaviour : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Sleep: Sleep(); break;
-            case EnemyState.Advance: ChasePlayer(); break;
+            case EnemyState.Advance: break; // Movement handled by Rigidbody, nothing to do each tick
             case EnemyState.Melee: MeleeAttack(); break;
             case EnemyState.Retreat: break; // Agent handles movement, nothing to do each tick
             case EnemyState.WarningShot: break; // Shot already fired on enter, just hold position
@@ -222,7 +210,7 @@ public class BossBehaviour : MonoBehaviour
         if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
         {
             phase2Active = true;
-            agent.speed = stats.speed * phase2SpeedMultiplier;
+            stats.speed *= phase2SpeedMultiplier;
             animator.SetBool("Phase2", true);
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
             if (musicStarted) SetMusicPhase(1);
@@ -273,7 +261,6 @@ public class BossBehaviour : MonoBehaviour
     private void Sleep()
     {
         animator.SetTrigger("Sleep");
-        agent.ResetPath();
 
         if (stats.health < stats.maxHealth)
             stats.health = Mathf.Min(stats.health + sleepHealRate * Time.deltaTime, stats.maxHealth);
@@ -297,32 +284,13 @@ public class BossBehaviour : MonoBehaviour
     {
         rangedAttackScript.StopBeam();
         attackBarrier.SetActive(false);
-        MoveToTarget(spawnPosition);
-
         if (Vector2.Distance(transform.position, spawnPosition) <= 2f)
         {
             isAwake = false;
             currentState = EnemyState.Sleep;
         }
     }
-
-    private void ChasePlayer()
-    {
-        if (stats.isAttacking)
-        {
-            agent.ResetPath();
-            return;
-        }
-        if (player == null) return;
-        MoveToTarget(player.position);
-    }
     #endregion
-
-    private void MoveToTarget(Vector3 target)
-    {
-        if (!agent.isOnNavMesh) return;
-        agent.SetDestination(new Vector3(target.x, target.y, transform.position.z));
-    }
 
     private void UpdateDetection()
     {
@@ -332,7 +300,7 @@ public class BossBehaviour : MonoBehaviour
 
     private void UpdateAnimation()
     {
-        animator.SetFloat("Speed", agent.velocity.magnitude);
+        animator.SetFloat("Speed", rb.linearVelocity.magnitude);
     }
 
     public void CheckPlayerDistance()
@@ -360,7 +328,7 @@ public class BossBehaviour : MonoBehaviour
 
     public void PlayFootstepHit()
     {
-        if (agent.velocity.magnitude > 0.1f)
+        if (rb.linearVelocity.magnitude > 0.1f)
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossFootsteps, transform.position);
     }
 }
