@@ -12,31 +12,25 @@ public class KeySpawner : MonoBehaviour
     [SerializeField] private GameObject[] sectors;
 
     [Header("Merge UI")]
-    [Tooltip("Drag the KeyMergeUI GameObject here (can live on a canvas or in world space).")]
     [SerializeField] private KeyMergeUI keyMergeUI;
 
-    // How many keys the player still needs to collect
-    private int keysRemaining;
-    private int totalKeys = 3;
 
-    // Tracks the live key GameObjects currently in the world
-    private List<GameObject> activeKeys = new List<GameObject>();
+    private int totalKeys = 3;
+    private int keysRemaining = 3;
+
+    private Dictionary<int, GameObject> activeKeys = new Dictionary<int, GameObject>();
 
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
-
-    // Called once from GameManager when the main game begins so KeySpawner
-    // knows how many keys are needed
     public void Initialise(int keysRequired)
     {
         totalKeys = keysRequired;
         keysRemaining = keysRequired;
     }
 
-    // Called by MazeChanger (same place ChestSpawner.NotifyMazeRegenerated is called)
     public static void NotifyMazeRegenerated()
     {
         if (Instance != null)
@@ -45,18 +39,15 @@ public class KeySpawner : MonoBehaviour
             Debug.LogWarning("[KeySpawner] No instance found!");
     }
 
+
     private void OnMazeRegenerated()
     {
-        // Destroy any uncollected keys still floating in the world
-        // they will be re-placed at fresh spawn points below
         ClearActiveKeys();
-
-        if (keysRemaining <= 0) return; // All keys already collected, nothing to place
-
+        if (keysRemaining <= 0) return;
         PlaceKeys();
     }
 
-    // Collect all KeySpawnPoints from every currently active room then randomly assign one point per remaining key
+
     private void PlaceKeys()
     {
         List<Transform> allPoints = GatherAllKeySpawnPoints();
@@ -67,67 +58,72 @@ public class KeySpawner : MonoBehaviour
             return;
         }
 
-        // Shuffle the list
+        // Shuffle list
         for (int i = allPoints.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
             (allPoints[i], allPoints[j]) = (allPoints[j], allPoints[i]);
         }
 
-        int toPlace = Mathf.Min(keysRemaining, allPoints.Count);
+        int alreadyCollected = totalKeys - keysRemaining;
+        int pointIdx = 0;
 
-        for (int i = 0; i < toPlace; i++)
+        for (int keyIdx = alreadyCollected; keyIdx < totalKeys; keyIdx++)
         {
-            GameObject keyObj = Instantiate(keyPrefab, allPoints[i].position, Quaternion.identity);
+            if (pointIdx >= allPoints.Count)
+            {
+                Debug.LogWarning("[KeySpawner] Ran out of spawn points!");
+                break;
+            }
+
+            GameObject keyObj = Instantiate(keyPrefab, allPoints[pointIdx].position, Quaternion.identity);
+            pointIdx++;
 
             KeyPickup pickup = keyObj.GetComponent<KeyPickup>();
             if (pickup != null)
-                pickup.Init(this);
+                pickup.Init(this, keyIdx);          // <-- pass the stable index
             else
                 Debug.LogWarning("[KeySpawner] Key prefab is missing a KeyPickup component!");
 
-            activeKeys.Add(keyObj);
+            activeKeys[keyIdx] = keyObj;
         }
 
-        Debug.Log($"[KeySpawner] Placed {toPlace} key(s). Keys remaining to collect: {keysRemaining}");
+        Debug.Log($"[KeySpawner] Placed {activeKeys.Count} key(s). Keys remaining: {keysRemaining}/{totalKeys}");
     }
-    // Called by KeyPickup when the player walks over a key
-    public void OnKeyCollected(GameObject keyObj)
+
+    public void OnKeyCollected(GameObject keyObj, int keyIndex)
     {
-        if (activeKeys.Contains(keyObj))
-            activeKeys.Remove(keyObj);
+        if (activeKeys.ContainsKey(keyIndex))
+            activeKeys.Remove(keyIndex);
 
         Destroy(keyObj);
-
         keysRemaining--;
-        int collectedSoFar = totalKeys - keysRemaining;
 
-        Debug.Log($"[KeySpawner] Key collected! Remaining: {keysRemaining}/{totalKeys}");
+        Debug.Log($"[KeySpawner] Key {keyIndex} collected. Remaining: {keysRemaining}/{totalKeys}");
 
-        // Tell the merge UI to slot in the newly collected fragment
         if (keyMergeUI != null)
-            keyMergeUI.OnFragmentCollected(collectedSoFar, totalKeys);
+            keyMergeUI.OnFragmentCollected(keyIndex);
 
-        // If all keys are now in — play the merge SFX then let GameManager know
         if (keysRemaining <= 0)
         {
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.keyMerge,
+            AudioManager.Instance.PlayOneShot(
+                FMODEvents.Instance.keyMerge,
                 Camera.main != null ? Camera.main.transform.position : Vector3.zero);
+
+            if (keyMergeUI != null)
+                keyMergeUI.PlayMergeSequence();
         }
 
-        // Forward to GameManager which handles boss unlock and win condition
         GameManager.Instance.OnKeyCollected();
     }
 
-    // Helpers
     private void ClearActiveKeys()
     {
-        foreach (GameObject key in activeKeys)
-            if (key != null) Destroy(key);
+        foreach (var kvp in activeKeys)
+            if (kvp.Value != null) Destroy(kvp.Value);
         activeKeys.Clear();
     }
 
-    // Walk every sector find the single active room find all children tagged "KeySpawnPoint" inside that room.
     private List<Transform> GatherAllKeySpawnPoints()
     {
         List<Transform> points = new List<Transform>();
@@ -135,7 +131,6 @@ public class KeySpawner : MonoBehaviour
         foreach (GameObject sector in sectors)
         {
             if (sector == null) continue;
-
             GameObject activeRoom = GetActiveRoom(sector);
             if (activeRoom == null) continue;
 

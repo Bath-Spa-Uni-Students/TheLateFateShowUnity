@@ -18,7 +18,7 @@ public class SpawnManager : MonoBehaviour
 
     public int currentEnemyCount = 0;
     private PlayerMovement playerMovement;
-
+    public bool debugMode = false;
 
 
     //scalable variables need testing
@@ -52,18 +52,27 @@ public class SpawnManager : MonoBehaviour
         if (player != null)
             playerMovement = player.GetComponent<PlayerMovement>();
         currentEnemyCount++;
-        Debug.Log($"Enemy registered. Total: {currentEnemyCount}/{GlobalCap}");
+        if (debugMode)
+        {
+            Debug.Log($"Enemy registered. Total: {currentEnemyCount}/{GlobalCap}");
+        }
     }
 
     public void UnregisterEnemy()
     {
         currentEnemyCount = Mathf.Max(0, currentEnemyCount - 1);
-        Debug.Log($"Enemy died. Total: {currentEnemyCount}/{GlobalCap}");
+        if (debugMode)
+        {
+            Debug.Log($"Enemy died. Total: {currentEnemyCount}/{GlobalCap}");
+        }
     }
     //called when the maze switches as all enemies will be despawned
     public void ResetEnemyCount()
     {
         currentEnemyCount = 0;
-        Debug.Log("Enemy count reset.");
+        if (debugMode)
+        {
+            Debug.Log("Enemy count reset.");
+        }
     }
 }
