@@ -105,6 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88dcfa5dba2226f42a7b1a63ab422c16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyPickup
+  keySprites:
+  - {fileID: 8115639756283623411, guid: 52fe920184d00ce4f8b907c88578f8ea, type: 3}
+  - {fileID: -1957215842278962783, guid: 4a0bc3f69adee39488a0341f26d322c7, type: 3}
+  - {fileID: 6929595700636583301, guid: c359fa62414c28c42af922a0bc53d296, type: 3}
 --- !u!61 &3007860677506707214
 BoxCollider2D:
   m_ObjectHideFlags: 0

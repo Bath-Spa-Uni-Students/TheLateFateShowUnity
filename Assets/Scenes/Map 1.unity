@@ -1766,6 +1766,7 @@ MonoBehaviour:
   spawnRateIncreasePerLevel: 0.1
   maxFollowersBase: 1
   followersPerLevelThreshold: 3
+  currentEnemyCount: 0
 --- !u!4 &1327544450
 Transform:
   m_ObjectHideFlags: 0
@@ -134797,6 +134798,10 @@ PrefabInstance:
       value: -35
       objectReference: {fileID: 0}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: maze
+      value: 
+      objectReference: {fileID: 1876983447}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -134804,6 +134809,10 @@ PrefabInstance:
       propertyPath: playerObject
       value: 
       objectReference: {fileID: 1994644900}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: spawnManager
+      value: 
+      objectReference: {fileID: 1327544448}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: tutorialSpawner
       value: 

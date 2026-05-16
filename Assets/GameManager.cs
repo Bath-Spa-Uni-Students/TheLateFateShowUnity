@@ -70,15 +70,18 @@ public class GameManager : MonoBehaviour
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(false);
 
+        explorationTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.explorationTheme);
+
         if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
             EnterTutorial();
+            Debug.Log("[GameManager] Starting in tutorial scene.");
+        }
         else
         {
+            // Allows you to start the game from map 1 scene without going through the tutorial scene first
             StartCoroutine(TransitionToMaze());
-            //playerInput.DeactivateInput();
         }
-        explorationTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.explorationTheme);
-        EnterTutorial();
     }
 
     // Tutorial 
