@@ -1467,6 +1467,13 @@ MonoBehaviour:
       Data3: 1231939746
       Data4: -828190906
     Path: event:/Enemies/Grunt/GruntDeath
+  <gruntTakeDamage>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <speedsterFootsteps>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1495,49 +1502,7 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <bruiserFootsteps>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bruiserAttack>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bruiserAlert>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bruiserDeath>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <summonerSummon>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <summonerAttack>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <summonerDeath>k__BackingField:
+  <speedsterTakeDamage>k__BackingField:
     Guid:
       Data1: 1686298193
       Data2: 1272099781
@@ -1579,13 +1544,6 @@ MonoBehaviour:
       Data3: 2081585063
       Data4: 1575174690
     Path: event:/Enemies/Beetle Boss/BossShellOpen
-  <bossTheme>k__BackingField:
-    Guid:
-      Data1: -2061720419
-      Data2: 1236850625
-      Data3: 2133212556
-      Data4: 1707782529
-    Path: event:/Scores/BossTheme
   <bossFootsteps>k__BackingField:
     Guid:
       Data1: -1007267890
@@ -1593,6 +1551,13 @@ MonoBehaviour:
       Data3: -1893826930
       Data4: -148631829
     Path: event:/Enemies/Beetle Boss/BossWalk
+  <bossTakeDamage>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1663,13 +1628,20 @@ MonoBehaviour:
       Data3: -1990418287
       Data4: -1142157847
     Path: event:/Scores/TitleTheme
-  <levelAmbience>k__BackingField:
+  <explorationTheme>k__BackingField:
     Guid:
       Data1: -889314634
       Data2: 1231641684
       Data3: 635409074
       Data4: 1479822921
     Path: event:/Scores/MazeExplorationTheme
+  <bossTheme>k__BackingField:
+    Guid:
+      Data1: -2061720419
+      Data2: 1236850625
+      Data3: 2133212556
+      Data4: 1707782529
+    Path: event:/Scores/BossTheme
   <victoryStinger>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1678,6 +1650,41 @@ MonoBehaviour:
       Data4: 1951213966
     Path: event:/Placeholder
   <defeatStinger>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <keyPickup>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <keyHum>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <keyMerge>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <chestOpen>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <chestHum>k__BackingField:
     Guid:
       Data1: 1686298193
       Data2: 1272099781

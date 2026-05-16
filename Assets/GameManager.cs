@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(false);
 
-        explorationTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.levelAmbience);
+        explorationTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.explorationTheme);
         EnterTutorial();
     }
 
