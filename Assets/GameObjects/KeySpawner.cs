@@ -11,6 +11,10 @@ public class KeySpawner : MonoBehaviour
     [Header("Sector Roots")]
     [SerializeField] private GameObject[] sectors;
 
+    [Header("Merge UI")]
+    [Tooltip("Drag the KeyMergeUI GameObject here (can live on a canvas or in world space).")]
+    [SerializeField] private KeyMergeUI keyMergeUI;
+
     // How many keys the player still needs to collect
     private int keysRemaining;
     private int totalKeys = 3;
@@ -96,9 +100,22 @@ public class KeySpawner : MonoBehaviour
         Destroy(keyObj);
 
         keysRemaining--;
+        int collectedSoFar = totalKeys - keysRemaining;
+
         Debug.Log($"[KeySpawner] Key collected! Remaining: {keysRemaining}/{totalKeys}");
 
-        // Forward to GameManager which handles bosss unlock and win condition
+        // Tell the merge UI to slot in the newly collected fragment
+        if (keyMergeUI != null)
+            keyMergeUI.OnFragmentCollected(collectedSoFar, totalKeys);
+
+        // If all keys are now in — play the merge SFX then let GameManager know
+        if (keysRemaining <= 0)
+        {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.keyMerge,
+                Camera.main != null ? Camera.main.transform.position : Vector3.zero);
+        }
+
+        // Forward to GameManager which handles boss unlock and win condition
         GameManager.Instance.OnKeyCollected();
     }
 
