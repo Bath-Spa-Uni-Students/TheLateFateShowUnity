@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &71435300 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5997182272559750239, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
-  m_PrefabInstance: {fileID: 3897635223001194719}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &86086716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,7 +1933,7 @@ MonoBehaviour:
   keysRequired: 3
   forcedBossLevel: 10
   bossTeleportButtonUI: {fileID: 1038727101}
-  transitionCanvas: {fileID: 71435300}
+  transitionCanvas: {fileID: 0}
   transitionDelay: 7.5
   playerObject: {fileID: 1994644900}
   gameManagerCanvas: {fileID: 1300050594}
@@ -88063,6 +88058,10 @@ PrefabInstance:
       propertyPath: spawnManager
       value: 
       objectReference: {fileID: 1327544448}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: disableTutorial
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: tutorialSpawner
       value: 
