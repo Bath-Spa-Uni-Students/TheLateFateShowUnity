@@ -88060,9 +88060,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1994644900}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: skipTutorial
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: spawnManager
       value: 
       objectReference: {fileID: 1327544448}
+    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: disableTutorial
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: tutorialSpawner
       value: 

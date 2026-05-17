@@ -70,11 +70,13 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Tutorial")
             EnterTutorial();
-        else
+        else if (SceneManager.GetActiveScene().name == "Map 1")
         {
             StartCoroutine(TransitionToMaze());
             //playerInput.DeactivateInput();
         }
+            else
+                Debug.LogWarning("[GameManager] Unrecognized scene — no game state entered.");
     }
 
     // Tutorial 
