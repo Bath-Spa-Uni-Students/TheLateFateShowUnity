@@ -50,7 +50,7 @@ public class BossLavaZone : MonoBehaviour
         {
             if (playerHealth != null)
             {
-                playerHealthScript.DamagePlayer(damagePerSecond * Time.deltaTime);
+                playerHealthScript.DamagePlayer(damagePerSecond);
             }
             yield return new WaitForSeconds(damageInterval);
         }

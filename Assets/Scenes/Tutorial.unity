@@ -205,6 +205,79 @@ MonoBehaviour:
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: f0fb8b142fa28ed45b7777a790bd84c5, type: 2}
+--- !u!1001 &177402938
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.77436
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.77436
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.77436
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -136.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -9.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831314971820643666, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_Name
+      value: BeetleBoss
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
 --- !u!114 &330207476 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3248062033643826968, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
@@ -88376,3 +88449,4 @@ SceneRoots:
   - {fileID: 2027072372}
   - {fileID: 3897635223001194719}
   - {fileID: 674445462}
+  - {fileID: 177402938}
