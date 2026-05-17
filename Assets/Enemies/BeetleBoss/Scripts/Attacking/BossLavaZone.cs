@@ -21,7 +21,7 @@ public class BossLavaZone : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other)
     {
         {
-            if (((1 << other.gameObject.layer) & playerLayer) == 0) return;
+            //if (((1 << other.gameObject.layer) & playerLayer) == 0) return;
             other.GetComponent<PlayerMovement>()?.DamagePlayer(damagePerSecond * Time.deltaTime);
         }
     }
