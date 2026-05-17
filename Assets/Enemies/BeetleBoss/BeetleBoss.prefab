@@ -1967,7 +1967,6 @@ GameObject:
   - component: {fileID: 6831314971820643666}
   - component: {fileID: 1358233383886138218}
   - component: {fileID: 3212962048130903419}
-  - component: {fileID: -7527530534422687911}
   m_Layer: 8
   m_Name: BeetleBoss
   m_TagString: Enemy
@@ -2289,28 +2288,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.0000038146973}
   m_Radius: 1.625
---- !u!114 &-7527530534422687911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9150895092482176395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90d56d2dd2f9f8a4b952fdce55caeffa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ImageAnimator
-  frames:
-  - {fileID: -963776422996517879, guid: 90c9e6dfde860924ca87c2a7d5d9a6da, type: 3}
-  - {fileID: 44507569177912884, guid: 90c9e6dfde860924ca87c2a7d5d9a6da, type: 3}
-  - {fileID: 5491524678738274386, guid: 90c9e6dfde860924ca87c2a7d5d9a6da, type: 3}
-  - {fileID: 2413039528428929303, guid: 90c9e6dfde860924ca87c2a7d5d9a6da, type: 3}
-  spritePerFrame: 1
-  loop: 1
-  destroyOnEnd: 0
-  isSpriteRenderer: 1
-  isImage: 0
 --- !u!1001 &6595219593679646557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2319,6 +2296,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 717153400465058858}
     m_Modifications:
+    - target: {fileID: 1550183361056249963, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: isSpriteRenderer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2352710839038556503, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: isSpriteRenderer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4500900440159891313, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: isSpriteRenderer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7024915660216687200, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
       propertyPath: m_Name
       value: LavaZone
@@ -2329,7 +2318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.67
       objectReference: {fileID: 0}
     - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
       propertyPath: m_LocalPosition.z

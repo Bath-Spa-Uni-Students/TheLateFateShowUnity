@@ -7,7 +7,7 @@ using Image = UnityEngine.UI.Image;
 public class ImageAnimator : MonoBehaviour
 {
     public Sprite[] frames; // Array of sprites for animation
-    public int spritePerFrame = 0;
+    [SerializeField] private float spritePerFrame = 0;
     public bool loop = true;
     public bool destroyOnEnd = false;
 
@@ -38,20 +38,25 @@ public class ImageAnimator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Start()
     {
         if (isSpriteRenderer)
         {
-            SpriteAnimation();
+            StartCoroutine(SpriteAnimation());
         }
         else if (isImage)
         {
-            ImageAnimation();
+            StartCoroutine(ImageAnimation());
         }
     }
 
-    void ImageAnimation()
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+
+    }
+
+    IEnumerator ImageAnimation()
     {
         float frameDuration = 1f / spritePerFrame; // Duration of each frame in seconds
         while (loop || index < frames.Length)
@@ -73,10 +78,13 @@ public class ImageAnimator : MonoBehaviour
                     break;
                 }
             }
+
+            yield return new WaitForSecondsRealtime(frameDuration);
+
         }
     }
 
-    void SpriteAnimation()
+    IEnumerator SpriteAnimation()
     {
         float frameDuration = 1f / spritePerFrame; // Duration of each frame in seconds
         while (loop || index < frames.Length)
@@ -98,6 +106,8 @@ public class ImageAnimator : MonoBehaviour
                     break;
                 }
             }
+
+            yield return new WaitForSecondsRealtime(frameDuration);
         }
     }
 }
