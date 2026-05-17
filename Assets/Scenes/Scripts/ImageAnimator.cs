@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -10,8 +11,12 @@ public class ImageAnimator : MonoBehaviour
     public bool loop = true;
     public bool destroyOnEnd = false;
 
+    [SerializeField] private bool isSpriteRenderer = false;
+    [SerializeField] private bool isImage = false;
+
     private int index = 0;
     private Image image;
+    private SpriteRenderer spriteRenderer;
     private int frame = 0;
     private float timer = 0f;
 
@@ -19,22 +24,38 @@ public class ImageAnimator : MonoBehaviour
 
     private void Awake()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         image = GetComponent<Image>();
+
+        if (spriteRenderer != null)
+        {
+            isSpriteRenderer = true;
+
+        }
+        else if (image != null)
+        {
+            isImage = true;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (!loop && index >= frames.Length) return;
-
-        timer += Time.unscaledDeltaTime; // Use unscaledDeltaTime to ignore time scale changes
-
-        float frameDuration = 1f / spritePerFrame; // Duration of each frame in seconds
-
-        while (timer >= frameDuration)
+        if (isSpriteRenderer)
         {
-            timer -= frameDuration;
+            SpriteAnimation();
+        }
+        else if (isImage)
+        {
+            ImageAnimation();
+        }
+    }
 
+    void ImageAnimation()
+    {
+        float frameDuration = 1f / spritePerFrame; // Duration of each frame in seconds
+        while (loop || index < frames.Length)
+        {
             image.sprite = frames[index];
             index++;
             if (index >= frames.Length)
@@ -49,7 +70,31 @@ public class ImageAnimator : MonoBehaviour
                     {
                         Destroy(gameObject);
                     }
+                    break;
+                }
+            }
+        }
+    }
 
+    void SpriteAnimation()
+    {
+        float frameDuration = 1f / spritePerFrame; // Duration of each frame in seconds
+        while (loop || index < frames.Length)
+        {
+            spriteRenderer.sprite = frames[index];
+            index++;
+            if (index >= frames.Length)
+            {
+                if (loop)
+                {
+                    index = 0;
+                }
+                else
+                {
+                    if (destroyOnEnd)
+                    {
+                        Destroy(gameObject);
+                    }
                     break;
                 }
             }
