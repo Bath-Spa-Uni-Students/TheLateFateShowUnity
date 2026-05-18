@@ -440,7 +440,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.61635214, g: 0.0019380841, b: 0.0019380841, a: 0.6509804}
+  m_Color: {r: 0.61635214, g: 0.0019380841, b: 0.0019380841, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1449,7 +1449,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0.03459108, b: 0.03459108, a: 0.09803922}
+  m_Color: {r: 1, g: 0.03459108, b: 0.03459108, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1972,7 +1972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &717153400465058858
 Transform:
   m_ObjectHideFlags: 0
@@ -2124,6 +2124,7 @@ MonoBehaviour:
   jitterBoundRadius: 15
   lavaZone: {fileID: 4250112537694303549}
   phase2Location: {fileID: 0}
+  deathSprite: {fileID: -944534128340404963, guid: 3f0b17dc98e9ad0489db2371a2566ea0, type: 3}
   wakeRadius: 6
   stats: {fileID: 4678454769109109600}
   damageHandler: {fileID: 7616477494777616497}
