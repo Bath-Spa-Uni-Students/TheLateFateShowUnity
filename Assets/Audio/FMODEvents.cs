@@ -64,7 +64,7 @@ public class FMODEvents : MonoBehaviour
     // UI and UX
 
     [field: Header("UI SFX")]
-    [field: SerializeField] public EventReference uiClick { get; private set; }
+    [field: SerializeField] public EventReference uiPause { get; private set; }
     [field: SerializeField] public EventReference uiHover { get; private set; }
     [field: SerializeField] public EventReference uiBack { get; private set; }
     [field: SerializeField] public EventReference uiConfirm { get; private set; }
