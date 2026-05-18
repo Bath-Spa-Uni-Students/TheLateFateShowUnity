@@ -7,12 +7,6 @@ public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
 
-    [Header("Settings")]
-    [SerializeField] private bool skipTutorial = false;
-    [Tooltip("Completely disables the tutorial, skipping all steps and enemy spawns.")]
-    [SerializeField] private bool disableTutorial = false;
-    [Tooltip("For Testing and remaining in a level")]
-
     [Header("Pop-up Visuals (Arrow sprites etc.)")]
     public GameObject[] popUps;
 
@@ -44,18 +38,6 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
-        if (disableTutorial)
-        {
-            Debug.Log("[TutorialManager] Tutorial disabled via inspector setting.");
-            DisableTutorial();
-            return;
-        }
-        if (skipTutorial)
-        {
-            Debug.Log("[TutorialManager] Tutorial skipped via inspector setting.");
-            SkipTutorial();
-            return;
-        }
         mazeChangerScript = maze.GetComponent<MazeChanger>();
         spawnManagerScript = spawnManager.GetComponent<SpawnManager>();
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -191,23 +173,5 @@ public class TutorialManager : MonoBehaviour
 
         playerMovement.currentLevel = 1;
         perkSelectionUI.Show();
-    }
-
-    private void DisableTutorial()
-    {
-        StopAllCoroutines();
-        for (int i = 0; i < popUps.Length; i++)
-            popUps[i].SetActive(false);
-
-        HostManager.Instance.HideDialogue();
-
-        tutorialSpawner.enabled = false;
-
-        this.enabled = false;
-    }
-
-    private void SkipTutorial()
-    {
-        GameManager.Instance.OnTutorialComplete();
     }
 }

@@ -78,13 +78,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("[GameManager] Starting in tutorial scene.");
         }
         else
-        else if (SceneManager.GetActiveScene().name == "Map 1")
         {
             // Allows you to start the game from map 1 scene without going through the tutorial scene first
             StartCoroutine(TransitionToMaze());
         }
-            else
-                Debug.LogWarning("[GameManager] Unrecognized scene ï¿½ no game state entered.");
     }
 
     // Tutorial 
@@ -160,7 +157,7 @@ public class GameManager : MonoBehaviour
 
     private void OnAllKeysCollected()
     {
-        Debug.Log("[GameManager] All keys collected ï¿½ player can now teleport to boss");
+        Debug.Log("[GameManager] All keys collected — player can now teleport to boss");
 
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(true);
@@ -191,7 +188,7 @@ public class GameManager : MonoBehaviour
 
         if (keysCollected < keysRequired)
         {
-            Debug.Log("[GameManager] Max level reached without all keys ï¿½ host scolds player");
+            Debug.Log("[GameManager] Max level reached without all keys — host scolds player");
 
             HostManager.Instance.Say(
                 "Really? You reached max level without finding all the keys? Fine... to the boss you go.",
@@ -201,10 +198,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("[GameManager] Max level reached with all keys ï¿½ forcing boss transition");
+            Debug.Log("[GameManager] Max level reached with all keys — forcing boss transition");
 
             HostManager.Instance.Say(
-                "Max level and all the keys ï¿½ time to face the boss!",
+                "Max level and all the keys — time to face the boss!",
                 HostMood.Ecstatic,
                 onComplete: () => StartCoroutine(TransitionToBoss())
             );

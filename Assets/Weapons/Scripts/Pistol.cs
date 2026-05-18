@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using FMOD.Studio;
 using System;
-using System.Collections;
 
 public class Pistol : MonoBehaviour
 {
@@ -33,8 +32,6 @@ public class Pistol : MonoBehaviour
     // Clip size
     public int ammo = 6;
     [SerializeField] private GameObject ammoText;
-
-    private bool isReloading = false;
 
     //Audio
     private EventInstance pistolShoot;
@@ -103,7 +100,10 @@ public class Pistol : MonoBehaviour
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
-            StartCoroutine(ReloadTimer());
+            canShoot = true;
+            ammo = maxAmmo;
+            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position);
         }
     }
 
@@ -114,18 +114,5 @@ public class Pistol : MonoBehaviour
             if (param.name == paramName) return true;
         }
         return false;
-    }
-
-    private IEnumerator ReloadTimer()
-    {
-        if (isReloading) yield break; // Prevent multiple reloads at once
-        canShoot = false;
-        isReloading = true;
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.pistolReload, transform.position); // Play reload sound
-        yield return new WaitForSeconds(2f); // Simulate reload time
-        ammo = maxAmmo;
-        ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
-        isReloading = false;
-        canShoot = true;
     }
 }

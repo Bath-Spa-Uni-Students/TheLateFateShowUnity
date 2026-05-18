@@ -176,8 +176,12 @@ public class BossBehaviour : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Sleep: Sleep(); break;
-            case EnemyState.Advance: JitterMove(); break;
+            case EnemyState.Advance: break; // Movement handled by Rigidbody, nothing to do each tick
+            case EnemyState.Melee: MeleeAttack(); break;
+            case EnemyState.Retreat: break; // Agent handles movement, nothing to do each tick
+            case EnemyState.WarningShot: break; // Shot already fired on enter, just hold position
             case EnemyState.Ranged: RangedAttack(); break;
+            case EnemyState.ReturnHome: ReturnHome(); break;
         }
 
         UpdateAnimation();
@@ -187,9 +191,14 @@ public class BossBehaviour : MonoBehaviour
     {
         if (player == null) return EnemyState.Sleep;
 
+        float distance = Vector2.Distance(rb.position, player.position);
+
+        if (distance > disengageRadius)
+            return EnemyState.ReturnHome;
+
+        // Wake up if the player enters the wake radius
         if (!isAwake)
         {
-            float distance = Vector2.Distance(rb.position, player.position);
             if (distance <= wakeRadius)
             {
                 animator.SetBool("Detected?", true);
@@ -204,16 +213,64 @@ public class BossBehaviour : MonoBehaviour
                     phaseParamID = paramDesc.id;
                     bossTheme.start();
                     musicStarted = true;
-                    SetMusicPhase(0);
+                    //SetMusicPhase(0);
                 }
             }
-            else return EnemyState.Sleep;
+            else
+            {
+                return EnemyState.Sleep;
+            }
         }
 
+        // Transition to phase 2 when health crosses the threshold
         if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
-            EnterPhase2();
+        {
+            phase2Active = true;
+            stats.speed *= phase2SpeedMultiplier;
+            animator.SetBool("Phase2", true);
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+           // if (musicStarted) SetMusicPhase(1);
+        }
 
-        return phase2Active ? EnemyState.Ranged : EnemyState.Advance;
+        // Phase 2 rhythm: Advance -> Melee -> Retreat -> Cone beam -> repeat
+        if (phase2Active)
+        {
+            if (distance <= stats.stoppingDistance)
+                return EnemyState.Melee;
+
+            if (currentState == EnemyState.Melee && stateTimer >= p2AdvanceDuration)
+                return EnemyState.Retreat;
+
+            if (currentState == EnemyState.Retreat && stateTimer >= p2RetreatDuration)
+                return EnemyState.Ranged;
+
+            if (currentState == EnemyState.Ranged && stateTimer >= p2RangedHoldTime)
+                return EnemyState.Advance;
+
+            return currentState == EnemyState.Sleep ? EnemyState.Advance : currentState;
+        }
+
+        // Phase 1 rhythm: Advance -> Melee -> Retreat -> Warning shot (if cooled down) -> Advance -> repeat
+        if (distance <= stats.stoppingDistance)
+            return EnemyState.Melee;
+
+        if (currentState == EnemyState.Melee && stateTimer >= advanceDuration)
+            return EnemyState.Retreat;
+
+        if (currentState == EnemyState.Retreat)
+        {
+            bool retreatFinished = stateTimer >= retreatDuration ||
+                                   Vector2.Distance(transform.position, retreatTarget) < 0.3f;
+            if (retreatFinished)
+                return warningShotTimer <= 0f ? EnemyState.WarningShot : EnemyState.Advance;
+
+            return EnemyState.Retreat;
+        }
+
+        if (currentState == EnemyState.WarningShot && stateTimer >= warningShotHoldTime)
+            return EnemyState.Advance;
+
+        return currentState == EnemyState.Sleep ? EnemyState.Advance : currentState;
     }
 
     #region States
@@ -269,16 +326,16 @@ public class BossBehaviour : MonoBehaviour
         stats.canDamage = hits > 0;
     }
 
-    private void SetMusicPhase(int phase)
+    /*private void SetMusicPhase(int phase)
     {
         if (!musicStarted || currentMusicPhase == phase) return;
         bossTheme.setParameterByID(phaseParamID, phase);
         currentMusicPhase = phase;
-    }
+    }*/
 
     public void OnBossDeath()
     {
-        SetMusicPhase(2);
+        //SetMusicPhase(2);
         rangedAttackScript.StopBeam();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
         if (gameManager != null)

@@ -1,9 +1,6 @@
-using FMOD.Studio;
-using Microlight.MicroBar;
 using FMODUnity;
 using FMOD.Studio;
 using System.Collections;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -66,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
 
     [Tooltip("UI Slider that displays current player health")]
-    [SerializeField] private MicroBar healthBar;
+    [SerializeField] private Slider healthBar;
 
     // ------------------------------------------ //
 
@@ -82,10 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        health = maxHealth;
         // Initialise health bar to match starting health value
-        healthBar.Initialize(maxHealth);
-
+        healthBar.maxValue = health;
+        healthBar.value = health;
 
         // Set runtime speed to base walk speed
         moveSpeed = walkSpeed;
@@ -196,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
         if (health <= 0 || health - damage <= 0)
         {
             health -= damage;
-            healthBar.UpdateBar(healthBar.CurrentValue - damage);
+            healthBar.value = health;
             PlayerDie();
         }
         else
@@ -204,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
             RuntimeManager.PlayOneShot(FMODEvents.Instance.playerHurt, transform.position);
             Debug.Log("Player took " + damage + " damage. Remaining health: " + (health - damage));
             health -= damage;
-            healthBar.UpdateBar(healthBar.CurrentValue - damage);
+            healthBar.value = health;
         }
     }
 
