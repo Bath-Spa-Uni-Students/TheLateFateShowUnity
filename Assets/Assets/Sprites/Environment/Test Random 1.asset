@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: Test Random
+  m_Name: Test Random 1
   m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.RuleTile
   m_DefaultSprite: {fileID: 0}
   m_DefaultGameObject: {fileID: 0}
@@ -27,18 +27,9 @@ MonoBehaviour:
     - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: -812015675, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: 1435357183, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 370197149, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
+    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: -1131606866, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: -1099535068, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
-    - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
     - {fileID: 1320886080, guid: 3586f41ac6d8ca448bbc37e76829e7dd, type: 3}
@@ -57,10 +48,10 @@ MonoBehaviour:
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1
-    m_PerlinScale: 0.5
+    m_PerlinScale: 0.583
     m_Output: 1
     m_ColliderType: 1
-    m_RandomTransform: 0
+    m_RandomTransform: 1
     m_Neighbors: 
     m_NeighborPositions:
     - {x: -1, y: 1, z: 0}
