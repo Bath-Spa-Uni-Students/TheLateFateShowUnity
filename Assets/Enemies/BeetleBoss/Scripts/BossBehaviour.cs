@@ -34,6 +34,7 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private BossRanged rangedAttackScript;
     [SerializeField] private GameObject attackBarrier;
     [SerializeField] private GameObject damageArea;
+    private bool dead = false;
 
     [Header("Player Info")]
     private Transform player;
@@ -298,8 +299,11 @@ public class BossBehaviour : MonoBehaviour
 
     public void OnBossDeath()
     {
+        if (dead) return;
+        dead = true;
         rangedAttackScript.StopBeam();
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
+        animator.SetTrigger("Death");
         if (gameManager != null)
             gameManager.OnGameWin();
     }
@@ -331,13 +335,5 @@ public class BossBehaviour : MonoBehaviour
         rb.linearVelocity = new Vector2(jitterDirection * jitterSpeed, 0f);
     }
     #endregion
-    private void EnterPhase2()
-    {
-        phase2Active = true;
-        rb.linearVelocity = Vector2.zero;
-        animator.SetBool("Phase2", true);
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
-        lavaZone.gameObject.SetActive(false);
-        rangedAttackScript.enabled = true;
-    }
+
 }

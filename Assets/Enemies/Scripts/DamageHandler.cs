@@ -61,7 +61,7 @@ public class DamageHandler : MonoBehaviour
             playerMovement.AddFame(10);
             GetComponent<TutorialEnemy>()?.NotifyDeath();
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
