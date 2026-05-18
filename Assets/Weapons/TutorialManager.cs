@@ -28,13 +28,13 @@ public class TutorialManager : MonoBehaviour
 
     private readonly string[] dialogueLines = new string[]
     {
-        "Hey! Use W A S D to move around. Give it a try!",      // 0 - movement
-        "Hold Shift to dash. Great for dodging attacks!",        // 1 - dash
-        "Left-click to shoot. Take aim and fire!",               // 2 - shoot
-        "Press R to reload. Don't get caught empty!",            // 3 - reload
-        "Enemies incoming, take them all down!",                 // 4 - kill tutorial enemies
-        "You levelled up! Let's see what you can do.",           // 5 - level up
-        "Well done! Time to head into the maze!"                 // 6 - complete
+        "Our first contestant! Use WASD to move, you'll need it!",                              // 0 - movement
+        "Enemies can be quick, use SHIFT to dash away from them!",                              // 1 - dash
+        "It'll be unfair if you can't defend yourself, LEFT-CLICK to shoot your gun!",          // 2 - shoot
+        "Bullets aren't infinite so make sure you reload with R!",                              // 3 - reload
+        "Bugs incoming and they think you're lunch!",                                           // 4 - kill tutorial enemies
+        "You levelled up! Pick a perk and see what it does!",                                   // 5 - level up
+        "congratulations on finishing this tutorial, now let's see what you can really do."     // 6 - complete
     };
 
     private int popUpIndex = 0;
