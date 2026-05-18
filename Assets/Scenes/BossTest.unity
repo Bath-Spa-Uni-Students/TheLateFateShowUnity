@@ -1544,6 +1544,13 @@ MonoBehaviour:
       Data3: 1231939746
       Data4: -828190906
     Path: event:/Enemies/Grunt/GruntDeath
+  <gruntTakeDamage>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <speedsterFootsteps>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1572,55 +1579,13 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <bruiserFootsteps>k__BackingField:
+  <speedsterTakeDamage>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bruiserAttack>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bruiserAlert>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bruiserDeath>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <summonerSummon>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <summonerAttack>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <summonerDeath>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <bossDeath>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1656,13 +1621,6 @@ MonoBehaviour:
       Data3: 2081585063
       Data4: 1575174690
     Path: event:/Enemies/Beetle Boss/BossShellOpen
-  <bossTheme>k__BackingField:
-    Guid:
-      Data1: -2061720419
-      Data2: 1236850625
-      Data3: 2133212556
-      Data4: 1707782529
-    Path: event:/Enemies/Beetle Boss/BossTheme
   <bossFootsteps>k__BackingField:
     Guid:
       Data1: 1108468587
@@ -1670,6 +1628,20 @@ MonoBehaviour:
       Data3: -1103077213
       Data4: -1005424935
     Path: event:/Enemies/Beetle Boss/BossWalk
+  <bossTakeDamage>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <bossPhaseChange>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1698,13 +1670,13 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <uiClick>k__BackingField:
+  <uiPause>k__BackingField:
     Guid:
-      Data1: 626940419
-      Data2: 1322707894
-      Data3: 994091912
-      Data4: 1496669844
-    Path: event:/UI/UIClick
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <uiHover>k__BackingField:
     Guid:
       Data1: -304864798
@@ -1733,6 +1705,20 @@ MonoBehaviour:
       Data3: 1000868758
       Data4: 689783726
     Path: event:/UI/UIError
+  <crowdNoise>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <crowdApplause>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <mainMenuTheme>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1740,13 +1726,20 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <levelAmbience>k__BackingField:
+  <explorationTheme>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <bossTheme>k__BackingField:
+    Guid:
+      Data1: -2061720419
+      Data2: 1236850625
+      Data3: 2133212556
+      Data4: 1707782529
+    Path: event:/Enemies/Beetle Boss/BossTheme
   <victoryStinger>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1761,6 +1754,41 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
+  <keyPickup>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <keyHum>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <keyMerge>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <chestOpen>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <chestHum>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!95 &1226157336 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2678125219070286614, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -1894,6 +1922,7 @@ MonoBehaviour:
   maxFollowersBase: 1
   followersPerLevelThreshold: 3
   currentEnemyCount: 0
+  debugMode: 0
 --- !u!4 &1327544450
 Transform:
   m_ObjectHideFlags: 0
@@ -2610,6 +2639,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  keyMergeUI: {fileID: 0}
 --- !u!114 &1885901438 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3788972224556571913, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -49567,7 +49597,7 @@ MonoBehaviour:
   - {fileID: 1295668287, guid: 396b83c2d17b795408e5fb897a2cd2ae, type: 3}
   - {fileID: 428709840, guid: 396b83c2d17b795408e5fb897a2cd2ae, type: 3}
   - {fileID: 1330975622, guid: 396b83c2d17b795408e5fb897a2cd2ae, type: 3}
-  spritePerFrame: 30
+  spritePerFrame: 0
   loop: 1
   destroyOnEnd: 0
   isSpriteRenderer: 0

@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
             EnterTutorial();
             Debug.Log("[GameManager] Starting in tutorial scene.");
         }
-        else
         else if (SceneManager.GetActiveScene().name == "Map 1")
         {
             // Allows you to start the game from map 1 scene without going through the tutorial scene first

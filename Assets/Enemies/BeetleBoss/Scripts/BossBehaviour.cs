@@ -221,6 +221,13 @@ public class BossBehaviour : MonoBehaviour
         return phase2Active ? EnemyState.Ranged : EnemyState.Advance;
     }
 
+    private void SetMusicPhase(int phase)
+    {
+        if (!musicStarted || currentMusicPhase == phase) return;
+        bossTheme.setParameterByID(phaseParamID, phase);
+        currentMusicPhase = phase;
+    }
+
     #region States
     private void Sleep()
     {

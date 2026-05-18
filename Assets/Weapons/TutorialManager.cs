@@ -226,6 +226,8 @@ public class TutorialManager : MonoBehaviour
     private void PlayApplause()
     {
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.crowdApplause, Vector3.zero);
+    }
+
     private void DisableTutorial()
     {
         StopAllCoroutines();

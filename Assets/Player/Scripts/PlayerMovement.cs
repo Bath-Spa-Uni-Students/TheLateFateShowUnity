@@ -1,7 +1,6 @@
 using FMOD.Studio;
 using Microlight.MicroBar;
 using FMODUnity;
-using FMOD.Studio;
 using System.Collections;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
@@ -92,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Cache components
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log("rigidBody");
         animator = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
 

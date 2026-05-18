@@ -2308,9 +2308,21 @@ PrefabInstance:
       propertyPath: isSpriteRenderer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4716192134521385882, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4716192134521385882, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1548763575
+      objectReference: {fileID: 0}
     - target: {fileID: 7024915660216687200, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
       propertyPath: m_Name
       value: LavaZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488780572832738412, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SpriteTilingProperty.adaptiveTiling
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2351,6 +2363,26 @@ PrefabInstance:
     - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957876409372137079, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957876409372137079, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1548763575
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778473190743614760, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778473190743614760, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1548763575
+      objectReference: {fileID: 0}
+    - target: {fileID: 8778473190743614760, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_SpriteTileMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
