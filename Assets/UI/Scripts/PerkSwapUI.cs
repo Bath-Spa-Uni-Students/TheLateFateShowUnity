@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 
 // Shown when the player is at the 4-perk cap and receives a new perk.
@@ -16,23 +17,23 @@ public class PerkSwapUI : MonoBehaviour
     [Header("Incoming Perk Display")]
     [SerializeField] private TextMeshProUGUI incomingPerkName;
     [SerializeField] private TextMeshProUGUI incomingPerkDesc;
-    [SerializeField] private Image incomingPerkIcon;            // icon for the arriving perk
+    [SerializeField] private Image incomingPerkIcon;
 
     [Header("Current Perk Slots (4 buttons)")]
-    [SerializeField] private Button[] currentPerkButtons;       // 4 slot buttons
+    [SerializeField] private Button[] currentPerkButtons;
     [SerializeField] private TextMeshProUGUI[] currentPerkNameTexts;
     [SerializeField] private TextMeshProUGUI[] currentPerkDescTexts;
-    [SerializeField] private Image[] currentPerkIcons;          // 4 slot icons
+    [SerializeField] private Image[] currentPerkIcons;
 
     [Header("Discard Button")]
     [SerializeField] private Button discardButton;
 
     [Header("Fallback Icon")]
-    [SerializeField] private Sprite fallbackIcon;               // shown when perk has no icon
+    [SerializeField] private Sprite fallbackIcon;
 
     private Action<int> onDecision; // -1 = discard, 0-3 = replace index
-    [SerializeField]
-    private bool perkSwapDebug = false;
+    [SerializeField] private bool perkSwapDebug = false;
+
     private void Start()
     {
         canvas.SetActive(false);
@@ -43,14 +44,14 @@ public class PerkSwapUI : MonoBehaviour
         {
             int index = i;
             currentPerkButtons[i].onClick.AddListener(() => OnReplaceChosen(index));
+            AddHoverSound(currentPerkButtons[i]);
         }
 
         discardButton.onClick.AddListener(OnDiscard);
+        AddHoverSound(discardButton);
 
         if (perkSwapDebug)
-        {
             Debug.Log("[PerkSwapUI] Initialised and subscribed to WeaponManager.OnPerkSwapRequired");
-        }
     }
 
     private void OnDestroy()
@@ -59,17 +60,13 @@ public class PerkSwapUI : MonoBehaviour
             WeaponManager.Instance.OnPerkSwapRequired -= HandleSwapRequired;
     }
 
-    /// Called by WeaponManager when a merge hits the 4-perk cap.
     private void HandleSwapRequired(PerkDefinition incoming, List<PerkDefinition> currentPerks, Action<int> callback)
     {
         onDecision = callback;
 
         if (perkSwapDebug)
-        {
             Debug.Log($"[PerkSwapUI] HandleSwapRequired — incoming: {incoming.perkName} | current perks: {currentPerks.Count}");
-        }
 
-        // Show incoming perk
         incomingPerkName.text = incoming.perkName;
         incomingPerkDesc.text = incoming.description;
         if (incomingPerkIcon != null)
@@ -78,7 +75,6 @@ public class PerkSwapUI : MonoBehaviour
             incomingPerkIcon.gameObject.SetActive(incoming.icon != null || fallbackIcon != null);
         }
 
-        // Show current perks in slot buttons
         for (int i = 0; i < currentPerkButtons.Length; i++)
         {
             if (i < currentPerks.Count)
@@ -94,9 +90,7 @@ public class PerkSwapUI : MonoBehaviour
                 }
 
                 if (perkSwapDebug)
-                {
                     Debug.Log($"[PerkSwapUI] Slot {i}: {currentPerks[i].perkName} | Icon: {(currentPerks[i].icon != null ? currentPerks[i].icon.name : "none")}");
-                }
             }
             else
             {
@@ -106,16 +100,16 @@ public class PerkSwapUI : MonoBehaviour
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiPause, Vector3.zero);
 
         if (perkSwapDebug)
-        {
             Debug.Log("[PerkSwapUI] Canvas shown — game paused");
-        }
     }
 
     private void OnReplaceChosen(int index)
     {
         Debug.Log($"[PerkSwapUI] Player chose to replace slot {index}: {currentPerkNameTexts[index].text}");
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiConfirm, Vector3.zero);
         onDecision?.Invoke(index);
         Hide();
     }
@@ -123,9 +117,9 @@ public class PerkSwapUI : MonoBehaviour
     private void OnDiscard()
     {
         if (perkSwapDebug)
-        {
             Debug.Log("[PerkSwapUI] Player discarded incoming perk");
-        }
+
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiBack, Vector3.zero);
         onDecision?.Invoke(-1);
         Hide();
     }
@@ -133,11 +127,22 @@ public class PerkSwapUI : MonoBehaviour
     private void Hide()
     {
         if (perkSwapDebug)
-        {
             Debug.Log("[PerkSwapUI] Hide() called — resuming game");
-        }
+
         canvas.SetActive(false);
         Time.timeScale = 1f;
         onDecision = null;
+    }
+
+    private void AddHoverSound(Button button)
+    {
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+            trigger = button.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerEnter;
+        entry.callback.AddListener((_) => AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiHover, Vector3.zero));
+        trigger.triggers.Add(entry);
     }
 }

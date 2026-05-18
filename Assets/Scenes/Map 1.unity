@@ -1039,7 +1039,7 @@ PrefabInstance:
       objectReference: {fileID: 1285408986}
     - target: {fileID: 2917424750087547974, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_SortingLayer
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2917424750087547974, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
       propertyPath: m_SortingLayerID
@@ -1602,13 +1602,13 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <uiClick>k__BackingField:
+  <uiPause>k__BackingField:
     Guid:
-      Data1: 626940419
-      Data2: 1322707894
-      Data3: 994091912
-      Data4: 1496669844
-    Path: event:/UI/UIClick
+      Data1: 257062700
+      Data2: 1239435418
+      Data3: 444840077
+      Data4: -1612991956
+    Path: event:/UI/Pause
   <uiHover>k__BackingField:
     Guid:
       Data1: -304864798
@@ -2590,6 +2590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2065558334}
   - component: {fileID: 2065558335}
+  - component: {fileID: 2065558336}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2642,6 +2643,20 @@ MonoBehaviour:
   transitionDelay: 7.5
   playerObject: {fileID: 1994644900}
   gameManagerCanvas: {fileID: 401755362}
+--- !u!114 &2065558336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065558333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80e7734f8527c94f90f8a36261683df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CursorManager
+  aimReticle: {fileID: 0}
+  hotspot: {x: 0, y: 0}
 --- !u!1 &2067001899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 394110235058728925, guid: cf7dbac48c6965947af629b732dd181f, type: 3}

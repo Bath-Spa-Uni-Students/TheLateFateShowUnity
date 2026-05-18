@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
-
 
 // Shown at level-up milestones (levels 3, 6, 9) and possibly at level 1 during the tutorial
 // Presents 3 random perks valid for the current weapon.
@@ -16,13 +16,12 @@ public class PerkSelectionUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] perkNameTexts;   // 3 name labels
     [SerializeField] private TextMeshProUGUI[] perkDescTexts;   // 3 description labels
 
-
     [Header("Fallback Icon")]
-    [SerializeField] private Sprite fallbackIcon; // shown if perk has no icon assigned
+    [SerializeField] private Sprite fallbackIcon;
 
     private List<PerkDefinition> currentSelection = new List<PerkDefinition>();
-    [SerializeField]
-    private bool perkSelectionDebug = false;
+    [SerializeField] private bool perkSelectionDebug = false;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -43,6 +42,7 @@ public class PerkSelectionUI : MonoBehaviour
         {
             int index = i;
             perkButtons[i].onClick.AddListener(() => OnPerkSelected(index));
+            AddHoverSound(perkButtons[i]);
         }
     }
 
@@ -51,16 +51,14 @@ public class PerkSelectionUI : MonoBehaviour
         currentSelection = WeaponManager.Instance.GetRandomPerkSelection(3);
 
         if (perkSelectionDebug)
-        {
             Debug.Log($"[PerkSelectionUI] Show() called — got {currentSelection.Count} perks for weapon: {WeaponManager.Instance.CurrentWeapon.weaponType}");
-        }
 
         if (currentSelection.Count == 0)
         {
             if (perkSelectionDebug)
-            {
                 Debug.LogWarning("[PerkSelectionUI] No valid perks returned — check WeaponManager All Perks list and perk compatibility settings.");
-            }
+
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiError, Vector3.zero);
             return;
         }
 
@@ -72,31 +70,29 @@ public class PerkSelectionUI : MonoBehaviour
             if (hasOption)
             {
                 PerkDefinition perk = currentSelection[i];
-                //change button sprite to perk icon, or fallback if none assigned
                 Image buttonImage = perkButtons[i].GetComponent<Image>();
                 buttonImage.sprite = perk.icon != null ? perk.icon : fallbackIcon;
                 perkNameTexts[i].text = perk.perkName;
                 perkDescTexts[i].text = perk.description;
 
                 if (perkSelectionDebug)
-                {
                     Debug.Log($"[PerkSelectionUI] Slot {i}: {perk.perkName} | Icon: {(perk.icon != null ? perk.icon.name : "none")}");
-                }
             }
         }
 
         canvas.SetActive(true);
         Time.timeScale = 0f;
 
+        // perkSelect is an existing gameplay event — pause sound plays on top for the UI open
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkSelect, Vector3.zero);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiPause, Vector3.zero);
     }
 
     private void Hide()
     {
         if (perkSelectionDebug)
-        {
             Debug.Log("[PerkSelectionUI] Hide() called — resuming game");
-        }
+
         canvas.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -106,21 +102,33 @@ public class PerkSelectionUI : MonoBehaviour
         if (index >= currentSelection.Count)
         {
             if (perkSelectionDebug)
-            {
                 Debug.LogWarning($"[PerkSelectionUI] OnPerkSelected called with out-of-range index: {index}");
-            }
+
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiError, Vector3.zero);
             return;
         }
 
         PerkDefinition chosen = currentSelection[index];
         if (perkSelectionDebug)
-        {
             Debug.Log($"[PerkSelectionUI] Player chose: {chosen.perkName}");
-        }   
 
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiConfirm, Vector3.zero);
         WeaponManager.Instance.ReceiveLevelUpPerk(chosen);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkTriggerGeneric, Vector3.zero);
         TutorialManager.Instance.AdvanceStep();
         Hide();
+    }
+
+    // Adds a hover sound listener to a button via EventTrigger
+    private void AddHoverSound(Button button)
+    {
+        EventTrigger trigger = button.gameObject.GetComponent<EventTrigger>();
+        if (trigger == null)
+            trigger = button.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = EventTriggerType.PointerEnter;
+        entry.callback.AddListener((_) => AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiHover, Vector3.zero));
+        trigger.triggers.Add(entry);
     }
 }
