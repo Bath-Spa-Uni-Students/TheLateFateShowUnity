@@ -121,12 +121,12 @@ TextureImporter:
       name: boss_broken_sprite_0
       rect:
         serializedVersion: 2
-        x: 34
-        y: 220
-        width: 25
-        height: 12
+        x: 0
+        y: 0
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -139,143 +139,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: boss_broken_sprite_1
-      rect:
-        serializedVersion: 2
-        x: 63
-        y: 99
-        width: 283
-        height: 258
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c366b74a60bc9a720800000000000000
-      internalID: 2858038667933083196
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_broken_sprite_2
-      rect:
-        serializedVersion: 2
-        x: 351
-        y: 217
-        width: 49
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: eddae78159f28b030800000000000000
-      internalID: 3510608226942889438
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_broken_sprite_3
-      rect:
-        serializedVersion: 2
-        x: 347
-        y: 207
-        width: 9
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f42085262e9799ce0800000000000000
-      internalID: -1397952196102323633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_broken_sprite_4
-      rect:
-        serializedVersion: 2
-        x: 47
-        y: 121
-        width: 66
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3380030a2dec60550800000000000000
-      internalID: 6126811747110094899
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_broken_sprite_5
-      rect:
-        serializedVersion: 2
-        x: 165
-        y: 89
-        width: 15
-        height: 15
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d18ca0a5d292ebfb0800000000000000
-      internalID: -4630218092129368035
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: boss_broken_sprite_6
-      rect:
-        serializedVersion: 2
-        x: 216
-        y: 83
-        width: 44
-        height: 34
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d6d4090c1cc7a7c00800000000000000
-      internalID: 899168247215050093
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bffbe4a425523d248be51c0eb6924c4b
     internalID: 0
     vertices: []
     indices: 
@@ -283,15 +151,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":400.0,"y":400.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       boss_broken_sprite_0: -944534128340404963
-      boss_broken_sprite_1: 2858038667933083196
-      boss_broken_sprite_2: 3510608226942889438
-      boss_broken_sprite_3: -1397952196102323633
-      boss_broken_sprite_4: 6126811747110094899
-      boss_broken_sprite_5: -4630218092129368035
-      boss_broken_sprite_6: 899168247215050093
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

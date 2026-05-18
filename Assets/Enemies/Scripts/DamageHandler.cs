@@ -12,6 +12,8 @@ public class DamageHandler : MonoBehaviour
     private float enemyHealth;
     private float maxHealth;
 
+    private Animator animator;
+
     private BossBehaviour bossBehaviour;
     private EnemyBehaviour enemyBehaviour;  // Reference to check leader status
 
@@ -31,6 +33,7 @@ public class DamageHandler : MonoBehaviour
     {
         enemyBehaviour = GetComponent<EnemyBehaviour>();
         bossBehaviour = GetComponent<BossBehaviour>();
+        animator = GetComponent<Animator>();
     }
 
     public void TakeDamage(float damage)
@@ -52,6 +55,7 @@ public class DamageHandler : MonoBehaviour
         {
             if (bossBehaviour != null)
             {
+                //animator.SetTrigger("Death");
                 bossBehaviour.OnBossDeath();
             }
             else

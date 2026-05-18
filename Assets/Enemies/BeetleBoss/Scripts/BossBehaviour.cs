@@ -17,6 +17,7 @@ public class BossBehaviour : MonoBehaviour
 
     [SerializeField] private GameObject lavaZone;
     [SerializeField] private GameObject phase2Location;
+    [SerializeField] private Sprite deathSprite;
 
 
     private float jitterTimer = 0f;
@@ -299,13 +300,27 @@ public class BossBehaviour : MonoBehaviour
 
     public void OnBossDeath()
     {
+        animator.enabled = false;
         if (dead) return;
         dead = true;
+
+        gameObject.GetComponent<SpriteRenderer>().sprite = deathSprite;
+
         rangedAttackScript.StopBeam();
+
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false;
+
+        meleeAttackScript.enabled = false;
+        rangedAttackScript.enabled = false;
+
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
         animator.SetTrigger("Death");
         if (gameManager != null)
             gameManager.OnGameWin();
+
+        enabled = false;
+
     }
 
     public void PlayFootstepHit()
