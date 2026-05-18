@@ -2,8 +2,8 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-
 public enum HostMood { Talk, Ecstatic, Idle, AngryTransition, AngryTalk }
+
 public class HostManager : MonoBehaviour
 {
     public static HostManager Instance { get; private set; }
@@ -26,6 +26,8 @@ public class HostManager : MonoBehaviour
     private Coroutine typeRoutine;
     public bool IsTalking { get; private set; }
 
+    // Persistent instance for tv static so we can stop it cleanly
+    private FMOD.Studio.EventInstance tvStaticInstance;
 
     private void Awake()
     {
@@ -33,12 +35,13 @@ public class HostManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+
     private void Start()
     {
-        // Host starts hidden
         hostObject.SetActive(false);
         dialogueBox.SetActive(false);
     }
+
     // Show a line then hide automatically
     public void Say(string line, HostMood mood = HostMood.Talk, System.Action onComplete = null)
     {
@@ -52,6 +55,7 @@ public class HostManager : MonoBehaviour
         if (typeRoutine != null) StopCoroutine(typeRoutine);
         typeRoutine = StartCoroutine(TypewriterRoutine(line, mood, null, hold: true));
     }
+
     // Immediately hide dialogue and stop any ongoing typewriter effect
     public void HideDialogue()
     {
@@ -61,26 +65,54 @@ public class HostManager : MonoBehaviour
         hostAnimator.CrossFade(AnimIdle, 0.2f);
         IsTalking = false;
     }
-    // Core typewriter logic, with optional hold parameter to keep dialogue open for lengthier passages
+
+    // Called by GameManager when the transition canvas appears
+    public void PlayTVBeep()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.tvBeep, Vector3.zero);
+    }
+
+    public void StartTVStatic()
+    {
+        tvStaticInstance = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.tvStatic);
+        tvStaticInstance.start();
+    }
+
+
+    public void StopTVStatic()
+    {
+        tvStaticInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        tvStaticInstance.release();
+    }
+
+    // Core typewriter logic
     private IEnumerator TypewriterRoutine(string line, HostMood mood, System.Action onComplete, bool hold = false)
     {
         IsTalking = true;
+
+        // Host appear sound plays once as the host becomes visible
         hostObject.SetActive(true);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.hostAppear, Vector3.zero);
+
         dialogueBox.SetActive(true);
         dialogueText.text = "";
-
         hostAnimator.CrossFade(MoodToAnim(mood), 0.2f);
 
         foreach (char c in line)
         {
             dialogueText.text += c;
+            // Click on every character skip spaces to avoid cluttered noise
+            if (c != ' ')
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.typeWriterClick, Vector3.zero);
             yield return new WaitForSecondsRealtime(typeSpeed);
         }
+
+        // Ding when the line finishes
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.typeWriterDing, Vector3.zero);
 
         if (!hold)
         {
             yield return new WaitForSecondsRealtime(2f);
-            // Transition to idle while player reads
             hostAnimator.CrossFade(AnimIdle, 0.2f);
             HideDialogue();
         }
@@ -92,7 +124,7 @@ public class HostManager : MonoBehaviour
         IsTalking = false;
         onComplete?.Invoke();
     }
-    // Map moods to animator states, with special handling for AngryTransition if currently talking
+
     private int MoodToAnim(HostMood mood) => mood switch
     {
         HostMood.Talk => AnimTalk,
@@ -103,4 +135,3 @@ public class HostManager : MonoBehaviour
         _ => AnimTalk
     };
 }
-

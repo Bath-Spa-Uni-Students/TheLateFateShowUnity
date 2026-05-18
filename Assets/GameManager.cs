@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     private PlayerInput playerInput;
 
     private EventInstance explorationTheme;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -79,12 +80,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Allows you to start the game from map 1 scene without going through the tutorial scene first
             StartCoroutine(TransitionToMaze());
         }
     }
 
-    // Tutorial 
+    // Tutorial
 
     private void EnterTutorial()
     {
@@ -103,17 +103,24 @@ public class GameManager : MonoBehaviour
     {
         if (CurrentState != GameState.Tutorial) return;
         SceneManager.LoadScene("Map 1");
-        //StartCoroutine(TransitionToMaze());
     }
 
     private IEnumerator TransitionToMaze()
     {
-        Time.timeScale = 0f; // Pause the game during transition
+        Time.timeScale = 0f;
         gameManagerCanvas.SetActive(false);
-        transitionCanvas.SetActive(true);
         tutorialCanvas.SetActive(false);
 
-        // Teleport immediately while canvas covers the screen
+        transitionCanvas.SetActive(true);
+
+        // Beep first, then static kicks in as the canvas appears
+        HostManager.Instance.PlayTVBeep();
+        yield return new WaitForSecondsRealtime(0.3f);
+
+        
+        HostManager.Instance.StartTVStatic();
+
+        // Teleport while canvas covers the screen
         CurrentState = GameState.Game;
         tutorialRoom.SetActive(false);
         mazeArea.SetActive(true);
@@ -127,19 +134,20 @@ public class GameManager : MonoBehaviour
         SpawnManager.Instance.ResetEnemyCount();
         KeySpawner.Instance.Initialise(keysRequired);
         KeySpawner.NotifyMazeRegenerated();
-        // Keep canvas up for transition animation to play out
+
         yield return new WaitForSecondsRealtime(transitionDelay);
         Time.timeScale = 1f;
 
+        // Static stops as the canvas comes down
+        HostManager.Instance.StopTVStatic();
         transitionCanvas.SetActive(false);
+
         gameManagerCanvas.SetActive(true);
-        //playerInput.ActivateInput();
         Debug.Log("[GameManager] Transitioned to maze.");
         explorationTheme.start();
-
     }
 
-    // Key System 
+    // Key System
 
     public void OnKeyCollected()
     {
@@ -147,9 +155,6 @@ public class GameManager : MonoBehaviour
 
         keysCollected++;
         Debug.Log($"[GameManager] Key collected: {keysCollected}/{keysRequired}");
-
-        // key UI here
-        // UIManager.Instance.UpdateKeyDisplay(keysCollected, keysRequired);
 
         if (keysCollected >= keysRequired)
             OnAllKeysCollected();
@@ -165,7 +170,7 @@ public class GameManager : MonoBehaviour
         HostManager.Instance.Say(
             "You've found all the keys. Press T whenever you're ready for the boss!",
             HostMood.Ecstatic
-        );  
+        );
     }
 
     public void OnPlayerRequestBossTeleport()
@@ -211,14 +216,21 @@ public class GameManager : MonoBehaviour
     private IEnumerator TransitionToBoss()
     {
         explorationTheme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
         transitionCanvas.SetActive(true);
+
+        // Beep then static as the canvas appears
+        HostManager.Instance.PlayTVBeep();
+        yield return new WaitForSecondsRealtime(0.3f);
+
+        
+        HostManager.Instance.StartTVStatic();
 
         CurrentState = GameState.Boss;
         mazeArea.SetActive(false);
         bossRoom.SetActive(true);
 
         if (beetleBoss != null) beetleBoss.SetActive(true);
-
         if (mazeChanger != null) mazeChanger.StopSwitching();
 
         if (playerMovement != null && bossTeleportPoint != null)
@@ -228,7 +240,10 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(transitionDelay);
 
+        // Static stops as the canvas comes down
+        HostManager.Instance.StopTVStatic();
         transitionCanvas.SetActive(false);
+
         Debug.Log("[GameManager] Transitioned to boss room.");
     }
 
@@ -239,11 +254,11 @@ public class GameManager : MonoBehaviour
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
-       HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Ecstatic);
+        HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Ecstatic);
 
         Debug.Log("[GameManager] Player won!");
-        // Show win screen here
     }
+
     public void OnGameLose()
     {
         CurrentState = GameState.Lose;
@@ -251,9 +266,8 @@ public class GameManager : MonoBehaviour
         if (mazeSpawner != null) mazeSpawner.enabled = false;
         if (tutorialSpawner != null) tutorialSpawner.enabled = false;
 
-       HostManager.Instance.Say("Oh dear... better luck next time.", HostMood.Talk);
+        HostManager.Instance.Say("Oh dear... better luck next time.", HostMood.Talk);
 
         Debug.Log("[GameManager] Player lost.");
-        // Show game over screen here
     }
 }

@@ -17,17 +17,18 @@ public class MazeChanger : MonoBehaviour
     [SerializeField] private GameObject[] slot8;
     [SerializeField] private GameObject[] slot9;
 
-
     [Header("Settings")]
-    [SerializeField] private float switchInterval = 150f;//adjust this value for balance currently set quite quick for testing
-    [SerializeField] private bool debugMode = true; 
+    [SerializeField] private float switchInterval = 150f;
+    [SerializeField] private bool debugMode = true;
 
     [Header("NavMesh")]
     [SerializeField] private NavMeshSurface navMeshSurface;
 
     private GameObject[][] allSlots;
-    private int[] currentActiveIndex; // tracks which room variation is active
+    private int[] currentActiveIndex;
     private Coroutine switchCoroutine;
+
+    private bool isFirstGeneration = true;
 
     void OnEnable()
     {
@@ -36,9 +37,8 @@ public class MazeChanger : MonoBehaviour
             slot1, slot2, slot3, slot4,
             slot5, slot6, slot7, slot8, slot9
         };
-
         currentActiveIndex = new int[allSlots.Length];
-
+        isFirstGeneration = true;
         GenerateAllSegments();
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
     }
@@ -47,7 +47,6 @@ public class MazeChanger : MonoBehaviour
     {
         if (segment == null || segment.Length == 0) return;
 
-        // Pick a random variant that isn't the current one
         int chosen;
         if (segment.Length > 1)
         {
@@ -62,13 +61,11 @@ public class MazeChanger : MonoBehaviour
             chosen = 0;
         }
 
-        // Swap active state
         for (int i = 0; i < segment.Length; i++)
         {
             if (segment[i] != null)
                 segment[i].SetActive(i == chosen);
         }
-
         currentActiveIndex[slotIndex] = chosen;
     }
 
@@ -79,13 +76,18 @@ public class MazeChanger : MonoBehaviour
         for (int i = 0; i < allSlots.Length; i++)
             SelectSegment(allSlots[i], i);
 
-        // Reset count since all enemies were just destroyed
         if (SpawnManager.Instance != null)
             SpawnManager.Instance.ResetEnemyCount();
 
         RebakeNavMesh();
         ChestSpawner.NotifyMazeRegenerated();
         KeySpawner.NotifyMazeRegenerated();
+
+        // Play maze change sound on every regeneration except the very first load
+        if (!isFirstGeneration)
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.mazeChange, Vector3.zero);
+
+        isFirstGeneration = false;
     }
 
     private void RebakeNavMesh()
@@ -99,7 +101,6 @@ public class MazeChanger : MonoBehaviour
     IEnumerator RoomSwitchLoop()
     {
         float interval = debugMode ? 60f : switchInterval;
-
         while (true)
         {
             yield return new WaitForSeconds(interval);
@@ -107,14 +108,14 @@ public class MazeChanger : MonoBehaviour
             Debug.Log("Rooms switched at: " + Time.time);
         }
     }
+
     private void ClearAllEnemies()
     {
-        // Find all enemies and destroy them before switching
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
             Destroy(enemy);
     }
-   
+
     public void ForceSwitch()
     {
         if (switchCoroutine != null)
@@ -132,5 +133,4 @@ public class MazeChanger : MonoBehaviour
             switchCoroutine = null;
         }
     }
-
 }

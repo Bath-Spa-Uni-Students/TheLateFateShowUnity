@@ -44,13 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab53c0dd0eed744fad6ff47e2034635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FMODEvents
-  <weaponPickup>k__BackingField:
-    Guid:
-      Data1: 915190802
-      Data2: 1142125696
-      Data3: -1718137947
-      Data4: 1675390466
-    Path: event:/Weapons/WeaponPickup
   <pistolShoot>k__BackingField:
     Guid:
       Data1: -387144949
@@ -144,11 +137,11 @@ MonoBehaviour:
     Path: event:/Player/PlayerDash
   <playerLevelUp>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 747748195
+      Data2: 1249184968
+      Data3: 937325744
+      Data4: -590955441
+    Path: event:/Enemies/Grunt/GruntTakeDamage
   <gruntFootsteps>k__BackingField:
     Guid:
       Data1: -1468598414
@@ -347,11 +340,60 @@ MonoBehaviour:
     Path: event:/UI/CrowdOoos
   <crowdApplause>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -106301951
+      Data2: 1089958155
+      Data3: 1242704256
+      Data4: -1145491213
+    Path: event:/UI/UIApplause
+  <tvStatic>k__BackingField:
+    Guid:
+      Data1: 223037667
+      Data2: 1247299165
+      Data3: -2099600503
+      Data4: -1317126108
+    Path: event:/UI/TVStatic
+  <tvBeep>k__BackingField:
+    Guid:
+      Data1: -1038958797
+      Data2: 1306626590
+      Data3: 820005506
+      Data4: -666324503
+    Path: event:/UI/TVBeep
+  <hostAppear>k__BackingField:
+    Guid:
+      Data1: 1055330438
+      Data2: 1138179715
+      Data3: 2054352268
+      Data4: 1457484993
+    Path: event:/UI/HostAppear
+  <typeWriterClick>k__BackingField:
+    Guid:
+      Data1: -1070555256
+      Data2: 1340018242
+      Data3: 233109429
+      Data4: 1089243886
+    Path: event:/UI/TypeWrite
+  <typeWriterDing>k__BackingField:
+    Guid:
+      Data1: 864948372
+      Data2: 1285110125
+      Data3: -843054697
+      Data4: 701881978
+    Path: event:/UI/TypeDing
+  <mazeChange>k__BackingField:
+    Guid:
+      Data1: 1695949475
+      Data2: 1283511794
+      Data3: -1153613654
+      Data4: 1821049705
+    Path: event:/UI/MazeChange
+  <fameGain>k__BackingField:
+    Guid:
+      Data1: 1778677507
+      Data2: 1312663591
+      Data3: -1968620129
+      Data4: -2041101615
+    Path: event:/UI/FameIncrease
   <mainMenuTheme>k__BackingField:
     Guid:
       Data1: -1861549931
