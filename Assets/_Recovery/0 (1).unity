@@ -979,13 +979,6 @@ MonoBehaviour:
       Data3: 1231939746
       Data4: -828190906
     Path: event:/Enemies/Grunt/GruntDeath
-  <gruntTakeDamage>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
   <speedsterFootsteps>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1014,13 +1007,55 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <speedsterTakeDamage>k__BackingField:
+  <bruiserFootsteps>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserAttack>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserAlert>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <bruiserDeath>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <summonerSummon>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <summonerAttack>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
+  <summonerDeath>k__BackingField:
+    Guid:
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <bossDeath>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1056,20 +1091,20 @@ MonoBehaviour:
       Data3: 2081585063
       Data4: 1575174690
     Path: event:/Enemies/Beetle Boss/BossShellOpen
+  <bossTheme>k__BackingField:
+    Guid:
+      Data1: -2061720419
+      Data2: 1236850625
+      Data3: 2133212556
+      Data4: 1707782529
+    Path: event:/Enemies/Beetle Boss/BossTheme
   <bossFootsteps>k__BackingField:
     Guid:
-      Data1: -1007267890
-      Data2: 1150707351
-      Data3: -1893826930
-      Data4: -148631829
+      Data1: 1108468587
+      Data2: 1322437783
+      Data3: -1103077213
+      Data4: -1005424935
     Path: event:/Enemies/Beetle Boss/BossWalk
-  <bossTakeDamage>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1140,20 +1175,13 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <explorationTheme>k__BackingField:
+  <levelAmbience>k__BackingField:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <bossTheme>k__BackingField:
-    Guid:
-      Data1: -2061720419
-      Data2: 1236850625
-      Data3: 2133212556
-      Data4: 1707782529
-    Path: event:/Scores/BossTheme
+      Data1: 1686298193
+      Data2: 1272099781
+      Data3: 1016191916
+      Data4: 1951213966
+    Path: event:/Placeholder
   <victoryStinger>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1168,41 +1196,6 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <keyPickup>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <keyHum>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <keyMerge>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <chestOpen>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <chestHum>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
 --- !u!95 &1226157336 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2678125219070286614, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -1876,6 +1869,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2035588025
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7024915660216687200, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_Name
+      value: LavaZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -155.751
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.6809387
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
 --- !u!114 &2038394536 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4558222364235193250, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
@@ -87928,7 +87978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 669140991850865147, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.9980469
+      value: 3.9979248
       objectReference: {fileID: 0}
     - target: {fileID: 669140991850865147, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -88067,17 +88117,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1994644900}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
-      propertyPath: skipTutorial
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: spawnManager
       value: 
       objectReference: {fileID: 1327544448}
-    - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
-      propertyPath: disableTutorial
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3210770360388388190, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: tutorialSpawner
       value: 
@@ -88379,8 +88421,6 @@ MonoBehaviour:
   spritePerFrame: 30
   loop: 1
   destroyOnEnd: 0
-  isSpriteRenderer: 0
-  isImage: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -88393,3 +88433,4 @@ SceneRoots:
   - {fileID: 2027072372}
   - {fileID: 3897635223001194719}
   - {fileID: 674445462}
+  - {fileID: 2035588025}
