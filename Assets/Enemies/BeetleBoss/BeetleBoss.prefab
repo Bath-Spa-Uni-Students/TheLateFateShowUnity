@@ -1195,7 +1195,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9.545943, y: 9.545943, z: 9.545943}
+  m_LocalScale: {x: 10.89574, y: 10.89574, z: 10.89574}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 717153400465058858}
@@ -1250,7 +1250,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.02745098}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1988,8 +1988,6 @@ Transform:
   m_Children:
   - {fileID: 3982588583489006720}
   - {fileID: 7317697921066512631}
-  - {fileID: 5015297127349703977}
-  - {fileID: 6116548009981308648}
   - {fileID: 8800759761961514443}
   - {fileID: 5492628526909315103}
   - {fileID: 6290510749642450395}
@@ -2130,9 +2128,9 @@ MonoBehaviour:
   damageHandler: {fileID: 7616477494777616497}
   meleeAttackScript: {fileID: 7477454800623022473}
   rangedAttackScript: {fileID: 2727703368743454965}
-  attackBarrier: {fileID: 2392225031223194748}
-  damageArea: {fileID: 3869937600615201770}
-  attackCapsule: {fileID: 953304053780064506}
+  attackBarrier: {fileID: 0}
+  damageArea: {fileID: 0}
+  attackCapsule: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -2161,7 +2159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddd66eba26141524e92eea7a50d68d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossMelee
-  attackBarrier: {fileID: 2392225031223194748}
+  attackBarrier: {fileID: 0}
 --- !u!114 &2727703368743454965
 MonoBehaviour:
   m_ObjectHideFlags: 0
