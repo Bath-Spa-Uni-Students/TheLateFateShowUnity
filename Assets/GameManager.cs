@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject gameManagerCanvas;
+    [SerializeField] private GameObject bossHealthBar;
     private PlayerMovement playerMovement;
     private PlayerInput playerInput;
 
@@ -215,6 +216,9 @@ public class GameManager : MonoBehaviour
         explorationTheme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         transitionCanvas.SetActive(true);
 
+        gameManagerCanvas.SetActive(false);
+        tutorialCanvas.SetActive(false);
+
         CurrentState = GameState.Boss;
         mazeArea.SetActive(false);
         bossRoom.SetActive(true);
@@ -228,8 +232,13 @@ public class GameManager : MonoBehaviour
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
+        Time.timeScale = 0f; // Pause the game during transition
+
         yield return new WaitForSecondsRealtime(transitionDelay);
 
+        Time.timeScale = 1f;
+
+        bossHealthBar.SetActive(true);
         transitionCanvas.SetActive(false);
         Debug.Log("[GameManager] Transitioned to boss room.");
     }
