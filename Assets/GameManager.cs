@@ -236,11 +236,14 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(transitionDelay);
 
-        Time.timeScale = 1f;
-
         bossHealthBar.SetActive(true);
         transitionCanvas.SetActive(false);
+        gameManagerCanvas.SetActive(true);
+
         Debug.Log("[GameManager] Transitioned to boss room.");
+
+        Time.timeScale = 1f;
+
     }
 
     public void OnGameWin()

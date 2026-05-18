@@ -29,6 +29,8 @@ public class BossRanged : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("BossRanged Awake: Initializing components and caching references.");
+
         stats = GetComponent<EnemyStats>();
         boss = GetComponent<BossBehaviour>();
 

@@ -15,7 +15,9 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float jitterMaxInterval = 0.28f;
     [SerializeField] private float jitterBoundRadius = 5f;
 
-    [SerializeField] private BossLavaZone lavaZone;
+    [SerializeField] private GameObject lavaZone;
+    [SerializeField] private GameObject phase2Location;
+
 
     private float jitterTimer = 0f;
     private float jitterDirection = 1f;
@@ -212,13 +214,24 @@ public class BossBehaviour : MonoBehaviour
 
         if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
         {
-            phase2Active = true;
-            stats.speed *= phase2SpeedMultiplier;
-            animator.SetBool("Phase2", true);
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+            //stats.speed *= phase2SpeedMultiplier;
+
+            Debug.Log("Entering Phase 2!");
+            Phase2Prep();
         }
 
         return phase2Active ? EnemyState.Ranged : EnemyState.Advance;
+    }
+
+    private void Phase2Prep()
+    {
+        lavaZone.gameObject.SetActive(false);
+        gameObject.transform.position = phase2Location.transform.position;
+        phase2Active = true;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("Phase2", true);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+        rangedAttackScript.enabled = true;
     }
 
     private void SetMusicPhase(int phase)
