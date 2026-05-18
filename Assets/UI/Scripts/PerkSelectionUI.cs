@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 // Shown at level-up milestones (levels 3, 6, 9) and possibly at level 1 during the tutorial
 // Presents 3 random perks valid for the current weapon.
@@ -115,7 +116,10 @@ public class PerkSelectionUI : MonoBehaviour
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiConfirm, Vector3.zero);
         WeaponManager.Instance.ReceiveLevelUpPerk(chosen);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkTriggerGeneric, Vector3.zero);
-        TutorialManager.Instance.AdvanceStep();
+        if (SceneManager.GetActiveScene().name == "Tutorial")
+        {
+            TutorialManager.Instance.AdvanceStep();
+        }
         Hide();
     }
 

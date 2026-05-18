@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     // ------------------------------------------ //
 
     [Header("References")]
-    private Rigidbody2D rb;
+    [SerializeField] private Rigidbody2D rb;
     private Vector2 moveInput;
     private Animator animator;
     private BoxCollider2D boxCollider;
