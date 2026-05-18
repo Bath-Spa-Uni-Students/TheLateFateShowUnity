@@ -53,6 +53,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bossShellOpen { get; private set; }
     [field: SerializeField] public EventReference bossFootsteps { get; private set; }
     [field: SerializeField] public EventReference bossTakeDamage { get; private set; }
+    [field: SerializeField] public EventReference bossPhaseChange { get; private set; }
     // Perks and Items
 
     [field: Header("Perk SFX")]

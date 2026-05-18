@@ -268,6 +268,13 @@ MonoBehaviour:
       Data3: 25181110
       Data4: 1924636298
     Path: event:/Enemies/Beetle Boss/BossTakeDamage
+  <bossPhaseChange>k__BackingField:
+    Guid:
+      Data1: -1381512917
+      Data2: 1328620031
+      Data3: -190318954
+      Data4: 606609619
+    Path: event:/Enemies/Beetle Boss/BossPhaseChange
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
