@@ -1,4 +1,5 @@
 using FMOD.Studio;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,6 +32,8 @@ public class Shotgun : MonoBehaviour
 
     // Bullet spread
     public float bulletSpread = 20f;
+
+    private bool isReloading = false;
 
     [SerializeField] private GameObject ammoText;
 
@@ -96,10 +99,20 @@ public class Shotgun : MonoBehaviour
             GameObject Player = GameObject.FindGameObjectWithTag("Player");
         if (Player.GetComponent<PlayerMovement>().hasWeapon == true && Input.GetKeyDown(KeyCode.R))
         {
-            canShoot = true;
-            ammo = maxAmmo;
-            ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunReload, transform.position);
+            StartCoroutine(ReloadTimer());
         }
+    }
+
+    private IEnumerator ReloadTimer()
+    {
+        if (isReloading) yield break; // Prevent multiple reloads at once
+        canShoot = false;
+        isReloading = true;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.shotgunReload, transform.position); // Play reload sound
+        yield return new WaitForSeconds(2f); // Simulate reload time
+        ammo = maxAmmo;
+        ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+        isReloading = false;
+        canShoot = true;
     }
 }

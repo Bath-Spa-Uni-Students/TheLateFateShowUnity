@@ -35,6 +35,8 @@ public class AR : MonoBehaviour
     public int ammo = 10;
     [SerializeField] private GameObject ammoText;
 
+    private bool isReloading = false;
+
     //Audio
     private EventInstance ARShoot;
     private EventInstance ARReload;
@@ -98,11 +100,14 @@ public class AR : MonoBehaviour
 
     private IEnumerator ReloadTimer()
     {
+        if (isReloading) yield break; // Prevent multiple reloads at once
         canShoot = false;
+        isReloading = true;
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.arReload, transform.position); // Play reload sound
         yield return new WaitForSeconds(2f); // Simulate reload time
         ammo = maxAmmo;
         ammoText.gameObject.GetComponent<AmmoCount>().UpdateAmmo(ammo);
+        isReloading = false;
         canShoot = true;
     }
 }
