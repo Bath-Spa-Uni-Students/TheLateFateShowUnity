@@ -132,6 +132,8 @@ public class BossBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+            damageHandler.TakeDamage(stats.maxHealth * phase2HealthThreshold);
         if (rb == null) return;
 
         UpdateDetection();

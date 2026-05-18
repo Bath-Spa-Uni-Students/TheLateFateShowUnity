@@ -289,18 +289,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.0016345
-      objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.0016345
-      objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.0016345
-      objectReference: {fileID: 0}
-    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -140.9
       objectReference: {fileID: 0}
@@ -341,21 +329,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: jitterMaxSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: jitterMinSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: jitterBoundRadius
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: jitterMaxInterval
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: phase2Location
+      value: 
+      objectReference: {fileID: 227118331}
     - target: {fileID: 7616477494777616497, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: healthBar
       value: 
@@ -364,12 +340,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: BeetleBoss
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6831314971820643666, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+--- !u!1 &227118331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 227118332}
+  m_Layer: 8
+  m_Name: Phase2Local
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &227118332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227118331}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -140.9, y: -18.21324, z: 0}
+  m_LocalScale: {x: 1.0016345, y: 1.0016345, z: 1.0016345}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330207476 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3248062033643826968, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
@@ -48844,7 +48850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3822119418023831718, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3822119418023831718, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayerID
@@ -48932,7 +48938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7853273140754338122, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7853273140754338122, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayerID
@@ -49073,6 +49079,7 @@ MonoBehaviour:
   transitionDelay: 7.5
   playerObject: {fileID: 1994644900}
   gameManagerCanvas: {fileID: 1300050594}
+  bossHealthBar: {fileID: 0}
 --- !u!1 &2067001899 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 394110235058728925, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
@@ -49615,4 +49622,5 @@ SceneRoots:
   - {fileID: 2027072372}
   - {fileID: 3897635223001194719}
   - {fileID: 674445462}
+  - {fileID: 227118332}
   - {fileID: 155941700}

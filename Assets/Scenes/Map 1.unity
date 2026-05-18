@@ -880,6 +880,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1876983449}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &578796617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+  m_PrefabInstance: {fileID: 976883181}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &578796618 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+  m_PrefabInstance: {fileID: 976883181}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &594497548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4327712316071679561, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
@@ -1121,6 +1131,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702327f8ee86db9478b492c8a50ef4dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeyMergeUI
+--- !u!1001 &976883181
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 886526846}
+    m_Modifications:
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 56.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 717153400465058858, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: phase2Location
+      value: 
+      objectReference: {fileID: 11277647}
+    - target: {fileID: 7616477494777616497, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 513336910}
+    - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_Name
+      value: BeetleBoss (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
 --- !u!1 &986517974 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8847127545331142529, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
@@ -2428,11 +2507,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3118732395402709964, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1402366514 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7089124575084406966, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
-  m_PrefabInstance: {fileID: 3852142738098113873}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439523937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 451238021582949253, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
@@ -3666,7 +3740,7 @@ MonoBehaviour:
   mazeChanger: {fileID: 1876983448}
   bossRoom: {fileID: 886526845}
   bossTeleportPoint: {fileID: 2082038759}
-  beetleBoss: {fileID: 1402366514}
+  beetleBoss: {fileID: 578796617}
   keysRequired: 3
   forcedBossLevel: 10
   bossTeleportButtonUI: {fileID: 1038727101}
@@ -159578,6 +159652,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5773675966283969059, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 578796618}
     - targetCorrespondingSourceObject: {fileID: 5773675966283969059, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 11277648}
