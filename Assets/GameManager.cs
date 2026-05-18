@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 
 public enum GameState { Tutorial, Game, Boss, Win, Lose }
 
@@ -91,15 +92,23 @@ public class GameManager : MonoBehaviour
 
     private void EnterTutorial()
     {
-        CurrentState = GameState.Tutorial;
-        tutorialRoom.SetActive(true);
-        mazeArea.SetActive(false);
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            Debug.LogError("[GameManager] Attempted to enter tutorial state while not in tutorial scene!");
+            return;
+        }
+        else
+        {
+            CurrentState = GameState.Tutorial;
+            tutorialRoom.SetActive(true);
+            mazeArea.SetActive(false);
 
-        if (bossRoom != null) bossRoom.SetActive(false);
-        if (mazeSpawner != null) mazeSpawner.enabled = false;
-        if (tutorialSpawner != null) tutorialSpawner.enabled = true;
+            if (bossRoom != null) bossRoom.SetActive(false);
+            if (mazeSpawner != null) mazeSpawner.enabled = false;
+            if (tutorialSpawner != null) tutorialSpawner.enabled = true;
 
-        Debug.Log("[GameManager] Tutorial started.");
+            Debug.Log("[GameManager] Tutorial started.");
+        }
     }
 
     public void OnTutorialComplete()
