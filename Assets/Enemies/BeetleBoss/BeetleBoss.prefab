@@ -240,8 +240,8 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 40733751
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
@@ -920,8 +920,8 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 40733751
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
@@ -1817,8 +1817,8 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 40733751
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
@@ -1964,7 +1964,6 @@ GameObject:
   - component: {fileID: 7477454800623022473}
   - component: {fileID: 2727703368743454965}
   - component: {fileID: 8774061901883215491}
-  - component: {fileID: 6831314971820643666}
   - component: {fileID: 1358233383886138218}
   - component: {fileID: 3212962048130903419}
   m_Layer: 8
@@ -1984,7 +1983,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.861724, y: -17.58628, z: 0}
-  m_LocalScale: {x: 0.38868454, y: 0.38868454, z: 0.38868454}
+  m_LocalScale: {x: 1.0016345, y: 1.0016345, z: 1.0016345}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3982588583489006720}
@@ -2101,7 +2100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageHandler
   stats: {fileID: 4678454769109109600}
-  healthBar: {fileID: 1404311215685048134}
+  healthBar: {fileID: 0}
 --- !u!114 &4358639779486195371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,11 +2118,12 @@ MonoBehaviour:
   sleepHealRate: 5
   phase2SpeedMultiplier: 1.5
   jitterMinSpeed: 2
-  jitterMaxSpeed: 7
+  jitterMaxSpeed: 4
   jitterMinInterval: 0.08
-  jitterMaxInterval: 0.28
-  jitterBoundRadius: 5
-  lavaZone: {fileID: 0}
+  jitterMaxInterval: 1
+  jitterBoundRadius: 15
+  lavaZone: {fileID: 4250112537694303549}
+  phase2Location: {fileID: 0}
   wakeRadius: 6
   stats: {fileID: 4678454769109109600}
   damageHandler: {fileID: 7616477494777616497}
@@ -2203,28 +2203,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!195 &6831314971820643666
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9150895092482176395}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.515
-  m_Speed: 3.5
-  m_Acceleration: 1
-  avoidancePriority: 50
-  m_AngularSpeed: 300
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 0
-  m_AutoRepath: 1
-  m_Height: 0.92
-  m_BaseOffset: 0.46
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!50 &1358233383886138218
 Rigidbody2D:
   serializedVersion: 5
@@ -2392,5 +2370,10 @@ PrefabInstance:
 --- !u!4 &3982588583489006720 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7836846574991557597, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
+  m_PrefabInstance: {fileID: 6595219593679646557}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4250112537694303549 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7024915660216687200, guid: 7c501576ea8ff504fab9f448ea9e0499, type: 3}
   m_PrefabInstance: {fileID: 6595219593679646557}
   m_PrefabAsset: {fileID: 0}
