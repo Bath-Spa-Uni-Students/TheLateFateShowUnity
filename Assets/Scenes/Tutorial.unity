@@ -456,12 +456,74 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1823986809}
+  - {fileID: 815119962}
   - {fileID: 2065558334}
   - {fileID: 1966560116}
   - {fileID: 1327544450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &815119961
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 674445462}
+    m_Modifications:
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -32.79138
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 430.09894
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3626339369982368622, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+--- !u!4 &815119962 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1884677745343487141, guid: 9fdf6b04f2326e54e939bc2d76bccd8f, type: 3}
+  m_PrefabInstance: {fileID: 815119961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1038727101 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4863092607206308337, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
@@ -802,407 +864,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
---- !u!1 &1195266181
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1195266182}
-  - component: {fileID: 1195266183}
-  m_Layer: 0
-  m_Name: Fmod Events
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1195266182
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195266181}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1823986809}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1195266183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195266181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab53c0dd0eed744fad6ff47e2034635, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FMODEvents
-  <weaponPickup>k__BackingField:
-    Guid:
-      Data1: 915190802
-      Data2: 1142125696
-      Data3: -1718137947
-      Data4: 1675390466
-    Path: event:/Weapons/WeaponPickup
-  <pistolShoot>k__BackingField:
-    Guid:
-      Data1: -387144949
-      Data2: 1091793310
-      Data3: -936528207
-      Data4: -325574479
-    Path: event:/Weapons/Pistol/PistolShoot
-  <pistolReload>k__BackingField:
-    Guid:
-      Data1: -1126001982
-      Data2: 1090227631
-      Data3: 1436482197
-      Data4: -2099337300
-    Path: event:/Weapons/Pistol/PistolReload
-  <pistolNoAmmo>k__BackingField:
-    Guid:
-      Data1: 274618420
-      Data2: 1279694784
-      Data3: -931397714
-      Data4: -741822798
-    Path: event:/Weapons/NoAmmoClick
-  <arShoot>k__BackingField:
-    Guid:
-      Data1: 1579027369
-      Data2: 1226657029
-      Data3: -651822170
-      Data4: 420218051
-    Path: event:/Weapons/AR/ARShoot
-  <arReload>k__BackingField:
-    Guid:
-      Data1: 600778267
-      Data2: 1186825567
-      Data3: -531347297
-      Data4: 1369443233
-    Path: event:/Weapons/AR/ARReaload
-  <arNoAmmo>k__BackingField:
-    Guid:
-      Data1: 274618420
-      Data2: 1279694784
-      Data3: -931397714
-      Data4: -741822798
-    Path: event:/Weapons/NoAmmoClick
-  <shotgunShoot>k__BackingField:
-    Guid:
-      Data1: 1379396060
-      Data2: 1230833937
-      Data3: 1951898796
-      Data4: -444294579
-    Path: event:/Weapons/Shotgun/ShotgunShoot
-  <shotgunReload>k__BackingField:
-    Guid:
-      Data1: -1354823909
-      Data2: 1088789786
-      Data3: 1986089878
-      Data4: -748177453
-    Path: event:/Weapons/Shotgun/ShotgunReload
-  <shotgunNoAmmo>k__BackingField:
-    Guid:
-      Data1: 274618420
-      Data2: 1279694784
-      Data3: -931397714
-      Data4: -741822798
-    Path: event:/Weapons/NoAmmoClick
-  <playerFootsteps>k__BackingField:
-    Guid:
-      Data1: -1810719169
-      Data2: 1173628994
-      Data3: 675060113
-      Data4: 641478668
-    Path: event:/Player/PlayerFootsteps
-  <playerHurt>k__BackingField:
-    Guid:
-      Data1: 1202668187
-      Data2: 1258253780
-      Data3: 1076944812
-      Data4: 381121862
-    Path: event:/Player/PlayerHurt
-  <playerDeath>k__BackingField:
-    Guid:
-      Data1: 871090472
-      Data2: 1276435397
-      Data3: -327100240
-      Data4: -356177650
-    Path: event:/Player/PlayerDeath
-  <playerDash>k__BackingField:
-    Guid:
-      Data1: -1920758700
-      Data2: 1341660247
-      Data3: -424003703
-      Data4: 698594122
-    Path: event:/Player/PlayerDash
-  <playerLevelUp>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <gruntFootsteps>k__BackingField:
-    Guid:
-      Data1: -1468598414
-      Data2: 1114058461
-      Data3: 275865251
-      Data4: -796541887
-    Path: event:/Enemies/Grunt/GruntFootsteps
-  <gruntAttack>k__BackingField:
-    Guid:
-      Data1: 606563642
-      Data2: 1125443619
-      Data3: -1647724657
-      Data4: 1152882243
-    Path: event:/Enemies/Grunt/GruntAttack
-  <gruntAlert>k__BackingField:
-    Guid:
-      Data1: -1234569527
-      Data2: 1121121243
-      Data3: 1219963571
-      Data4: -1331621193
-    Path: event:/Enemies/Grunt/GruntAlert
-  <gruntDeath>k__BackingField:
-    Guid:
-      Data1: 794840774
-      Data2: 1292585099
-      Data3: 1231939746
-      Data4: -828190906
-    Path: event:/Enemies/Grunt/GruntDeath
-  <gruntTakeDamage>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <speedsterFootsteps>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <speedsterAttack>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <speedsterAlert>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <speedsterDeath>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <speedsterTakeDamage>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <bossDeath>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bossAttackMelee>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bossAttackRanged>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <bossWake>k__BackingField:
-    Guid:
-      Data1: -2030970193
-      Data2: 1128220004
-      Data3: 715415473
-      Data4: -603237934
-    Path: event:/Enemies/Beetle Boss/BossWake
-  <bossShellOpen>k__BackingField:
-    Guid:
-      Data1: 775812514
-      Data2: 1187199005
-      Data3: 2081585063
-      Data4: 1575174690
-    Path: event:/Enemies/Beetle Boss/BossShellOpen
-  <bossFootsteps>k__BackingField:
-    Guid:
-      Data1: -1007267890
-      Data2: 1150707351
-      Data3: -1893826930
-      Data4: -148631829
-    Path: event:/Enemies/Beetle Boss/BossWalk
-  <bossTakeDamage>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <perkSelect>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <perkTriggerGeneric>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <itemPickup>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <itemActivate>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <uiClick>k__BackingField:
-    Guid:
-      Data1: 626940419
-      Data2: 1322707894
-      Data3: 994091912
-      Data4: 1496669844
-    Path: event:/UI/UIClick
-  <uiHover>k__BackingField:
-    Guid:
-      Data1: -304864798
-      Data2: 1144924140
-      Data3: 1530767489
-      Data4: -2108589490
-    Path: event:/UI/UIHover
-  <uiBack>k__BackingField:
-    Guid:
-      Data1: 1871662817
-      Data2: 1217575237
-      Data3: -1634053201
-      Data4: -440782609
-    Path: event:/UI/UIBack
-  <uiConfirm>k__BackingField:
-    Guid:
-      Data1: 977456129
-      Data2: 1330015994
-      Data3: 936425902
-      Data4: 1556749381
-    Path: event:/UI/UIConfirm
-  <uiError>k__BackingField:
-    Guid:
-      Data1: -704877823
-      Data2: 1253261393
-      Data3: 1000868758
-      Data4: 689783726
-    Path: event:/UI/UIError
-  <mainMenuTheme>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <explorationTheme>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <bossTheme>k__BackingField:
-    Guid:
-      Data1: -2061720419
-      Data2: 1236850625
-      Data3: 2133212556
-      Data4: 1707782529
-    Path: event:/Scores/BossTheme
-  <victoryStinger>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <defeatStinger>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <keyPickup>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <keyHum>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <keyMerge>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <chestOpen>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  <chestHum>k__BackingField:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
 --- !u!95 &1226157336 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2678125219070286614, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -1254,6 +915,7 @@ MonoBehaviour:
   maxFollowersBase: 1
   followersPerLevelThreshold: 3
   currentEnemyCount: 0
+  debugMode: 0
 --- !u!4 &1327544450
 Transform:
   m_ObjectHideFlags: 0
@@ -1482,51 +1144,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
---- !u!1 &1823986807
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1823986809}
-  - component: {fileID: 1823986808}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1823986808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823986807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91736e99d1f605848853863c097249ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
---- !u!4 &1823986809
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823986807}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -961.2939, y: -195.60796, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1195266182}
-  m_Father: {fileID: 674445462}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1868759917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1756,6 +1373,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  keyMergeUI: {fileID: 0}
 --- !u!114 &1885901438 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3788972224556571913, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}

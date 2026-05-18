@@ -69,6 +69,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference uiBack { get; private set; }
     [field: SerializeField] public EventReference uiConfirm { get; private set; }
     [field: SerializeField] public EventReference uiError { get; private set; }
+    [field: SerializeField] public EventReference crowdNoise { get; private set; }
+    [field: SerializeField] public EventReference crowdApplause { get; private set; }
 
     // Music and Ambience
 

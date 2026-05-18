@@ -63,35 +63,49 @@ public class TutorialManager : MonoBehaviour
             case 0: // WASD
                 if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) ||
                     Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
+                {
+                    PlayApplause();
                     AdvanceStep();
+                }
                 break;
 
             case 1: // Dash
                 if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+                {
+                    PlayApplause();
+                    PlayCrowdNoise();
                     AdvanceStep();
+                }
                 break;
 
             case 2: // Shoot
                 if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    PlayApplause();
+                    PlayCrowdNoise();
                     AdvanceStep();
+                }
                 break;
 
             case 3: // Reload
                 if (Input.GetKeyDown(KeyCode.R))
+                {
+                    PlayApplause();
                     AdvanceStep();
+                }
                 break;
 
-            case 4: // Kill all tutorial enemies handled via OnAllTutorialEnemiesDefeated()
+            case 4: // Kill all tutorial enemies — handled via OnAllTutorialEnemiesDefeated()
                 break;
 
-            case 5: // Wait for perk selection handled via PerkSelectionUI.OnPerkSelected AdvanceStep()
+            case 5: // Wait for perk selection — handled via PerkSelectionUI.OnPerkSelected AdvanceStep()
                 break;
 
-                // case 6 handled in TypewriterRoutine on final step
+                // case 6 handled in WaitForHostThenUnlock on final step
         }
     }
 
-    //Step Display 
+    // Step Display
 
     private void ShowStep(int index)
     {
@@ -116,7 +130,7 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitUntil(() => !HostManager.Instance.IsTalking);
 
-        // Final step kick off completion instead of unlocking input
+        // Final step — kick off completion instead of unlocking input
         if (stepIndex == dialogueLines.Length - 1)
         {
             Debug.Log("[TutorialManager] Final step dialogue done — starting completion");
@@ -141,12 +155,16 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    // Completion 
+    // Completion
 
     private IEnumerator CompleteAndTransition()
     {
         Debug.Log("[TutorialManager] CompleteAndTransition started");
         mazeChangerScript.enabled = true;
+
+        // Crowd reacts to tutorial completion
+        PlayCrowdNoise();
+
         // Wait for final dialogue to finish if still playing
         yield return new WaitUntil(() => !HostManager.Instance.IsTalking);
 
@@ -171,7 +189,24 @@ public class TutorialManager : MonoBehaviour
         stepComplete = true;
         popUpIndex = 5;
 
+        // Crowd reacts to clearing all enemies
+        PlayCrowdNoise();
+
         playerMovement.currentLevel = 1;
         perkSelectionUI.Show();
+    }
+
+    // Audio helpers
+
+    // Ooh/ahh crowd reaction — bigger moments (enemies cleared, perk chosen, tutorial done)
+    private void PlayCrowdNoise()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.crowdNoise, Vector3.zero);
+    }
+
+    // Clapping — smaller step completions (WASD, dash, shoot, reload)
+    private void PlayApplause()
+    {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.crowdApplause, Vector3.zero);
     }
 }
