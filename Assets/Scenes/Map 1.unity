@@ -290,7 +290,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 886007311
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -677,7 +677,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 886007311
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -895,7 +895,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 886007311
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -912,11 +912,6 @@ SpriteRenderer:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4863092607206308337, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
   m_PrefabInstance: {fileID: 3897635223001194719}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1053403545 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6837336700450993264, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
-  m_PrefabInstance: {fileID: 3852142738098113873}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1076475401 stripped
 MonoBehaviour:
@@ -1574,6 +1569,13 @@ MonoBehaviour:
       Data3: 25181110
       Data4: 1924636298
     Path: event:/Enemies/Beetle Boss/BossTakeDamage
+  <bossPhaseChange>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <perkSelect>k__BackingField:
     Guid:
       Data1: 1686298193
@@ -1602,13 +1604,13 @@ MonoBehaviour:
       Data3: 1016191916
       Data4: 1951213966
     Path: event:/Placeholder
-  <uiClick>k__BackingField:
+  <uiPause>k__BackingField:
     Guid:
-      Data1: 626940419
-      Data2: 1322707894
-      Data3: 994091912
-      Data4: 1496669844
-    Path: event:/UI/UIClick
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <uiHover>k__BackingField:
     Guid:
       Data1: -304864798
@@ -1637,6 +1639,20 @@ MonoBehaviour:
       Data3: 1000868758
       Data4: 689783726
     Path: event:/UI/UIError
+  <crowdNoise>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <crowdApplause>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <mainMenuTheme>k__BackingField:
     Guid:
       Data1: -1861549931
@@ -2634,7 +2650,7 @@ MonoBehaviour:
   mazeChanger: {fileID: 1876983448}
   bossRoom: {fileID: 886526845}
   bossTeleportPoint: {fileID: 2082038759}
-  beetleBoss: {fileID: 1053403545}
+  beetleBoss: {fileID: 0}
   keysRequired: 3
   forcedBossLevel: 10
   bossTeleportButtonUI: {fileID: 1038727101}
@@ -112471,7 +112487,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 428818207487687385, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayerID
-      value: 1548763575
+      value: 886007311
+      objectReference: {fileID: 0}
+    - target: {fileID: 1543877673506894103, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 55.1
       objectReference: {fileID: 0}
     - target: {fileID: 1809130322717803290, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_Size.x
@@ -158395,11 +158415,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3822119418023831718, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3822119418023831718, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayerID
-      value: 886007311
+      value: -1701161555
       objectReference: {fileID: 0}
     - target: {fileID: 5035463091915581243, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_Name
@@ -158481,13 +158501,17 @@ PrefabInstance:
       propertyPath: stoppingDistance
       value: 3.01
       objectReference: {fileID: 0}
+    - target: {fileID: 7089124575084406966, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7853273140754338122, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayer
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7853273140754338122, guid: 348d249c802f9e64390d780ebd8a33c5, type: 3}
       propertyPath: m_SortingLayerID
-      value: 886007311
+      value: -1701161555
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -158564,7 +158588,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000588821087758850, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1107628946899417430, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_UiScaleMode
@@ -158884,7 +158908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5997182272559750239, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554916757405966632, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchorMax.x
@@ -159048,7 +159072,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9196712540503752712, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -159086,6 +159110,8 @@ MonoBehaviour:
   spritePerFrame: 2
   loop: 1
   destroyOnEnd: 0
+  isSpriteRenderer: 0
+  isImage: 0
 --- !u!1001 &6627960521845959320
 PrefabInstance:
   m_ObjectHideFlags: 0

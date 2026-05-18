@@ -83,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1262449019
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5125783269268061411, guid: 19626b33f6133b040b58ebdb660dbf51, type: 3}
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ARBullet
   bulletSpeed: 10
-  bulletDamage: 2
+  bulletDamage: 10
   ar: {fileID: 0}
 --- !u!58 &2996857145353709223
 CircleCollider2D:
