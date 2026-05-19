@@ -83,7 +83,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1262449019
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5125783269268061411, guid: 19626b33f6133b040b58ebdb660dbf51, type: 3}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShotgunBullet
   bulletSpeed: 10
-  bulletDamage: 20
+  bulletDamage: 2
 --- !u!95 &188463936877699001
 Animator:
   serializedVersion: 7
