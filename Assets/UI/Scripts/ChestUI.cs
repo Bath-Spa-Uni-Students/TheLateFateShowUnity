@@ -20,7 +20,7 @@ public class ChestUI : MonoBehaviour
     // ---- NEW GUN MODE ----
     [Header("New Gun Mode")]
     [SerializeField] private GameObject newGunPanel;
-    [SerializeField] private TextMeshProUGUI newGunNameText;
+    //[SerializeField] private TextMeshProUGUI newGunNameText;
     [SerializeField] private Button[] carryPerkButtons;
     [SerializeField] private TextMeshProUGUI[] carryPerkDesc;
     [SerializeField] private Image[] carryPerkIcons;
@@ -40,7 +40,7 @@ public class ChestUI : MonoBehaviour
     [Header("Merge Perk Mode")]
     [SerializeField] private GameObject mergePerkPanel;
     [SerializeField] private Button[] chestPerkButtons;
-    [SerializeField] private TextMeshProUGUI[] chestPerkNameTexts;
+    //[SerializeField] private TextMeshProUGUI[] chestPerkNameTexts;
     [SerializeField] private TextMeshProUGUI[] chestPerkDescTexts;
     [SerializeField] private Image[] chestPerkIcons;
     [SerializeField] private Button mergeDiscardButton;
@@ -121,13 +121,14 @@ public class ChestUI : MonoBehaviour
     private void HandleNewGun(WeaponInstance chestWeapon, List<PerkDefinition> compatiblePerks)
     {
         Debug.Log($"[ChestUI] HandleNewGun fired — weapon: {chestWeapon?.weaponType}, perks: {compatiblePerks?.Count}");
-
+        Debug.Log($"[ChestUI] Header refs — headerText null: {headerText == null}, subHeaderText null: {subHeaderText == null}");
+        if (headerText != null) Debug.Log($"[ChestUI] Setting header to: 'New Weapon Found', current text: '{headerText.text}'");
         currentMode = ChestUIMode.NewGun;
         pendingNewWeapon = chestWeapon;
 
-        headerText.text = "New Weapon Found";
-        subHeaderText.text = $"Switch to {chestWeapon.weaponType}?";
-        newGunNameText.text = chestWeapon.weaponType.ToString();
+        headerText.text = "Weapon Found";
+        subHeaderText.text = $"Swap your weapon for a {chestWeapon.weaponType}?";
+        //newGunNameText.text = chestWeapon.weaponType.ToString();
 
         if (newGunIcon != null)
             newGunIcon.sprite = GetWeaponSprite(chestWeapon.weaponType);
@@ -224,8 +225,8 @@ public class ChestUI : MonoBehaviour
 
         headerText.text = "Perk Found";
         subHeaderText.text = WeaponManager.Instance.CurrentWeapon.HasPerkSlot
-            ? "Choose a perk to add"
-            : "Choose a perk — you'll need to swap one out";
+      ? "You have a free slot — pick a perk to add"
+    : "No free slots — pick a perk to swap out";
 
         for (int i = 0; i < chestPerkButtons.Length; i++)
         {
@@ -233,7 +234,7 @@ public class ChestUI : MonoBehaviour
             chestPerkButtons[i].gameObject.SetActive(show);
             if (show)
             {
-                chestPerkNameTexts[i].text = availablePerks[i].perkName;
+                //chestPerkNameTexts[i].text = availablePerks[i].perkName;
                 chestPerkDescTexts[i].text = availablePerks[i].description;
                 SetIcon(chestPerkIcons[i], availablePerks[i].icon);
             }
@@ -340,10 +341,16 @@ public class ChestUI : MonoBehaviour
 
     private void ShowPanel(GameObject panel)
     {
+
+        Debug.Log($"[ChestUI] ShowPanel called — panel: {panel?.name}, canvas active before: {canvas?.activeSelf}");
+
         newGunPanel.SetActive(panel == newGunPanel);
         mergePerkPanel.SetActive(panel == mergePerkPanel);
         perkSwapPanel.SetActive(false);
         canvas.SetActive(true);
+
+        Debug.Log($"[ChestUI] canvas active after: {canvas?.activeSelf}, newGunPanel active: {newGunPanel?.activeSelf}");
+
         Time.timeScale = 0f;
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiPause, Vector3.zero);
     }

@@ -126,7 +126,8 @@ public class ChestSpawner : MonoBehaviour
         WeaponType weaponType = RollWeaponType();
         WeaponInstance weapon = new WeaponInstance(weaponType);
 
-        int perkCount = Random.Range(1, 3);
+        //int perkCount = Random.Range(1, 3);
+        int perkCount = 1; // Always 1 perks for now, as chests felt to strong
         List<PerkDefinition> validPerks = allPerks.FindAll(p => p != null && p.IsCompatibleWith(weaponType));
 
         // Shuffle
