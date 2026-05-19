@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5995024327539017743}
   - component: {fileID: 8340300522460076500}
   - component: {fileID: 5605259728910506998}
+  - component: {fileID: 781700412876305688}
   m_Layer: 7
   m_Name: Chest
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 190.35696, y: -42.13321, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 3377276554866747640, guid: 7011fbb8f98ee6d44ae4e3f65385f0a6, type: 3}
+  m_Sprite: {fileID: -915399112426459412, guid: 167f26b53f410ba4fae25b851cbed6ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,6 +127,7 @@ MonoBehaviour:
   humIntervalMin: 5
   humIntervalMax: 12
   humMaxDistance: 40
+  animator: {fileID: 781700412876305688}
 --- !u!61 &5605259728910506998
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.35, y: 1.79}
+    oldSize: {x: 0.28, y: 0.2}
     newSize: {x: 2.35, y: 1.79}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -172,3 +174,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.35, y: 1.79}
   m_EdgeRadius: 0
+--- !u!95 &781700412876305688
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163778179071151779}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -37,63 +37,73 @@ public class ChestSpawner : MonoBehaviour
        
     }
 
-    // Call this from maze manager when the maze regenerates and nav mesh rebakes
-    public static void NotifyMazeRegenerated()
+    public static void NotifyMazeRegenerated(int skipSectorIndex = -1)
     {
         if (Instance != null)
-            Instance.OnMazeRegenerated();
+            Instance.OnMazeRegenerated(skipSectorIndex);
         else
             Debug.LogWarning("[ChestSpawner] No instance found!");
     }
 
-    private void OnMazeRegenerated()
+    private void OnMazeRegenerated(int skipSectorIndex)
     {
-        // Clear existing chests
+        // Only destroy chests outside the player's sector
+        List<GameObject> chestsToRemove = new List<GameObject>();
         foreach (GameObject chest in activeChests)
-            if (chest != null) Destroy(chest);
-        activeChests.Clear();
-
-        // Try to spawn one chest per sector
-        foreach (GameObject sector in sectors)
         {
+            if (chest == null) { chestsToRemove.Add(chest); continue; }
+
+            bool inPlayerSector = skipSectorIndex >= 0
+                && skipSectorIndex < sectors.Length
+                && IsInsideSector(chest, sectors[skipSectorIndex]);
+
+            if (!inPlayerSector)
+            {
+                Destroy(chest);
+                chestsToRemove.Add(chest);
+            }
+        }
+        foreach (GameObject c in chestsToRemove)
+            activeChests.Remove(c);
+
+        // Spawn chests, skipping the player's sector
+        for (int i = 0; i < sectors.Length; i++)
+        {
+            if (i == skipSectorIndex) continue;  // leave player's sector alone
+
+            GameObject sector = sectors[i];
             if (sector == null) continue;
 
-            // Find the active room in this sector
             GameObject activeRoom = GetActiveRoom(sector);
-            if (activeRoom == null)
-            {
-                Debug.LogWarning($"[ChestSpawner] No active room found in sector: {sector.name}");
-                continue;
-            }
+            if (activeRoom == null) continue;
 
-            // Collect spawn points from the active room's children
             List<Transform> spawnPoints = GetSpawnPoints(activeRoom);
-            if (spawnPoints.Count == 0)
-            {
-                Debug.LogWarning($"[ChestSpawner] No spawn points found in room: {activeRoom.name}");
-                continue;
-            }
+            if (spawnPoints.Count == 0) continue;
 
-            // Roll spawn chance
             if (Random.value > spawnChance) continue;
 
-            // Pick a random spawn point
             Transform chosen = spawnPoints[Random.Range(0, spawnPoints.Count)];
             GameObject activeChest = Instantiate(chestPrefab, chosen.position, Quaternion.identity);
             ChestObject chest = activeChest.GetComponent<ChestObject>();
 
             if (chest != null)
-            {
                 chest.contents = GenerateChestContents();
-                Debug.Log($"[ChestSpawner] Spawned {chest.contents.weaponType} chest in {activeRoom.name} at {chosen.name}");
-            }
 
             activeChests.Add(activeChest);
         }
-
-        Debug.Log($"[ChestSpawner] Spawned {activeChests.Count} chest(s) across {sectors.Length} sector(s)");
     }
 
+    // Checks if a GameObject sits within a sector's active room collider
+    private bool IsInsideSector(GameObject obj, GameObject sector)
+    {
+        GameObject activeRoom = GetActiveRoom(sector);
+        if (activeRoom == null) return false;
+
+        Collider2D col = activeRoom.GetComponentInChildren<Collider2D>();
+        if (col == null) return false;
+
+        return col.OverlapPoint(obj.transform.position);
+    }
     private GameObject GetActiveRoom(GameObject sector)
     {
         foreach (Transform child in sector.transform)// Active room should be the only active child of the sector

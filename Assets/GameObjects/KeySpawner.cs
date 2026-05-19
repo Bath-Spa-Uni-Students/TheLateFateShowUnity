@@ -31,26 +31,25 @@ public class KeySpawner : MonoBehaviour
         keysRemaining = keysRequired;
     }
 
-    public static void NotifyMazeRegenerated()
+    public static void NotifyMazeRegenerated(int skipSectorIndex = -1)
     {
         if (Instance != null)
-            Instance.OnMazeRegenerated();
+            Instance.OnMazeRegenerated(skipSectorIndex);
         else
             Debug.LogWarning("[KeySpawner] No instance found!");
     }
 
 
-    private void OnMazeRegenerated()
+    private void OnMazeRegenerated(int skipSectorIndex)
     {
-        ClearActiveKeys();
+        ClearActiveKeys(skipSectorIndex);
         if (keysRemaining <= 0) return;
-        PlaceKeys();
+        PlaceKeys(skipSectorIndex);
     }
 
-
-    private void PlaceKeys()
+    private void PlaceKeys(int skipSectorIndex)
     {
-        List<Transform> allPoints = GatherAllKeySpawnPoints();
+        List<Transform> allPoints = GatherAllKeySpawnPoints(skipSectorIndex);
 
         if (allPoints.Count == 0)
         {
@@ -58,7 +57,6 @@ public class KeySpawner : MonoBehaviour
             return;
         }
 
-        // Shuffle list
         for (int i = allPoints.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
@@ -70,6 +68,8 @@ public class KeySpawner : MonoBehaviour
 
         for (int keyIdx = alreadyCollected; keyIdx < totalKeys; keyIdx++)
         {
+            if (activeKeys.ContainsKey(keyIdx)) continue;  // already exists in player's room
+
             if (pointIdx >= allPoints.Count)
             {
                 Debug.LogWarning("[KeySpawner] Ran out of spawn points!");
@@ -81,14 +81,10 @@ public class KeySpawner : MonoBehaviour
 
             KeyPickup pickup = keyObj.GetComponent<KeyPickup>();
             if (pickup != null)
-                pickup.Init(this, keyIdx);          // <-- pass the stable index
-            else
-                Debug.LogWarning("[KeySpawner] Key prefab is missing a KeyPickup component!");
+                pickup.Init(this, keyIdx);
 
             activeKeys[keyIdx] = keyObj;
         }
-
-        Debug.Log($"[KeySpawner] Placed {activeKeys.Count} key(s). Keys remaining: {keysRemaining}/{totalKeys}");
     }
 
     public void OnKeyCollected(GameObject keyObj, int keyIndex)
@@ -117,20 +113,40 @@ public class KeySpawner : MonoBehaviour
         GameManager.Instance.OnKeyCollected();
     }
 
-    private void ClearActiveKeys()
+    private void ClearActiveKeys(int skipSectorIndex)
     {
+        List<int> toRemove = new List<int>();
+
         foreach (var kvp in activeKeys)
-            if (kvp.Value != null) Destroy(kvp.Value);
-        activeKeys.Clear();
+        {
+            if (kvp.Value == null) { toRemove.Add(kvp.Key); continue; }
+
+            bool inPlayerSector = skipSectorIndex >= 0
+                && skipSectorIndex < sectors.Length
+                && IsInsideSector(kvp.Value, sectors[skipSectorIndex]);
+
+            if (!inPlayerSector)
+            {
+                Destroy(kvp.Value);
+                toRemove.Add(kvp.Key);
+            }
+        }
+
+        foreach (int k in toRemove)
+            activeKeys.Remove(k);
     }
 
-    private List<Transform> GatherAllKeySpawnPoints()
+    private List<Transform> GatherAllKeySpawnPoints(int skipSectorIndex)
     {
         List<Transform> points = new List<Transform>();
 
-        foreach (GameObject sector in sectors)
+        for (int i = 0; i < sectors.Length; i++)
         {
+            if (i == skipSectorIndex) continue;  // skip player's sector
+
+            GameObject sector = sectors[i];
             if (sector == null) continue;
+
             GameObject activeRoom = GetActiveRoom(sector);
             if (activeRoom == null) continue;
 
@@ -147,5 +163,16 @@ public class KeySpawner : MonoBehaviour
         foreach (Transform child in sector.transform)
             if (child.gameObject.activeSelf) return child.gameObject;
         return null;
+    }
+
+    private bool IsInsideSector(GameObject obj, GameObject sector)
+    {
+        GameObject activeRoom = GetActiveRoom(sector);
+        if (activeRoom == null) return false;
+
+        Collider2D col = activeRoom.GetComponentInChildren<Collider2D>();
+        if (col == null) return false;
+
+        return col.OverlapPoint(obj.transform.position);
     }
 }

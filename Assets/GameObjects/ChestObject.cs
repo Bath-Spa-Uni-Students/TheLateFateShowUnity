@@ -21,6 +21,11 @@ public class ChestObject : MonoBehaviour
     [SerializeField] private float humIntervalMax = 12f;
     [SerializeField] private float humMaxDistance = 15f;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    private static readonly int OpenTrigger = Animator.StringToHash("Open"); 
+
+
     private bool playerInRange = false;
     private bool opened = false;
     private EventInstance humInstance;
@@ -81,19 +86,32 @@ public class ChestObject : MonoBehaviour
 
         opened = true;
         StopHum();
-
         if (interactPrompt) interactPrompt.SetActive(false);
-
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.chestOpen, transform.position);
-
         Debug.Log($"[ChestObject] Opened chest: {contents.weaponType} with {contents.perks.Count} perk(s)");
-
         WeaponManager.Instance.ReceiveChestWeapon(contents);
 
-        // Destroy after a short delay to allow open animation to finish.
-        Destroy(gameObject, 0.5f);
+        if (animator != null)
+        {
+            animator.SetTrigger(OpenTrigger);
+            StartCoroutine(DestroyAfterAnimation());
+        }
+        else
+        {
+            Destroy(gameObject, 0.5f); // fallback if no animator assigned
+        }
     }
+    private IEnumerator DestroyAfterAnimation()
+    {
+        // Wait for the Animator to transition into the Open state
+        yield return null;
 
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        float clipLength = state.length;
+
+        yield return new WaitForSeconds(clipLength);
+        Destroy(gameObject);
+    }
     private IEnumerator HumLoop()
     {
         while (!opened)

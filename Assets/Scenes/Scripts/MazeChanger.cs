@@ -100,14 +100,11 @@ public class MazeChanger : MonoBehaviour
     {
         int playerSlot = GetPlayerSlotIndex();
 
-        if (debugMode && playerSlot >= 0)
-            Debug.Log($"Player is in slot {playerSlot + 1} — skipping it during regeneration.");
-
         ClearAllEnemies(playerSlot);
 
         for (int i = 0; i < allSlots.Length; i++)
         {
-            if (i == playerSlot) continue;  // Leave the player's room untouched
+            if (i == playerSlot) continue;
             SelectSegment(allSlots[i], i);
         }
 
@@ -115,15 +112,14 @@ public class MazeChanger : MonoBehaviour
             SpawnManager.Instance.ResetEnemyCount();
 
         RebakeNavMesh();
-        ChestSpawner.NotifyMazeRegenerated();
-        KeySpawner.NotifyMazeRegenerated();
+        ChestSpawner.NotifyMazeRegenerated(playerSlot);  // pass slot
+        KeySpawner.NotifyMazeRegenerated(playerSlot);    // pass slot
 
         if (!isFirstGeneration)
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.mazeChange, Vector3.zero);
 
         isFirstGeneration = false;
     }
-
     private void RebakeNavMesh()
     {
         if (navMeshSurface != null)

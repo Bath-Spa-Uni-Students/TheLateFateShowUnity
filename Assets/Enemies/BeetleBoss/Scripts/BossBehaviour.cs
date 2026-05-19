@@ -211,7 +211,6 @@ public class BossBehaviour : MonoBehaviour
                     phaseParamID = paramDesc.id;
                     bossTheme.start();
                     musicStarted = true;
-                    SetMusicPhase(0);
                 }
             }
             else return EnemyState.Sleep;
@@ -239,12 +238,7 @@ public class BossBehaviour : MonoBehaviour
         rangedAttackScript.enabled = true;
     }
 
-    private void SetMusicPhase(int phase)
-    {
-        if (!musicStarted || currentMusicPhase == phase) return;
-        bossTheme.setParameterByID(phaseParamID, phase);
-        currentMusicPhase = phase;
-    }
+  
 
     #region States
     private void Sleep()
