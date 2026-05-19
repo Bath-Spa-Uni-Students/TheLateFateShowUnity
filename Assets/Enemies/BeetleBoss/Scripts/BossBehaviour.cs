@@ -15,7 +15,10 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float jitterMaxInterval = 0.28f;
     [SerializeField] private float jitterBoundRadius = 5f;
 
-    [SerializeField] private BossLavaZone lavaZone;
+    [SerializeField] private GameObject lavaZone;
+    [SerializeField] private GameObject phase2Location;
+    [SerializeField] private Sprite deathSprite;
+
 
     private float jitterTimer = 0f;
     private float jitterDirection = 1f;
@@ -32,6 +35,8 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private BossRanged rangedAttackScript;
     [SerializeField] private GameObject attackBarrier;
     [SerializeField] private GameObject damageArea;
+    [SerializeField] private GameManager gameManager;
+    private bool dead = false;
 
     [Header("Player Info")]
     private Transform player;
@@ -69,7 +74,7 @@ public class BossBehaviour : MonoBehaviour
     private float warningShotTimer = 0f;
     private Vector3 retreatTarget;
 
-    private GameManager gameManager;
+    //private GameManager gameManager;
     private enum EnemyState
     {
         Sleep,
@@ -130,6 +135,8 @@ public class BossBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+            damageHandler.TakeDamage(stats.maxHealth * phase2HealthThreshold);
         if (rb == null) return;
 
         UpdateDetection();
@@ -176,12 +183,8 @@ public class BossBehaviour : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Sleep: Sleep(); break;
-            case EnemyState.Advance: break; // Movement handled by Rigidbody, nothing to do each tick
-            case EnemyState.Melee: MeleeAttack(); break;
-            case EnemyState.Retreat: break; // Agent handles movement, nothing to do each tick
-            case EnemyState.WarningShot: break; // Shot already fired on enter, just hold position
+            case EnemyState.Advance: JitterMove(); break;
             case EnemyState.Ranged: RangedAttack(); break;
-            case EnemyState.ReturnHome: ReturnHome(); break;
         }
 
         UpdateAnimation();
@@ -191,14 +194,9 @@ public class BossBehaviour : MonoBehaviour
     {
         if (player == null) return EnemyState.Sleep;
 
-        float distance = Vector2.Distance(rb.position, player.position);
-
-        if (distance > disengageRadius)
-            return EnemyState.ReturnHome;
-
-        // Wake up if the player enters the wake radius
         if (!isAwake)
         {
+            float distance = Vector2.Distance(rb.position, player.position);
             if (distance <= wakeRadius)
             {
                 animator.SetBool("Detected?", true);
@@ -213,63 +211,39 @@ public class BossBehaviour : MonoBehaviour
                     phaseParamID = paramDesc.id;
                     bossTheme.start();
                     musicStarted = true;
-                    //SetMusicPhase(0);
+                    SetMusicPhase(0);
                 }
             }
-            else
-            {
-                return EnemyState.Sleep;
-            }
+            else return EnemyState.Sleep;
         }
 
-        // Transition to phase 2 when health crosses the threshold
         if (!phase2Active && stats.health <= stats.maxHealth * phase2HealthThreshold)
         {
-            phase2Active = true;
-            stats.speed *= phase2SpeedMultiplier;
-            animator.SetBool("Phase2", true);
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+            //stats.speed *= phase2SpeedMultiplier;
+
+            Debug.Log("Entering Phase 2!");
+            Phase2Prep();
         }
 
-        // Phase 2 rhythm: Advance -> Melee -> Retreat -> Cone beam -> repeat
-        if (phase2Active)
-        {
-            if (distance <= stats.stoppingDistance)
-                return EnemyState.Melee;
+        return phase2Active ? EnemyState.Ranged : EnemyState.Advance;
+    }
 
-            if (currentState == EnemyState.Melee && stateTimer >= p2AdvanceDuration)
-                return EnemyState.Retreat;
+    private void Phase2Prep()
+    {
+        lavaZone.gameObject.SetActive(false);
+        gameObject.transform.position = phase2Location.transform.position;
+        phase2Active = true;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("Phase2", true);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+        rangedAttackScript.enabled = true;
+    }
 
-            if (currentState == EnemyState.Retreat && stateTimer >= p2RetreatDuration)
-                return EnemyState.Ranged;
-
-            if (currentState == EnemyState.Ranged && stateTimer >= p2RangedHoldTime)
-                return EnemyState.Advance;
-
-            return currentState == EnemyState.Sleep ? EnemyState.Advance : currentState;
-        }
-
-        // Phase 1 rhythm: Advance -> Melee -> Retreat -> Warning shot (if cooled down) -> Advance -> repeat
-        if (distance <= stats.stoppingDistance)
-            return EnemyState.Melee;
-
-        if (currentState == EnemyState.Melee && stateTimer >= advanceDuration)
-            return EnemyState.Retreat;
-
-        if (currentState == EnemyState.Retreat)
-        {
-            bool retreatFinished = stateTimer >= retreatDuration ||
-                                   Vector2.Distance(transform.position, retreatTarget) < 0.3f;
-            if (retreatFinished)
-                return warningShotTimer <= 0f ? EnemyState.WarningShot : EnemyState.Advance;
-
-            return EnemyState.Retreat;
-        }
-
-        if (currentState == EnemyState.WarningShot && stateTimer >= warningShotHoldTime)
-            return EnemyState.Advance;
-
-        return currentState == EnemyState.Sleep ? EnemyState.Advance : currentState;
+    private void SetMusicPhase(int phase)
+    {
+        if (!musicStarted || currentMusicPhase == phase) return;
+        bossTheme.setParameterByID(phaseParamID, phase);
+        currentMusicPhase = phase;
     }
 
     #region States
@@ -327,10 +301,35 @@ public class BossBehaviour : MonoBehaviour
 
     public void OnBossDeath()
     {
+        animator.enabled = false;
+        if (dead) return;
+        dead = true;
+
+        gameObject.GetComponent<SpriteRenderer>().sprite = deathSprite;
+
         rangedAttackScript.StopBeam();
+
+        rb.linearVelocity = Vector2.zero;
+        rb.simulated = false;
+
+        meleeAttackScript.enabled = false;
+        rangedAttackScript.enabled = false;
+
+        gameManager.OnGameWin();
+        Debug.Log("Boss defeated! You win!");
+
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
+
+        //animator.SetTrigger("Death");
         if (gameManager != null)
+        {
+            //gameManager
             gameManager.OnGameWin();
+
+        }
+
+        enabled = false;
+
     }
 
     public void PlayFootstepHit()
@@ -360,13 +359,5 @@ public class BossBehaviour : MonoBehaviour
         rb.linearVelocity = new Vector2(jitterDirection * jitterSpeed, 0f);
     }
     #endregion
-    private void EnterPhase2()
-    {
-        phase2Active = true;
-        rb.linearVelocity = Vector2.zero;
-        animator.SetBool("Phase2", true);
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
-        lavaZone.gameObject.SetActive(false);
-        rangedAttackScript.enabled = true;
-    }
+
 }

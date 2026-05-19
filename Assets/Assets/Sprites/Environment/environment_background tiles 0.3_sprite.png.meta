@@ -1,0 +1,2606 @@
+fileFormatVersion: 2
+guid: 3586f41ac6d8ca448bbc37e76829e7dd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6232945847273763703
+    second: environment_background tiles 0.3_sprite_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 56
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 773bffa793fdf7650800000000000000
+      internalID: 6232945847273763703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fb3a50da92b0e54bab3fc999905d8ac
+      internalID: -1433621020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a335d3c32ccb9f54aabaa43d5628ff84
+      internalID: -713418377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 011a9c80d3fdcf949992869de9490d87
+      internalID: -46762930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_4
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd46a28d2ac32584e9e218d9315e643d
+      internalID: 1816173790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_5
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12299f1ddcf9a644683a0cdc7a7c2be2
+      internalID: 1099203849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cbb60a38fb731945be24888d4ef5ab4
+      internalID: -1827926460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d75d41e3fea1c1542b86aec87438b6ba
+      internalID: -994587941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a491ba38f805fa469d3236462a7e48e
+      internalID: 1463356922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5144fe459c16a345b29ca2918463329
+      internalID: 1858358033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38fa118dc11e7c0409746cabca13fdf4
+      internalID: -1252653553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_11
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96553536613d1c948ae9418f4bebe098
+      internalID: -1216843849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_12
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee5c7fc0baaa1f43939a616ef43881a
+      internalID: -1909984795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_13
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f368b879d948f544b9830f577d7d9e6
+      internalID: 345273242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_14
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 424
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 312f5e2eecfc1fb44adeb7d69106052a
+      internalID: -579742764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_15
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ab5b1248cf3bdd44a640ce5cfd3c092
+      internalID: -890836120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_16
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec3f9fd21e3735347a76263cd4702ded
+      internalID: -1558195631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_17
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba35f0d2e0725ba4bb55bcb5c7c6fdb6
+      internalID: -42267678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_18
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544979fc751181a46a72013a73a152da
+      internalID: -1781250385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_19
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f009f179a1e9c5488c1d3134816d64d
+      internalID: -688952178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_20
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 332ecea342e4d6c4badcf3c0101b5c61
+      internalID: -1155371123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_21
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2305d7ee1156bae44992be46c7b85a01
+      internalID: 966372531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_22
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4661a14fc967b0e45aba2654ff9f385f
+      internalID: 1386357910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_23
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91eface3d4e48f44ca77949fc3e43ebd
+      internalID: 1225049672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_24
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1a42c27092de884099e7ca3ea7195a4
+      internalID: 1288147375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_25
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 142f4b574fd47a54ab40173fb4ab21a2
+      internalID: 1217774232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_26
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deebd386a2a8b094cbb1d735506e904a
+      internalID: -1252809542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_27
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ece0217c2b7e4b34e92f492885c016fd
+      internalID: -1344331974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_28
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 368
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e7ff0cae53e2e4498f771e0bfa98ed
+      internalID: 988145162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_29
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a0d2c9640b1d294490c6f91da305acd
+      internalID: -846020998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_30
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa0aa1cb352ce504e89374543344a6ea
+      internalID: -1368132060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_31
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bf2f3b2142400a46b48b60319fa7aa6
+      internalID: -963516834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_32
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c119b6b70fbf81c448d7eaec6585d698
+      internalID: -1154414050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_33
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a6cce949961e54bb1545d5f39620d4
+      internalID: 1257685795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_34
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd63f6d9f65f9f34da3507289b421d4a
+      internalID: 964332948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_35
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e8117aefcc9974eb8c9ed39b4584d9
+      internalID: 159475136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_36
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a5be9c8252f9144b0364b2246d3d82
+      internalID: -67146584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_37
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f5db227026ffdf449da44ecb7a9c17b
+      internalID: 353665010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_38
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44e7fb58659aa85409a5f825961398a8
+      internalID: -126801845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_39
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42fba44b290a58045b9bcc72f3b0da8e
+      internalID: 2061045056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_40
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 094f50be8d7be5e4b877b30eb610eb49
+      internalID: -790272020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_41
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e8322235e4f359439622e99893a9722
+      internalID: 2060246424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_42
+      rect:
+        serializedVersion: 2
+        x: 754
+        y: 312
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2a47055270ee44abd49e9a2063093b
+      internalID: 1883959711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_43
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02d67a4f7896f4f4bbc60b0d0b518609
+      internalID: 2015537520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_44
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0227e7ba868cf334b90050204e9796cd
+      internalID: -122615949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_45
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36b15fc546b4679478d2816349842ff4
+      internalID: 1252724756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_46
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ec87177953f5048b027a76445c9523
+      internalID: -167474700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_47
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 653d571a3bd467e46bbd30d9560477dc
+      internalID: 1004678358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_48
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 101a9d4d7a68d6f4292815df16ed0d28
+      internalID: 236913041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_49
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b16ac2e64ed9d0948a408b55d58baac0
+      internalID: 776366646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_50
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae5f4666ded26684ca3ef7e25bf68540
+      internalID: 1976540950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_51
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b11160a7e5a7fa34fbb6531649ad0a8a
+      internalID: -1600692834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_52
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1138e0df57095004892d86551b5feb38
+      internalID: -2103729695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_53
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f41616c124bab8a43a12fedc22d276da
+      internalID: 1061909044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_54
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 194e6cf1a02c1a04c938c94f2c2665a3
+      internalID: -130578999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_55
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 256
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 662f253e1fac03649acd315d14d59d5c
+      internalID: -2053595789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_56
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8842f4aab478c3e4fb2d9d7cec5d9415
+      internalID: -1012257578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_57
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f119ff1ab1f0e404bb4e0f142f396e86
+      internalID: 1978249925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_58
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cc327d9f00e5774fac8056129edfd19
+      internalID: -181645778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_59
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b311cfb7de88e0245936d794cf327150
+      internalID: 703900559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_60
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04d18afb3f509c340b9ddf07663b8e60
+      internalID: 12062749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_61
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687baebfd8221694ab79bfa4b6c9a21c
+      internalID: 1504117842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_62
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 694b441977cb5e240b4f9e40b24c8618
+      internalID: 2007721994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_63
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39d0d65d58adf4e498c9c1eded983e86
+      internalID: -1594959815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_64
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 265feb1629ad19942b28374d083d6310
+      internalID: 975530802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_65
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 777bd16cde3864c47898f6a4d5121dd3
+      internalID: -1127378872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_66
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76967756d1c49594c88855e6d4fe0512
+      internalID: -937880521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_67
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6a9bd72024562846a80b09119c4d388
+      internalID: 1210658323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_68
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 200
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c63ed7166ec008c4f82cb8fc3ef21a5a
+      internalID: 1550605786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_69
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a40c8a8411202084aaf475bfc6e82a20
+      internalID: 1600062741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_70
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 374d977db49e599478143532328611f8
+      internalID: -349456564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_71
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49dca85fea81fa849a6f03c285fa93cd
+      internalID: -234585129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_72
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4ec4e07cd44b674c8b5dabbd18d1097
+      internalID: -15444833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_73
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1e496b80e869d842be440b379fa575c
+      internalID: -1405974244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_74
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a1bb8205ba52e94693e8d11a1d4d528
+      internalID: -1099535068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_75
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc53660894b85e45bc5977f968be45f
+      internalID: -1131606866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_76
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5514ec1d8b448a0449aaec1684fea052
+      internalID: 895610757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_77
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e97400c5e4dfed40a289e172c4f8959
+      internalID: -916914710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_78
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e7ff95b6f343dd409a952ffcb2e451f
+      internalID: -56731774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_79
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d53d72205b4fe34b9b5aaafe8613791
+      internalID: 370197149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_80
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89783236878a3b748b09d5387e2d8cee
+      internalID: 1435357183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_81
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 144
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 810b815c2c6a9c042a013fc65150abef
+      internalID: -812015675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_82
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 328267eb0d94cc74db12996cca3f0ef7
+      internalID: -774643918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_83
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c452879818cf424889be8c6a6706d0e
+      internalID: 1320886080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_84
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7dedcd0009b6614cb270bea115d40f2
+      internalID: 2064690942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_85
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d905e2b03b9ce1c40bebbcd141bfdd29
+      internalID: 371655518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_86
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 715c9571c68c1c941989faf8a531a6ab
+      internalID: 1052771544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_87
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fa86f6b91ae0bb4b8a955a9bc0c0c48
+      internalID: -781180392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_88
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f2f61e56c458844ba8c7e553b86e9f7
+      internalID: -297308306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_89
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b7a04ce727565a42866f267598693f1
+      internalID: 1924859891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_90
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e6266686b2f7da49bd0880b1a8e96d6
+      internalID: 1535699463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_91
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 726b9b598352518439b00fdf86d58970
+      internalID: 852258188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_92
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4f87260db59af6429ea1f99d49c9af9
+      internalID: -205483744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_93
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4300d6ba4840bc640851e598d14bfffa
+      internalID: -632248899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_94
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 88
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83f7997f54239974189eced378df8f23
+      internalID: 1708679711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_95
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8589afd98a8e4a64aa77cb5822a7c07b
+      internalID: 376965328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_96
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6c7764bffbf8540b68791d9b33fbb8
+      internalID: 629224330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_97
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c38cb6a647e6d5f4085642cfcb5f046d
+      internalID: 2103652868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_98
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5fd81ababb0db447b12e67802acd784
+      internalID: 272675859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_99
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48a7db50f9237c8468a6a002a29c4281
+      internalID: 441805503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_100
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc704fb61966774488e80330f189f2b5
+      internalID: 543042895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_101
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a0c95ebba07d9d47b8bdd4302594e6d
+      internalID: 738649246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_102
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd2cc9588ef92b94f9868f59795eee79
+      internalID: 2096440467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_103
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c28ae45bdb93ab049a7638dd1ccc3026
+      internalID: 537888917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_104
+      rect:
+        serializedVersion: 2
+        x: 530
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f06d037db38e26f43b75e996693353d9
+      internalID: 749448889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_105
+      rect:
+        serializedVersion: 2
+        x: 586
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c33237b95efa3744cb854689001adaf1
+      internalID: -743266219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_106
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c799a084554e0cd46a6a7dabf96b7f78
+      internalID: 1394408472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: environment_background tiles 0.3_sprite_107
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 32
+        width: 56
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3317333106201e8409f2e2cd061c4f00
+      internalID: 522500031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ebf1b2d3ab09de340a0598a2c1625d75
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":56.0,"y":56.0},"gridSpriteOffset":{"x":26.0,"y":33.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      environment_background tiles 0.3_sprite_0: 6232945847273763703
+      environment_background tiles 0.3_sprite_1: -1433621020
+      environment_background tiles 0.3_sprite_10: -1252653553
+      environment_background tiles 0.3_sprite_100: 543042895
+      environment_background tiles 0.3_sprite_101: 738649246
+      environment_background tiles 0.3_sprite_102: 2096440467
+      environment_background tiles 0.3_sprite_103: 537888917
+      environment_background tiles 0.3_sprite_104: 749448889
+      environment_background tiles 0.3_sprite_105: -743266219
+      environment_background tiles 0.3_sprite_106: 1394408472
+      environment_background tiles 0.3_sprite_107: 522500031
+      environment_background tiles 0.3_sprite_11: -1216843849
+      environment_background tiles 0.3_sprite_12: -1909984795
+      environment_background tiles 0.3_sprite_13: 345273242
+      environment_background tiles 0.3_sprite_14: -579742764
+      environment_background tiles 0.3_sprite_15: -890836120
+      environment_background tiles 0.3_sprite_16: -1558195631
+      environment_background tiles 0.3_sprite_17: -42267678
+      environment_background tiles 0.3_sprite_18: -1781250385
+      environment_background tiles 0.3_sprite_19: -688952178
+      environment_background tiles 0.3_sprite_2: -713418377
+      environment_background tiles 0.3_sprite_20: -1155371123
+      environment_background tiles 0.3_sprite_21: 966372531
+      environment_background tiles 0.3_sprite_22: 1386357910
+      environment_background tiles 0.3_sprite_23: 1225049672
+      environment_background tiles 0.3_sprite_24: 1288147375
+      environment_background tiles 0.3_sprite_25: 1217774232
+      environment_background tiles 0.3_sprite_26: -1252809542
+      environment_background tiles 0.3_sprite_27: -1344331974
+      environment_background tiles 0.3_sprite_28: 988145162
+      environment_background tiles 0.3_sprite_29: -846020998
+      environment_background tiles 0.3_sprite_3: -46762930
+      environment_background tiles 0.3_sprite_30: -1368132060
+      environment_background tiles 0.3_sprite_31: -963516834
+      environment_background tiles 0.3_sprite_32: -1154414050
+      environment_background tiles 0.3_sprite_33: 1257685795
+      environment_background tiles 0.3_sprite_34: 964332948
+      environment_background tiles 0.3_sprite_35: 159475136
+      environment_background tiles 0.3_sprite_36: -67146584
+      environment_background tiles 0.3_sprite_37: 353665010
+      environment_background tiles 0.3_sprite_38: -126801845
+      environment_background tiles 0.3_sprite_39: 2061045056
+      environment_background tiles 0.3_sprite_4: 1816173790
+      environment_background tiles 0.3_sprite_40: -790272020
+      environment_background tiles 0.3_sprite_41: 2060246424
+      environment_background tiles 0.3_sprite_42: 1883959711
+      environment_background tiles 0.3_sprite_43: 2015537520
+      environment_background tiles 0.3_sprite_44: -122615949
+      environment_background tiles 0.3_sprite_45: 1252724756
+      environment_background tiles 0.3_sprite_46: -167474700
+      environment_background tiles 0.3_sprite_47: 1004678358
+      environment_background tiles 0.3_sprite_48: 236913041
+      environment_background tiles 0.3_sprite_49: 776366646
+      environment_background tiles 0.3_sprite_5: 1099203849
+      environment_background tiles 0.3_sprite_50: 1976540950
+      environment_background tiles 0.3_sprite_51: -1600692834
+      environment_background tiles 0.3_sprite_52: -2103729695
+      environment_background tiles 0.3_sprite_53: 1061909044
+      environment_background tiles 0.3_sprite_54: -130578999
+      environment_background tiles 0.3_sprite_55: -2053595789
+      environment_background tiles 0.3_sprite_56: -1012257578
+      environment_background tiles 0.3_sprite_57: 1978249925
+      environment_background tiles 0.3_sprite_58: -181645778
+      environment_background tiles 0.3_sprite_59: 703900559
+      environment_background tiles 0.3_sprite_6: -1827926460
+      environment_background tiles 0.3_sprite_60: 12062749
+      environment_background tiles 0.3_sprite_61: 1504117842
+      environment_background tiles 0.3_sprite_62: 2007721994
+      environment_background tiles 0.3_sprite_63: -1594959815
+      environment_background tiles 0.3_sprite_64: 975530802
+      environment_background tiles 0.3_sprite_65: -1127378872
+      environment_background tiles 0.3_sprite_66: -937880521
+      environment_background tiles 0.3_sprite_67: 1210658323
+      environment_background tiles 0.3_sprite_68: 1550605786
+      environment_background tiles 0.3_sprite_69: 1600062741
+      environment_background tiles 0.3_sprite_7: -994587941
+      environment_background tiles 0.3_sprite_70: -349456564
+      environment_background tiles 0.3_sprite_71: -234585129
+      environment_background tiles 0.3_sprite_72: -15444833
+      environment_background tiles 0.3_sprite_73: -1405974244
+      environment_background tiles 0.3_sprite_74: -1099535068
+      environment_background tiles 0.3_sprite_75: -1131606866
+      environment_background tiles 0.3_sprite_76: 895610757
+      environment_background tiles 0.3_sprite_77: -916914710
+      environment_background tiles 0.3_sprite_78: -56731774
+      environment_background tiles 0.3_sprite_79: 370197149
+      environment_background tiles 0.3_sprite_8: 1463356922
+      environment_background tiles 0.3_sprite_80: 1435357183
+      environment_background tiles 0.3_sprite_81: -812015675
+      environment_background tiles 0.3_sprite_82: -774643918
+      environment_background tiles 0.3_sprite_83: 1320886080
+      environment_background tiles 0.3_sprite_84: 2064690942
+      environment_background tiles 0.3_sprite_85: 371655518
+      environment_background tiles 0.3_sprite_86: 1052771544
+      environment_background tiles 0.3_sprite_87: -781180392
+      environment_background tiles 0.3_sprite_88: -297308306
+      environment_background tiles 0.3_sprite_89: 1924859891
+      environment_background tiles 0.3_sprite_9: 1858358033
+      environment_background tiles 0.3_sprite_90: 1535699463
+      environment_background tiles 0.3_sprite_91: 852258188
+      environment_background tiles 0.3_sprite_92: -205483744
+      environment_background tiles 0.3_sprite_93: -632248899
+      environment_background tiles 0.3_sprite_94: 1708679711
+      environment_background tiles 0.3_sprite_95: 376965328
+      environment_background tiles 0.3_sprite_96: 629224330
+      environment_background tiles 0.3_sprite_97: 2103652868
+      environment_background tiles 0.3_sprite_98: 272675859
+      environment_background tiles 0.3_sprite_99: 441805503
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

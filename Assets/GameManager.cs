@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using TMPro;
 
 public enum GameState { Tutorial, Game, Boss, Win, Lose }
 
@@ -43,8 +45,15 @@ public class GameManager : MonoBehaviour
     [Header("Player")]
     [SerializeField] private GameObject playerObject;
     [SerializeField] private GameObject gameManagerCanvas;
+    [SerializeField] private GameObject bossHealthBar;
     private PlayerMovement playerMovement;
     private PlayerInput playerInput;
+
+    public TextMeshProUGUI ppText;
+    private TextMeshPro ppPoints;
+    public float playerFame;
+
+    [SerializeField] private GameObject congratsCanvas;
 
     private EventInstance explorationTheme;
 
@@ -52,6 +61,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -65,6 +75,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SetPPText(playerFame);
+
         if (playerObject != null)
             playerMovement = playerObject.GetComponent<PlayerMovement>();
 
@@ -78,25 +90,35 @@ public class GameManager : MonoBehaviour
             EnterTutorial();
             Debug.Log("[GameManager] Starting in tutorial scene.");
         }
-        else
+        else if (SceneManager.GetActiveScene().name == "Map 1")
         {
             StartCoroutine(TransitionToMaze());
         }
+            else
+                Debug.LogWarning("[GameManager] Unrecognized scene ï¿½ no game state entered.");
     }
 
     // Tutorial
 
     private void EnterTutorial()
     {
-        CurrentState = GameState.Tutorial;
-        tutorialRoom.SetActive(true);
-        mazeArea.SetActive(false);
+        if (SceneManager.GetActiveScene().name != "Tutorial")
+        {
+            Debug.LogError("[GameManager] Attempted to enter tutorial state while not in tutorial scene!");
+            return;
+        }
+        else
+        {
+            CurrentState = GameState.Tutorial;
+            tutorialRoom.SetActive(true);
+            mazeArea.SetActive(false);
 
-        if (bossRoom != null) bossRoom.SetActive(false);
-        if (mazeSpawner != null) mazeSpawner.enabled = false;
-        if (tutorialSpawner != null) tutorialSpawner.enabled = true;
+            if (bossRoom != null) bossRoom.SetActive(false);
+            if (mazeSpawner != null) mazeSpawner.enabled = false;
+            if (tutorialSpawner != null) tutorialSpawner.enabled = true;
 
-        Debug.Log("[GameManager] Tutorial started.");
+            Debug.Log("[GameManager] Tutorial started.");
+        }
     }
 
     public void OnTutorialComplete()
@@ -162,7 +184,7 @@ public class GameManager : MonoBehaviour
 
     private void OnAllKeysCollected()
     {
-        Debug.Log("[GameManager] All keys collected — player can now teleport to boss");
+        Debug.Log("[GameManager] All keys collected ï¿½ player can now teleport to boss");
 
         if (bossTeleportButtonUI != null)
             bossTeleportButtonUI.SetActive(true);
@@ -193,7 +215,7 @@ public class GameManager : MonoBehaviour
 
         if (keysCollected < keysRequired)
         {
-            Debug.Log("[GameManager] Max level reached without all keys — host scolds player");
+            Debug.Log("[GameManager] Max level reached without all keys ï¿½ host scolds player");
 
             HostManager.Instance.Say(
                 "Really? You reached max level without finding all the keys? Fine... to the boss you go.",
@@ -203,10 +225,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("[GameManager] Max level reached with all keys — forcing boss transition");
+            Debug.Log("[GameManager] Max level reached with all keys ï¿½ forcing boss transition");
 
             HostManager.Instance.Say(
-                "Max level and all the keys — time to face the boss!",
+                "Max level and all the keys ï¿½ time to face the boss!",
                 HostMood.Ecstatic,
                 onComplete: () => StartCoroutine(TransitionToBoss())
             );
@@ -216,7 +238,6 @@ public class GameManager : MonoBehaviour
     private IEnumerator TransitionToBoss()
     {
         explorationTheme.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
         transitionCanvas.SetActive(true);
 
         // Beep then static as the canvas appears
@@ -225,6 +246,9 @@ public class GameManager : MonoBehaviour
 
         
         HostManager.Instance.StartTVStatic();
+
+        gameManagerCanvas.SetActive(false);
+        tutorialCanvas.SetActive(false);
 
         CurrentState = GameState.Boss;
         mazeArea.SetActive(false);
@@ -238,27 +262,50 @@ public class GameManager : MonoBehaviour
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
+        Time.timeScale = 0f; // Pause the game during transition
+
         yield return new WaitForSecondsRealtime(transitionDelay);
 
         // Static stops as the canvas comes down
         HostManager.Instance.StopTVStatic();
+        bossHealthBar.SetActive(true);
         transitionCanvas.SetActive(false);
+        gameManagerCanvas.SetActive(true);
 
         Debug.Log("[GameManager] Transitioned to boss room.");
+
+        Time.timeScale = 1f;
+
     }
 
     public void OnGameWin()
     {
-        if (CurrentState != GameState.Boss) return;
+        //if (CurrentState != GameState.Boss) return;
         CurrentState = GameState.Win;
+        Debug.Log("[GameManager] Boss defeated, transitioning to win state.");
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
         HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Ecstatic);
 
         Debug.Log("[GameManager] Player won!");
+
+        playerFame = playerMovement.fame;
+
+
+        StartCoroutine(LoadCongratsSceneAfterDelay(3f));
+        //SceneManager.LoadScene("Congrats");
+
+        // Show win screen here
     }
 
+    IEnumerator LoadCongratsSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Time.timeScale = 0f;
+        ppText.text = $"+{playerFame.ToString("F0")}";
+        congratsCanvas.SetActive(true);
+    }
     public void OnGameLose()
     {
         CurrentState = GameState.Lose;
@@ -269,5 +316,13 @@ public class GameManager : MonoBehaviour
         HostManager.Instance.Say("Oh dear... better luck next time.", HostMood.Talk);
 
         Debug.Log("[GameManager] Player lost.");
+    }
+
+    private void SetPPText(float ppText)
+    {
+        if (ppPoints != null)
+        {
+            ppPoints.text = playerFame.ToString("F0");
+        }
     }
 }

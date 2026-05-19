@@ -39,6 +39,13 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
+        while (SpawnManager.Instance == null)
+        {
+            Debug.LogWarning("[EnemySpawner] Waiting for SpawnManager instance...");
+            yield return null;
+        }
+
+
         while (true)
         {
            yield return new WaitForSeconds(SpawnManager.Instance.SpawnInterval);

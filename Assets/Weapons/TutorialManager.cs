@@ -7,6 +7,12 @@ public class TutorialManager : MonoBehaviour
 {
     public static TutorialManager Instance { get; private set; }
 
+    [Header("Settings")]
+    [SerializeField] private bool skipTutorial = false;
+    [Tooltip("Completely disables the tutorial, skipping all steps and enemy spawns.")]
+    [SerializeField] private bool disableTutorial = false;
+    [Tooltip("For Testing and remaining in a level")]
+
     [Header("Pop-up Visuals (Arrow sprites etc.)")]
     public GameObject[] popUps;
 
@@ -22,13 +28,13 @@ public class TutorialManager : MonoBehaviour
 
     private readonly string[] dialogueLines = new string[]
     {
-        "Hey! Use W A S D to move around. Give it a try!",      // 0 - movement
-        "Hold Shift to dash. Great for dodging attacks!",        // 1 - dash
-        "Left-click to shoot. Take aim and fire!",               // 2 - shoot
-        "Press R to reload. Don't get caught empty!",            // 3 - reload
-        "Enemies incoming, take them all down!",                 // 4 - kill tutorial enemies
-        "You levelled up! Let's see what you can do.",           // 5 - level up
-        "Well done! Time to head into the maze!"                 // 6 - complete
+        "Our first contestant! Use WASD to move, you'll need it!",                              // 0 - movement
+        "Enemies can be quick, use SHIFT to dash away from them!",                              // 1 - dash
+        "It'll be unfair if you can't defend yourself, LEFT-CLICK to shoot your gun!",          // 2 - shoot
+        "Bullets aren't infinite so make sure you reload with R!",                              // 3 - reload
+        "Bugs incoming and they think you're lunch!",                                           // 4 - kill tutorial enemies
+        "You levelled up! Pick a perk and see what it does!",                                   // 5 - level up
+        "congratulations on finishing this tutorial, now let's see what you can really do."     // 6 - complete
     };
 
     private int popUpIndex = 0;
@@ -38,6 +44,18 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
+        if (disableTutorial)
+        {
+            Debug.Log("[TutorialManager] Tutorial disabled via inspector setting.");
+            DisableTutorial();
+            return;
+        }
+        if (skipTutorial)
+        {
+            Debug.Log("[TutorialManager] Tutorial skipped via inspector setting.");
+            SkipTutorial();
+            return;
+        }
         mazeChangerScript = maze.GetComponent<MazeChanger>();
         spawnManagerScript = spawnManager.GetComponent<SpawnManager>();
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
@@ -95,10 +113,10 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
 
-            case 4: // Kill all tutorial enemies — handled via OnAllTutorialEnemiesDefeated()
+            case 4: // Kill all tutorial enemies ï¿½ handled via OnAllTutorialEnemiesDefeated()
                 break;
 
-            case 5: // Wait for perk selection — handled via PerkSelectionUI.OnPerkSelected AdvanceStep()
+            case 5: // Wait for perk selection ï¿½ handled via PerkSelectionUI.OnPerkSelected AdvanceStep()
                 break;
 
                 // case 6 handled in WaitForHostThenUnlock on final step
@@ -130,21 +148,21 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitUntil(() => !HostManager.Instance.IsTalking);
 
-        // Final step — kick off completion instead of unlocking input
+        // Final step ï¿½ kick off completion instead of unlocking input
         if (stepIndex == dialogueLines.Length - 1)
         {
-            Debug.Log("[TutorialManager] Final step dialogue done — starting completion");
+            Debug.Log("[TutorialManager] Final step dialogue done ï¿½ starting completion");
             StartCoroutine(CompleteAndTransition());
             yield break;
         }
 
         stepComplete = false;
-        Debug.Log($"[TutorialManager] Step {stepIndex} unlocked — waiting for player input");
+        Debug.Log($"[TutorialManager] Step {stepIndex} unlocked ï¿½ waiting for player input");
     }
 
     public void AdvanceStep()
     {
-        Debug.Log($"[TutorialManager] AdvanceStep called — going from {popUpIndex} to {popUpIndex + 1}, stepComplete={stepComplete}");
+        Debug.Log($"[TutorialManager] AdvanceStep called ï¿½ going from {popUpIndex} to {popUpIndex + 1}, stepComplete={stepComplete}");
         popUpIndex++;
 
         if (popUpIndex < dialogueLines.Length)
@@ -198,15 +216,33 @@ public class TutorialManager : MonoBehaviour
 
     // Audio helpers
 
-    // Ooh/ahh crowd reaction — bigger moments (enemies cleared, perk chosen, tutorial done)
+    // Ooh/ahh crowd reaction ï¿½ bigger moments (enemies cleared, perk chosen, tutorial done)
     private void PlayCrowdNoise()
     {
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.crowdNoise, Vector3.zero);
     }
 
-    // Clapping — smaller step completions (WASD, dash, shoot, reload)
+    // Clapping ï¿½ smaller step completions (WASD, dash, shoot, reload)
     private void PlayApplause()
     {
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.crowdApplause, Vector3.zero);
+    }
+
+    private void DisableTutorial()
+    {
+        StopAllCoroutines();
+        for (int i = 0; i < popUps.Length; i++)
+            popUps[i].SetActive(false);
+
+        HostManager.Instance.HideDialogue();
+
+        tutorialSpawner.enabled = false;
+
+        this.enabled = false;
+    }
+
+    private void SkipTutorial()
+    {
+        GameManager.Instance.OnTutorialComplete();
     }
 }
