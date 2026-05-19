@@ -27,8 +27,17 @@ public class BossRanged : MonoBehaviour
     private bool isAttacking = false;
     private Coroutine attackCoroutine;
 
+    private LineRenderer lineRenderer;
+
     private void Awake()
     {
+        lineRenderer = GetComponent<LineRenderer>();
+        if (lineRenderer != null)
+        {
+            Debug.Log("BossRanged Awake: LineRenderer component found and cached.");
+
+        }
+
         Debug.Log("BossRanged Awake: Initializing components and caching references.");
 
         stats = GetComponent<EnemyStats>();
@@ -81,9 +90,9 @@ public class BossRanged : MonoBehaviour
         AimBeamsAtPlayer();
 
         //  2. Telegraph phase: show beams (different colour )
+        SetBeamsActive(true);
         SetBeamsTelegraph();
         SetBeamsDamaging(false);
-        SetBeamsActive(true);
 
         yield return new WaitForSeconds(telegraphDuration);
         // 3. Fire phase: beams are now damaging (active cololur)

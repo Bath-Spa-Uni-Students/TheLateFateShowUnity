@@ -55,7 +55,7 @@ public class ImageAnimator : MonoBehaviour
             StartCoroutine(ImageAnimation());
         }
 
-        ppPoints.text = $"+{GameManager.Instance.playerFame.ToString("F0")}";
+      //  ppPoints.text = $"+{GameManager.Instance.playerFame.ToString("F0")}";
     }
 
     // Update is called once per frame
