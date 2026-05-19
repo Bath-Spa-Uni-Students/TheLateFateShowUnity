@@ -41,7 +41,7 @@ public class ImageAnimator : MonoBehaviour
             isImage = true;
         }
 
-        ppPoints = ppPointsGameObject.GetComponent<TextMeshPro>();
+        //ppPoints = ppPointsGameObject.GetComponent<TextMeshPro>();
     }
 
     private void Start()
