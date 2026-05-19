@@ -34,7 +34,8 @@ public class ChestSpawner : MonoBehaviour
 
     private void Start()
     {
-       
+        // Always do an initial chest spawn when the scene load
+        OnMazeRegenerated(-1); // -1 = no sector to skip on first load
     }
 
     public static void NotifyMazeRegenerated(int skipSectorIndex = -1)

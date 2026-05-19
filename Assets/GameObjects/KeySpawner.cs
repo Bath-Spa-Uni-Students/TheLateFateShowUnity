@@ -25,6 +25,11 @@ public class KeySpawner : MonoBehaviour
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
     }
+
+    private void Start()
+    {
+        OnMazeRegenerated(-1);
+    }
     public void Initialise(int keysRequired)
     {
         totalKeys = keysRequired;
