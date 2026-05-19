@@ -948,7 +948,7 @@ MonoBehaviour:
   stoppingDistance: 0.35
   detectionRadius: 3.5
   leaderDamageReduction: 0.5
-  health: 15
+  health: 30
   maxHealth: 10
   damage: 10
   fireRate: 0.15
