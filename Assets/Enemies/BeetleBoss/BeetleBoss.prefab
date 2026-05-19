@@ -1994,6 +1994,8 @@ Transform:
   - {fileID: 5659338055890810587}
   - {fileID: 6832714354838239179}
   - {fileID: 1924921183447150364}
+  - {fileID: 5015297127349703977}
+  - {fileID: 6116548009981308648}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6795455092672300936
@@ -2128,9 +2130,9 @@ MonoBehaviour:
   damageHandler: {fileID: 7616477494777616497}
   meleeAttackScript: {fileID: 7477454800623022473}
   rangedAttackScript: {fileID: 2727703368743454965}
-  attackBarrier: {fileID: 0}
-  damageArea: {fileID: 0}
-  attackCapsule: {fileID: 0}
+  attackBarrier: {fileID: 2392225031223194748}
+  damageArea: {fileID: 3869937600615201770}
+  attackCapsule: {fileID: 953304053780064506}
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
