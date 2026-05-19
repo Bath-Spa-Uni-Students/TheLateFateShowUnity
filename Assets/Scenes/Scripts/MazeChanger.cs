@@ -24,10 +24,12 @@ public class MazeChanger : MonoBehaviour
     [Header("NavMesh")]
     [SerializeField] private NavMeshSurface navMeshSurface;
 
+    [Header("Player")]
+    [SerializeField] private Transform player;
+
     private GameObject[][] allSlots;
     private int[] currentActiveIndex;
     private Coroutine switchCoroutine;
-
     private bool isFirstGeneration = true;
 
     void OnEnable()
@@ -37,10 +39,34 @@ public class MazeChanger : MonoBehaviour
             slot1, slot2, slot3, slot4,
             slot5, slot6, slot7, slot8, slot9
         };
+
         currentActiveIndex = new int[allSlots.Length];
         isFirstGeneration = true;
         GenerateAllSegments();
         switchCoroutine = StartCoroutine(RoomSwitchLoop());
+    }
+
+    private int GetPlayerSlotIndex()
+    {
+        if (player == null) return -1;
+
+        for (int i = 0; i < allSlots.Length; i++)
+        {
+            GameObject[] slot = allSlots[i];
+            if (slot == null) continue;
+
+            foreach (GameObject room in slot)
+            {
+                // Only check the currently active room in this slot
+                if (room == null || !room.activeInHierarchy) continue;
+
+                Collider2D col = room.GetComponent<Collider2D>();
+                if (col != null && col.OverlapPoint(player.position))
+                    return i;
+            }
+        }
+
+        return -1;
     }
 
     private void SelectSegment(GameObject[] segment, int slotIndex)
@@ -66,15 +92,24 @@ public class MazeChanger : MonoBehaviour
             if (segment[i] != null)
                 segment[i].SetActive(i == chosen);
         }
+
         currentActiveIndex[slotIndex] = chosen;
     }
 
     private void GenerateAllSegments()
     {
-        ClearAllEnemies();
+        int playerSlot = GetPlayerSlotIndex();
+
+        if (debugMode && playerSlot >= 0)
+            Debug.Log($"Player is in slot {playerSlot + 1} — skipping it during regeneration.");
+
+        ClearAllEnemies(playerSlot);
 
         for (int i = 0; i < allSlots.Length; i++)
+        {
+            if (i == playerSlot) continue;  // Leave the player's room untouched
             SelectSegment(allSlots[i], i);
+        }
 
         if (SpawnManager.Instance != null)
             SpawnManager.Instance.ResetEnemyCount();
@@ -83,7 +118,6 @@ public class MazeChanger : MonoBehaviour
         ChestSpawner.NotifyMazeRegenerated();
         KeySpawner.NotifyMazeRegenerated();
 
-        // Play maze change sound on every regeneration except the very first load
         if (!isFirstGeneration)
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.mazeChange, Vector3.zero);
 
@@ -101,6 +135,7 @@ public class MazeChanger : MonoBehaviour
     IEnumerator RoomSwitchLoop()
     {
         float interval = debugMode ? 60f : switchInterval;
+
         while (true)
         {
             yield return new WaitForSeconds(interval);
@@ -109,11 +144,37 @@ public class MazeChanger : MonoBehaviour
         }
     }
 
-    private void ClearAllEnemies()
+    private void ClearAllEnemies(int playerSlot)
     {
+        Collider2D playerRoomCollider = GetActiveRoomCollider(playerSlot);
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
         foreach (GameObject enemy in enemies)
-            Destroy(enemy);
+        {
+            // If we can't determine the player's slot, destroy all
+            if (playerSlot < 0 || playerRoomCollider == null)
+            {
+                Destroy(enemy);
+                continue;
+            }
+
+            // Keep enemies inside the player's current room
+            if (!playerRoomCollider.OverlapPoint(enemy.transform.position))
+                Destroy(enemy);
+        }
+    }
+
+    private Collider2D GetActiveRoomCollider(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= allSlots.Length) return null;
+
+        foreach (GameObject room in allSlots[slotIndex])
+        {
+            if (room != null && room.activeInHierarchy)
+                return room.GetComponentInChildren<Collider2D>();
+        }
+
+        return null;
     }
 
     public void ForceSwitch()

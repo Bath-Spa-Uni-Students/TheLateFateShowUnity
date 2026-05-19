@@ -32,7 +32,7 @@ public class AR : MonoBehaviour
     private float nextFireTime = 0f;
 
     // Clip size
-    public int ammo = 10;
+    public int ammo = 15;
     [SerializeField] private GameObject ammoText;
 
     private bool isReloading = false;
