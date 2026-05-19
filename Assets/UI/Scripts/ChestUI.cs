@@ -29,7 +29,7 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private Button keepCurrentWeaponButton;
     [SerializeField] private Image newGunIcon;
     [SerializeField] private Image[] chestWeaponPerkIcons;
-    [SerializeField] private TextMeshProUGUI[] chestWeaponPerkDesc;
+    //[SerializeField] private TextMeshProUGUI[] chestWeaponPerkDesc;
 
     [Header("Weapon Icons")]
     [SerializeField] private Sprite pistolSprite;
@@ -120,6 +120,8 @@ public class ChestUI : MonoBehaviour
 
     private void HandleNewGun(WeaponInstance chestWeapon, List<PerkDefinition> compatiblePerks)
     {
+        Debug.Log($"[ChestUI] HandleNewGun fired — weapon: {chestWeapon?.weaponType}, perks: {compatiblePerks?.Count}");
+
         currentMode = ChestUIMode.NewGun;
         pendingNewWeapon = chestWeapon;
 
@@ -138,8 +140,8 @@ public class ChestUI : MonoBehaviour
                 SetIcon(chestWeaponPerkIcons[i], hasPerk ? chestWeapon.perks[i].icon : null);
                 chestWeaponPerkIcons[i].gameObject.SetActive(true);
             }
-            if (chestWeaponPerkDesc != null && i < chestWeaponPerkDesc.Length && chestWeaponPerkDesc[i] != null)
-                chestWeaponPerkDesc[i].text = hasPerk ? chestWeapon.perks[i].description : string.Empty;
+            //if (chestWeaponPerkDesc != null && i < chestWeaponPerkDesc.Length && chestWeaponPerkDesc[i] != null)
+                //chestWeaponPerkDesc[i].text = hasPerk ? chestWeapon.perks[i].description : string.Empty;
         }
 
         bool hasCompatible = compatiblePerks.Count > 0;
@@ -215,6 +217,8 @@ public class ChestUI : MonoBehaviour
 
     private void HandleMergePerk(List<PerkDefinition> availablePerks)
     {
+        Debug.Log($"[ChestUI] HandleMergePerk fired — perks: {availablePerks?.Count}");
+
         currentMode = ChestUIMode.MergePerk;
         cachedAvailablePerks = availablePerks;
 
