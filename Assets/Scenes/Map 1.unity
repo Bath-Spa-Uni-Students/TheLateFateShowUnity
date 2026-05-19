@@ -923,7 +923,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2805413628674052788, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395224310}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fef5c5f0e74184a4eb2ada3f21e66934, type: 3}
@@ -1110,19 +1110,7 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1226157336}
     - target: {fileID: 5322866709142593751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-      propertyPath: arObject
-      value: 
-      objectReference: {fileID: 1996622102}
-    - target: {fileID: 5322866709142593751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-      propertyPath: pistolObject
-      value: 
-      objectReference: {fileID: 1975216390}
-    - target: {fileID: 5322866709142593751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-      propertyPath: shotgunObject
-      value: 
-      objectReference: {fileID: 1395224310}
-    - target: {fileID: 5322866709142593751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-      propertyPath: startingWeapon
+      propertyPath: debugWeaponManager
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5322866709142593751, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
@@ -1404,11 +1392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
---- !u!1 &1395224310 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3118732395402709964, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-  m_PrefabInstance: {fileID: 1143229772}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439523937 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 451238021582949253, guid: 893a14c5e88fd0a4ea13e513a6263f95, type: 3}
@@ -1465,7 +1448,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 871043729625830516, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996622102}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1446cf7cd3bc02d488e6737543e9ead8, type: 3}
@@ -1958,7 +1941,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3788972224556571913, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1975216390}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674db862ced7a79438efcaf6565750fb, type: 3}
@@ -2018,19 +2001,9 @@ MonoBehaviour:
   dialogueBox: {fileID: 429211976}
   hostObject: {fileID: 478143180}
   typeSpeed: 0.04
---- !u!1 &1975216390 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9038751663888473970, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-  m_PrefabInstance: {fileID: 1143229772}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1994644900 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6894317398465169764, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
-  m_PrefabInstance: {fileID: 1143229772}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1996622102 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7247743451317876978, guid: 9b8196e0dcff4b64f96bb6693aa77e6d, type: 3}
   m_PrefabInstance: {fileID: 1143229772}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2003877708 stripped
@@ -134539,6 +134512,10 @@ PrefabInstance:
     - target: {fileID: 4522158531340841635, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_Color.r
       value: 0.3584906
+      objectReference: {fileID: 0}
+    - target: {fileID: 4609176945582659504, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4770883537499877149, guid: cf7dbac48c6965947af629b732dd181f, type: 3}
       propertyPath: m_UiScaleMode

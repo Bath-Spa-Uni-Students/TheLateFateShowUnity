@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -809333281
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3327284980665476227, guid: 7ef3dc283fd828544b6e653000d5ac23, type: 3}
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 1262449019
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6907025717846042801, guid: 3b5d6e595452e714b983ef2a26b917e5, type: 3}
@@ -259,6 +259,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 2048
+  fameDisplayUpdater: {fileID: 0}
   isInvulnerable: 0
   dashForce: 10
   dashTime: 0.2
@@ -564,6 +565,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
+--- !u!1 &7247743451317876978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7501337544433254703, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
+  m_PrefabInstance: {fileID: 904997594567670237}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7485999363909782310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7740753476160680699, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
@@ -617,6 +623,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6021052122608641187, guid: 3aa28b8f0f2e2394cbca029517dfd1af, type: 3}
+      propertyPath: arObject
+      value: 
+      objectReference: {fileID: 7247743451317876978}
+    - target: {fileID: 6021052122608641187, guid: 3aa28b8f0f2e2394cbca029517dfd1af, type: 3}
+      propertyPath: pistolObject
+      value: 
+      objectReference: {fileID: 9038751663888473970}
+    - target: {fileID: 6021052122608641187, guid: 3aa28b8f0f2e2394cbca029517dfd1af, type: 3}
+      propertyPath: shotgunObject
+      value: 
+      objectReference: {fileID: 3118732395402709964}
     - target: {fileID: 8711739820925555903, guid: 3aa28b8f0f2e2394cbca029517dfd1af, type: 3}
       propertyPath: m_Name
       value: WeaponManager
@@ -688,6 +706,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}
+--- !u!1 &3118732395402709964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8310665469226109603, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}
+  m_PrefabInstance: {fileID: 6346307041919271279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6735073238877475618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 388811278147162701, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}
@@ -761,5 +784,10 @@ PrefabInstance:
 --- !u!4 &4423120706735869414 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6498121140623773038, guid: 5954bce4e7793764098745828516b970, type: 3}
+  m_PrefabInstance: {fileID: 7444417639700267144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9038751663888473970 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1891506178819071994, guid: 5954bce4e7793764098745828516b970, type: 3}
   m_PrefabInstance: {fileID: 7444417639700267144}
   m_PrefabAsset: {fileID: 0}

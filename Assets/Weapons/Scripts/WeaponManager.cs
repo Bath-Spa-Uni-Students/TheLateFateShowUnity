@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
 
-
 // Controls the player's current weapon and perks.
-// All other systems wiil (Pistol, AR, Shotgun, Chest, UI) talk to this.
+// All other systems (Pistol, AR, Shotgun, Chest, UI) talk to this.
 
 public class WeaponManager : MonoBehaviour
 {
@@ -22,16 +20,18 @@ public class WeaponManager : MonoBehaviour
     [Header("All Perk Definitions (assign in Inspector)")]
     [SerializeField] private List<PerkDefinition> allPerks;
 
-    [SerializeField] private bool debugWeaponMangager = false;
-    // The players current weapon and its perks
+    [SerializeField] private bool debugWeaponManager = false;
+
     public WeaponInstance CurrentWeapon { get; private set; }
 
     // Events other systems can subscribe to
     public event Action<WeaponInstance> OnWeaponChanged;
     public event Action<WeaponInstance> OnPerksChanged;
-
-    // WeaponManager raises this so PerkSwapUI can show.
     public event Action<PerkDefinition, List<PerkDefinition>, Action<int>> OnPerkSwapRequired;
+
+    // Chest events ChestUI subscribes to these
+    public event Action<WeaponInstance, List<PerkDefinition>> OnChestNewGun;
+    public event Action<List<PerkDefinition>> OnChestMergePerk;
 
     private void Awake()
     {
@@ -45,81 +45,119 @@ public class WeaponManager : MonoBehaviour
         ActivateWeaponObject(startingWeapon);
     }
 
-    public event Action<WeaponInstance, List<PerkDefinition>> OnChestNewGun;
-    public event Action<List<PerkDefinition>> OnChestMergePerk;
+    // CHEST LOGIC
 
-    //when a chest is opened
-    // If same weapon type: merge perks
-    // If different weapon type swap immediately keep 1 valid perk.
+    // Called by ChestObject when the player opens a chest.
+    //
+    // DIFFERENT weapon type:
+    //   Show New Gun UI. Player picks a carry-over perk (or gets random), or keeps current gun.
+    //
+    // SAME weapon type:
+    //   Auto-merge all non-duplicate chest perks if slots are free. No UI.
+    //   If any perk has no room, show Merge Perk UI for those perks only.
     public void ReceiveChestWeapon(WeaponInstance chestWeapon)
     {
-        Debug.Log($"[WeaponManager] Current weapon: {CurrentWeapon.weaponType} | Current perks: {CurrentWeapon.perks.Count}");
-        foreach (PerkDefinition p in CurrentWeapon.perks)
-            Debug.Log($"  - {p.perkName} | compatible with chest weapon: {p.IsCompatibleWith(chestWeapon.weaponType)}");
+        if (debugWeaponManager)
+        {
+            Debug.Log($"[WeaponManager] Chest opened | player: {CurrentWeapon.weaponType} ({CurrentWeapon.perks.Count} perks) | chest: {chestWeapon.weaponType} ({chestWeapon.perks.Count} perks)");
+            foreach (PerkDefinition p in CurrentWeapon.perks)
+                Debug.Log($"  - {p.perkName} | compatible with chest weapon: {p.IsCompatibleWith(chestWeapon.weaponType)}");
+        }
+
         if (chestWeapon.weaponType != CurrentWeapon.weaponType)
         {
-            // Different weapon find compatible carry-over perks
+            //DIFFERENT WEAPON TYPE 
+            // Find perks on the player's current gun that could carry over.
             List<PerkDefinition> compatible = CurrentWeapon.perks.FindAll(
                 p => p.IsCompatibleWith(chestWeapon.weaponType) && !chestWeapon.HasPerk(p));
 
+            // Raise event — ChestUI shows the swap screen.
             OnChestNewGun?.Invoke(chestWeapon, compatible);
         }
         else
         {
-            // Same weapon
-            List<PerkDefinition> chestPerks = chestWeapon.perks;
+            //SAME WEAPON TYPE
+            // Filter out perks the player already has.
+            List<PerkDefinition> newPerks = chestWeapon.perks.FindAll(p => !CurrentWeapon.HasPerk(p));
 
-            if (chestPerks.Count == 1 && CurrentWeapon.HasPerkSlot)
+            if (newPerks.Count == 0)
             {
-                // No need for decision UI, just add the perk if it's not a duplicate
-                if (!CurrentWeapon.HasPerk(chestPerks[0]))
+                if (debugWeaponManager)
+                    Debug.Log("[WeaponManager] Same weapon all chest perks are duplicates. Nothing to do.");
+                return;
+            }
+
+            // Silently add as many perks as free slots allow.
+            List<PerkDefinition> autoAdded = new List<PerkDefinition>();
+            List<PerkDefinition> overflow = new List<PerkDefinition>();
+
+            foreach (PerkDefinition perk in newPerks)
+            {
+                if (CurrentWeapon.HasPerkSlot)
                 {
-                    CurrentWeapon.TryAddPerk(chestPerks[0]);
-                    OnPerksChanged?.Invoke(CurrentWeapon);
-                    if (debugWeaponMangager)
-                        Debug.Log($"[WeaponManager] Auto-added perk: {chestPerks[0].perkName}");
+                    CurrentWeapon.TryAddPerk(perk);
+                    autoAdded.Add(perk);
                 }
                 else
                 {
-                    if (debugWeaponMangager)
-                        Debug.Log($"[WeaponManager] Auto-add skipped — already have perk: {chestPerks[0].perkName}");
+                    overflow.Add(perk);
                 }
             }
-            else
+
+            if (autoAdded.Count > 0)
             {
-                // Multiple perks or no free slot show merge panel with non-duplicates as options
-                List<PerkDefinition> available = chestPerks.FindAll(p => !CurrentWeapon.HasPerk(p));
+                OnPerksChanged?.Invoke(CurrentWeapon);
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiConfirm, Vector3.zero);
 
-                if (available.Count == 0)
-                {
-                    if (debugWeaponMangager)
-                        Debug.Log("[WeaponManager] Chest perks all duplicates — nothing to merge.");
-                    return;
-                }
+                if (debugWeaponManager)
+                    Debug.Log($"[WeaponManager] Auto-merged {autoAdded.Count} perk(s) from same-type chest.");
+            }
 
-                OnChestMergePerk?.Invoke(available);
+            // If perks couldn't fit, show the merge UI for the leftovers.
+            if (overflow.Count > 0)
+            {
+                if (debugWeaponManager)
+                    Debug.Log($"[WeaponManager] {overflow.Count} perk(s) couldn't auto-fit — opening merge UI.");
+
+                OnChestMergePerk?.Invoke(overflow);
             }
         }
     }
-    // Called by ChestUI when player confirms a weapon swap
-    public void ConfirmWeaponSwap(WeaponInstance newWeapon, PerkDefinition carriedPerk)
+
+    // CONFIRM ACTIONS
+
+    // Player chose to take the new gun from a chest.
+    // carriedPerk: a compatible perk carried over from the old gun, or null for a random one.
+    public void ConfirmWeaponSwap(WeaponInstance chestWeapon, PerkDefinition carriedPerk)
     {
-        WeaponInstance incoming = new WeaponInstance(newWeapon.weaponType);
+        // Start fresh with the chest weapon's type, keeping its pre-attached perks.
+        WeaponInstance incoming = new WeaponInstance(chestWeapon.weaponType);
 
-        // Add carried perk first
-        if (carriedPerk != null)
-            incoming.TryAddPerk(carriedPerk);
-        else
-        {
-            PerkDefinition random = GetRandomValidPerk();
-            if (random != null) incoming.TryAddPerk(random);
-        }
+        foreach (PerkDefinition perk in chestWeapon.perks)
+            incoming.TryAddPerk(perk);
 
-        // Then merge chest weapon's own perks if slots remain
-        foreach (PerkDefinition perk in newWeapon.perks)
+        // Now try to add the carried (or random) perk on top, if there's room.
+        if (incoming.HasPerkSlot)
         {
-            if (!incoming.HasPerk(perk))
-                incoming.TryAddPerk(perk);
+            if (carriedPerk != null && !incoming.HasPerk(carriedPerk))
+            {
+                incoming.TryAddPerk(carriedPerk);
+
+                if (debugWeaponManager)
+                    Debug.Log($"[WeaponManager] Carried perk: {carriedPerk.perkName}");
+            }
+            else if (carriedPerk == null)
+            {
+                // No compatible carry-over — give a random perk valid for the NEW weapon type.
+                PerkDefinition random = GetRandomValidPerkForType(chestWeapon.weaponType, incoming.perks);
+                if (random != null)
+                {
+                    incoming.TryAddPerk(random);
+
+                    if (debugWeaponManager)
+                        Debug.Log($"[WeaponManager] Random perk assigned: {random.perkName}");
+                }
+            }
         }
 
         CurrentWeapon = incoming;
@@ -127,10 +165,12 @@ public class WeaponManager : MonoBehaviour
         OnWeaponChanged?.Invoke(CurrentWeapon);
         OnPerksChanged?.Invoke(CurrentWeapon);
 
-        if (debugWeaponMangager)
+        if (debugWeaponManager)
             Debug.Log($"[WeaponManager] Swapped to {CurrentWeapon.weaponType} with {CurrentWeapon.perks.Count} perk(s)");
     }
-    // Called by ChestUI when player picks a perk to merge (with or without swap-out)
+
+    // Player picked a perk to merge from the chest (same-weapon overflow, or perk swap).
+    // swapOutIndex: index of existing perk to replace, or -1 to discard the incoming perk.
     public void ConfirmMergePerk(PerkDefinition chosen, int swapOutIndex = -1)
     {
         if (CurrentWeapon.HasPerkSlot)
@@ -141,29 +181,41 @@ public class WeaponManager : MonoBehaviour
         {
             if (swapOutIndex >= 0)
                 CurrentWeapon.ReplacePerk(swapOutIndex, chosen);
-            // if -1, player discarded — do nothing
+            // swapOutIndex == -1 means player discarded — do nothing.
         }
 
         OnPerksChanged?.Invoke(CurrentWeapon);
 
-        if (debugWeaponMangager)
-            Debug.Log($"[WeaponManager] Merged perk: {chosen.perkName} | swapOut: {swapOutIndex}");
+        if (debugWeaponManager)
+            Debug.Log($"[WeaponManager] Merged perk: {chosen.perkName} | swapOutIndex: {swapOutIndex}");
     }
+
+
+    // LEVEL-UP PERK
+
     public void ReceiveLevelUpPerk(PerkDefinition perk)
     {
         MergePerk(perk);
     }
+
+    // HELPERS
 
     public bool HasPerk(PerkDefinition perk)
     {
         return CurrentWeapon != null && CurrentWeapon.HasPerk(perk);
     }
 
+    // Returns a random perk compatible with the player's CURRENT weapon that isn't already held.
     public PerkDefinition GetRandomValidPerk()
     {
+        return GetRandomValidPerkForType(CurrentWeapon.weaponType, CurrentWeapon.perks);
+    }
+
+    // Returns a random perk compatible with a SPECIFIC weapon type, excluding already-held perks.
+    private PerkDefinition GetRandomValidPerkForType(WeaponType type, List<PerkDefinition> exclude)
+    {
         List<PerkDefinition> valid = allPerks.FindAll(p =>
-            p.IsCompatibleWith(CurrentWeapon.weaponType) &&
-            !CurrentWeapon.HasPerk(p));
+            p.IsCompatibleWith(type) && !exclude.Contains(p));
 
         if (valid.Count == 0) return null;
         return valid[UnityEngine.Random.Range(0, valid.Count)];
@@ -171,61 +223,53 @@ public class WeaponManager : MonoBehaviour
 
     public List<PerkDefinition> GetRandomPerkSelection(int count)
     {
-        List<PerkDefinition> valid = allPerks.FindAll(p =>p.IsCompatibleWith(CurrentWeapon.weaponType) && !CurrentWeapon.HasPerk(p));
+        List<PerkDefinition> valid = allPerks.FindAll(p =>
+            p.IsCompatibleWith(CurrentWeapon.weaponType) && !CurrentWeapon.HasPerk(p));
 
         // Shuffle
         for (int i = valid.Count - 1; i > 0; i--)
         {
             int j = UnityEngine.Random.Range(0, i + 1);
-            PerkDefinition tmp = valid[i];
-            valid[i] = valid[j];
-            valid[j] = tmp;
+            (valid[i], valid[j]) = (valid[j], valid[i]);
         }
 
         return valid.GetRange(0, Mathf.Min(count, valid.Count));
     }
 
-private void MergePerk(PerkDefinition incoming)
+    private void MergePerk(PerkDefinition incoming)
     {
         if (CurrentWeapon.HasPerk(incoming))
         {
-            // Already have this perk, do nothing
-            if (debugWeaponMangager) Debug.Log($"[WeaponManager] Already have perk: {incoming.perkName}, skipping.");
+            if (debugWeaponManager) Debug.Log($"[WeaponManager] Already have perk: {incoming.perkName}, skipping.");
             return;
-
         }
 
         if (CurrentWeapon.HasPerkSlot)
         {
-            // Add perk directly
             CurrentWeapon.TryAddPerk(incoming);
             OnPerksChanged?.Invoke(CurrentWeapon);
-            if (debugWeaponMangager) Debug.Log($"[WeaponManager] Added perk: {incoming.perkName}");
-
+            if (debugWeaponManager) Debug.Log($"[WeaponManager] Added perk: {incoming.perkName}");
         }
         else
         {
-            // if max perks PerkSwapUI can handle it
-            if (debugWeaponMangager) Debug.Log($"[WeaponManager] At perk cap. Requesting swap UI for: {incoming.perkName}");
+            if (debugWeaponManager) Debug.Log($"[WeaponManager] At perk cap. Requesting swap UI for: {incoming.perkName}");
             OnPerkSwapRequired?.Invoke(incoming, CurrentWeapon.perks, (swapIndex) =>
             {
                 if (swapIndex >= 0)
                 {
-                    // Replace perk at chosen index
                     CurrentWeapon.ReplacePerk(swapIndex, incoming);
                     OnPerksChanged?.Invoke(CurrentWeapon);
-                    if (debugWeaponMangager) Debug.Log($"[WeaponManager] Replaced perk at index {swapIndex} with {incoming.perkName}");
+                    if (debugWeaponManager) Debug.Log($"[WeaponManager] Replaced perk at index {swapIndex} with {incoming.perkName}");
                 }
                 else
                 {
-                    if (debugWeaponMangager) Debug.Log($"[WeaponManager] Player discarded incoming perk: {incoming.perkName}");
+                    if (debugWeaponManager) Debug.Log($"[WeaponManager] Player discarded incoming perk: {incoming.perkName}");
                 }
             });
         }
     }
 
-
-      private void ActivateWeaponObject(WeaponType type)
+    private void ActivateWeaponObject(WeaponType type)
     {
         if (pistolObject)
         {
@@ -246,8 +290,7 @@ private void MergePerk(PerkDefinition incoming)
             if (s) { s.enabled = true; s.canShoot = type == WeaponType.Shotgun; }
         }
 
-        Debug.Log($"[WeaponManager] ActivateWeaponObject: {type} | pistol:{pistolObject != null} ar:{arObject != null} shotgun:{shotgunObject != null}");
+        if (debugWeaponManager)
+            Debug.Log($"[WeaponManager] ActivateWeaponObject: {type}");
     }
 }
-
-
