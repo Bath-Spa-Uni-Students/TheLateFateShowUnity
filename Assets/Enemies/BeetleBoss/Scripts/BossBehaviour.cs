@@ -35,6 +35,7 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private BossRanged rangedAttackScript;
     [SerializeField] private GameObject attackBarrier;
     [SerializeField] private GameObject damageArea;
+    [SerializeField] private GameManager gameManager;
     private bool dead = false;
 
     [Header("Player Info")]
@@ -73,7 +74,7 @@ public class BossBehaviour : MonoBehaviour
     private float warningShotTimer = 0f;
     private Vector3 retreatTarget;
 
-    private GameManager gameManager;
+    //private GameManager gameManager;
     private enum EnemyState
     {
         Sleep,
@@ -314,10 +315,18 @@ public class BossBehaviour : MonoBehaviour
         meleeAttackScript.enabled = false;
         rangedAttackScript.enabled = false;
 
+        gameManager.OnGameWin();
+        Debug.Log("Boss defeated! You win!");
+
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
-        animator.SetTrigger("Death");
+
+        //animator.SetTrigger("Death");
         if (gameManager != null)
+        {
+            //gameManager
             gameManager.OnGameWin();
+
+        }
 
         enabled = false;
 

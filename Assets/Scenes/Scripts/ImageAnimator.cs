@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
@@ -13,6 +14,9 @@ public class ImageAnimator : MonoBehaviour
 
     [SerializeField] private bool isSpriteRenderer = false;
     [SerializeField] private bool isImage = false;
+
+    [SerializeField] private GameObject ppPointsGameObject;
+        private TextMeshPro ppPoints;
 
     private int index = 0;
     private Image image;
@@ -36,6 +40,8 @@ public class ImageAnimator : MonoBehaviour
         {
             isImage = true;
         }
+
+        ppPoints = ppPointsGameObject.GetComponent<TextMeshPro>();
     }
 
     private void Start()
@@ -48,6 +54,8 @@ public class ImageAnimator : MonoBehaviour
         {
             StartCoroutine(ImageAnimation());
         }
+
+        ppPoints.text = $"+{GameManager.Instance.playerFame.ToString("F0")}";
     }
 
     // Update is called once per frame

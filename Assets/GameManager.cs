@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using FMOD.Studio;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using TMPro;
 
 public enum GameState { Tutorial, Game, Boss, Win, Lose }
 
@@ -48,11 +49,18 @@ public class GameManager : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerInput playerInput;
 
+    public TextMeshProUGUI ppText;
+    private TextMeshPro ppPoints;
+    public float playerFame;
+
+    [SerializeField] private GameObject congratsCanvas;
+
     private EventInstance explorationTheme;
     private void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -66,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SetPPText(playerFame);
+
         if (playerObject != null)
             playerMovement = playerObject.GetComponent<PlayerMovement>();
 
@@ -257,15 +267,31 @@ public class GameManager : MonoBehaviour
 
     public void OnGameWin()
     {
-        if (CurrentState != GameState.Boss) return;
+        //if (CurrentState != GameState.Boss) return;
         CurrentState = GameState.Win;
+        Debug.Log("[GameManager] Boss defeated, transitioning to win state.");
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
        HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Ecstatic);
 
         Debug.Log("[GameManager] Player won!");
+
+        playerFame = playerMovement.fame;
+
+
+        StartCoroutine(LoadCongratsSceneAfterDelay(3f));
+        //SceneManager.LoadScene("Congrats");
+
         // Show win screen here
+    }
+
+    IEnumerator LoadCongratsSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Time.timeScale = 0f;
+        ppText.text = $"+{playerFame.ToString("F0")}";
+        congratsCanvas.SetActive(true);
     }
     public void OnGameLose()
     {
@@ -278,5 +304,13 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("[GameManager] Player lost.");
         // Show game over screen here
+    }
+
+    private void SetPPText(float ppText)
+    {
+        if (ppPoints != null)
+        {
+            ppPoints.text = playerFame.ToString("F0");
+        }
     }
 }
