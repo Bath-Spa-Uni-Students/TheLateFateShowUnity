@@ -177,7 +177,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.15, y: 6}
+  m_Size: {x: 0.7, y: 100}
   m_EdgeRadius: 0
 --- !u!114 &1383020178396625455
 MonoBehaviour:
@@ -317,9 +317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41154f9fbdcef947a7c488066c4961d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeamVisual
-  beamLength: 6
+  beamLength: 200
   beamWidthStart: 0.15
-  beamWidthEnd: 0.08
+  beamWidthEnd: 10
   telegraphColour: {r: 0.31764707, g: 0.04, b: 0.04, a: 0.6}
   activeColour: {r: 1, g: 0.08, b: 0.08, a: 1}
   activeCoreColour: {r: 1, g: 0.65, b: 0.65, a: 1}
@@ -997,9 +997,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41154f9fbdcef947a7c488066c4961d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeamVisual
-  beamLength: 6
+  beamLength: 200
   beamWidthStart: 0.15
-  beamWidthEnd: 0.08
+  beamWidthEnd: 10
   telegraphColour: {r: 0.31764707, g: 0.04, b: 0.04, a: 0.6}
   activeColour: {r: 1, g: 0.08, b: 0.08, a: 1}
   activeCoreColour: {r: 1, g: 0.65, b: 0.65, a: 1}
@@ -1049,7 +1049,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.15, y: 6}
+  m_Size: {x: 0.7, y: 100}
   m_EdgeRadius: 0
 --- !u!1 &2780417759853490815
 GameObject:
@@ -1894,9 +1894,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41154f9fbdcef947a7c488066c4961d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeamVisual
-  beamLength: 6
+  beamLength: 200
   beamWidthStart: 0.15
-  beamWidthEnd: 0.08
+  beamWidthEnd: 10
   telegraphColour: {r: 0.31764707, g: 0.04, b: 0.04, a: 0.6}
   activeColour: {r: 1, g: 0.08, b: 0.08, a: 1}
   activeCoreColour: {r: 1, g: 0.65, b: 0.65, a: 1}
@@ -1946,7 +1946,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.15, y: 6}
+  m_Size: {x: 0.7, y: 100}
   m_EdgeRadius: 0
 --- !u!1 &9150895092482176395
 GameObject:
@@ -1972,7 +1972,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &717153400465058858
 Transform:
   m_ObjectHideFlags: 0
@@ -2132,6 +2132,7 @@ MonoBehaviour:
   rangedAttackScript: {fileID: 2727703368743454965}
   attackBarrier: {fileID: 2392225031223194748}
   damageArea: {fileID: 3869937600615201770}
+  gameManager: {fileID: 0}
   attackCapsule: {fileID: 953304053780064506}
   playerLayer:
     serializedVersion: 2

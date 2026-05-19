@@ -329,10 +329,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: deathSprite
-      value: 
-      objectReference: {fileID: -944534128340404963, guid: 3f0b17dc98e9ad0489db2371a2566ea0, type: 3}
-    - target: {fileID: 4358639779486195371, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 2065558335}
@@ -347,10 +343,6 @@ PrefabInstance:
     - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
       propertyPath: m_Name
       value: BeetleBoss
-      objectReference: {fileID: 0}
-    - target: {fileID: 9150895092482176395, guid: c82d0168649ef6b41bf2483ebf3d61e3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
