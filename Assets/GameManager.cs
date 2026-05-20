@@ -282,7 +282,9 @@ public class GameManager : MonoBehaviour
     {
         //if (CurrentState != GameState.Boss) return;
         CurrentState = GameState.Win;
-        Debug.Log("[GameManager] Boss defeated, transitioning to win state.");
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.victoryStinger, Vector3.zero);
+        HostManager.Instance.Say("You did it! The beetle boss is defeated!", HostMood.Ecstatic);
+
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
 
@@ -309,6 +311,8 @@ public class GameManager : MonoBehaviour
     public void OnGameLose()
     {
         CurrentState = GameState.Lose;
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.defeatStinger, Vector3.zero);
+        HostManager.Instance.Say("Oh dear... better luck next time.", HostMood.Talk);
 
         if (mazeSpawner != null) mazeSpawner.enabled = false;
         if (tutorialSpawner != null) tutorialSpawner.enabled = false;

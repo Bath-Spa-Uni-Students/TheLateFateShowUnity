@@ -932,6 +932,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageHandler
   stats: {fileID: 5237618153534720533}
   healthBar: {fileID: 4181742854136281314}
+  takeDamageSound:
+    Guid:
+      Data1: 1385119015
+      Data2: 1117203681
+      Data3: 145490344
+      Data4: 823043656
+    Path: event:/Enemies/Speedster/SpeedsterTakeDamage
+  deathSound:
+    Guid:
+      Data1: -1736611671
+      Data2: 1185402079
+      Data3: 2026226352
+      Data4: 1130264263
+    Path: event:/Enemies/Speedster/SpeedsterDeath
 --- !u!114 &5237618153534720533
 MonoBehaviour:
   m_ObjectHideFlags: 0

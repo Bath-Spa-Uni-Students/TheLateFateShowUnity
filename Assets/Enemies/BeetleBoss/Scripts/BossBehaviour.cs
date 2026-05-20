@@ -74,6 +74,8 @@ public class BossBehaviour : MonoBehaviour
     private float warningShotTimer = 0f;
     private Vector3 retreatTarget;
 
+  
+
     //private GameManager gameManager;
     private enum EnemyState
     {
@@ -92,6 +94,9 @@ public class BossBehaviour : MonoBehaviour
     private bool musicStarted = false;
     private int currentMusicPhase = -1;
     private EventInstance bossTheme;
+    private PARAMETER_ID phase1ParamID;
+    private PARAMETER_ID phase2ParamID;
+    private PARAMETER_ID bossDeadParamID;
 
     public Transform Player => player;
 
@@ -130,6 +135,16 @@ public class BossBehaviour : MonoBehaviour
         spawnPosition = transform.position;
         InitialSetup();
         bossTheme = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.bossTheme);
+        bossTheme.getDescription(out EventDescription desc);
+
+        desc.getParameterDescriptionByName("Phase1", out PARAMETER_DESCRIPTION phase1Desc);
+        phase1ParamID = phase1Desc.id;
+
+        desc.getParameterDescriptionByName("Phase2", out PARAMETER_DESCRIPTION phase2Desc);
+        phase2ParamID = phase2Desc.id;
+
+        desc.getParameterDescriptionByName("BossDead", out PARAMETER_DESCRIPTION deadDesc);
+        bossDeadParamID = deadDesc.id;
         PickNewJitter();
     }
 
@@ -206,10 +221,12 @@ public class BossBehaviour : MonoBehaviour
 
                 if (!musicStarted)
                 {
-                    bossTheme.getDescription(out EventDescription desc);
-                    desc.getParameterDescriptionByName("Phase", out PARAMETER_DESCRIPTION paramDesc);
-                    phaseParamID = paramDesc.id;
                     bossTheme.start();
+
+                    SetMusicParameter(phase1ParamID, 1);
+                    SetMusicParameter(phase2ParamID, 0);
+                    SetMusicParameter(bossDeadParamID, 0);
+
                     musicStarted = true;
                 }
             }
@@ -234,11 +251,17 @@ public class BossBehaviour : MonoBehaviour
         phase2Active = true;
         rb.linearVelocity = Vector2.zero;
         animator.SetBool("Phase2", true);
+
+        SetMusicParameter(phase1ParamID, 0);
+        SetMusicParameter(phase2ParamID, 1);
+
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossShellOpen, transform.position);
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossPhaseChange, transform.position);
+
         rangedAttackScript.enabled = true;
     }
 
-  
+
 
     #region States
     private void Sleep()
@@ -312,6 +335,10 @@ public class BossBehaviour : MonoBehaviour
         gameManager.OnGameWin();
         Debug.Log("Boss defeated! You win!");
 
+        SetMusicParameter(bossDeadParamID, 1);
+        SetMusicParameter(phase1ParamID, 0);
+        SetMusicParameter(phase2ParamID, 0);
+
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossDeath, transform.position);
 
         //animator.SetTrigger("Death");
@@ -321,7 +348,8 @@ public class BossBehaviour : MonoBehaviour
             gameManager.OnGameWin();
 
         }
-
+        bossTheme.stop(STOP_MODE.ALLOWFADEOUT);
+        bossTheme.release();
         enabled = false;
 
     }
@@ -354,4 +382,8 @@ public class BossBehaviour : MonoBehaviour
     }
     #endregion
 
+    private void SetMusicParameter(PARAMETER_ID parameterID, float value)
+    {
+        bossTheme.setParameterByID(parameterID, value);
+    }
 }

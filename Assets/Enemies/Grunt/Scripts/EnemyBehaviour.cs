@@ -169,9 +169,12 @@ public class EnemyBehaviour : MonoBehaviour
 
     private EnemyState GetState()
     {
-        // State priority:
         if (!isLeader && leaderDead)
+        {
+            if (currentState != EnemyState.Scatter)
+                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gruntFlee, transform.position);
             return EnemyState.Scatter;
+        }
         //Allows grunts to stop scattering 
         if (currentState == EnemyState.Scatter)
         {
@@ -315,6 +318,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Scatter()
     {
+
+       
         //swtich to patrol behaviour after scattering to a few random waypoints
         if (scatterComplete)
         {

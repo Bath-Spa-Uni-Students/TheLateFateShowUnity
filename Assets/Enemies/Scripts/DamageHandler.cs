@@ -1,11 +1,14 @@
 using UnityEngine;
 using Microlight.MicroBar;
 using System.Collections;
+using FMODUnity;
 
 public class DamageHandler : MonoBehaviour
 {
     [SerializeField] private EnemyStats stats;
     [SerializeField] private MicroBar healthBar;
+    [SerializeField] private EventReference takeDamageSound;
+    [SerializeField] private EventReference deathSound;
 
     private PlayerMovement playerMovement;
     private GameObject player;
@@ -38,38 +41,31 @@ public class DamageHandler : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-
-        Debug.Log($"enemyBehaviour is null: {enemyBehaviour == null}");
-
-        if (enemyBehaviour != null)
-            Debug.Log($"isLeader: {enemyBehaviour.isLeader} | followerCount: {enemyBehaviour.followerCount}");
-
         damage = ApplyDamageModifiers(damage);
-        // Enemy loses health
         stats.health -= damage;
-        Debug.Log("damaged " + damage);
-
         healthBar.UpdateBar(healthBar.CurrentValue - damage);
-        Debug.Log($"{gameObject.name} took {damage} damage. Health remaining: {stats.health}");
+
         if (stats.health <= 0)
         {
             if (bossBehaviour != null)
             {
-                //animator.SetTrigger("Death");
                 bossBehaviour.OnBossDeath();
             }
             else
             {
-                AudioManager.Instance.PlayOneShot(FMODEvents.Instance.gruntDeath, transform.position);
+                AudioManager.Instance.PlayOneShot(deathSound, transform.position);
                 Destroy(gameObject);
             }
             playerMovement.AddFame(10);
             GetComponent<TutorialEnemy>()?.NotifyDeath();
-
-            //Destroy(gameObject);
+        }
+        else
+        {
+            // Play the take damage sound if still alive
+            if (!takeDamageSound.IsNull)
+                AudioManager.Instance.PlayOneShot(takeDamageSound, transform.position);
         }
     }
-
     private float ApplyDamageModifiers(float damage)
     {
         // Leader damage reduction if followers are alive

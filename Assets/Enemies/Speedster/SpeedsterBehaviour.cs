@@ -88,9 +88,9 @@ public class SpeedsterBehaviour : MonoBehaviour
         agent.acceleration = 140f;
         agent.stoppingDistance = 0f;
 
-        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.gruntFootsteps, this.gameObject);
-        speedsterAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAlert);
-        speedsterAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.gruntAttack);
+        emitter = AudioManager.Instance.CreateEventEmitter(FMODEvents.Instance.speedsterFootsteps, this.gameObject);
+        speedsterAlert = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.speedsterAlert);
+        speedsterAttack = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.speedsterAttack);
 
         // Always start in patrol
         EnterPatrol();

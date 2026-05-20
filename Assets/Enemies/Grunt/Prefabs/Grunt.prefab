@@ -932,6 +932,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageHandler
   stats: {fileID: 5237618153534720533}
   healthBar: {fileID: 4181742854136281314}
+  takeDamageSound:
+    Guid:
+      Data1: 747748195
+      Data2: 1249184968
+      Data3: 937325744
+      Data4: -590955441
+    Path: event:/Enemies/Grunt/GruntTakeDamage
+  deathSound:
+    Guid:
+      Data1: 794840774
+      Data2: 1292585099
+      Data3: 1231939746
+      Data4: -828190906
+    Path: event:/Enemies/Grunt/GruntDeath
 --- !u!114 &5237618153534720533
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -140,6 +140,7 @@ public class KeyMergeUI : MonoBehaviour
        
         if (completedKeyImage != null)
         {
+            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.keyMerge, Vector3.zero);
             SetAlpha(completedKeyImage, 1f);
             yield return StartCoroutine(ScalePunch(completedKeyImage.rectTransform));
         }

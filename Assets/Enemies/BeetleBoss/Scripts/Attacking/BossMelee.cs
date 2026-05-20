@@ -69,7 +69,7 @@ public class BossMelee : MonoBehaviour
 
         //  Wait for the hit frame
         yield return new WaitForSeconds(mSlamAnimFinished);
-
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossAttackMelee, transform.position);
         bossBehaviour.CheckPlayerDistance();
 
         if (stats.canDamage && player != null)

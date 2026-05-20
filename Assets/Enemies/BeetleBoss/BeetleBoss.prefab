@@ -2101,6 +2101,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DamageHandler
   stats: {fileID: 4678454769109109600}
   healthBar: {fileID: 0}
+  takeDamageSound:
+    Guid:
+      Data1: -795965625
+      Data2: 1145794260
+      Data3: 25181110
+      Data4: 1924636298
+    Path: event:/Enemies/Beetle Boss/BossTakeDamage
+  deathSound:
+    Guid:
+      Data1: 496667653
+      Data2: 1309591171
+      Data3: -1603190396
+      Data4: -842232549
+    Path: event:/Enemies/Beetle Boss/BossDeath
 --- !u!114 &4358639779486195371
 MonoBehaviour:
   m_ObjectHideFlags: 0

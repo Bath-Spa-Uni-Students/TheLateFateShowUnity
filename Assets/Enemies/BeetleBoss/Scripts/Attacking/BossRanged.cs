@@ -139,6 +139,7 @@ public class BossRanged : MonoBehaviour
     }
     private void SetBeamsActive(bool active)
     {
+        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.bossAttackRanged, transform.position);
         foreach (var beam in beamObjects)
         {
             if (beam != null)
