@@ -64,7 +64,7 @@ public class Shotgun : MonoBehaviour
         float rotateZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
         // Rotate Z axis
-        transform.rotation = Quaternion.Euler(0, 0, rotateZ);
+        transform.localRotation = Quaternion.Euler(0, 0, rotateZ);
 
         // Player shoots
         if (Input.GetMouseButtonDown(0) && canShoot == true)

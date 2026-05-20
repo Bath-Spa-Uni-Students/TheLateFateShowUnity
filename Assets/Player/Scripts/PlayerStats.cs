@@ -18,7 +18,6 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         playerHurt = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerHurt);
-        playerDeath = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.playerDeath);
     }
 
     // Update is called once per frame

@@ -273,24 +273,24 @@ public class WeaponManager : MonoBehaviour
     {
         if (pistolObject)
         {
+            pistolObject.transform.SetParent(transform); // ensure parented to player
             pistolObject.SetActive(type == WeaponType.Pistol);
             var p = pistolObject.GetComponent<Pistol>();
             if (p) { p.enabled = true; p.canShoot = type == WeaponType.Pistol; }
         }
         if (arObject)
         {
+            arObject.transform.SetParent(transform);
             arObject.SetActive(type == WeaponType.AR);
             var a = arObject.GetComponent<AR>();
             if (a) { a.enabled = true; a.canShoot = type == WeaponType.AR; }
         }
         if (shotgunObject)
         {
+            shotgunObject.transform.SetParent(transform);
             shotgunObject.SetActive(type == WeaponType.Shotgun);
             var s = shotgunObject.GetComponent<Shotgun>();
             if (s) { s.enabled = true; s.canShoot = type == WeaponType.Shotgun; }
         }
-
-        if (debugWeaponManager)
-            Debug.Log($"[WeaponManager] ActivateWeaponObject: {type}");
     }
 }

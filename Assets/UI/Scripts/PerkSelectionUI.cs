@@ -85,7 +85,6 @@ public class PerkSelectionUI : MonoBehaviour
         Time.timeScale = 0f;
 
         // perkSelect is an existing gameplay event — pause sound plays on top for the UI open
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkSelect, Vector3.zero);
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiPause, Vector3.zero);
     }
 
@@ -115,7 +114,6 @@ public class PerkSelectionUI : MonoBehaviour
 
         AudioManager.Instance.PlayOneShot(FMODEvents.Instance.uiConfirm, Vector3.zero);
         WeaponManager.Instance.ReceiveLevelUpPerk(chosen);
-        AudioManager.Instance.PlayOneShot(FMODEvents.Instance.perkTriggerGeneric, Vector3.zero);
         if (SceneManager.GetActiveScene().name == "Tutorial")
         {
             TutorialManager.Instance.AdvanceStep();

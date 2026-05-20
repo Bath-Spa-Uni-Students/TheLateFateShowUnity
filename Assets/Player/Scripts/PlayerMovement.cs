@@ -188,7 +188,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (gameManager != null)
             gameManager.OnGameLose();
-        RuntimeManager.PlayOneShot(FMODEvents.Instance.playerDeath, transform.position);
         Destroy(gameObject);
     }
     public void DamagePlayer(float damage)

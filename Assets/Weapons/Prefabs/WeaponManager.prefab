@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df81ffe4de824942a0d0cf1ced85ee3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
-  startingWeapon: 1
+  startingWeapon: 0
   pistolObject: {fileID: 1891506178819071994, guid: 5954bce4e7793764098745828516b970, type: 3}
   arObject: {fileID: 7501337544433254703, guid: ee1d3a8e428bf47419ee0b9df4360d4d, type: 3}
   shotgunObject: {fileID: 8310665469226109603, guid: c66fa942f7525ab4a837ebba26729dd6, type: 3}

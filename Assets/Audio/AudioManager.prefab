@@ -121,13 +121,6 @@ MonoBehaviour:
       Data3: 1076944812
       Data4: 381121862
     Path: event:/Player/PlayerHurt
-  <playerDeath>k__BackingField:
-    Guid:
-      Data1: 871090472
-      Data2: 1276435397
-      Data3: -327100240
-      Data4: -356177650
-    Path: event:/Player/PlayerDeath
   <playerDash>k__BackingField:
     Guid:
       Data1: -1920758700
@@ -135,13 +128,6 @@ MonoBehaviour:
       Data3: -424003703
       Data4: 698594122
     Path: event:/Player/PlayerDash
-  <playerLevelUp>k__BackingField:
-    Guid:
-      Data1: 747748195
-      Data2: 1249184968
-      Data3: 937325744
-      Data4: -590955441
-    Path: event:/Enemies/Grunt/GruntTakeDamage
   <gruntFootsteps>k__BackingField:
     Guid:
       Data1: -1468598414
@@ -172,53 +158,60 @@ MonoBehaviour:
     Path: event:/Enemies/Grunt/GruntDeath
   <gruntTakeDamage>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 747748195
+      Data2: 1249184968
+      Data3: 937325744
+      Data4: -590955441
+    Path: event:/Enemies/Grunt/GruntTakeDamage
+  <gruntFlee>k__BackingField:
+    Guid:
+      Data1: -1193373943
+      Data2: 1294866078
+      Data3: 1892393894
+      Data4: 1445630159
+    Path: event:/Enemies/Grunt/GruntFlee
   <speedsterFootsteps>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -760947692
+      Data2: 1284366102
+      Data3: -49111903
+      Data4: 572027864
+    Path: event:/Enemies/Speedster/SpeedsterWalk
   <speedsterAttack>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -97303702
+      Data2: 1212107796
+      Data3: -1113363013
+      Data4: 797344603
+    Path: event:/Enemies/Speedster/SpeedsterAttack
   <speedsterAlert>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1142803992
+      Data2: 1233818513
+      Data3: -135206259
+      Data4: 2485250
+    Path: event:/Enemies/Speedster/SpeedsterDetect
   <speedsterDeath>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1736611671
+      Data2: 1185402079
+      Data3: 2026226352
+      Data4: 1130264263
+    Path: event:/Enemies/Speedster/SpeedsterDeath
   <speedsterTakeDamage>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 1385119015
+      Data2: 1117203681
+      Data3: 145490344
+      Data4: 823043656
+    Path: event:/Enemies/Speedster/SpeedsterTakeDamage
   <bossDeath>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 496667653
+      Data2: 1309591171
+      Data3: -1603190396
+      Data4: -842232549
+    Path: event:/Enemies/Beetle Boss/BossDeath
   <bossAttackMelee>k__BackingField:
     Guid:
       Data1: 531053688
@@ -268,34 +261,6 @@ MonoBehaviour:
       Data3: -190318954
       Data4: 606609619
     Path: event:/Enemies/Beetle Boss/BossPhaseChange
-  <perkSelect>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <perkTriggerGeneric>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <itemPickup>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <itemActivate>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
   <uiPause>k__BackingField:
     Guid:
       Data1: 257062700
@@ -394,6 +359,20 @@ MonoBehaviour:
       Data3: -1968620129
       Data4: -2041101615
     Path: event:/UI/FameIncrease
+  <victoryStinger>k__BackingField:
+    Guid:
+      Data1: 2103689105
+      Data2: 1156565296
+      Data3: -233458807
+      Data4: 1797583011
+    Path: event:/UI/VictorySting
+  <defeatStinger>k__BackingField:
+    Guid:
+      Data1: -306116395
+      Data2: 1263513644
+      Data3: 1647592084
+      Data4: 997025976
+    Path: event:/UI/DefeatSting
   <mainMenuTheme>k__BackingField:
     Guid:
       Data1: -1861549931
@@ -415,27 +394,13 @@ MonoBehaviour:
       Data3: 2133212556
       Data4: 1707782529
     Path: event:/Scores/BossTheme
-  <victoryStinger>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
-  <defeatStinger>k__BackingField:
-    Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
   <keyPickup>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: -1074100815
+      Data2: 1228472063
+      Data3: -1925366099
+      Data4: 485027442
+    Path: event:/GameObjects/KeyPickup
   <keyHum>k__BackingField:
     Guid:
       Data1: -1579246532
@@ -445,11 +410,11 @@ MonoBehaviour:
     Path: event:/GameObjects/KeyHum
   <keyMerge>k__BackingField:
     Guid:
-      Data1: 1686298193
-      Data2: 1272099781
-      Data3: 1016191916
-      Data4: 1951213966
-    Path: event:/Placeholder
+      Data1: 420192059
+      Data2: 1292837271
+      Data3: 434199459
+      Data4: -963917255
+    Path: event:/GameObjects/KeyMerge
   <chestOpen>k__BackingField:
     Guid:
       Data1: -1819701850

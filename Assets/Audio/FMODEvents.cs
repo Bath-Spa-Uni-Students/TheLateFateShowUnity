@@ -22,9 +22,7 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference playerFootsteps { get; private set; }
     [field: SerializeField] public EventReference playerHurt { get; private set; }
-    [field: SerializeField] public EventReference playerDeath { get; private set; }
     [field: SerializeField] public EventReference playerDash { get; private set; }
-    [field: SerializeField] public EventReference playerLevelUp { get; private set; }
 
     [field: Header("Grunt SFX")]
     [field: SerializeField] public EventReference gruntFootsteps { get; private set; }
@@ -32,6 +30,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference gruntAlert { get; private set; }
     [field: SerializeField] public EventReference gruntDeath { get; private set; }
     [field: SerializeField] public EventReference gruntTakeDamage { get; private set; }
+    [field: SerializeField] public EventReference gruntFlee { get; private set; }
     [field: Header("Speedster SFX")]
     [field: SerializeField] public EventReference speedsterFootsteps { get; private set; }
     [field: SerializeField] public EventReference speedsterAttack { get; private set; }
@@ -48,12 +47,6 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference bossTakeDamage { get; private set; }
     [field: SerializeField] public EventReference bossPhaseChange { get; private set; }
 
-    [field: Header("Perk SFX")]
-    [field: SerializeField] public EventReference perkSelect { get; private set; }
-    [field: SerializeField] public EventReference perkTriggerGeneric { get; private set; }
-    [field: SerializeField] public EventReference itemPickup { get; private set; }
-    [field: SerializeField] public EventReference itemActivate { get; private set; }
-
     [field: Header("UI SFX")]
     [field: SerializeField] public EventReference uiPause { get; private set; }
     [field: SerializeField] public EventReference uiHover { get; private set; }
@@ -69,13 +62,14 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference typeWriterDing { get; private set; }
     [field: SerializeField] public EventReference mazeChange { get; private set; }
     [field: SerializeField] public EventReference fameGain { get; private set; }
+    [field: SerializeField] public EventReference victoryStinger { get; private set; }
+    [field: SerializeField] public EventReference defeatStinger { get; private set; }
 
     [field: Header("Music")]
     [field: SerializeField] public EventReference mainMenuTheme { get; private set; }
     [field: SerializeField] public EventReference explorationTheme { get; private set; }
     [field: SerializeField] public EventReference bossTheme { get; private set; }
-    [field: SerializeField] public EventReference victoryStinger { get; private set; }
-    [field: SerializeField] public EventReference defeatStinger { get; private set; }
+   
 
     [field: Header("Game Object SFX")]
     [field: SerializeField] public EventReference keyPickup { get; private set; }
